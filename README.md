@@ -1,4 +1,4 @@
-# TDB-XMLT
+# XMLTDB
 Development of format for Calphad databases
 
 This is the repository for the development of an XML type database format of Calphad databases
