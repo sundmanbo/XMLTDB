@@ -7,12 +7,12 @@ The Calphad databases contain thermodynamic model parameters for assessed system
 
 Using the TDB format the manager maintaining such a database, commercial or free, have no tools for testing the internal consistency of the database, there can be duplicate parameters, spelling errors etc.  Thus the use of a formal markup language such as XML would be useful.  The database manager normally also make modifications and additions to the published assessments, in particular to imporve extrapolations to multicomponent system, and such modifications should also be documented for future updates (by maybe another database manager).
 
-The project aims to develop a format, called XMLT, for handling thermodynamic as well as kinetic and other model parameters specific to phases and elements in the database.  It should be able to handle all types of model for T, P and constitution of the phases.
+The project aims to develop a format, called XMLTDB, for handling thermodynamic as well as kinetic and other model parameters specific to phases and elements in the database.  It should be able to handle all types of model for T, P and constitution of the phases.
 
-The project will also provide an APPEND software which can merge an XMLT file to a master XMLT database including necessary consistency checks and handling of duplicates, for example a phase may be modeled with two or more different models.
+The project will also provide an APPEND software which can merge an XMLTDB file to a master XMLTDB database including necessary consistency checks and handling of duplicates, for example a phase may be modeled with two or more different models.
 
-There are several software using dialects of the original TDB format and each software should develop an UPLOAD/DOWNLOAD routines which should be able to converts its own TDB dialect to a file in the XMLT format or convert a subset (or whole) of an XMLT file to its own TDB dialect.
+There are several software using dialects of the original TDB format and each software should develop an UPLOAD/DOWNLOAD routines which should be able to converts its own TDB dialect to a file in the XMLTDB format or convert a subset (or whole) of an XMLTDB file to its own TDB dialect.
 
-This means there are no restrictions on the current TDB dialects and the XMLT is mainly a tool for database managers to make it possible to maintain the integrity of the database and provide documentation of all their efforts to make the database useful.
+This means there are no restrictions on the current TDB dialects and the XMLTDB is mainly a tool for database managers to make it possible to maintain the integrity of the database and provide documentation of all their efforts to make the database useful.
 
-The first version of the XMLT format is open to extentions but a governing body should check and approve/disapprove such extentions.
+The first version of the XMLTDB format is open to extentions but a governing body should check and approve/disapprove such extentions.
