@@ -9,7 +9,7 @@ user should be able to modify the appropriate parts.
 You need a C and Fortran compiler to install the software.  Please
 give feedback on problems with the software.
 
-The file "link-upload.txt" compiles and links the source code.
+The file "link-upload" compiles and links the source code.
 On Windows this should be renamed with extention .CMD and executed.
 The source code is in the src/ directory.
 
