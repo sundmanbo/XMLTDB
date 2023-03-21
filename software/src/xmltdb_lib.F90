@@ -785,7 +785,7 @@ CONTAINS
 ! checking xmltdb file
     write(*,10)noel,nosp,noph,nopa,notp,notype,nomod,nompid,nobib
 10  format(/'Minimal checking xmltdb file with:',&
-         /i5,' elements (inlcuding /- and Va)',&
+         /i5,' elements (including /- and Va)',&
          /i5,' species'/i5,' phases'/i5,' parameters',&
          /i5,' TP functions',/i5,' type_defs and ',i5,' models',&
          /i5,' model parameter identifiers (mpid)'&
