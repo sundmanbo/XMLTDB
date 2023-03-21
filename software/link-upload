@@ -27,7 +27,7 @@ gfortran -c -g src/xmltdb_lib.F90
 
 REM link it all together
 REM last 2 libraries are needed for tinyfiledialogs on Windows
-gfortran -o upload -g xmltdb_upload.F90 xmltdb_lib.o metlib4-xmltdb.o ftinyopen.o tinyopen.o  tinyfiledialogs.o  -lcomdlg32 -lole32
+gfortran -o upload -g src/xmltdb_upload.F90 xmltdb_lib.o metlib4-xmltdb.o ftinyopen.o tinyopen.o  tinyfiledialogs.o  -lcomdlg32 -lole32
 
 
 
