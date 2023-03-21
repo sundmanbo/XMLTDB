@@ -1,0 +1,74 @@
+$ Database file written 2021-3-12
+$ For checking the negative S of ordered compounds 
+ ELEMENT FE   BCC_A2                    5.5847E+01  4.4890E+03  2.7280E+01!
+ ELEMENT /-   ELECTRON_GAS              0.0000E+00  0.0000E+00  0.0000E+00!
+ ELEMENT VA   VACUUM                    0.0000E+00  0.0000E+00  0.0000E+00!
+ ELEMENT NI   FCC_A1                    5.8690E+01  4.7870E+03  2.9796E+01!
+ 
+ FUNCTION RTEMP     298.15 +R#**(-1)*TEMP#; 6000 N !
+ FUNCTION TEMP      298.15 +T**(-1); 6000 N !
+ FUNCTION UN_ASS    298.15 +0.0; 300 N !
+   
+$ This is Einstein contribution to FCC Fe
+ FUNCTION TEFCCFE              298.15 +302;  6000 N !
+ FUNCTION GEFCCFE1  0.10 +1-1*EXP(-TEFCCFE#*T**(-1)); 6000 N !
+ FUNCTION GEFCCFE2  0.10 +1*LN(GEFCCFE1#); 6000 N !
+ FUNCTION GEFCCFE3  0.10 +3*R*T*GEFCCFE2#; 6000 N !
+ FUNCTION GEFCCFE   0.10 +1.5*R*TEFCCFE#+GEFCCFE3#; 6000 N !
+$=============================
+$ This is with magnetic entropy zero for FCC Fe at 0 K
+ FUNCTION MRFCCFE              298.15 0; 6000 N !
+$ This is with magnetic entropy non-zero for FCC Fe at infinite high T
+$ FUNCTION MRFCCFE              298.15 +1370.87261-8.47122*T;    6000 N ! 
+$=============================
+ FUNCTION G0FCCFE              298.15 -1513.82-3.4916E-03*T**2
+                                       -2.86342032E-11*T**4; 6000 N !
+ FUNCTION GHFCCFE   298.15 +GEFCCFE#+G0FCCFE#+MRFCCFE; 6000 N !
+ 
+$ This is Einstein contribution to FCC Ni
+ FUNCTION TEINNI              298.15 +284;   6000 N !
+ FUNCTION GEINNI1  0.10 +1-1*EXP(-TEINNI#*T**(-1)); 6000 N !
+ FUNCTION GEINNI2  0.10 +1*LN(GEINNI1#); 6000 N !
+ FUNCTION GEINNI3  0.10 +3*R*T*GEINNI2#; 6000 N !
+ FUNCTION GEINNI   0.10 +1.5*R*TEINNI#+GEINNI3#; 6000 N !
+$==================================
+$ This is with magnetic entropy zero for FCC Ni at infinite high T
+ FUNCTION MRSERNI              298.15 0; 6000 N !
+$ This is with magnetic entropy non-zero for FCC Ni at 0 K
+$ FUNCTION MRSERNI              298.15 +1857.39449-3.48137127*T; 6000 N !
+$==================================
+ FUNCTION G0SERNI              298.15 -8333.63278-0.00311343009*T**2
+                              -1.7331937E-7*T**3;    6000 N !
+ FUNCTION GHSERNI   298.15 +GEINNI#+G0SERNI#+MRSERNI#; 6000 N !	
+
+ 
+ TYPE_DEFINITION % SEQ *!
+ DEFINE_SYSTEM_DEFAULT ELEMENT 2 !
+ DEFAULT_COMMAND DEF_SYS_ELEMENT VA /- !
+
+ TYPE_DEFINITION & GES A_P_D FCC_A1 MAGNETIC   0.0    0.25000E+00 F !
+ PHASE FCC_A1  %&  2 1   1 !
+    CONSTITUENT FCC_A1  :FE,NI : VA :  !
+
+   PARAMETER G(FCC_A1,FE:VA;0)           298.15 +GHFCCFE#; 6000 N REF0 !
+   PARAMETER TC(FCC_A1,FE:VA;0)         298.15 -192; 6000 N REF0 !
+   PARAMETER NT(FCC_A1,FE:VA;0)         298.15 +192; 6000 N REF0 !
+   PARAMETER BMAG(FCC_A1,FE:VA;0)        298.15 +1.77; 6000 N REF0 !
+   PARAMETER G(FCC_A1,NI:VA;0)           298.15 +GHSERNI#; 6000 N REF0 !
+   PARAMETER TC(FCC_A1,NI:VA;0)         298.15 +633; 6000 N REF0 !
+   PARAMETER NT(FCC_A1,NI:VA;0)         298.15 -633; 6000 N REF0 !
+   PARAMETER BMAG(FCC_A1,NI:VA;0)        298.15 +.52; 6000 N REF0 !
+   PARAMETER TC(FCC_A1,FE,NI:VA;0)      298.15 +2.27064276E+03; 6000 N REF0 !
+   PARAMETER TC(FCC_A1,FE,NI:VA;1)      298.15 -4.30186470E+02; 6000 N REF0 !
+   PARAMETER TC(FCC_A1,FE,NI:VA;2)      298.15 -1.67174725E+03; 6000 N REF0 !
+   PARAMETER TC(FCC_A1,FE,NI:VA;3)      298.15 -6.14357337E+03; 6000 N REF0 !
+   PARAMETER TC(FCC_A1,FE,NI:VA;4)      298.15 -1.05524704E+04; 6000 N REF0 !
+   PARAMETER TC(FCC_A1,FE,NI:VA;5)      298.15 -6.01886703E+03; 6000 N REF0 !
+   PARAMETER NT(FCC_A1,FE,NI:VA;0)      298.15 +5.90347415E+01; 6000 N REF0 !
+   PARAMETER BMAG(FCC_A1,FE,NI:VA;0)     298.15 +0; 6000 N REF0 !
+   PARAMETER G(FCC_A1,FE,NI:VA;0)        298.15 +0; 6000 N REF0 !
+
+ LIST_OF_REFERENCES
+ NUMBER  SOURCE
+  ! 
+ 
