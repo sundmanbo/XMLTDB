@@ -4,89 +4,337 @@
   <metadata>
     <writer>xmltdbproject test</writer>
   </metadata>
-  <Element id="FE" refstate="BCC_A2" mass="  5.584700E+01" H298="  4.489000E+03" S298="  2.728000E+01" />
   <Element id="/-" refstate="ELECTRON_GAS" mass="  0.000000E+00" H298="  0.000000E+00" S298="  0.000000E+00" />
   <Element id="VA" refstate="VACUUM" mass="  0.000000E+00" H298="  0.000000E+00" S298="  0.000000E+00" />
-  <Element id="NI" refstate="FCC_A1" mass="  5.869000E+01" H298="  4.787000E+03" S298="  2.979600E+01" />
-  <TPfun id="RTEMP" Low_T="298.15" >
-    <Trange High_T="6000" > +R**(-1)*TEMP; </Trange>
+  <Element id="AL" refstate="FCC_A1" mass="  2.698200E+01" H298="  4.577300E+03" S298="  2.832200E+01" />
+  <Element id="FE" refstate="BCC_A2" mass="  5.584700E+01" H298="  4.489000E+03" S298="  2.728000E+01" />
+  <TPfun id="GHSERAL" Low_T="298.15" >
+    <Trange High_T="700" > -7976.15+137.093038*T-24.3671976*T*LN(T)-.001884662*T**2-8.77664E-07*T**3+74092*T**(-1); />
+    <Trange High_T="933.47" > -11276.24+223.048446*T-38.5844296*T*LN(T)+.018531982*T**2-5.764227E-06*T**3+74092*T**(-1); />
+    <Trange High_T="2900" > -11278.378+188.684153*T-31.748192*T*LN(T)-1.230524E+28*T**(-9); />
   </TPfun>
-  <TPfun id="TEMP" Low_T="298.15" >
-    <Trange High_T="6000" > +T**(-1); </Trange>
+  <TPfun id="GALLIQ" Low_T="298.15" >
+    <Trange High_T="933.47" > +11005.029-11.841867*T+7.934E-20*T**7+GHSERAL; />
+    <Trange High_T="6000" > +10482.382-11.253974*T+1.231E+28*T**(-9)+GHSERAL; />
+  </TPfun>
+  <TPfun id="GALBCC" Low_T="298.15" >
+    <Trange High_T="6000" > +10083-4.813*T+GHSERAL; />
+  </TPfun>
+  <TPfun id="GHSERFE" Low_T="298.15" >
+    <Trange High_T="1811" > +1225.7+124.134*T-23.5143*T*LN(T)-.00439752*T**2-5.8927E-08*T**3+77359*T**(-1); />
+    <Trange High_T="6000" > -25383.581+299.31255*T-46*T*LN(T)+2.29603E+31*T**(-9); />
+  </TPfun>
+  <TPfun id="GFELIQ" Low_T="298.15" >
+    <Trange High_T="1811" > +12040.17-6.55843*T-3.6751551E-21*T**7+GHSERFE; />
+    <Trange High_T="6000" > -10839.7+291.302*T-46*T*LN(T); />
+  </TPfun>
+  <TPfun id="GFEFCC" Low_T="298.15" >
+    <Trange High_T="1811" > -1462.4+8.282*T-1.15*T*LN(T)+6.4E-04*T**2+GHSERFE; />
+    <Trange High_T="6000" > -27097.396+300.25256*T-46*T*LN(T)+2.78854E+31*T**(-9); />
+  </TPfun>
+  <TPfun id="LFALFE0" Low_T="298.15" >
+    <Trange High_T="6000" > -104700+30.65*T; />
+  </TPfun>
+  <TPfun id="LFALFE1" Low_T="298.15" >
+    <Trange High_T="6000" > +30000-7*T; />
+  </TPfun>
+  <TPfun id="LFALFE2" Low_T="298.15" >
+    <Trange High_T="6000" > +32200-17*T; />
+  </TPfun>
+  <TPfun id="UFALFE" Low_T="298.15" >
+    <Trange High_T="6000" > -4000+T; />
+  </TPfun>
+  <TPfun id="GAL3FE" Low_T="298.15" >
+    <Trange High_T="6000" > +3*UFALFE+9000; />
+  </TPfun>
+  <TPfun id="GAL2FE2" Low_T="298.15" >
+    <Trange High_T="6000" > +4*UFALFE; />
+  </TPfun>
+  <TPfun id="GALFE3" Low_T="298.15" >
+    <Trange High_T="6000" > +3*UFALFE-3500; />
+  </TPfun>
+  <TPfun id="SFALFE" Low_T="298.15" >
+    <Trange High_T="6000" > +UFALFE; />
+  </TPfun>
+  <TPfun id="UBALFE1" Low_T="298.15" >
+    <Trange High_T="6000" > -4023-1.14*T; />
+  </TPfun>
+  <TPfun id="UBALFE2" Low_T="298.15" >
+    <Trange High_T="6000" > -1973-2*T; />
+  </TPfun>
+  <TPfun id="GD03ALFE" Low_T="298.15" >
+    <Trange High_T="6000" > +2*UBALFE1+UBALFE2+3900; />
+  </TPfun>
+  <TPfun id="GB2ALFE" Low_T="298.15" >
+    <Trange High_T="6000" > +4*UBALFE1; />
+  </TPfun>
+  <TPfun id="GB32ALFE" Low_T="298.15" >
+    <Trange High_T="6000" > +2*UBALFE1+2*UBALFE2; />
+  </TPfun>
+  <TPfun id="GD03FEAL" Low_T="298.15" >
+    <Trange High_T="6000" > +2*UBALFE1+UBALFE2-70+0.5*T; />
+  </TPfun>
+  <TPfun id="BMALFE" Low_T="298.15" >
+    <Trange High_T="6000" > -1.36; />
+  </TPfun>
+  <TPfun id="BLALFE0" Low_T="298.15" >
+    <Trange High_T="6000" > -0.3; />
+  </TPfun>
+  <TPfun id="BLALFE1" Low_T="298.15" >
+    <Trange High_T="6000" > -0.8; />
+  </TPfun>
+  <TPfun id="BLALFE2" Low_T="298.15" >
+    <Trange High_T="6000" > 0.2; />
+  </TPfun>
+  <TPfun id="ZERO" Low_T="298.15" >
+    <Trange High_T="6000" > 0.0; />
   </TPfun>
   <TPfun id="UN_ASS" Low_T="298.15" >
-    <Trange High_T="300" > +0.0; </Trange>
+    <Trange High_T="300" > 0.0 ; />
   </TPfun>
-  <TPfun id="TEFCCFE" Low_T="298.15" >
-    <Trange High_T="6000" > +302; </Trange>
-  </TPfun>
-  <TPfun id="GEFCCFE1" Low_T="0.1" >
-    <Trange High_T="6000" > +1-1*EXP(-TEFCCFE*T**(-1)); </Trange>
-  </TPfun>
-  <TPfun id="GEFCCFE2" Low_T="0.1" >
-    <Trange High_T="6000" > +1*LN(GEFCCFE1); </Trange>
-  </TPfun>
-  <TPfun id="GEFCCFE3" Low_T="0.1" >
-    <Trange High_T="6000" > +3*R*T*GEFCCFE2; </Trange>
-  </TPfun>
-  <TPfun id="GEFCCFE" Low_T="0.1" >
-    <Trange High_T="6000" > +1.5*R*TEFCCFE+GEFCCFE3; </Trange>
-  </TPfun>
-  <TPfun id="MRFCCFE" Low_T="298.15" >
-    <Trange High_T="6000" > 0; </Trange>
-  </TPfun>
-  <TPfun id="G0FCCFE" Low_T="298.15" >
-    <Trange High_T="6000" > -1513.82-3.4916E-03*T**2-2.86342032E-11*T**4; </Trange>
-  </TPfun>
-  <TPfun id="GHFCCFE" Low_T="298.15" >
-    <Trange High_T="6000" > +GEFCCFE+G0FCCFE+MRFCCFE; </Trange>
-  </TPfun>
-  <TPfun id="TEINNI" Low_T="298.15" >
-    <Trange High_T="6000" > +284; </Trange>
-  </TPfun>
-  <TPfun id="GEINNI1" Low_T="0.1" >
-    <Trange High_T="6000" > +1-1*EXP(-TEINNI*T**(-1)); </Trange>
-  </TPfun>
-  <TPfun id="GEINNI2" Low_T="0.1" >
-    <Trange High_T="6000" > +1*LN(GEINNI1); </Trange>
-  </TPfun>
-  <TPfun id="GEINNI3" Low_T="0.1" >
-    <Trange High_T="6000" > +3*R*T*GEINNI2; </Trange>
-  </TPfun>
-  <TPfun id="GEINNI" Low_T="0.1" >
-    <Trange High_T="6000" > +1.5*R*TEINNI+GEINNI3; </Trange>
-  </TPfun>
-  <TPfun id="MRSERNI" Low_T="298.15" >
-    <Trange High_T="6000" > 0; </Trange>
-  </TPfun>
-  <TPfun id="G0SERNI" Low_T="298.15" >
-    <Trange High_T="6000" > -8333.63278-0.00311343009*T**2-1.7331937E-7*T**3; </Trange>
-  </TPfun>
-  <TPfun id="GHSERNI" Low_T="298.15" >
-    <Trange High_T="6000" > +GEINNI+G0SERNI+MRSERNI; </Trange>
-  </TPfun>
-  <Phase id="FCC_A1" Configurational_model="CEF" >
-    <Sublattices number_of="2"  Ratios="1  1" >
+  <Phase id="LIQUID" Configurational_model="CEF" >
+    <Sublattices number_of="1"  Ratios="1" >
+      </Constituent sublattice="1" id="AL" />
       </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="1" id="NI" />
+    </Sublattices>
+    <AMEND MODEL="LIQUID_PHASE            " />
+  </Phase>
+  <Phase id="A1_FCC" Configurational_model="CEF" >
+    <Sublattices number_of="2"  Ratios="1  1" >
+      </Constituent sublattice="1" id="AL" />
+      </Constituent sublattice="1" id="FE" />
       </Constituent sublattice="2" id="VA" />
     </Sublattices>
+    <AMEND MODEL="GES A_P_D @ MAGNETIC  -3.0    2.80000E-01 !" />
   </Phase>
-  <Parameter id="G(FCC_A1,FE:VA;0)"   Low_T="298.15"  Bibref="REF0" > +GHFCCFE#; 6000 N    </Parameter>
-  <Parameter id="TC(FCC_A1,FE:VA;0)"   Low_T="298.15"  Bibref="REF0" > -192; 6000 N    </Parameter>
-  <Parameter id="NT(FCC_A1,FE:VA;0)"   Low_T="298.15"  Bibref="REF0" > +192; 6000 N    </Parameter>
-  <Parameter id="BMAG(FCC_A1,FE:VA;0)"   Low_T="298.15"  Bibref="REF0" > +1.77; 6000 N    </Parameter>
-  <Parameter id="G(FCC_A1,NI:VA;0)"   Low_T="298.15"  Bibref="REF0" > +GHSERNI#; 6000 N    </Parameter>
-  <Parameter id="TC(FCC_A1,NI:VA;0)"   Low_T="298.15"  Bibref="REF0" > +633; 6000 N    </Parameter>
-  <Parameter id="NT(FCC_A1,NI:VA;0)"   Low_T="298.15"  Bibref="REF0" > -633; 6000 N    </Parameter>
-  <Parameter id="BMAG(FCC_A1,NI:VA;0)"   Low_T="298.15"  Bibref="REF0" > +.52; 6000 N    </Parameter>
-  <Parameter id="TC(FCC_A1,FE,NI:VA;0)"   Low_T="298.15"  Bibref="REF0" > +2.27064276E+03; 6000 N    </Parameter>
-  <Parameter id="TC(FCC_A1,FE,NI:VA;1)"   Low_T="298.15"  Bibref="REF0" > -4.30186470E+02; 6000 N    </Parameter>
-  <Parameter id="TC(FCC_A1,FE,NI:VA;2)"   Low_T="298.15"  Bibref="REF0" > -1.67174725E+03; 6000 N    </Parameter>
-  <Parameter id="TC(FCC_A1,FE,NI:VA;3)"   Low_T="298.15"  Bibref="REF0" > -6.14357337E+03; 6000 N    </Parameter>
-  <Parameter id="TC(FCC_A1,FE,NI:VA;4)"   Low_T="298.15"  Bibref="REF0" > -1.05524704E+04; 6000 N    </Parameter>
-  <Parameter id="TC(FCC_A1,FE,NI:VA;5)"   Low_T="298.15"  Bibref="REF0" > -6.01886703E+03; 6000 N    </Parameter>
-  <Parameter id="NT(FCC_A1,FE,NI:VA;0)"   Low_T="298.15"  Bibref="REF0" > +5.90347415E+01; 6000 N    </Parameter>
-  <Parameter id="BMAG(FCC_A1,FE,NI:VA;0)"   Low_T="298.15"  Bibref="REF0" > +0; 6000 N    </Parameter>
-  <Parameter id="G(FCC_A1,FE,NI:VA;0)"   Low_T="298.15"  Bibref="REF0" > +0; 6000 N    </Parameter>
+  <Phase id="A2_BCC" Configurational_model="CEF" >
+    <Sublattices number_of="2"  Ratios="1  3" >
+      </Constituent sublattice="1" id="AL" />
+      </Constituent sublattice="1" id="FE" />
+      </Constituent sublattice="2" id="VA" />
+    </Sublattices>
+    <AMEND MODEL="GES A_P_D @ MAGNETIC  -1.0    4.00000E-01 !" />
+  </Phase>
+  <Phase id="AL13FE4" Configurational_model="CEF" >
+    <Sublattices number_of="3"  Ratios="0.6275  0.235  0.1375" >
+      </Constituent sublattice="1" id="AL" />
+      </Constituent sublattice="2" id="FE" />
+      </Constituent sublattice="3" id="AL" />
+      </Constituent sublattice="3" id="VA" />
+    </Sublattices>
+  </Phase>
+  <Phase id="AL2FE" Configurational_model="CEF" >
+    <Sublattices number_of="2"  Ratios="2  1" >
+      </Constituent sublattice="1" id="AL" />
+      </Constituent sublattice="2" id="FE" />
+    </Sublattices>
+  </Phase>
+  <Phase id="AL5FE2" Configurational_model="CEF" >
+    <Sublattices number_of="2"  Ratios="5  2" >
+      </Constituent sublattice="1" id="AL" />
+      </Constituent sublattice="2" id="FE" />
+    </Sublattices>
+  </Phase>
+  <Phase id="AL8FE5_D82" Configurational_model="CEF" >
+    <Sublattices number_of="2"  Ratios="8  5" >
+      </Constituent sublattice="1" id="AL" />
+      </Constituent sublattice="1" id="FE" />
+      </Constituent sublattice="2" id="AL" />
+      </Constituent sublattice="2" id="FE" />
+    </Sublattices>
+  </Phase>
+  <Phase id="BCC_4SL" Configurational_model="CEF" >
+    <Sublattices number_of="5"  Ratios="0.25  0.25  0.25  0.25  3" >
+      </Constituent sublattice="1" id="AL" />
+      </Constituent sublattice="1" id="FE" />
+      </Constituent sublattice="2" id="AL" />
+      </Constituent sublattice="2" id="FE" />
+      </Constituent sublattice="3" id="AL" />
+      </Constituent sublattice="3" id="FE" />
+      </Constituent sublattice="4" id="AL" />
+      </Constituent sublattice="4" id="FE" />
+      </Constituent sublattice="5" id="VA" />
+    </Sublattices>
+    <AMEND MODEL="GES A_P_D @ MAGNETIC  -1.0    4.00000E-01 !" />
+    <AMEND MODEL="GES AMEND_PHASE_DESCRIPTION BCC_4SL DIS_PART A2_BCC,,,!" />
+    <AMEND MODEL="BCC_PERMUTATIONS        " />
+  </Phase>
+  <Phase id="FCC_4SL" Configurational_model="CEF" >
+    <Sublattices number_of="5"  Ratios="0.25  0.25  0.25  0.25  1" >
+      </Constituent sublattice="1" id="AL" />
+      </Constituent sublattice="1" id="FE" />
+      </Constituent sublattice="2" id="AL" />
+      </Constituent sublattice="2" id="FE" />
+      </Constituent sublattice="3" id="AL" />
+      </Constituent sublattice="3" id="FE" />
+      </Constituent sublattice="4" id="AL" />
+      </Constituent sublattice="4" id="FE" />
+      </Constituent sublattice="5" id="VA" />
+    </Sublattices>
+    <AMEND MODEL="GES A_P_D @ MAGNETIC  -3.0    2.80000E-01 !" />
+    <AMEND MODEL="GES AMEND_PHASE_DESCRIPTION FCC_4SL DIS_PART A1_FCC,,,!" />
+    <AMEND MODEL="FCC_PERMUTATIONS        " />
+  </Phase>
+  <Parameter id="G(LIQUID,AL;0)"   Low_T="298.15"  Bibref="91Din" > 
+    <Trange High_T="6000" > +GALLIQ; />
+  </Parameter>
+  <Parameter id="G(LIQUID,FE;0)"   Low_T="298.15"  Bibref="91Din" > 
+    <Trange High_T="6000" > +GFELIQ; />
+  </Parameter>
+  <Parameter id="G(LIQUID,AL,FE;0)"   Low_T="298.15"  Bibref="08Sun" > 
+    <Trange High_T="6000" > -88090+19.8*T; />
+  </Parameter>
+  <Parameter id="G(LIQUID,AL,FE;1)"   Low_T="298.15"  Bibref="  08Sun" > 
+    <Trange High_T="6000" > -3800+3*T; />
+  </Parameter>
+  <Parameter id="G(LIQUID,AL,FE;2)"   Low_T="298.15"  Bibref="08Sun" > 
+    <Trange High_T="6000" > -2000; />
+  </Parameter>
+  <Parameter id="G(A1_FCC,AL;0)"   Low_T="298.15"  Bibref="  91Din" > 
+    <Trange High_T="6000" > +GHSERAL; />
+  </Parameter>
+  <Parameter id="G(A1_FCC,FE;0)"   Low_T="298.15"  Bibref="  91Din" > 
+    <Trange High_T="6000" > +GFEFCC; />
+  </Parameter>
+  <Parameter id="TC(A1_FCC,FE;0)"   Low_T="298.15"  Bibref="91Din" > 
+    <Trange High_T="6000" > -201; />
+  </Parameter>
+  <Parameter id="BMAGN(A1_FCC,FE;0)"   Low_T="298.15"  Bibref="  91Din" > 
+    <Trange High_T="6000" > -2.1; />
+  </Parameter>
+  <Parameter id="G(A1_FCC,AL,FE;0)"   Low_T="298.15"  Bibref="  08Sun" > 
+    <Trange High_T="6000" > +LFALFE0; />
+  </Parameter>
+  <Parameter id="G(A1_FCC,AL,FE;1)"   Low_T="298.15"  Bibref="  08Sun" > 
+    <Trange High_T="6000" > +LFALFE1; />
+  </Parameter>
+  <Parameter id="G(A1_FCC,AL,FE;2)"   Low_T="298.15"  Bibref="  08Sun" > 
+    <Trange High_T="6000" > +LFALFE2; />
+  </Parameter>
+  <Parameter id="G(A2_BCC,AL;0)"   Low_T="298.15"  Bibref="91Din" > 
+    <Trange High_T="2900" > +GALBCC; />
+  </Parameter>
+  <Parameter id="G(A2_BCC,FE;0)"   Low_T="298.15"  Bibref="  91Din" > 
+    <Trange High_T="6000" > +GHSERFE; />
+  </Parameter>
+  <Parameter id="TC(A2_BCC,FE;0)"   Low_T="298.15"  Bibref="91Din" > 
+    <Trange High_T="6000" > 1043; />
+  </Parameter>
+  <Parameter id="BMAGN(A2_BCC,FE;0)"   Low_T="298.15"  Bibref="  91Din" > 
+    <Trange High_T="6000" > 2.22; />
+  </Parameter>
+  <Parameter id="G(A2_BCC,AL,FE;0)"   Low_T="298.15"  Bibref="93Sei" > 
+    <Trange High_T="6000" > -122960+32*T; />
+  </Parameter>
+  <Parameter id="G(A2_BCC,AL,FE;1)"   Low_T="298.15"  Bibref="  93Sei" > 
+    <Trange High_T="6000" > 2945.2; />
+  </Parameter>
+  <Parameter id="TC(A2_BCC,AL,FE;0)"   Low_T="298.15"  Bibref="  01Ohn" > 
+    <Trange High_T="6000" > -438; />
+  </Parameter>
+  <Parameter id="TC(A2_BCC,AL,FE;1)"   Low_T="298.15"  Bibref=" 01Ohn" > 
+    <Trange High_T="6000" > -1720; />
+  </Parameter>
+  <Parameter id="G(AL13FE4,AL;0)"   Low_T="298.15"  Bibref="08Sun" > 
+    <Trange High_T="6000" > -30680+7.4*T+.765*GHSERAL+.235*GHSERFE; />
+  </Parameter>
+  <Parameter id="G(AL13FE4,AL;0)"   Low_T="298.15"  Bibref="08Sun" > 
+    <Trange High_T="6000" > -28100+7.4*T+.6275*GHSERAL+.235*GHSERFE; />
+  </Parameter>
+  <Parameter id="G(AL2FE,AL;0)"   Low_T="298.15"  Bibref="08Sun" > 
+    <Trange High_T="6000" > -104000+23*T+2*GHSERAL+GHSERFE; />
+  </Parameter>
+  <Parameter id="G(AL5FE2,AL;0)"   Low_T="298.15"  Bibref="08Sun" > 
+    <Trange High_T="6000" > -235600+54*T+5*GHSERAL+2*GHSERFE; />
+  </Parameter>
+  <Parameter id="G(AL8FE5_D82,AL;0)"   Low_T="298.15"  Bibref="08Sun" > 
+    <Trange High_T="6000" > +13*GALBCC; />
+  </Parameter>
+  <Parameter id="G(AL8FE5_D82,FE;0)"   Low_T="298.15"  Bibref="08Sun" > 
+    <Trange High_T="6000" > +200000+36*T+5*GALBCC+8*GHSERFE; />
+  </Parameter>
+  <Parameter id="G(AL8FE5_D82,AL;0)"   Low_T="298.15"  Bibref="08Sun" > 
+    <Trange High_T="6000" > -394000+36*T+8*GALBCC+5*GHSERFE; />
+  </Parameter>
+  <Parameter id="G(AL8FE5_D82,FE;0)"   Low_T="298.15"  Bibref="08Sun" > 
+    <Trange High_T="6000" > +13*GHSERFE+13000; />
+  </Parameter>
+  <Parameter id="G(AL8FE5_D82,AL;0)"   Low_T="298.15"  Bibref="08Sun" > 
+    <Trange High_T="6000" > -100000; />
+  </Parameter>
+  <Parameter id="G(AL8FE5_D82,AL,FE;0)"   Low_T="298.15"  Bibref="08Sun" > 
+    <Trange High_T="6000" > -174000; />
+  </Parameter>
+  <Parameter id="G(BCC_4SL,AL;0)"   Low_T="298.15"  Bibref="08Sun" > 
+    <Trange High_T="6000" > +GD03ALFE; />
+  </Parameter>
+  <Parameter id="TC(BCC_4SL,AL;0)"   Low_T="298.15"  Bibref="01Ohn" > 
+    <Trange High_T="6000" > -125; />
+  </Parameter>
+  <Parameter id="BMAGN(BCC_4SL,AL;0)"   Low_T="298.15"  Bibref="08Sun" > 
+    <Trange High_T="6000" > BMALFE; />
+  </Parameter>
+  <Parameter id="G(BCC_4SL,AL;0)"   Low_T="298.15"  Bibref="08Sun" > 
+    <Trange High_T="6000" > +GB2ALFE; />
+  </Parameter>
+  <Parameter id="TC(BCC_4SL,AL;0)"   Low_T="298.15"  Bibref="01Ohn" > 
+    <Trange High_T="6000" > -250; />
+  </Parameter>
+  <Parameter id="BMAGN(BCC_4SL,AL;0)"   Low_T="298.15"  Bibref="08Sun" > 
+    <Trange High_T="6000" > 2*BMALFE; />
+  </Parameter>
+  <Parameter id="G(BCC_4SL,AL;0)"   Low_T="298.15"  Bibref="08Sun" > 
+    <Trange High_T="6000" > +GB32ALFE; />
+  </Parameter>
+  <Parameter id="TC(BCC_4SL,AL;0)"   Low_T="298.15"  Bibref="01Ohn" > 
+    <Trange High_T="6000" > -125; />
+  </Parameter>
+  <Parameter id="BMAGN(BCC_4SL,AL;0)"   Low_T="298.15"  Bibref="08Sun" > 
+    <Trange High_T="6000" > BMALFE; />
+  </Parameter>
+  <Parameter id="G(BCC_4SL,AL;0)"   Low_T="298.15"  Bibref="08Sun" > 
+    <Trange High_T="6000" > +GD03FEAL; />
+  </Parameter>
+  <Parameter id="TC(BCC_4SL,AL;0)"   Low_T="298.15"  Bibref="01Ohn" > 
+    <Trange High_T="6000" > -125; />
+  </Parameter>
+  <Parameter id="BMAGN(BCC_4SL,AL;0)"   Low_T="298.15"  Bibref="08Sun" > 
+    <Trange High_T="6000" > BMALFE; />
+  </Parameter>
+  <Parameter id="G(BCC_4SL,AL,FE;1)"   Low_T="298.15"  Bibref="08Sun" > 
+    <Trange High_T="6000" > -634+0.68*T; />
+  </Parameter>
+  <Parameter id="G(BCC_4SL,AL,FE;2)"   Low_T="298.15"  Bibref="08Sun" > 
+    <Trange High_T="6000" > -190; />
+  </Parameter>
+  <Parameter id="TC(BCC_4SL,AL,FE;0)"   Low_T="298.15"  Bibref="01Ohn" > 
+    <Trange High_T="6000" > +125; />
+  </Parameter>
+  <Parameter id="BMAGN(BCC_4SL,AL,FE;0)"   Low_T="298.15"  Bibref="08Sun" > 
+    <Trange High_T="6000" > BLALFE0; />
+  </Parameter>
+  <Parameter id="BMAGN(BCC_4SL,AL,FE;1)"   Low_T="298.15"  Bibref="08Sun" > 
+    <Trange High_T="6000" > BLALFE1; />
+  </Parameter>
+  <Parameter id="BMAGN(BCC_4SL,AL,FE;2)"   Low_T="298.15"  Bibref="08Sun" > 
+    <Trange High_T="6000" > BLALFE2; />
+  </Parameter>
+  <Parameter id="G(FCC_4SL,AL;0)"   Low_T="298.15"  Bibref="08Con" > 
+    <Trange High_T="6000" > +ZERO; />
+  </Parameter>
+  <Parameter id="G(FCC_4SL,FE;0)"   Low_T="298.15"  Bibref="08Con" > 
+    <Trange High_T="6000" > +GAL3FE; />
+  </Parameter>
+  <Parameter id="G(FCC_4SL,FE;0)"   Low_T="298.15"  Bibref="08Con" > 
+    <Trange High_T="6000" > +GAL2FE2; />
+  </Parameter>
+  <Parameter id="G(FCC_4SL,FE;0)"   Low_T="298.15"  Bibref="08Con" > 
+    <Trange High_T="6000" > +GALFE3; />
+  </Parameter>
+  <Parameter id="G(FCC_4SL,FE;0)"   Low_T="298.15"  Bibref="08Con" > 
+    <Trange High_T="6000" > +ZERO; />
+  </Parameter>
+  <Parameter id="G(FCC_4SL,AL,FE;0)"   Low_T="298.15"  Bibref="08Con" > 
+    <Trange High_T="6000" > +SFALFE; />
+  </Parameter>
 </Database>

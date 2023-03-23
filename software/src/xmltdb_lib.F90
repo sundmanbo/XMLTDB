@@ -71,22 +71,22 @@ MODULE XMLTDB_LIB
      integer, dimension(:), allocatable :: elements
      double precision, dimension(:), allocatable :: stoik
   end type xmltdb_species
-!------------------------------------------  
-  TYPE xmltdb_tpfun
-! specification of the XMLelement TPFUN
-     character (len=16) :: id
-     double precision :: low_t,high_t
-     integer :: tranges
-     character*500 :: expression
-     type(xmltdb_string), pointer :: long_expression
-     type(xmltdb_tpfun), dimension(:), allocatable :: ranges
-  end type xmltdb_tpfun
 !------------------------------------------    
   TYPE xmltdb_trange
 ! specification of the simple XMLelement TRANGE
      double precision :: high_t
-     type(xmltdb_string), pointer :: expression
+! assuming miximum expression for one T range is less than 300 characters
+     character (len=300) :: expression
+     type(xmltdb_trange), pointer :: next
   end type xmltdb_trange
+!------------------------------------------  
+  TYPE xmltdb_tpfun
+! specification of the XMLelement TPFUN
+     character (len=16) :: id
+     double precision :: low_t
+! cannot be set as target, copy local (target) record in subroutine!
+     type(xmltdb_trange) :: trange
+  end type xmltdb_tpfun
 !------------------------------------------    
 !  TYPE xmltdb_modelparameterid
   TYPE xmltdb_mpid
@@ -109,6 +109,7 @@ MODULE XMLTDB_LIB
      type(xmltdb_amendphase), pointer :: phamend
 ! index in modellist of additional models
      type(xmltdb_xmodel), dimension(:), allocatable :: extramodel
+! constituents
      integer, dimension(:), allocatable :: nconst
      character*24, dimension(:,:), allocatable :: constituents
   end type xmltdb_phase
@@ -141,12 +142,15 @@ MODULE XMLTDB_LIB
      type(xmltdb_string), pointer :: longfun
 ! this is the expression as the index of a tpfun
      integer tpfunindex
+! this for is storing T-ranges of parameter
+     type(xmltdb_trange) :: trange
   end type xmltdb_parameter
 !------------------------------------------      
   TYPE xmltdb_xmodel
 ! specification of the XMLelement MODEL (excluding constitution)
      character (len=24) :: ID
-     type(xmltdb_string), pointer :: string
+     character*80 text
+!     type(xmltdb_string), pointer :: string
 ! necessary model parameter identifiers
      integer, dimension(:), allocatable :: mpid
   end type xmltdb_xmodel
@@ -252,6 +256,8 @@ CONTAINS
        nl1=nl
        do while(index(line,'!').le.0)
 ! data has more lines
+!          write(*,*)'end of line: ',line(max(1,jp-10):jp)
+! BEWHERE list_of_references can be VERY long
 77        continue
           nl=nl+1
           read(infile,100,end=2000,err=2100)line2
@@ -260,6 +266,13 @@ CONTAINS
           if(eolch(line2,kp)) goto 77
 ! append new line after jp
           jp=len_trim(line)
+          if(jp+len(line2).gt.len(line)) then
+             write(*,*)'Too long line "',line(1:40),'"'
+             xmlerr=5000; goto 1000
+          elseif(line(jp-10:jp).eq.'_REFERENCES') then
+! insert a few spaces to find the command!
+             jp=jp+10
+          endif
           line(jp+1:)=line2(kp:)
 !          write(*,*)'Merging TDB file line ',nl,' with ',nl1,', length: ',jp+kp
 !          write(*,*)'Text <',line(1:jp+kp),'>'
@@ -322,10 +335,12 @@ CONTAINS
        case(8)
 !          write(*,*)'Keyword index: ',key,xmlerr,ip
           write(*,110)nl,line(1:40)
+          call getbiblio(line,ip)
 ! add_references
        case(9)
 !          write(*,*)'Keyword index: ',key,xmlerr,ip
           write(*,*)'Found add_references'
+          call getbiblio(line,ip)
 ! assessed_systems
        case(10)
 !          write(*,*)'Keyword index: ',key,xmlerr,ip
@@ -440,7 +455,7 @@ CONTAINS
 
   subroutine getphase(line,ip)
 ! extract line with phase data
-    character line*(*)
+    character line*(*),ch1*1
     integer ip,jp,kp,intval
     double precision relval
 !    write(*,*)'getphase line: ',trim(line(ip:))
@@ -450,16 +465,38 @@ CONTAINS
     jp=ip
     call skip_to_space(line,ip)
     phlist(noph)%name=line(jp:ip-1)
-    do kp=1,24
+    fixname: do kp=1,24
+       ch1=phlist(noph)%name(kp:kp)
 ! replace any - by _       
-       if(phlist(noph)%name(kp:kp).eq.'-') then
+       if(ch1.eq.'-') then
           phlist(noph)%name(kp:kp)='_'
+       elseif(ch1.eq.':') then
+! this is an awkward way to specify a few things at the end of a phase name
+          ch1=phlist(noph)%name(kp+1:kp+1)
+          phlist(noph)%name(kp:)=' '
+          if(ch1.eq.'G') then
+             allocate(phlist(noph)%extramodel(1))
+             phlist(noph)%extramodel%id='GAS_PHASE'
+          elseif(ch1.eq.'L') then
+             allocate(phlist(noph)%extramodel(1))
+             phlist(noph)%extramodel%id='LIQUID_PHASE'
+          elseif(ch1.eq.'B') then
+             allocate(phlist(noph)%extramodel(1))
+             phlist(noph)%extramodel%id='BCC_PERMUTATIONS'
+          elseif(ch1.eq.'F') then
+             allocate(phlist(noph)%extramodel(1))
+             phlist(noph)%extramodel%id='FCC_PERMUTATIONS'
+          elseif(ch1.eq.'Y') then
+             allocate(phlist(noph)%extramodel(1))
+             phlist(noph)%extramodel%id='I2SL'
+          endif
+          exit fixname
        endif
-    enddo
+    enddo fixname
     if(eolch(line,ip)) then
        xmlerr=5000; goto 1000
     endif
-! store phase name in separate array to handle appreviations
+! store phase name in separate array to handle abbreviations
     phasenames(noph)=phlist(noph)%name
     if(xmlerr.ne.0) goto 1000
 !
@@ -484,7 +521,7 @@ CONTAINS
 
   subroutine getconst(line,ip)
 ! extract line with phase constituent data
-    character line*(*),charray*3
+    character line*(*),charray*3,ch1*1
 ! OC max 9 sublattices, max 30 per sublattice, only gas can have more ...
     character*24 constarray(9,30) 
     integer ip,jp,ll,kp,nc,nsub,ncmax
@@ -498,6 +535,15 @@ CONTAINS
     endif
 ! skip phase name
     call skip_to_char(':',line,ip)
+! if letter before : this is a suffix to phase, skip it
+    ch1=line(ip-1:ip-1)
+    if(ch1.ne.' ') then
+       ip=ip+2
+       if(eolch(line,ip)) then
+          xmlerr=5000; goto 1000
+       endif
+    endif
+! we should noe be at the : for the first sublattice
 ! constituents can be separated by "," or space
 ! sublattices are separated by ":"
 ! OC MQMQA special ....
@@ -602,6 +648,9 @@ CONTAINS
 ! temporary storage for constituent array, tnc gives in each sublattice
     character*24, dimension(9) :: constarray
     integer tnc(9)
+! for storing parameters using Trange
+    type(xmltdb_trange), pointer :: prange
+    type(xmltdb_trange), target :: trange
 ! save model parameter id, phase, constituents etc, ip is position after PARA..
 !    write(*,*)
 !    write(*,*)'In getparam: "',trim(line),'" ',ip
@@ -712,72 +761,169 @@ CONTAINS
 ! skip high limit and search for "N"
     jp=index(line(ip:),' N ')
     kp=index(line(ip:),'!')
-    palist(nopa)%bibref=line(ip+jp+2:ip+kp-2)
+    if(ip+kp-2.gt.ip+jp+2) then
+       palist(nopa)%bibref=line(ip+jp+2:ip+kp-2)
+    else
+       palist(nopa)%bibref='NONE'
+    endif
 !    write(*,*)'bibref: ',line(ip+jp+2:ip+kp-2)
 ! remove bibref from function but not N
     line(ip+jp+3:)=' '
 ! decode the actual expression use getfun
 ! We must provide a name for the tpfun ...
 !    write(*,*)'tpfun: ',trim(line(ip:))
-    palist(nopa)%tpfun=trim(line(ip:))
+!    palist(nopa)%tpfun=trim(line(ip:))
     nullify(palist(nopa)%longfun)
     palist(nopa)%tpfunindex=0
-    goto 1000
+!    goto 1000
 ! maybe store tpfun as tpfun?
-    notp=notp+1
-    call getfun(line,ip)
+!    write(*,*)'Saving parameter expression using getranges'
+    call getranges(line,ip,trange)
     if(xmlerr.ne.0) goto 1000
-    palist(nopa)%tpfunindex=notp
+!
+!    write(*,*)'list parameter as T-range'
+!    write(*,*)'first range: ',trange%high_t,trim(trange%expression)
+!
+    palist(nopa)%trange=trange
 1000 continue
 !    write(*,*)'End parameter decoding',xmlerr
     return
-  end subroutine getparam
+  end subroutine getparam 
 
 !/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!
 
   subroutine getfun(line,ip)
 ! extract line with function with possible interval
-    character line*(*),hash*1
-    integer ip,jp,phash,ih,kp
+    character line*(*)
+    integer ip,jp,kp
+! one cannot mix target and pointer ??
+    type(xmltdb_trange), pointer :: prange
+    type(xmltdb_trange), target :: trange
     double precision relval
-    hash='#'
 !    write(*,'(a,2i4,a,a,a)')'In getfun: ',ip,notp,' "',trim(line(ip:)),'"'
     if(eolch(line,ip)) then
        xmlerr=5000; goto 1000
     endif
+! extract ID and low T limit
     jp=ip
     call skip_to_space(line,ip)
     tplist(notp)%id=line(jp:ip-1)
     call getrel(line,ip,relval)
     tplist(notp)%low_t=relval
+! ip is position after low T limit, extract ranges from there in getranges
+! note trange is a local variable as it can not be target in declaration!!
+    call getranges(line,ip,trange)
+    if(xmlerr.ne.0) goto 1000
+! have all ranges been stored in trange?
+!    write(*,100)'range 1:',1,trange%high_t,&
+!         trim(trange%expression)
+!    write(*,*)'range 1: ',associated(trange%next)
+!    prange=>trange%next
+!    write(*,*)'Is prange associated?',associated(prange)
+!    jp=1
+!    do while(associated(prange))
+!       jp=jp+1
+!       write(*,100)'range: ',jp,prange%high_t,trim(prange%expression)
+!       prange=>prange%next
+!    enddo
+!    write(*,*)
+!    write(*,*)'Copy trange to tplist(notp)'
+! copy trange into tplist
+    tplist(notp)%trange=trange
+! debug listing
+!    write(*,*)'Success copy trange to tplist(notp)!!'
+!    write(*,100)'range 1:',1,tplist(notp)%trange%high_t,&
+!         trim(tplist(notp)%trange%expression)
+!    write(*,*)'Done range 1: ',associated(tplist(notp)%trange%next)
+!
+!    prange=>tplist(notp)%trange%next
+!    write(*,*)'Is prange associated?',associated(prange)
+!    jp=1
+!    do while(associated(prange))
+!       jp=jp+1
+!       write(*,100)'range: ',jp,prange%high_t,trim(prange%expression)
+100    format(/a,i2,F10.2,': ',a)
+!       prange=>prange%next
+!    enddo
+!
+1000 continue
+!    write(*,*)'Exiting getfun'
+    return
+  end subroutine getfun
+
+!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!
+
+  subroutine getranges(line,ip,trange)
+! extract line of function or parameter with possible interval
+    character line*(*),hash*1
+    integer ip,jp,phash,ih,kp
+    double precision relval
+    logical solidlink
+    type(xmltdb_trange), target :: trange
+    type(xmltdb_trange), pointer :: prange
+    hash='#'
+!    write(*,'(a,i4,a,a,a/)')'In getranges: ',ip,' "',trim(line(ip:)),'"'
+    if(eolch(line,ip)) then
+       xmlerr=5000; goto 1000
+    endif
     jp=ip
-! we have to implement very long expression strings, more than 5000 characters
+    prange=>trange
+    nullify(prange%next)
+! extract function between pp and next ";"
+500 continue
     call skip_to_char(';',line,ip)
-! remve all # in line(jp+1:ip), note jp is changing!
-!    write(*,'(a,i3,2x,a)')'With hash:    ',ip,trim(line(jp+1:ip+5))
+    if(xmlerr.ne.0) goto 1000
+    if(ip-jp.gt.300) then
+       write(*,*)'TPfun expression longer than 300 character'
+       xmlerr=5000; goto 1000
+    endif
+!    write(*,*)'Saving: ',trim(prange%expression),ip
+! save expression filling it with trailing spaces in %expression
+!    prange%expression=line(jp:ip)//' '
+    prange%expression=line(jp:ip)
+    ip=ip+1
+    call getrel(line,ip,relval)
+    prange%high_t=relval
+! remove all # in expression
+    kp=len_trim(prange%expression)
+!    write(*,'(a,a)')'With hash:    ',prange%expression(1:kp)
+    if(xmlerr.ne.0) goto 1000
     hashloop: do while(.TRUE.)
-       ih=index(line(jp+1:ip),hash)
+       ih=index(prange%expression,hash)
        if(ih.gt.0) then
 !          write(*,*)'Removed # at position:',ih
-          line(jp+ih:ip)=line(jp+ih+1:ip)
-          ip=ip-1
+          prange%expression(ih:kp)=prange%expression(ih+1:kp+1)
+          kp=kp-1
        else
           exit hashloop
        endif
     enddo hashloop
-!    write(*,'(a,i3,2x,a)')'Without hash: ',ip,trim(line(jp+1:ip+5))
+!    write(*,'(a,a)')'Without hash: ',prange%expression(1:kp+5)
 ! we have to check for ranges ...
-! note the final ";" is in the expression
-    tplist(notp)%tranges=1
-    tplist(notp)%expression=line(jp+1:ip)
-    nullify(tplist(notp)%long_expression)
-    ip=ip+1
-    call getrel(line,ip,relval)
-    tplist(notp)%high_t=relval
-!    write(*,*)'Saved tpfun: ',notp
+! note the final ";" is still in the expression
+! There should be a Y or N after the high_T check if more ranges ....
+    if(eolch(line,ip)) goto 1000
+    if(line(ip:ip).eq.'y' .or. line(ip:ip).eq.'Y') then
+       jp=ip+1
+       allocate(prange%next)
+       prange=>prange%next
+       nullify(prange%next)
+       goto 500
+    endif
+! all done for this function
 1000 continue
     return
-  end subroutine getfun
+  end subroutine getranges
+
+!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!
+
+  subroutine getbiblio(line,ip)
+! extract line with function with possible interval
+    character line*(*),hash*1
+    integer ip,jp,phash,ih,kp
+    write(*,*)'Biblio not implemented yet'
+    return
+  end subroutine getbiblio
 
 !/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!
 
@@ -786,7 +932,7 @@ CONTAINS
     write(*,10)noel,nosp,noph,nopa,notp,notype,nomod,nompid,nobib
 10  format(/'Minimal checking xmltdb file with:',&
          /i5,' elements (including /- and Va)',&
-         /i5,' species'/i5,' phases'/i5,' parameters',&
+         /i5,' species (including elements)'/i5,' phases'/i5,' parameters',&
          /i5,' TP functions',/i5,' type_defs and ',i5,' models',&
          /i5,' model parameter identifiers (mpid)'&
          /i5,' bibliographic references'/)
@@ -797,10 +943,13 @@ CONTAINS
 
   subroutine write_xmltdb(out)
 ! writing the stored information on the xml file
-    integer out,ip,jp,kp,nl,ni,tr,nnw,jsign,ll,nc
+    integer out,ip,jp,kp,nl,ni,tr,nnw,jsign,ll,nc,tq
     character (len=512) :: line
     character (len=24) :: dummy
     logical more
+    type(xmltdb_trange), target :: trange
+    type(xmltdb_trange), pointer :: prange
+    type(xmltdb_typedefs), pointer :: typedef
 !
     nnw=7; jsign=0
 !
@@ -836,24 +985,32 @@ CONTAINS
 ! functions
     do ni=1,notp
        ip=1
+!       write(*,*)'Writing tpfun ',ni
+! to have the value nicely within the "..."
        call wrinum(dummy,ip,nnw,jsign,tplist(ni)%low_t)
        write(out,300)trim(tplist(ni)%id),dummy(1:ip-1)
 300    format('  <TPfun id="',a,'" Low_T="',a,'" >')
-       if(associated(tplist(ni)%long_expression)) then
-          write(*,*)'Cannot handle long expressions'
-          xmlerr=5000; goto 1000
-       endif
 ! maybe several ranges
-       do tr=1,tplist(ni)%tranges
+       trange=tplist(ni)%trange
+       ip=1
+!       write(*,*)'Writing tpfun 2',trange%high_t
+       call wrinum(dummy,ip,nnw,jsign,trange%high_t)
+       write(out,310)dummy(1:ip-1),trim(trange%expression)
+       prange=>trange%next
+!       write(*,*)'writing tranges 1: ',associated(prange)
+       do while(associated(prange))
           ip=1
-          call wrinum(dummy,ip,nnw,jsign,tplist(ni)%high_t)
-          write(out,310)dummy(1:ip-1),trim(tplist(ni)%expression)
-310       format('    <Trange High_T="',a,'" > ',a,' </Trange>')
+          call wrinum(dummy,ip,nnw,jsign,prange%high_t)
+          write(out,310)dummy(1:ip-1),trim(prange%expression)
+310       format('    <Trange High_T="',a,'" > ',a,' />')
+          prange=>prange%next
+!          write(*,*)'writing tranges 2: ',associated(prange)
        enddo
        write(out,390)
 390    format('  </TPfun>')
     enddo
 ! phases and constituents and amend phases
+ !   write(*,*)'Writing phases'
     do ni=1,noph
        write(out,400)trim(phlist(ni)%name),trim(phlist(ni)%configmodel)
 400    format('  <Phase id="',a,'" Configurational_model="',a,'" >')
@@ -875,10 +1032,33 @@ CONTAINS
        enddo
        write(out,422)
 422    format('    </Sublattices>')
+! additional models: magnetism, disordered fraction set etc not implented
+! look at type_definitions
+       tq=1
+       do while(phlist(ni)%type_defs(tq:tq).ne.' ')
+! skip first dummy typedef
+          typedef=>type_def_list
+          ff: do while(associated(typedef%next))
+             if(typedef%id.eq.phlist(ni)%type_defs(tq:tq)) then
+                write(out,430)trim(typedef%action)
+430             format('    <AMEND MODEL="',a,'" />')
+                exit ff
+             else
+                typedef=>typedef%next
+             endif
+          enddo ff
+          tq=tq+1
+       enddo
+! look if extramodels allocated
+       if(allocated(phlist(ni)%extramodel)) then
+!          write(*,*)'extra moddel for ',phlist(ni)%name
+          do tq=1,size(phlist(ni)%extramodel)
+             write(out,430)phlist(ni)%extramodel%id
+          enddo
+       endif
        write(out,490)
 490    format('  </Phase>')
     enddo
-! additional models: magnetism, disordered fraction set etc not implented
 !
 ! all parameters, they should optionally be separated as unaries etc
     paloop: do ni=1,nopa
@@ -911,10 +1091,23 @@ CONTAINS
 !       call wrinum(line,ip,nnw,jsign,298.15D0)
        line(ip:)='"  Bibref="'
        line(ip+11:)=trim(palist(ni)%bibref)//'" >'; ip=len_trim(line)+1
-       line(ip:)=palist(ni)%tpfun; ip=len_trim(line)
-       line(ip:)='   </Parameter>'
-       write(out,*)trim(line)
-!       write(*,*)trim(line)
+!       write(out,*)trim(line(ip:))
+       write(out,*)line(1:ip)
+! new parameter expression with ranges
+       trange=palist(ni)%trange
+       ip=1
+       call wrinum(dummy,ip,nnw,jsign,trange%high_t)
+       write(out,310)dummy(1:ip-1),trim(trange%expression)
+       prange=>trange%next
+       do while(associated(prange))
+          ip=1
+          call wrinum(dummy,ip,nnw,jsign,prange%high_t)
+          write(out,310)dummy(1:ip-1),trim(prange%expression)
+!310       format('    <Trange High_T="',a,'" > ',a,' />')
+          prange=>prange%next
+       enddo
+       write(out,590)
+590    format('  </Parameter>')
     enddo paloop
 !
 ! unary parameters
@@ -994,7 +1187,7 @@ end subroutine getitem
       kt=ks+index(text(ks:),' ')-1
 ! the abbreviation of the keyword must be at least 3 character, max kwl
       if(kt-ks.lt.3 .or. kt-ks.ge.kwl) then
-!         write(*,*)'3E too long keyword: ',trim(text),kt-ks,kwl
+         write(*,*)'3E too long keyword: "',trim(text),'"',kt-ks,kwl
          j=0; goto 1000
       endif
    endif

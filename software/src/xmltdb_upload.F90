@@ -96,15 +96,15 @@ program xmlupload
   close(luta)
 !
 ! list all type defs
-  write(*,800)
-800 format(/'In the TDB fie the following TYPE_DEFINITIONS has been found:')
-  type_def=>type_def_list
-  do while(associated(type_def))
-     write(*,802)type_def%id,trim(type_def%action)
-802  format('TYPE_DEFINITION letter: ',a/&
-          'Action: ',a)
-     type_def=>type_def%next
-  enddo
+!  write(*,800)
+!800 format(/'In the TDB fie the following TYPE_DEFINITIONS has been found:')
+!  type_def=>type_def_list
+!  do while(associated(type_def))
+!     write(*,802)type_def%id,trim(type_def%action)
+!802  format('TYPE_DEFINITION letter: ',a/&
+!          'Action: ',a)
+!     type_def=>type_def%next
+!  enddo
 !
   write(*,999)
 999 format(/'All done'/)

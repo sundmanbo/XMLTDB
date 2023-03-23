@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<?xml-model href="database.rng" schematypens="http://relaxng.org/ns/structure/1.0" type="application/xml"?>
+<Database version="0">
+  <metadata>
+    <writer>pycalphad 0.10.1</writer>
+  </metadata>
+  <ChemicalElement id="/-" mass="0.0" reference_phase="ELECTRON_GAS" H298="0.0" S298="0.0"/>
+  <ChemicalElement id="AL" mass="26.982" reference_phase="FCC_A1" H298="4577.3" S298="28.322"/>
+  <ChemicalElement id="VA" mass="0.0" reference_phase="VACUUM" H298="0.0" S298="0.0"/>
+  <ChemicalElement id="ZN" mass="65.39" reference_phase="HCP_ZN" H298="5656.8" S298="41.631"/>
+  <Expr id="GALHCP">
+    <Interval in="T" lower="298.0" upper="6000.0">5481.0 + GHSERAL - 1.8*T</Interval>
+  </Expr>
+  <Expr id="GALLIQ">
+    <Interval in="T" lower="298.0" upper="700.0">3029.403 + 125.2307*T - 24.3672*T*ln(T) + 74092.0*T**(-1.0) - 0.001884662*T**2.0 - 8.77664e-07*T**3.0 + 7.9401e-20*T**7.0</Interval>
+    <Interval in="T" lower="700.0" upper="933.6">-270.686 + 211.1861*T - 38.58443*T*ln(T) + 74092.0*T**(-1.0) + 0.01853198*T**2.0 - 5.764227e-06*T**3.0 + 7.9401e-20*T**7.0</Interval>
+    <Interval in="T" lower="933.6" upper="2900.0">-795.709 + 177.41*T - 31.74819*T*ln(T)</Interval>
+  </Expr>
+  <Expr id="GHSERAL">
+    <Interval in="T" lower="298.0" upper="700.0">-7976.15 + 137.0715*T - 24.3672*T*ln(T) + 74092.0*T**(-1.0) - 0.001884662*T**2.0 - 8.77664e-07*T**3.0</Interval>
+    <Interval in="T" lower="700.0" upper="933.6">-11276.24 + 223.0269*T - 38.58443*T*ln(T) + 74092.0*T**(-1.0) + 0.018531982*T**2.0 - 5.764227e-06*T**3.0</Interval>
+    <Interval in="T" lower="933.6" upper="2900.0">-11277.68 + 188.662*T - 31.74819*T*ln(T) - 1.23426e+28*T**(-9.0)</Interval>
+  </Expr>
+  <Expr id="GHSERZN">
+    <Interval in="T" lower="298.0" upper="692.7">-7285.787 + 118.4693*T - 23.70131*T*ln(T) - 0.001712034*T**2.0 - 1.264963e-06*T**3.0</Interval>
+    <Interval in="T" lower="692.7" upper="1700.0">-11070.6 + 172.3449*T - 31.38*T*ln(T) + 4.70657e+26*T**(-9.0)</Interval>
+  </Expr>
+  <Expr id="GZNFCC">
+    <Interval in="T" lower="298.15" upper="1700.0">2969.82 + GHSERZN - 1.56968*T</Interval>
+  </Expr>
+  <Expr id="GZNLIQ">
+    <Interval in="T" lower="298.14" upper="692.7">7157.213 + GHSERZN - 10.29299*T - 3.5896e-19*T**7.0</Interval>
+    <Interval in="T" lower="692.7" upper="1700.0">7450.168 + GHSERZN - 10.737066*T - 4.7051e+26*T**(-9.0)</Interval>
+  </Expr>
+  <Phase id="FCC_A1">
+    <Model type="CEF">
+      <ConstituentArray>
+        <Site id="0" ratio="1.0">
+          <Constituent refid="AL"/>
+          <Constituent refid="ZN"/>
+        </Site>
+      </ConstituentArray>
+    </Model>
+    <Parameter type="G">
+      <Order>0</Order>
+      <ConstituentArray>
+        <Site refid="0">
+          <Constituent refid="AL"/>
+        </Site>
+      </ConstituentArray>
+      <Interval in="T" lower="298.15" upper="2900.0">GHSERAL</Interval>
+    </Parameter>
+    <Parameter type="G">
+      <Order>0</Order>
+      <ConstituentArray>
+        <Site refid="0">
+          <Constituent refid="ZN"/>
+        </Site>
+      </ConstituentArray>
+      <Interval in="T" lower="298.15" upper="1700.0">GZNFCC</Interval>
+    </Parameter>
+    <Parameter type="G">
+      <Order>0</Order>
+      <ConstituentArray>
+        <Site refid="0">
+          <Constituent refid="AL"/>
+          <Constituent refid="ZN"/>
+        </Site>
+      </ConstituentArray>
+      <Interval in="T" lower="298.15" upper="6000.0">7297.5 + 0.47512*T</Interval>
+    </Parameter>
+    <Parameter type="G">
+      <Order>1</Order>
+      <ConstituentArray>
+        <Site refid="0">
+          <Constituent refid="AL"/>
+          <Constituent refid="ZN"/>
+        </Site>
+      </ConstituentArray>
+      <Interval in="T" lower="298.15" upper="6000.0">6612.9 - 4.5911*T</Interval>
+    </Parameter>
+    <Parameter type="G">
+      <Order>2</Order>
+      <ConstituentArray>
+        <Site refid="0">
+          <Constituent refid="AL"/>
+          <Constituent refid="ZN"/>
+        </Site>
+      </ConstituentArray>
+      <Interval in="T" lower="298.15" upper="6000.0">-3097.2 + 3.30635*T</Interval>
+    </Parameter>
+  </Phase>
+  <Phase id="HCP_A3">
+    <Model type="CEF">
+      <ConstituentArray>
+        <Site id="0" ratio="1.0">
+          <Constituent refid="AL"/>
+          <Constituent refid="ZN"/>
+        </Site>
+      </ConstituentArray>
+    </Model>
+    <Parameter type="G">
+      <Order>0</Order>
+      <ConstituentArray>
+        <Site refid="0">
+          <Constituent refid="AL"/>
+        </Site>
+      </ConstituentArray>
+      <Interval in="T" lower="298.15" upper="2900.0">GALHCP</Interval>
+    </Parameter>
+    <Parameter type="G">
+      <Order>0</Order>
+      <ConstituentArray>
+        <Site refid="0">
+          <Constituent refid="ZN"/>
+        </Site>
+      </ConstituentArray>
+      <Interval in="T" lower="298.15" upper="1700.0">GHSERZN</Interval>
+    </Parameter>
+    <Parameter type="G">
+      <Order>0</Order>
+      <ConstituentArray>
+        <Site refid="0">
+          <Constituent refid="AL"/>
+          <Constituent refid="ZN"/>
+        </Site>
+      </ConstituentArray>
+      <Interval in="T" lower="298.15" upper="6000.0">18821.0 - 8.95255*T</Interval>
+    </Parameter>
+    <Parameter type="G">
+      <Order>3</Order>
+      <ConstituentArray>
+        <Site refid="0">
+          <Constituent refid="AL"/>
+          <Constituent refid="ZN"/>
+        </Site>
+      </ConstituentArray>
+      <Interval in="T" lower="298.15" upper="6000.0">-702.8</Interval>
+    </Parameter>
+  </Phase>
+  <Phase id="LIQUID">
+    <Model type="CEF">
+      <ConstituentArray>
+        <Site id="0" ratio="1.0">
+          <Constituent refid="AL"/>
+          <Constituent refid="ZN"/>
+        </Site>
+      </ConstituentArray>
+    </Model>
+    <Parameter type="G">
+      <Order>0</Order>
+      <ConstituentArray>
+        <Site refid="0">
+          <Constituent refid="AL"/>
+        </Site>
+      </ConstituentArray>
+      <Interval in="T" lower="298.15" upper="2900.0">GALLIQ</Interval>
+    </Parameter>
+    <Parameter type="G">
+      <Order>0</Order>
+      <ConstituentArray>
+        <Site refid="0">
+          <Constituent refid="ZN"/>
+        </Site>
+      </ConstituentArray>
+      <Interval in="T" lower="298.15" upper="1700.0">GZNLIQ</Interval>
+    </Parameter>
+    <Parameter type="G">
+      <Order>0</Order>
+      <ConstituentArray>
+        <Site refid="0">
+          <Constituent refid="AL"/>
+          <Constituent refid="ZN"/>
+        </Site>
+      </ConstituentArray>
+      <Interval in="T" lower="298.15" upper="6000.0">10465.5 - 3.39259*T</Interval>
+    </Parameter>
+  </Phase>
+</Database>
