@@ -138,12 +138,11 @@ MODULE XMLTDB_LIB
 ! this is the expression as short string (including low T limit and reference)
      character*128 tpfun
      character*24 bibref
-! this is the expression as a long text
-     type(xmltdb_string), pointer :: longfun
-! this is the expression as the index of a tpfun
-     integer tpfunindex
 ! this for is storing T-ranges of parameter
      type(xmltdb_trange) :: trange
+! this is to indicate if the parameter has been listed (as unary, binary etc)
+! inititated to the number of elements, set negative when listed
+     integer noofel
   end type xmltdb_parameter
 !------------------------------------------      
   TYPE xmltdb_xmodel
@@ -158,7 +157,8 @@ MODULE XMLTDB_LIB
   TYPE xmltdb_bibliography
 ! specification of the XMLelement BIBLIOGRAPHY
      character (len=24) :: ID
-     type(xmltdb_string), pointer :: string
+     character (len=512) :: text
+     type(xmltdb_bibliography), pointer :: next
   end type xmltdb_bibliography
 !------------------------------------------      
   TYPE xmltdb_typedefs
@@ -179,9 +179,10 @@ MODULE XMLTDB_LIB
   type(xmltdb_mpid), dimension(:), allocatable :: mpidlist
   type(xmltdb_bibliography), dimension(:), allocatable :: bibliolist
   integer, dimension(8) :: limits
-  integer noel,nosp,noph,nopa,notp,nomod,nompid,nobib,notype
+  integer noel,nosp,noph,nopa,notp,nomod,nompid,nobib,notype,nl
   type(xmltdb_typedefs), target :: type_def_list
   type(xmltdb_typedefs), pointer :: new_type_def
+! to check phases are OK
   character*24, dimension(:), allocatable :: phasenames
 !  
 !------- TDB KEYWORDS
@@ -269,9 +270,15 @@ CONTAINS
           if(jp+len(line2).gt.len(line)) then
              write(*,*)'Too long line "',line(1:40),'"'
              xmlerr=5000; goto 1000
-          elseif(line(jp-10:jp).eq.'_REFERENCES') then
+!          elseif(line(jp-10:jp).eq.'_REFERENCES') then
 ! insert a few spaces to find the command!
-             jp=jp+10
+!             jp=jp+10
+          endif
+! do not insert any space at linebreak but remove most leading spaces in line2
+          if(kp.gt.2) then
+             kp=kp-2
+          else
+             kp=1
           endif
           line(jp+1:)=line2(kp:)
 !          write(*,*)'Merging TDB file line ',nl,' with ',nl1,', length: ',jp+kp
@@ -284,6 +291,7 @@ CONTAINS
              xmlerr=5000; goto 2200
           endif
        endif
+!       write(*,*)'We are here decoding TDB file: ',key
        select case(key)
 ! error
        case default
@@ -334,7 +342,8 @@ CONTAINS
 ! list_of_references
        case(8)
 !          write(*,*)'Keyword index: ',key,xmlerr,ip
-          write(*,110)nl,line(1:40)
+!          write(*,120)nl,ip,line(1:40)
+120       format('Biblio line ',2i7,': ',a)
           call getbiblio(line,ip)
 ! add_references
        case(9)
@@ -412,6 +421,7 @@ CONTAINS
        nosp=nosp+1
        splist(nosp)%id=' '
        splist(nosp)%id=ellist(noel)%id
+       splist(nosp)%stoichiometry=ellist(noel)%id
        splist(nosp)%numberofel=1
        allocate(splist(nosp)%elements(1:1))
        allocate(splist(nosp)%stoik(1:1))
@@ -433,22 +443,28 @@ CONTAINS
     integer ip,jp
     character line*(*)
 !
-    xmlerr=5000
-    if(eolch(line,ip)) goto 1000
-    call skip_to_space(line,jp)
-    splist(nosp)%id=line(ip:jp)
-!
-    ip=jp
-    if(eolch(line,ip)) goto 1000
-    call skip_to_space(line,jp)
 ! remove any trailing !
-    if(line(jp-1:jp-1).eq.'!') line(jp-1:jp-1)=' '
+    jp=index(line,'!')
+    if(jp.gt.0) line(jp:jp)=' '
+! beginning of species name
+    if(eolch(line,ip)) goto 2000
+    jp=ip
+    call skip_to_space(line(ip:),jp)
+    splist(nosp)%id=line(ip:ip+jp-1)
+!
+    ip=ip+jp+1
+! extract stoichiometry
+    if(eolch(line,ip)) goto 2000
+    jp=ip
+    call skip_to_space(line,jp)
 ! we should extract elements and stoichiometry eventually ...
-    splist(nosp)%id=line(ip:jp)
-    write(*,*)'Species not implemented yet'
-    xmlerr=5000
+    splist(nosp)%stoichiometry=line(ip:jp-1)
+!    write(*,*)'leving getspdata: "',trim(splist(nosp)%id),'"  and "',&
+!         trim(splist(nosp)%stoichiometry),'" '
 1000 continue
     return
+2000 xmlerr=5000
+    goto 1000
   end subroutine getspdata
 
 !/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!
@@ -593,6 +609,13 @@ CONTAINS
        if(nc.gt.ncmax) ncmax=nc
        nconst(ll)=nc
     enddo sub
+! remove any trailing % (indicate major constituent in TC)
+    do ll=1,nsub
+       do jp=1,nconst(ll)
+          kp=index(constarray(ll,jp),'%')
+          if(kp.gt.0) constarray(ll,jp)(kp:)=' '
+       enddo
+    enddo
 ! store in constituent record
     allocate(phlist(noph)%nconst(1:nsub))
     allocate(phlist(noph)%constituents(1:nsub,1:ncmax))
@@ -642,15 +665,17 @@ CONTAINS
 
   subroutine getparam(line,ip)
 ! extract line with function with possible interval
-    character line*(*),charray*(5),haha*256
+    character line*(*),charray*(5),haha*1000
     integer ip,jp,kp,ix,ll,curph,nc,degree,before
     double precision relval
 ! temporary storage for constituent array, tnc gives in each sublattice
-    character*24, dimension(9) :: constarray
-    integer tnc(9)
+    character*24, dimension(15) :: constarray
+    integer tnc(9),semicolon
 ! for storing parameters using Trange
     type(xmltdb_trange), pointer :: prange
     type(xmltdb_trange), target :: trange
+! keep track of number of elements, max 7
+    integer elements(7)
 ! save model parameter id, phase, constituents etc, ip is position after PARA..
 !    write(*,*)
 !    write(*,*)'In getparam: "',trim(line),'" ',ip
@@ -674,11 +699,12 @@ CONTAINS
        write(*,*)'Parameter with wrong or ambigious phase name'
        xmlerr=5000; goto 1000
     endif
+    palist(nopa)%phidx=curph
 ! crash if removed
 !    write(haha,10)trim(palist(nopa)%mpid),trim(palist(nopa)%phase),curph,&
 !    write(*,10)trim(palist(nopa)%mpid),trim(palist(nopa)%phase),curph,&
-    write(30,10)trim(palist(nopa)%mpid),trim(palist(nopa)%phase),curph,&
-         phlist(curph)%sublat,palist(nopa)%mpidx
+!    write(30,10)trim(palist(nopa)%mpid),trim(palist(nopa)%phase),curph,&
+!         phlist(curph)%sublat,palist(nopa)%mpidx
 10  format('Parameter MPID: "',a,'" and phase: "',a,'" ',3i3)
 ! increment ip to bypass , after phase name.  jp is beginning of const.name
     ip=ip+1
@@ -687,10 +713,11 @@ CONTAINS
     before=0
     constarray=' '
     degree=0
+    nc=0
 ! crash if removed
 !    write(haha,'(a,a,2i5)')'database: ',line(jp:jp+10),jp,ip
 !    write(*,'(a,a,2i5)')'database: ',line(jp:jp+10),jp,ip
-    write(30,'(a,a,2i5)')'database: ',line(jp:jp+10),jp,ip
+!    write(30,'(a,a,2i5)')'database: ',line(jp:jp+10),jp,ip
 !
 ! extract constituent array after position ip+1 (ip is at , or : after previous
     subl: do ll=1,phlist(curph)%sublat
@@ -699,6 +726,7 @@ CONTAINS
        eternal: do while(.TRUE.)
           call skip_to_first(charray,ix,line,ip)
 !+          write(*,'(a,3i3,a,a,a)')'Found :',ix,jp,ip,' "',line(jp:ip-1),'"'
+!          write(*,*)'We are here 5A',ix,nc
           select case(ix)
           case default
              write(*,*)' **** Error "',line(ip:ip),'"',ip,ix
@@ -737,59 +765,105 @@ CONTAINS
              tnc(ll)=nc
              exit eternal
           end select
+!          write(*,*)'We are here 5D',ix,nc
           ip=ip+1; jp=ip
 ! crash if removed
 !          write(haha,'(a,3i3,2x,a)')'Rest: ',ll,nc,tnc(ll),trim(line(ip:))
 !          write(*,'(a,3i3,2x,a)')'Rest: ',ll,nc,tnc(ll),trim(line(ip:))
-          write(30,'(a,3i3,2x,a)')'Rest: ',ll,nc,tnc(ll),trim(line(ip:))
+!          write(30,'(a,3i3,2x,a)')'Rest: ',ll,nc,tnc(ll),trim(line(ip:))
        enddo eternal
+!       write(*,*)'We are here 5T',ix,nc
        before=nc
     enddo subl
+!    write(*,*)'We are here 5Z',nc
 ! check
-!+    write(*,'(a,i3,2x,9i3)')'tnc: ',nc,tnc
-!+    write(*,'(a,5(2x,a))')'constarray: ',(trim(constarray(ix)),ix=1,nc)
+!    write(*,'(a,i3,2x,9i3)')'tnc: ',nc,tnc
+!    write(*,'(a,9(2x,a))')'constarray: ',(trim(constarray(ix)),ix=1,nc)
 ! We should check that the constituents exists as species!
-! save!
+! NOTE a * can be used to indicate that constituent irrelevant !!!
+! save
     palist(nopa)%constinsubl=tnc
     allocate(palist(nopa)%constarray(nc))
     palist(nopa)%constarray=constarray
     palist(nopa)%degree=degree
+! ignore ordering
+!    palist(nopa)%noofel=1
+!    goto 500
+!------------------------------------------------
+! check how many different elements in constarray
+!    write(*,*)'We are here 6A',nc
+    if(nc.eq.1) then
+       palist(nopa)%noofel=1
+    else
+       ix=0
+! max 7 differesnt species in the constituent array
+       elements=0
+       elim: do jp=1,nc
+! if the species already found the constarray(kp) is spaces
+!          write(*,*)'We are here 6B',jp
+          if(constarray(jp)(1:3).eq.'VA ') cycle elim
+          if(constarray(jp)(1:1).ne.' ') then
+! find the species index for this species, ignore VA
+             do kp=1,nosp
+                if(trim(constarray(jp)).eq.trim(splist(kp)%id)) then
+                   if(ix.gt.7) then
+                      write(*,*)'A parameter with more than 7 species!'
+                      xmlerr=5000
+                   endif
+!                   write(*,*)'We are here 6C',ix
+                   ix=ix+1; elements(ix)=kp
+                endif
+             enddo
+          endif
+! eliminate the same species in the rest of constarray
+!          write(*,*)'We are here 6D',ix
+          do kp=jp+1,nc
+             if(constarray(kp)(1:1).ne.' ') then
+                if(constarray(kp).eq.constarray(jp)) then
+                   constarray(kp)=' '
+                endif
+             endif
+          enddo
+       enddo elim
+       palist(nopa)%noofel=ix
+!       write(*,66)ix,(trim(constarray(jp)),jp=1,nc)
+66     format('Constituents: ',i2,10(2x,'"',a,'"'))
+    endif
+!------------------------------------------------
+!500 continue
+!    write(*,*)'We are here 6Z',jp
 ! skip spaces before tpfun, extract low_T and remove hashes ...
     call getrel(line,ip,relval)
     palist(nopa)%low_t=relval
 ! bibligraphic reference
-! skip high limit and search for "N"
+! skip high limit and search for " N " or " N!"
     jp=index(line(ip:),' N ')
     kp=index(line(ip:),'!')
+    if(kp.eq.0) then
+       write(*,*)'PARAMETER on line ',nl,' has no "!", struggling on ...'
+       kp=len_trim(line)
+    endif
+! there can be several ranges ...
+    semicolon=index(line(ip:),';')
     if(ip+kp-2.gt.ip+jp+2) then
        palist(nopa)%bibref=line(ip+jp+2:ip+kp-2)
     else
        palist(nopa)%bibref='NONE'
     endif
-!    write(*,*)'bibref: ',line(ip+jp+2:ip+kp-2)
+!    write(*,'(3a,2i5)')'bibref:"',line(ip+jp+2:ip+kp-2),"' ",kp,jp
+!    write(*,*)'line:  "',trim(line(ip:)),'"'
 ! remove bibref from function but not N
     line(ip+jp+3:)=' '
-! decode the actual expression use getfun
-! We must provide a name for the tpfun ...
-!    write(*,*)'tpfun: ',trim(line(ip:))
-!    palist(nopa)%tpfun=trim(line(ip:))
-    nullify(palist(nopa)%longfun)
-    palist(nopa)%tpfunindex=0
-!    goto 1000
-! maybe store tpfun as tpfun?
+! to decode the actual expression use getranges
 !    write(*,*)'Saving parameter expression using getranges'
     call getranges(line,ip,trange)
     if(xmlerr.ne.0) goto 1000
-!
-!    write(*,*)'list parameter as T-range'
-!    write(*,*)'first range: ',trange%high_t,trim(trange%expression)
-!
     palist(nopa)%trange=trange
 1000 continue
 !    write(*,*)'End parameter decoding',xmlerr
     return
   end subroutine getparam 
-
+!phidx
 !/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!
 
   subroutine getfun(line,ip)
@@ -872,9 +946,11 @@ CONTAINS
 ! extract function between pp and next ";"
 500 continue
     call skip_to_char(';',line,ip)
-    if(xmlerr.ne.0) goto 1000
-    if(ip-jp.gt.300) then
-       write(*,*)'TPfun expression longer than 300 character'
+    if(ip.le.0) then
+       write(*,'(a,2i7)')'Missing ; after FUNCTION or PARAMETER expression',&
+            ip,jp
+       write(*,*)'Line starting with: "',line(1:50),'"'
+       write(*,*)'and end with:       "',line(max(1,jp-50):jp),'"'
        xmlerr=5000; goto 1000
     endif
 !    write(*,*)'Saving: ',trim(prange%expression),ip
@@ -919,9 +995,43 @@ CONTAINS
 
   subroutine getbiblio(line,ip)
 ! extract line with function with possible interval
-    character line*(*),hash*1
-    integer ip,jp,phash,ih,kp
-    write(*,*)'Biblio not implemented yet'
+    character line*(*), bibref*24
+    integer ip,jp,kp
+!    write(*,*)'Biblio not implemented yet'
+    ip=1
+!    write(*,*)trim(line(ip:))
+! LIST_OF_REFERENCES NUMBER SOURCEbibref 'reference' bibref2 'referece' ...
+    ip=index(line,' SOURCE')
+    if(ip.le.0) then
+       xmlerr=5000; goto 1000
+    endif
+! All reference in one line with no spaces in between
+    ip=ip+7
+    do while(.TRUE.)
+!       write(*,*)trim(line(ip:)),ip
+       if(eolch(line,ip)) goto 1000
+       if(line(ip:ip).eq.'!') goto 1000
+       jp=ip
+       kp=index(line(ip:),"'")
+       if(kp.le.0) then
+          xmlerr=5000; goto 1000
+       endif
+       bibref=line(jp:jp+kp-2)
+       ip=jp+kp+1
+       kp=index(line(ip:),"'")
+       if(kp.le.0) then
+          xmlerr=5000; goto 1000
+       endif
+! save biblio
+       nobib=nobib+1
+       bibliolist(nobib)%id=bibref
+       bibliolist(nobib)%text=line(ip-1:ip+kp-2)
+! update position on line for next reference
+       ip=ip+kp
+    enddo
+!
+1000 continue
+    return
     return
   end subroutine getbiblio
 
@@ -950,6 +1060,8 @@ CONTAINS
     type(xmltdb_trange), target :: trange
     type(xmltdb_trange), pointer :: prange
     type(xmltdb_typedefs), pointer :: typedef
+    type(xmltdb_bibliography), pointer :: bibitem
+    integer parsel,nosel,totsel
 !
     nnw=7; jsign=0
 !
@@ -982,6 +1094,11 @@ CONTAINS
             '" S298="',1pe14.6,'" />')
     enddo
 ! species
+    do ni=1,nosp
+! in the furure species may have amendments due to MQMQA or uniquac
+       write(out,200)trim(splist(ni)%id),trim(splist(ni)%stoichiometry)
+200    format('  <Species id="',a,'" stoichiometry="',a,'" />')
+    enddo
 ! functions
     do ni=1,notp
        ip=1
@@ -1061,10 +1178,23 @@ CONTAINS
     enddo
 !
 ! all parameters, they should optionally be separated as unaries etc
+    parsel=1
+    write(out,510)
+510 format('  <Unaries>')
+    totsel=0
+500 continue
+    nosel=0
     paloop: do ni=1,nopa
        line=' '
+! if parsel>0 select parameter with parsel=palist(ni)%noofel
 ! reconstruct the constituentarray from items
-       line=' <Parameter id="'; ip=len_trim(line)+1
+       if(palist(ni)%noofel.lt.0) cycle paloop
+       if(parsel.gt.0 .and. parsel.ne.palist(ni)%noofel) cycle paloop
+! list a parameter only once
+       palist(ni)%noofel=-palist(ni)%noofel
+       nosel=nosel+1
+!
+       line='   <Parameter id="'; ip=len_trim(line)+1
        line(ip:)=palist(ni)%mpid; ip=len_trim(line)+1
        line(ip:)='('//palist(ni)%phase; ip=len_trim(line)+1
        ll=1; nc=0
@@ -1097,24 +1227,63 @@ CONTAINS
        trange=palist(ni)%trange
        ip=1
        call wrinum(dummy,ip,nnw,jsign,trange%high_t)
-       write(out,310)dummy(1:ip-1),trim(trange%expression)
+       write(out,520)dummy(1:ip-1),trim(trange%expression)
        prange=>trange%next
        do while(associated(prange))
           ip=1
           call wrinum(dummy,ip,nnw,jsign,prange%high_t)
-          write(out,310)dummy(1:ip-1),trim(prange%expression)
-!310       format('    <Trange High_T="',a,'" > ',a,' />')
+          write(out,520)dummy(1:ip-1),trim(prange%expression)
+520       format('      <Trange High_T="',a,'" > ',a,' />')
           prange=>prange%next
        enddo
-       write(out,590)
-590    format('  </Parameter>')
+       write(out,550)
+550    format('    </Parameter>')
     enddo paloop
+    parsel=parsel+1
+    totsel=totsel+nosel
+    repeat: if(parsel.eq.2) then
+!       write(*,*)'Listed unary parameters: ',nosel
+       write(out,552)
+552    format('  </Unaries>'/'  <Binaries>')
+       goto 500
+    elseif(parsel.eq.3) then
+!       write(*,*)'Listed binary parameters: ',nosel,totsel
+       if(totsel.eq.nopa) then
+          write(out,553)
+553       format('  </Binaries>')
+          exit repeat
+       else
+          write(out,554)
+554       format('  </Binaries>'/'  <Higher>')
+          parsel=-100
+          goto 500
+       endif
+    else
+       write(*,*)'Listed higher order parameters: ',nosel
+       write(out,556)
+556    format('  </Higher>')
+    endif repeat
+590 continue
 !
 ! unary parameters
 ! binary parameters ordered by system
 ! ternary parameters ordered by system
 ! higher order parameters
-! model information and anything else?    
+! model information
+! Bibliography
+    if(nobib.eq.0) then
+       write(*,*)'No bibliographic references'
+    else
+       write(*,*)'The bibliography'
+       write(out,900)
+900    format('  <Bibliography>')
+       do ni=1,nobib
+          write(out,910)trim(bibliolist(ni)%id),trim(bibliolist(ni)%text)
+910       format('    <Bibitem ID="',a,'" > ',a,' />')
+       enddo
+       write(out,911)
+911    format('  </Bibliography>')
+    endif
     write(out,90)
 90  format('</Database>')
 !
@@ -1187,7 +1356,7 @@ end subroutine getitem
       kt=ks+index(text(ks:),' ')-1
 ! the abbreviation of the keyword must be at least 3 character, max kwl
       if(kt-ks.lt.3 .or. kt-ks.ge.kwl) then
-         write(*,*)'3E too long keyword: "',trim(text),'"',kt-ks,kwl
+!         write(*,*)'3E too long keyword: "',trim(text),'"',kt-ks,kwl
          j=0; goto 1000
       endif
    endif
