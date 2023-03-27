@@ -91,7 +91,7 @@ program xmlupload
        status='unknown',err=2200)
 !  
   write(*,*)'Writing output on file: XMLTDB-file.XTD'
-  call write_xmltdb(luta)
+  call write_xmltdb(luta,tdbfile)
   if(xmlerr.ne.0) goto 2300
   close(luta)
 !
