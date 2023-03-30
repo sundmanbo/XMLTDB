@@ -615,99 +615,99 @@
   </TPfun>
   <Phase id="LIQUID" Configurational_model="CEF" >
     <Sublattices number_of="1"  Ratios="1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="C" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="1" id="N" />
-      </Constituent sublattice="1" id="NB" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="1" id="SI" />
-      </Constituent sublattice="1" id="TI" />
-      </Constituent sublattice="1" id="V" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="C" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="1" id="N" />
+      <Constituent sublattice="1" id="NB" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="1" id="SI" />
+      <Constituent sublattice="1" id="TI" />
+      <Constituent sublattice="1" id="V" />
     </Sublattices>
     <AMEND MODEL="LIQUID_PHASE            " />
   </Phase>
   <Phase id="FCC_A1" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="1" id="NB" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="1" id="SI" />
-      </Constituent sublattice="1" id="TI" />
-      </Constituent sublattice="1" id="V" />
-      </Constituent sublattice="2" id="C" />
-      </Constituent sublattice="2" id="N" />
-      </Constituent sublattice="2" id="VA" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="1" id="NB" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="1" id="SI" />
+      <Constituent sublattice="1" id="TI" />
+      <Constituent sublattice="1" id="V" />
+      <Constituent sublattice="2" id="C" />
+      <Constituent sublattice="2" id="N" />
+      <Constituent sublattice="2" id="VA" />
     </Sublattices>
     <AMEND MODEL="GES AMEND_PHASE_DESCRIPTION @ MAGNETIC -3 0.28 !" />
   </Phase>
   <Phase id="A1_FCC" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="1" id="NB" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="1" id="SI" />
-      </Constituent sublattice="1" id="TI" />
-      </Constituent sublattice="1" id="V" />
-      </Constituent sublattice="2" id="C" />
-      </Constituent sublattice="2" id="N" />
-      </Constituent sublattice="2" id="VA" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="1" id="NB" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="1" id="SI" />
+      <Constituent sublattice="1" id="TI" />
+      <Constituent sublattice="1" id="V" />
+      <Constituent sublattice="2" id="C" />
+      <Constituent sublattice="2" id="N" />
+      <Constituent sublattice="2" id="VA" />
     </Sublattices>
     <AMEND MODEL="GES AMEND_PHASE_DESCRIPTION @ MAGNETIC -3 0.28 !" />
   </Phase>
   <Phase id="FCC_4SL" Configurational_model="CEF" >
     <Sublattices number_of="5"  Ratios="0.25  0.25  0.25  0.25  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="1" id="NB" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="1" id="SI" />
-      </Constituent sublattice="1" id="TI" />
-      </Constituent sublattice="1" id="V" />
-      </Constituent sublattice="2" id="AL" />
-      </Constituent sublattice="2" id="CR" />
-      </Constituent sublattice="2" id="FE" />
-      </Constituent sublattice="2" id="MN" />
-      </Constituent sublattice="2" id="NB" />
-      </Constituent sublattice="2" id="NI" />
-      </Constituent sublattice="2" id="SI" />
-      </Constituent sublattice="2" id="TI" />
-      </Constituent sublattice="2" id="V" />
-      </Constituent sublattice="3" id="AL" />
-      </Constituent sublattice="3" id="CR" />
-      </Constituent sublattice="3" id="FE" />
-      </Constituent sublattice="3" id="MN" />
-      </Constituent sublattice="3" id="NB" />
-      </Constituent sublattice="3" id="NI" />
-      </Constituent sublattice="3" id="SI" />
-      </Constituent sublattice="3" id="TI" />
-      </Constituent sublattice="3" id="V" />
-      </Constituent sublattice="4" id="AL" />
-      </Constituent sublattice="4" id="CR" />
-      </Constituent sublattice="4" id="FE" />
-      </Constituent sublattice="4" id="MN" />
-      </Constituent sublattice="4" id="NB" />
-      </Constituent sublattice="4" id="NI" />
-      </Constituent sublattice="4" id="SI" />
-      </Constituent sublattice="4" id="TI" />
-      </Constituent sublattice="4" id="V" />
-      </Constituent sublattice="5" id="C" />
-      </Constituent sublattice="5" id="N" />
-      </Constituent sublattice="5" id="VA" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="1" id="NB" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="1" id="SI" />
+      <Constituent sublattice="1" id="TI" />
+      <Constituent sublattice="1" id="V" />
+      <Constituent sublattice="2" id="AL" />
+      <Constituent sublattice="2" id="CR" />
+      <Constituent sublattice="2" id="FE" />
+      <Constituent sublattice="2" id="MN" />
+      <Constituent sublattice="2" id="NB" />
+      <Constituent sublattice="2" id="NI" />
+      <Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="2" id="TI" />
+      <Constituent sublattice="2" id="V" />
+      <Constituent sublattice="3" id="AL" />
+      <Constituent sublattice="3" id="CR" />
+      <Constituent sublattice="3" id="FE" />
+      <Constituent sublattice="3" id="MN" />
+      <Constituent sublattice="3" id="NB" />
+      <Constituent sublattice="3" id="NI" />
+      <Constituent sublattice="3" id="SI" />
+      <Constituent sublattice="3" id="TI" />
+      <Constituent sublattice="3" id="V" />
+      <Constituent sublattice="4" id="AL" />
+      <Constituent sublattice="4" id="CR" />
+      <Constituent sublattice="4" id="FE" />
+      <Constituent sublattice="4" id="MN" />
+      <Constituent sublattice="4" id="NB" />
+      <Constituent sublattice="4" id="NI" />
+      <Constituent sublattice="4" id="SI" />
+      <Constituent sublattice="4" id="TI" />
+      <Constituent sublattice="4" id="V" />
+      <Constituent sublattice="5" id="C" />
+      <Constituent sublattice="5" id="N" />
+      <Constituent sublattice="5" id="VA" />
     </Sublattices>
     <AMEND MODEL="GES AMEND_PHASE_DESCRIPTION @ MAGNETIC -3 0.28 !" />
     <AMEND MODEL="GES AMEND_PHASE_DESCRIPTION FCC_4SL DIS_PART A1_FCC !" />
@@ -715,1241 +715,1241 @@
   </Phase>
   <Phase id="BCC_A2" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  3" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="1" id="NB" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="1" id="SI" />
-      </Constituent sublattice="1" id="TI" />
-      </Constituent sublattice="1" id="V" />
-      </Constituent sublattice="2" id="C" />
-      </Constituent sublattice="2" id="N" />
-      </Constituent sublattice="2" id="VA" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="1" id="NB" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="1" id="SI" />
+      <Constituent sublattice="1" id="TI" />
+      <Constituent sublattice="1" id="V" />
+      <Constituent sublattice="2" id="C" />
+      <Constituent sublattice="2" id="N" />
+      <Constituent sublattice="2" id="VA" />
     </Sublattices>
     <AMEND MODEL="GES AMEND_PHASE_DESCRIPTION @ MAGNETIC -1 0.4 !" />
   </Phase>
   <Phase id="A2_BCC" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  3" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="1" id="NB" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="1" id="SI" />
-      </Constituent sublattice="1" id="TI" />
-      </Constituent sublattice="1" id="V" />
-      </Constituent sublattice="1" id="VA" />
-      </Constituent sublattice="2" id="C" />
-      </Constituent sublattice="2" id="N" />
-      </Constituent sublattice="2" id="VA" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="1" id="NB" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="1" id="SI" />
+      <Constituent sublattice="1" id="TI" />
+      <Constituent sublattice="1" id="V" />
+      <Constituent sublattice="1" id="VA" />
+      <Constituent sublattice="2" id="C" />
+      <Constituent sublattice="2" id="N" />
+      <Constituent sublattice="2" id="VA" />
     </Sublattices>
     <AMEND MODEL="GES AMEND_PHASE_DESCRIPTION @ MAGNETIC -1 0.4 !" />
   </Phase>
   <Phase id="B2_BCC" Configurational_model="CEF" >
     <Sublattices number_of="3"  Ratios="0.5  0.5  3" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="1" id="NB" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="1" id="SI" />
-      </Constituent sublattice="1" id="TI" />
-      </Constituent sublattice="1" id="V" />
-      </Constituent sublattice="1" id="VA" />
-      </Constituent sublattice="2" id="AL" />
-      </Constituent sublattice="2" id="CR" />
-      </Constituent sublattice="2" id="FE" />
-      </Constituent sublattice="2" id="MN" />
-      </Constituent sublattice="2" id="NB" />
-      </Constituent sublattice="2" id="NI" />
-      </Constituent sublattice="2" id="SI" />
-      </Constituent sublattice="2" id="TI" />
-      </Constituent sublattice="2" id="V" />
-      </Constituent sublattice="2" id="VA" />
-      </Constituent sublattice="3" id="C" />
-      </Constituent sublattice="3" id="N" />
-      </Constituent sublattice="3" id="VA" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="1" id="NB" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="1" id="SI" />
+      <Constituent sublattice="1" id="TI" />
+      <Constituent sublattice="1" id="V" />
+      <Constituent sublattice="1" id="VA" />
+      <Constituent sublattice="2" id="AL" />
+      <Constituent sublattice="2" id="CR" />
+      <Constituent sublattice="2" id="FE" />
+      <Constituent sublattice="2" id="MN" />
+      <Constituent sublattice="2" id="NB" />
+      <Constituent sublattice="2" id="NI" />
+      <Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="2" id="TI" />
+      <Constituent sublattice="2" id="V" />
+      <Constituent sublattice="2" id="VA" />
+      <Constituent sublattice="3" id="C" />
+      <Constituent sublattice="3" id="N" />
+      <Constituent sublattice="3" id="VA" />
     </Sublattices>
     <AMEND MODEL="GES AMEND_PHASE_DESCRIPTION @ MAGNETIC -1 0.4 !" />
     <AMEND MODEL="GES AMEND_PHASE_DESCRIPTION B2_BCC DIS_PART A2_BCC !" />
   </Phase>
   <Phase id="HCP_A3" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  0.5" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="1" id="NB" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="1" id="SI" />
-      </Constituent sublattice="1" id="TI" />
-      </Constituent sublattice="1" id="V" />
-      </Constituent sublattice="2" id="C" />
-      </Constituent sublattice="2" id="N" />
-      </Constituent sublattice="2" id="VA" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="1" id="NB" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="1" id="SI" />
+      <Constituent sublattice="1" id="TI" />
+      <Constituent sublattice="1" id="V" />
+      <Constituent sublattice="2" id="C" />
+      <Constituent sublattice="2" id="N" />
+      <Constituent sublattice="2" id="VA" />
     </Sublattices>
     <AMEND MODEL="GES AMEND_PHASE_DESCRIPTION @ MAGNETIC -3 0.28 !" />
   </Phase>
   <Phase id="CBCC_A12" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="1" id="NB" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="1" id="SI" />
-      </Constituent sublattice="1" id="TI" />
-      </Constituent sublattice="1" id="V" />
-      </Constituent sublattice="2" id="C" />
-      </Constituent sublattice="2" id="N" />
-      </Constituent sublattice="2" id="VA" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="1" id="NB" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="1" id="SI" />
+      <Constituent sublattice="1" id="TI" />
+      <Constituent sublattice="1" id="V" />
+      <Constituent sublattice="2" id="C" />
+      <Constituent sublattice="2" id="N" />
+      <Constituent sublattice="2" id="VA" />
     </Sublattices>
     <AMEND MODEL="GES AMEND_PHASE_DESCRIPTION @ MAGNETIC -3 0.28 !" />
   </Phase>
   <Phase id="CUB_A13" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="1" id="NB" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="1" id="SI" />
-      </Constituent sublattice="1" id="TI" />
-      </Constituent sublattice="1" id="V" />
-      </Constituent sublattice="2" id="C" />
-      </Constituent sublattice="2" id="N" />
-      </Constituent sublattice="2" id="VA" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="1" id="NB" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="1" id="SI" />
+      <Constituent sublattice="1" id="TI" />
+      <Constituent sublattice="1" id="V" />
+      <Constituent sublattice="2" id="C" />
+      <Constituent sublattice="2" id="N" />
+      <Constituent sublattice="2" id="VA" />
     </Sublattices>
   </Phase>
   <Phase id="DIAMOND_A4" Configurational_model="CEF" >
     <Sublattices number_of="1"  Ratios="1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="C" />
-      </Constituent sublattice="1" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="C" />
+      <Constituent sublattice="1" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="GRAPHITE_A9" Configurational_model="CEF" >
     <Sublattices number_of="1"  Ratios="1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="C" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="C" />
     </Sublattices>
   </Phase>
   <Phase id="AL4C3_D71" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="4  3" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="C" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="C" />
     </Sublattices>
   </Phase>
   <Phase id="AL5CO2_D811" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="5  2" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="FE" />
-      </Constituent sublattice="2" id="NI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="FE" />
+      <Constituent sublattice="2" id="NI" />
     </Sublattices>
   </Phase>
   <Phase id="AL13CR2" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="13  2" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="CR" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="CR" />
     </Sublattices>
   </Phase>
   <Phase id="AL11CR2" Configurational_model="CEF" >
     <Sublattices number_of="3"  Ratios="10  1  2" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="AL" />
-      </Constituent sublattice="3" id="CR" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="AL" />
+      <Constituent sublattice="3" id="CR" />
     </Sublattices>
   </Phase>
   <Phase id="AL4CR" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="4  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="CR" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="CR" />
     </Sublattices>
   </Phase>
   <Phase id="AL9CR4_H" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="9  4" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="CR" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="CR" />
     </Sublattices>
   </Phase>
   <Phase id="AL9CR4_L" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="9  4" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="CR" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="CR" />
     </Sublattices>
   </Phase>
   <Phase id="AL8CR5_D82" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="8  5" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="CR" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="CR" />
     </Sublattices>
   </Phase>
   <Phase id="AL8CR5_D810" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="8  5" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="CR" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="CR" />
     </Sublattices>
   </Phase>
   <Phase id="ALCR2_C11B" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  2" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="CR" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="CR" />
     </Sublattices>
   </Phase>
   <Phase id="AL13FE4" Configurational_model="CEF" >
     <Sublattices number_of="3"  Ratios="0.6275  0.235  0.1375" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="FE" />
-      </Constituent sublattice="2" id="MN" />
-      </Constituent sublattice="2" id="NI" />
-      </Constituent sublattice="3" id="AL" />
-      </Constituent sublattice="3" id="VA" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="FE" />
+      <Constituent sublattice="2" id="MN" />
+      <Constituent sublattice="2" id="NI" />
+      <Constituent sublattice="3" id="AL" />
+      <Constituent sublattice="3" id="VA" />
     </Sublattices>
   </Phase>
   <Phase id="AL5FE2" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="5  2" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="FE" />
-      </Constituent sublattice="2" id="NI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="FE" />
+      <Constituent sublattice="2" id="NI" />
     </Sublattices>
   </Phase>
   <Phase id="AL2FE" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="2  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="FE" />
-      </Constituent sublattice="2" id="NI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="FE" />
+      <Constituent sublattice="2" id="NI" />
     </Sublattices>
   </Phase>
   <Phase id="AL8FE5_D82" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="8  5" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="2" id="AL" />
-      </Constituent sublattice="2" id="FE" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="2" id="AL" />
+      <Constituent sublattice="2" id="FE" />
     </Sublattices>
   </Phase>
   <Phase id="AL71FE5NI24" Configurational_model="CEF" >
     <Sublattices number_of="3"  Ratios="0.71  .05  0.24" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="FE" />
-      </Constituent sublattice="3" id="NI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="FE" />
+      <Constituent sublattice="3" id="NI" />
     </Sublattices>
   </Phase>
   <Phase id="AL12MN" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="12  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="MN" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="MN" />
     </Sublattices>
   </Phase>
   <Phase id="AL6MN_D2H" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="6  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="FE" />
-      </Constituent sublattice="2" id="MN" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="FE" />
+      <Constituent sublattice="2" id="MN" />
     </Sublattices>
   </Phase>
   <Phase id="AL4MN_LAMBDA" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="0.81162  0.18838" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="MN" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="MN" />
     </Sublattices>
   </Phase>
   <Phase id="AL4MN_MU" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="4  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="FE" />
-      </Constituent sublattice="2" id="MN" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="FE" />
+      <Constituent sublattice="2" id="MN" />
     </Sublattices>
   </Phase>
   <Phase id="AL11MN4_LT" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="11  4" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="MN" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="MN" />
     </Sublattices>
   </Phase>
   <Phase id="AL11MN4_HT" Configurational_model="CEF" >
     <Sublattices number_of="3"  Ratios="9  2  2" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="AL" />
-      </Constituent sublattice="2" id="MN" />
-      </Constituent sublattice="3" id="MN" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="AL" />
+      <Constituent sublattice="2" id="MN" />
+      <Constituent sublattice="3" id="MN" />
     </Sublattices>
   </Phase>
   <Phase id="AL8MN5_D810" Configurational_model="CEF" >
     <Sublattices number_of="3"  Ratios="12  5  9" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="MN" />
-      </Constituent sublattice="3" id="AL" />
-      </Constituent sublattice="3" id="FE" />
-      </Constituent sublattice="3" id="MN" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="MN" />
+      <Constituent sublattice="3" id="AL" />
+      <Constituent sublattice="3" id="FE" />
+      <Constituent sublattice="3" id="MN" />
     </Sublattices>
   </Phase>
   <Phase id="ALN_B4" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="N" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="N" />
     </Sublattices>
   </Phase>
   <Phase id="AL3M_D022" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="3  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="NB" />
-      </Constituent sublattice="1" id="TI" />
-      </Constituent sublattice="2" id="AL" />
-      </Constituent sublattice="2" id="NB" />
-      </Constituent sublattice="2" id="TI" />
-      </Constituent sublattice="2" id="V" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="NB" />
+      <Constituent sublattice="1" id="TI" />
+      <Constituent sublattice="2" id="AL" />
+      <Constituent sublattice="2" id="NB" />
+      <Constituent sublattice="2" id="TI" />
+      <Constituent sublattice="2" id="V" />
     </Sublattices>
   </Phase>
   <Phase id="ALNB3_A15" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  3" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="NB" />
-      </Constituent sublattice="2" id="AL" />
-      </Constituent sublattice="2" id="NB" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="NB" />
+      <Constituent sublattice="2" id="AL" />
+      <Constituent sublattice="2" id="NB" />
     </Sublattices>
   </Phase>
   <Phase id="AL3NI_D011" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="0.75  0.25" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="FE" />
-      </Constituent sublattice="2" id="NI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="FE" />
+      <Constituent sublattice="2" id="NI" />
     </Sublattices>
   </Phase>
   <Phase id="AL3NI2_D513" Configurational_model="CEF" >
     <Sublattices number_of="3"  Ratios="3  2  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="AL" />
-      </Constituent sublattice="2" id="FE" />
-      </Constituent sublattice="2" id="NI" />
-      </Constituent sublattice="3" id="NI" />
-      </Constituent sublattice="3" id="VA" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="AL" />
+      <Constituent sublattice="2" id="FE" />
+      <Constituent sublattice="2" id="NI" />
+      <Constituent sublattice="3" id="NI" />
+      <Constituent sublattice="3" id="VA" />
     </Sublattices>
   </Phase>
   <Phase id="AL4NI3" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="4  3" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="NI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="NI" />
     </Sublattices>
   </Phase>
   <Phase id="AL3NI5" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="0.375  0.625" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="NI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="NI" />
     </Sublattices>
   </Phase>
   <Phase id="AL3TI_LT" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="3  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="TI" />
-      </Constituent sublattice="2" id="AL" />
-      </Constituent sublattice="2" id="TI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="TI" />
+      <Constituent sublattice="2" id="AL" />
+      <Constituent sublattice="2" id="TI" />
     </Sublattices>
   </Phase>
   <Phase id="AL5TI2" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="5  2" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="TI" />
-      </Constituent sublattice="2" id="AL" />
-      </Constituent sublattice="2" id="TI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="TI" />
+      <Constituent sublattice="2" id="AL" />
+      <Constituent sublattice="2" id="TI" />
     </Sublattices>
   </Phase>
   <Phase id="AL2TI" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="2  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="TI" />
-      </Constituent sublattice="2" id="AL" />
-      </Constituent sublattice="2" id="TI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="TI" />
+      <Constituent sublattice="2" id="AL" />
+      <Constituent sublattice="2" id="TI" />
     </Sublattices>
   </Phase>
   <Phase id="AL5TI3" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="5  3" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="TI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="TI" />
     </Sublattices>
   </Phase>
   <Phase id="ALTI_L10" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="TI" />
-      </Constituent sublattice="2" id="AL" />
-      </Constituent sublattice="2" id="TI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="TI" />
+      <Constituent sublattice="2" id="AL" />
+      <Constituent sublattice="2" id="TI" />
     </Sublattices>
   </Phase>
   <Phase id="ALTI3_D019" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  3" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="TI" />
-      </Constituent sublattice="2" id="AL" />
-      </Constituent sublattice="2" id="TI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="TI" />
+      <Constituent sublattice="2" id="AL" />
+      <Constituent sublattice="2" id="TI" />
     </Sublattices>
   </Phase>
   <Phase id="AL21V2" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="21  2" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="V" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="V" />
     </Sublattices>
   </Phase>
   <Phase id="AL45V7" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="45  7" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="V" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="V" />
     </Sublattices>
   </Phase>
   <Phase id="AL23V4" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="23  4" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="V" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="V" />
     </Sublattices>
   </Phase>
   <Phase id="AL8V5_D82" Configurational_model="CEF" >
     <Sublattices number_of="4"  Ratios="6  2  3  2" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="AL" />
-      </Constituent sublattice="2" id="V" />
-      </Constituent sublattice="3" id="AL" />
-      </Constituent sublattice="3" id="V" />
-      </Constituent sublattice="4" id="V" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="AL" />
+      <Constituent sublattice="2" id="V" />
+      <Constituent sublattice="3" id="AL" />
+      <Constituent sublattice="3" id="V" />
+      <Constituent sublattice="4" id="V" />
     </Sublattices>
   </Phase>
   <Phase id="CEMENTITE_D011" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="3  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="1" id="NB" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="1" id="V" />
-      </Constituent sublattice="2" id="C" />
-      </Constituent sublattice="2" id="N" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="1" id="NB" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="1" id="V" />
+      <Constituent sublattice="2" id="C" />
+      <Constituent sublattice="2" id="N" />
     </Sublattices>
     <AMEND MODEL="GES AMEND_PHASE_DESCRIPTION @ MAGNETIC -3 0.28 !" />
   </Phase>
   <Phase id="CR3C2_D510" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="3  2" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="1" id="V" />
-      </Constituent sublattice="2" id="C" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="V" />
+      <Constituent sublattice="2" id="C" />
     </Sublattices>
   </Phase>
   <Phase id="CR3MN5" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="3  5" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="2" id="MN" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="2" id="MN" />
     </Sublattices>
   </Phase>
   <Phase id="CRNI2_C11B" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  2" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="2" id="NI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="2" id="NI" />
     </Sublattices>
   </Phase>
   <Phase id="CR3NI5SI2" Configurational_model="CEF" >
     <Sublattices number_of="3"  Ratios="3  5  2" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="2" id="NI" />
-      </Constituent sublattice="3" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="2" id="NI" />
+      <Constituent sublattice="3" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="CR5NI5SI3" Configurational_model="CEF" >
     <Sublattices number_of="3"  Ratios="5  5  3" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="2" id="NI" />
-      </Constituent sublattice="3" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="2" id="NI" />
+      <Constituent sublattice="3" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="CR3SI_A15" Configurational_model="CEF" >
     <Sublattices number_of="3"  Ratios="3  1  3" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="1" id="SI" />
-      </Constituent sublattice="2" id="CR" />
-      </Constituent sublattice="2" id="SI" />
-      </Constituent sublattice="3" id="C" />
-      </Constituent sublattice="3" id="VA" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="1" id="SI" />
+      <Constituent sublattice="2" id="CR" />
+      <Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="3" id="C" />
+      <Constituent sublattice="3" id="VA" />
     </Sublattices>
   </Phase>
   <Phase id="CR5SI3_D8M" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="5  3" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="2" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="CRSI2_C40" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  2" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="1" id="SI" />
-      </Constituent sublattice="2" id="CR" />
-      </Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="SI" />
+      <Constituent sublattice="2" id="CR" />
+      <Constituent sublattice="2" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="CR2VC2" Configurational_model="CEF" >
     <Sublattices number_of="3"  Ratios="2  1  2" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="2" id="V" />
-      </Constituent sublattice="3" id="C" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="2" id="V" />
+      <Constituent sublattice="3" id="C" />
     </Sublattices>
   </Phase>
   <Phase id="FECN_CHI" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="5  2" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="2" id="C" />
-      </Constituent sublattice="2" id="N" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="2" id="C" />
+      <Constituent sublattice="2" id="N" />
     </Sublattices>
   </Phase>
   <Phase id="FE4N_L1" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="4  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="2" id="C" />
-      </Constituent sublattice="2" id="N" />
-      </Constituent sublattice="2" id="VA" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="2" id="C" />
+      <Constituent sublattice="2" id="N" />
+      <Constituent sublattice="2" id="VA" />
     </Sublattices>
   </Phase>
   <Phase id="FENBSI2" Configurational_model="CEF" >
     <Sublattices number_of="3"  Ratios="1  1  2" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="2" id="NB" />
-      </Constituent sublattice="3" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="2" id="NB" />
+      <Constituent sublattice="3" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="FE4NB4SI7" Configurational_model="CEF" >
     <Sublattices number_of="3"  Ratios="4  4  7" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="2" id="NB" />
-      </Constituent sublattice="3" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="2" id="NB" />
+      <Constituent sublattice="3" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="FENBSI1" Configurational_model="CEF" >
     <Sublattices number_of="3"  Ratios="1  1  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="2" id="NB" />
-      </Constituent sublattice="3" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="2" id="NB" />
+      <Constituent sublattice="3" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="FENB2SI2" Configurational_model="CEF" >
     <Sublattices number_of="3"  Ratios="1  2  2" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="2" id="NB" />
-      </Constituent sublattice="3" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="2" id="NB" />
+      <Constituent sublattice="3" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="FE3NB4SI5" Configurational_model="CEF" >
     <Sublattices number_of="3"  Ratios="3  4  5" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="2" id="NB" />
-      </Constituent sublattice="3" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="2" id="NB" />
+      <Constituent sublattice="3" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="FENB4SI" Configurational_model="CEF" >
     <Sublattices number_of="3"  Ratios="1  4  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="2" id="NB" />
-      </Constituent sublattice="3" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="2" id="NB" />
+      <Constituent sublattice="3" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="FE2SI" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="2  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="2" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="FESI2_H" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="0.3  0.7" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="2" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="FESI2_L" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  2" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="2" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="FE8SI2C" Configurational_model="CEF" >
     <Sublattices number_of="3"  Ratios="8  2  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="2" id="SI" />
-      </Constituent sublattice="3" id="C" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="3" id="C" />
     </Sublattices>
   </Phase>
   <Phase id="FETI_B2" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="2" id="TI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="2" id="TI" />
     </Sublattices>
   </Phase>
   <Phase id="FE2TI_C14" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="2  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="1" id="TI" />
-      </Constituent sublattice="2" id="FE" />
-      </Constituent sublattice="2" id="MN" />
-      </Constituent sublattice="2" id="TI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="1" id="TI" />
+      <Constituent sublattice="2" id="FE" />
+      <Constituent sublattice="2" id="MN" />
+      <Constituent sublattice="2" id="TI" />
     </Sublattices>
   </Phase>
   <Phase id="KAPPA_E21" Configurational_model="CEF" >
     <Sublattices number_of="3"  Ratios="1  3  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="2" id="AL" />
-      </Constituent sublattice="2" id="FE" />
-      </Constituent sublattice="2" id="MN" />
-      </Constituent sublattice="2" id="NI" />
-      </Constituent sublattice="3" id="C" />
-      </Constituent sublattice="3" id="VA" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="2" id="AL" />
+      <Constituent sublattice="2" id="FE" />
+      <Constituent sublattice="2" id="MN" />
+      <Constituent sublattice="2" id="NI" />
+      <Constituent sublattice="3" id="C" />
+      <Constituent sublattice="3" id="VA" />
     </Sublattices>
   </Phase>
   <Phase id="C14_LAVES" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="2  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="1" id="NB" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="1" id="SI" />
-      </Constituent sublattice="1" id="TI" />
-      </Constituent sublattice="1" id="V" />
-      </Constituent sublattice="2" id="CR" />
-      </Constituent sublattice="2" id="FE" />
-      </Constituent sublattice="2" id="MN" />
-      </Constituent sublattice="2" id="NB" />
-      </Constituent sublattice="2" id="NI" />
-      </Constituent sublattice="2" id="SI" />
-      </Constituent sublattice="2" id="TI" />
-      </Constituent sublattice="2" id="V" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="1" id="NB" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="1" id="SI" />
+      <Constituent sublattice="1" id="TI" />
+      <Constituent sublattice="1" id="V" />
+      <Constituent sublattice="2" id="CR" />
+      <Constituent sublattice="2" id="FE" />
+      <Constituent sublattice="2" id="MN" />
+      <Constituent sublattice="2" id="NB" />
+      <Constituent sublattice="2" id="NI" />
+      <Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="2" id="TI" />
+      <Constituent sublattice="2" id="V" />
     </Sublattices>
   </Phase>
   <Phase id="C15_LAVES" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="2  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="1" id="NB" />
-      </Constituent sublattice="1" id="SI" />
-      </Constituent sublattice="1" id="TI" />
-      </Constituent sublattice="2" id="CR" />
-      </Constituent sublattice="2" id="FE" />
-      </Constituent sublattice="2" id="NB" />
-      </Constituent sublattice="2" id="SI" />
-      </Constituent sublattice="2" id="TI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="1" id="NB" />
+      <Constituent sublattice="1" id="SI" />
+      <Constituent sublattice="1" id="TI" />
+      <Constituent sublattice="2" id="CR" />
+      <Constituent sublattice="2" id="FE" />
+      <Constituent sublattice="2" id="NB" />
+      <Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="2" id="TI" />
     </Sublattices>
   </Phase>
   <Phase id="C36_LAVES" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="2  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="1" id="TI" />
-      </Constituent sublattice="2" id="CR" />
-      </Constituent sublattice="2" id="NI" />
-      </Constituent sublattice="2" id="TI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="1" id="TI" />
+      <Constituent sublattice="2" id="CR" />
+      <Constituent sublattice="2" id="NI" />
+      <Constituent sublattice="2" id="TI" />
     </Sublattices>
   </Phase>
   <Phase id="M5C2" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="5  2" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="1" id="NB" />
-      </Constituent sublattice="1" id="V" />
-      </Constituent sublattice="2" id="AL" />
-      </Constituent sublattice="2" id="C" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="1" id="NB" />
+      <Constituent sublattice="1" id="V" />
+      <Constituent sublattice="2" id="AL" />
+      <Constituent sublattice="2" id="C" />
     </Sublattices>
   </Phase>
   <Phase id="M7C3_D101" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="7  3" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="1" id="NB" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="1" id="V" />
-      </Constituent sublattice="2" id="C" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="1" id="NB" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="1" id="V" />
+      <Constituent sublattice="2" id="C" />
     </Sublattices>
   </Phase>
   <Phase id="M23C6_D84" Configurational_model="CEF" >
     <Sublattices number_of="3"  Ratios="20  3  6" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="1" id="V" />
-      </Constituent sublattice="2" id="CR" />
-      </Constituent sublattice="2" id="FE" />
-      </Constituent sublattice="2" id="MN" />
-      </Constituent sublattice="2" id="NB" />
-      </Constituent sublattice="2" id="NI" />
-      </Constituent sublattice="2" id="V" />
-      </Constituent sublattice="3" id="C" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="1" id="V" />
+      <Constituent sublattice="2" id="CR" />
+      <Constituent sublattice="2" id="FE" />
+      <Constituent sublattice="2" id="MN" />
+      <Constituent sublattice="2" id="NB" />
+      <Constituent sublattice="2" id="NI" />
+      <Constituent sublattice="2" id="V" />
+      <Constituent sublattice="3" id="C" />
     </Sublattices>
   </Phase>
   <Phase id="MSI_B20" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="2" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="M4SI3" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="4  3" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="2" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="M5SI3_D88" Configurational_model="CEF" >
     <Sublattices number_of="3"  Ratios="5  3  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="2" id="SI" />
-      </Constituent sublattice="3" id="C" />
-      </Constituent sublattice="3" id="VA" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="3" id="C" />
+      <Constituent sublattice="3" id="VA" />
     </Sublattices>
   </Phase>
   <Phase id="MAX_PHASE" Configurational_model="CEF" >
     <Sublattices number_of="3"  Ratios="2  1  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="2" id="AL" />
-      </Constituent sublattice="3" id="C" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="2" id="AL" />
+      <Constituent sublattice="3" id="C" />
     </Sublattices>
   </Phase>
   <Phase id="MN3N2" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="3  2" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="2" id="N" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="2" id="N" />
     </Sublattices>
   </Phase>
   <Phase id="MN6N5" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="6  5" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="2" id="N" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="2" id="N" />
     </Sublattices>
   </Phase>
   <Phase id="MN6SI" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="17  3" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="2" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="MN9SI2" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="33  7" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="2" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="MN3SI" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="3  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="2" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="MN11SI19" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="11  19" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="2" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="MN4TI" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="0.815  0.185" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="2" id="TI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="2" id="TI" />
     </Sublattices>
   </Phase>
   <Phase id="MN3TI" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="3  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="2" id="TI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="2" id="TI" />
     </Sublattices>
   </Phase>
   <Phase id="MNTI_ALPHA" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="2" id="TI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="2" id="TI" />
     </Sublattices>
   </Phase>
   <Phase id="MNTI_BETA" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="0.515  0.485" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="2" id="TI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="2" id="TI" />
     </Sublattices>
   </Phase>
   <Phase id="MU_D85" Configurational_model="CEF" >
     <Sublattices number_of="4"  Ratios="1  4  2  6" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="1" id="NB" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="1" id="SI" />
-      </Constituent sublattice="1" id="V" />
-      </Constituent sublattice="2" id="NB" />
-      </Constituent sublattice="2" id="TI" />
-      </Constituent sublattice="3" id="CR" />
-      </Constituent sublattice="3" id="FE" />
-      </Constituent sublattice="3" id="NB" />
-      </Constituent sublattice="3" id="NI" />
-      </Constituent sublattice="3" id="SI" />
-      </Constituent sublattice="3" id="TI" />
-      </Constituent sublattice="3" id="V" />
-      </Constituent sublattice="4" id="CR" />
-      </Constituent sublattice="4" id="FE" />
-      </Constituent sublattice="4" id="MN" />
-      </Constituent sublattice="4" id="NB" />
-      </Constituent sublattice="4" id="NI" />
-      </Constituent sublattice="4" id="SI" />
-      </Constituent sublattice="4" id="V" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="1" id="NB" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="1" id="SI" />
+      <Constituent sublattice="1" id="V" />
+      <Constituent sublattice="2" id="NB" />
+      <Constituent sublattice="2" id="TI" />
+      <Constituent sublattice="3" id="CR" />
+      <Constituent sublattice="3" id="FE" />
+      <Constituent sublattice="3" id="NB" />
+      <Constituent sublattice="3" id="NI" />
+      <Constituent sublattice="3" id="SI" />
+      <Constituent sublattice="3" id="TI" />
+      <Constituent sublattice="3" id="V" />
+      <Constituent sublattice="4" id="CR" />
+      <Constituent sublattice="4" id="FE" />
+      <Constituent sublattice="4" id="MN" />
+      <Constituent sublattice="4" id="NB" />
+      <Constituent sublattice="4" id="NI" />
+      <Constituent sublattice="4" id="SI" />
+      <Constituent sublattice="4" id="V" />
     </Sublattices>
   </Phase>
   <Phase id="NBNI8" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  8" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="NB" />
-      </Constituent sublattice="2" id="NI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="NB" />
+      <Constituent sublattice="2" id="NI" />
     </Sublattices>
   </Phase>
   <Phase id="NBNI3_D0A" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  3" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="NB" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="2" id="NB" />
-      </Constituent sublattice="2" id="NI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="NB" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="2" id="NB" />
+      <Constituent sublattice="2" id="NI" />
     </Sublattices>
   </Phase>
   <Phase id="NB3SI" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="3  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="NB" />
-      </Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="NB" />
+      <Constituent sublattice="2" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="NB5SI3_D8L" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="5  3" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="NB" />
-      </Constituent sublattice="1" id="SI" />
-      </Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="NB" />
+      <Constituent sublattice="1" id="SI" />
+      <Constituent sublattice="2" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="NB5SI3_D8M" Configurational_model="CEF" >
     <Sublattices number_of="3"  Ratios="4  1  3" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="NB" />
-      </Constituent sublattice="2" id="NB" />
-      </Constituent sublattice="2" id="SI" />
-      </Constituent sublattice="3" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="NB" />
+      <Constituent sublattice="2" id="NB" />
+      <Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="3" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="NBSI2_C40" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  2" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="NB" />
-      </Constituent sublattice="1" id="SI" />
-      </Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="NB" />
+      <Constituent sublattice="1" id="SI" />
+      <Constituent sublattice="2" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="NI3SI_M" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="3  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="2" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="NI3SI_H" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="3  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="2" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="NI5SI2" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="5  2" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="2" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="NI2SI_C37" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="2  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="2" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="NI2SI_THETA" Configurational_model="CEF" >
     <Sublattices number_of="3"  Ratios="1  1  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="2" id="NI" />
-      </Constituent sublattice="2" id="VA" />
-      </Constituent sublattice="3" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="2" id="NI" />
+      <Constituent sublattice="2" id="VA" />
+      <Constituent sublattice="3" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="NI3SI2" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="3  2" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="2" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="NISI_B31" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="2" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="NISI2_C1" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  2" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="2" id="SI" />
     </Sublattices>
   </Phase>
   <Phase id="NI3TI_D024" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="0.75  0.25" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="2" id="NI" />
-      </Constituent sublattice="2" id="TI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="2" id="NI" />
+      <Constituent sublattice="2" id="TI" />
     </Sublattices>
   </Phase>
   <Phase id="NITI2" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  2" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="1" id="TI" />
-      </Constituent sublattice="2" id="NI" />
-      </Constituent sublattice="2" id="TI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="1" id="TI" />
+      <Constituent sublattice="2" id="NI" />
+      <Constituent sublattice="2" id="TI" />
     </Sublattices>
   </Phase>
   <Phase id="NI3V_D022" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="3  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="2" id="V" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="2" id="V" />
     </Sublattices>
   </Phase>
   <Phase id="NI2V1" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="2  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="2" id="V" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="2" id="V" />
     </Sublattices>
   </Phase>
   <Phase id="NI2V7_A15" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="2  7" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="2" id="V" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="2" id="V" />
     </Sublattices>
   </Phase>
   <Phase id="OMEGA_C32" Configurational_model="CEF" >
     <Sublattices number_of="1"  Ratios="1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="NB" />
-      </Constituent sublattice="1" id="TI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="NB" />
+      <Constituent sublattice="1" id="TI" />
     </Sublattices>
   </Phase>
   <Phase id="PI_CRFENIN" Configurational_model="CEF" >
     <Sublattices number_of="3"  Ratios="12.8  7.2  4" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="CR" />
-      </Constituent sublattice="2" id="FE" />
-      </Constituent sublattice="3" id="N" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="2" id="FE" />
+      <Constituent sublattice="3" id="N" />
     </Sublattices>
   </Phase>
   <Phase id="SIC_B3" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="SI" />
-      </Constituent sublattice="2" id="C" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="SI" />
+      <Constituent sublattice="2" id="C" />
     </Sublattices>
   </Phase>
   <Phase id="SIGMA_D8B" Configurational_model="CEF" >
     <Sublattices number_of="3"  Ratios="10  4  16" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="1" id="NB" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="1" id="V" />
-      </Constituent sublattice="2" id="CR" />
-      </Constituent sublattice="2" id="NB" />
-      </Constituent sublattice="2" id="TI" />
-      </Constituent sublattice="2" id="V" />
-      </Constituent sublattice="3" id="AL" />
-      </Constituent sublattice="3" id="CR" />
-      </Constituent sublattice="3" id="FE" />
-      </Constituent sublattice="3" id="MN" />
-      </Constituent sublattice="3" id="NB" />
-      </Constituent sublattice="3" id="NI" />
-      </Constituent sublattice="3" id="SI" />
-      </Constituent sublattice="3" id="TI" />
-      </Constituent sublattice="3" id="V" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="1" id="NB" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="1" id="V" />
+      <Constituent sublattice="2" id="CR" />
+      <Constituent sublattice="2" id="NB" />
+      <Constituent sublattice="2" id="TI" />
+      <Constituent sublattice="2" id="V" />
+      <Constituent sublattice="3" id="AL" />
+      <Constituent sublattice="3" id="CR" />
+      <Constituent sublattice="3" id="FE" />
+      <Constituent sublattice="3" id="MN" />
+      <Constituent sublattice="3" id="NB" />
+      <Constituent sublattice="3" id="NI" />
+      <Constituent sublattice="3" id="SI" />
+      <Constituent sublattice="3" id="TI" />
+      <Constituent sublattice="3" id="V" />
     </Sublattices>
   </Phase>
   <Phase id="HIGH_SIGMA" Configurational_model="CEF" >
     <Sublattices number_of="3"  Ratios="10  4  16" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="1" id="V" />
-      </Constituent sublattice="2" id="CR" />
-      </Constituent sublattice="2" id="NB" />
-      </Constituent sublattice="2" id="V" />
-      </Constituent sublattice="3" id="AL" />
-      </Constituent sublattice="3" id="CR" />
-      </Constituent sublattice="3" id="FE" />
-      </Constituent sublattice="3" id="MN" />
-      </Constituent sublattice="3" id="NB" />
-      </Constituent sublattice="3" id="NI" />
-      </Constituent sublattice="3" id="SI" />
-      </Constituent sublattice="3" id="V" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="1" id="V" />
+      <Constituent sublattice="2" id="CR" />
+      <Constituent sublattice="2" id="NB" />
+      <Constituent sublattice="2" id="V" />
+      <Constituent sublattice="3" id="AL" />
+      <Constituent sublattice="3" id="CR" />
+      <Constituent sublattice="3" id="FE" />
+      <Constituent sublattice="3" id="MN" />
+      <Constituent sublattice="3" id="NB" />
+      <Constituent sublattice="3" id="NI" />
+      <Constituent sublattice="3" id="SI" />
+      <Constituent sublattice="3" id="V" />
     </Sublattices>
   </Phase>
   <Phase id="SI3N4" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="3  4" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="SI" />
-      </Constituent sublattice="2" id="N" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="SI" />
+      <Constituent sublattice="2" id="N" />
     </Sublattices>
   </Phase>
   <Phase id="SI2TI_C54" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="2  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="SI" />
-      </Constituent sublattice="2" id="TI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="SI" />
+      <Constituent sublattice="2" id="TI" />
     </Sublattices>
   </Phase>
   <Phase id="SITI_B27" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="SI" />
-      </Constituent sublattice="2" id="TI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="SI" />
+      <Constituent sublattice="2" id="TI" />
     </Sublattices>
   </Phase>
   <Phase id="SI4TI5" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="4  5" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="SI" />
-      </Constituent sublattice="2" id="TI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="SI" />
+      <Constituent sublattice="2" id="TI" />
     </Sublattices>
   </Phase>
   <Phase id="SI3TI5_D88" Configurational_model="CEF" >
     <Sublattices number_of="3"  Ratios="2  3  3" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="SI" />
-      </Constituent sublattice="1" id="TI" />
-      </Constituent sublattice="2" id="SI" />
-      </Constituent sublattice="2" id="TI" />
-      </Constituent sublattice="3" id="TI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="SI" />
+      <Constituent sublattice="1" id="TI" />
+      <Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="2" id="TI" />
+      <Constituent sublattice="3" id="TI" />
     </Sublattices>
   </Phase>
   <Phase id="SITI3" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  3" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="SI" />
-      </Constituent sublattice="2" id="TI" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="SI" />
+      <Constituent sublattice="2" id="TI" />
     </Sublattices>
   </Phase>
   <Phase id="SI2V_C40" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="2  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="SI" />
-      </Constituent sublattice="2" id="V" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="SI" />
+      <Constituent sublattice="2" id="V" />
     </Sublattices>
   </Phase>
   <Phase id="SI3V5_D8M" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="3  5" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="SI" />
-      </Constituent sublattice="2" id="V" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="SI" />
+      <Constituent sublattice="2" id="V" />
     </Sublattices>
   </Phase>
   <Phase id="SI5V6" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="5  6" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="SI" />
-      </Constituent sublattice="2" id="V" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="SI" />
+      <Constituent sublattice="2" id="V" />
     </Sublattices>
   </Phase>
   <Phase id="SIV3_A15" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  3" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="SI" />
-      </Constituent sublattice="1" id="V" />
-      </Constituent sublattice="2" id="SI" />
-      </Constituent sublattice="2" id="V" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="SI" />
+      <Constituent sublattice="1" id="V" />
+      <Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="2" id="V" />
     </Sublattices>
   </Phase>
   <Phase id="TI2N_C4" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="2  1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="TI" />
-      </Constituent sublattice="1" id="V" />
-      </Constituent sublattice="2" id="C" />
-      </Constituent sublattice="2" id="N" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="TI" />
+      <Constituent sublattice="1" id="V" />
+      <Constituent sublattice="2" id="C" />
+      <Constituent sublattice="2" id="N" />
     </Sublattices>
   </Phase>
   <Phase id="TI3N2" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="0.71  0.29" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="TI" />
-      </Constituent sublattice="2" id="N" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="TI" />
+      <Constituent sublattice="2" id="N" />
     </Sublattices>
   </Phase>
   <Phase id="TI4N3" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="0.685  0.315" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="TI" />
-      </Constituent sublattice="2" id="N" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="TI" />
+      <Constituent sublattice="2" id="N" />
     </Sublattices>
   </Phase>
   <Phase id="V3C2" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="3  2" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="1" id="V" />
-      </Constituent sublattice="2" id="C" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="1" id="V" />
+      <Constituent sublattice="2" id="C" />
     </Sublattices>
   </Phase>
   <Phase id="N2GAS" Configurational_model="CEF" >
     <Sublattices number_of="1"  Ratios="1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="N2" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="N2" />
     </Sublattices>
   </Phase>
   <Phase id="GAS" Configurational_model="CEF" >
     <Sublattices number_of="1"  Ratios="1" >
-      </Constituent sublattice="1" id="" />
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="AL2" />
-      </Constituent sublattice="1" id="ALN" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="1" id="FE2" />
-      </Constituent sublattice="1" id="MN" />
-      </Constituent sublattice="1" id="N" />
-      </Constituent sublattice="1" id="N2" />
-      </Constituent sublattice="1" id="N3" />
-      </Constituent sublattice="1" id="SI" />
-      </Constituent sublattice="1" id="SI2" />
-      </Constituent sublattice="1" id="SI3" />
-      </Constituent sublattice="1" id="SIN" />
-      </Constituent sublattice="1" id="SI2N" />
+      <Constituent sublattice="1" id="" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="AL2" />
+      <Constituent sublattice="1" id="ALN" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="1" id="FE2" />
+      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="1" id="N" />
+      <Constituent sublattice="1" id="N2" />
+      <Constituent sublattice="1" id="N3" />
+      <Constituent sublattice="1" id="SI" />
+      <Constituent sublattice="1" id="SI2" />
+      <Constituent sublattice="1" id="SI3" />
+      <Constituent sublattice="1" id="SIN" />
+      <Constituent sublattice="1" id="SI2N" />
     </Sublattices>
     <AMEND MODEL="GAS_PHASE               " />
   </Phase>

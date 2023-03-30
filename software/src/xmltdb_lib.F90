@@ -185,7 +185,13 @@ MODULE XMLTDB_LIB
   integer noel,nosp,noph,nopa,notp,nomod,nompid,nobib,notype,nl
   type(xmltdb_typedefs), target :: type_def_list
   type(xmltdb_typedefs), pointer :: new_type_def
-! to check phases are OK
+! TDB file software
+  character (len=12), dimension(8) :: software
+  data software&
+       /'Thermo-Calc ','OpenCalphad ','Pandat      ','MatCalc    ',&
+        'PyCalphad   ','            ','            ','            '/
+!
+! to check phases are OK (ambiguietty etc)
   character*24, dimension(:), allocatable :: phasenames
 !  
 !------- TDB KEYWORDS
@@ -766,21 +772,14 @@ CONTAINS
 !    write(*,'(a,a,2i5)')'database: ',line(jp:jp+20),jp,ip
 !    write(30,'(a,a,2i5)')'database: ',line(jp:jp+10),jp,ip
 !
-    if(phlist(curph)%configmodel(1:5).eq.'I2SL ') then
-! FOR the I2SL phase the TC format has just a single sublattice for neutrals
-       write(*,*)'Warning: I2SL model is special for neutrals!'
-    endif
 ! extract constituent array after position ip+1 (ip is at , or : after previous
     subl: do ll=1,phlist(curph)%sublat
-! do not zero nc, they are all sequentially in constarray
-!       nc=0
+! all constituent sequentially in constarray, tnc(ll) how many in each subl
        eternal: do while(.TRUE.)
           call skip_to_first(charray,ix,line,ip)
-!+          write(*,'(a,3i3,a,a,a)')'Found :',ix,jp,ip,' "',line(jp:ip-1),'"'
-!          write(*,*)'We are here 5A',ix,nc
           select case(ix)
           case default
-             write(*,*)' **** Error "',line(ip:ip),'"',ip,ix
+             write(*,*)' **** Error "',line(ip:ip),'"',ip,ix,ll,nc
              goto 1000
 ! a space cannot termiate a constituent, skip spaces and continue
 ! how to handle things  surrounded by spaces such as " ( FE , NI : Va ; 3 )
@@ -799,14 +798,19 @@ CONTAINS
 !             write(*,'(a,3i4,2x,a)')'New subl: ',ll,nc,tnc(ll),trim(line(ip:))
              exit eternal
 !             cycle subl
-! a ; indicate end of array, can be followed by a degree
+! a ; indicate end of array, can be followed by a degree ;2) or ;0) or ;) ...
           case(3) 
              nc=nc+1
              constarray(nc)=line(jp:ip-1)
-             degree=ichar(line(ip+1:ip+1))-ichar('0')
+             if(line(ip+1:ip+1).ne.')') then
+                degree=ichar(line(ip+1:ip+1))-ichar('0')
+             else
+                degree=0
+             endif
+! bypass degree and final )
              ip=ip+3
              tnc(ll)=nc-before
-             exit eternal
+             exit subl
           case(4) 
 ! ) indicate end of array, no degree
              if(nc.gt.4) goto 1000
@@ -814,19 +818,32 @@ CONTAINS
              constarray(nc)=line(jp:ip-1)
              ip=ip+1; jp=ip
              tnc(ll)=nc
-             exit eternal
+             exit subl
           end select
-!          write(*,*)'We are here 5D',ix,nc
           ip=ip+1; jp=ip
-! crash if removed
-!          write(haha,'(a,3i3,2x,a)')'Rest: ',ll,nc,tnc(ll),trim(line(ip:))
-!          write(*,'(a,3i3,2x,a)')'Rest: ',ll,nc,tnc(ll),trim(line(ip:))
-!          write(30,'(a,3i3,2x,a)')'Rest: ',ll,nc,tnc(ll),trim(line(ip:))
        enddo eternal
-!       write(*,*)'We are here 5T',ix,nc
        before=nc
     enddo subl
-!    write(*,*)'We are here 5Z',nc
+    if(ll.ne.phlist(curph)%sublat) then
+       if(phlist(curph)%configmodel(1:5).eq.'I2SL ') then
+! FOR the I2SL phase the TC format has just a single sublattice for neutrals
+          write(*,76)(trim(constarray(ix)),ix=1,9)
+76        format('*** A ionic liquid parameter with a single sublattice,'/&
+                 '*** constituents assumed to be neutrals: ',9(1x,a))
+! this is OK if the constituents are neutrals, complicated to check       
+! adopt OC syntax inside XMLTDB using * in first sublattice
+! shift all neutral to second sublattice and add * in first
+          do ix=nc+1,2,-1
+             constarray(ix)=constarray(ix-1)
+          enddo
+          tnc(2)=nc
+          tnc(1)=1
+          constarray(1)='*'
+       else
+          write(*,77)trim(phlist(curph)%name),ll
+77        format(' *** A sublattice has no constituent for phase: ',a,i2)
+       endif
+    endif
 ! check
 !    write(*,'(a,i3,2x,9i3)')'tnc: ',nc,tnc
 !    write(*,'(a,9(2x,a))')'constarray: ',(trim(constarray(ix)),ix=1,nc)
@@ -1231,7 +1248,7 @@ CONTAINS
        do tr=1,phlist(ni)%sublat
           do jp=1,phlist(ni)%nconst(tr)
              write(out,420)tr,trim(phlist(ni)%constituents(tr,jp))
-420          format('      </Constituent sublattice="',i1,'" id="',a,'" />')
+420          format('      <Constituent sublattice="',i1,'" id="',a,'" />')
           enddo
        enddo
        write(out,422)

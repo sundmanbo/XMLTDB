@@ -2,7 +2,9 @@
 <?xml-model href="database.rng" schematypens="http://relaxng.org/ns/structure/1.0" type="application/xml"?>
 <Database version="0">
   <metadata>
-    <writer>xmltdbproject test</writer>
+    <writer>xmltdbproject test
+       TDBfile="C:\Users\bosun\Documents\OC\projects\XML\software\up-down-load\examples\FeNi-fcc-magn.TDB"
+    </writer>
   </metadata>
   <Element id="FE" refstate="BCC_A2" mass="  5.584700E+01" H298="  4.489000E+03" S298="  2.728000E+01" />
   <Element id="/-" refstate="ELECTRON_GAS" mass="  0.000000E+00" H298="  0.000000E+00" S298="  0.000000E+00" />
@@ -70,13 +72,13 @@
   </TPfun>
   <Phase id="FCC_A1" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  1" >
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="1" id="NI" />
-      </Constituent sublattice="2" id="VA" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="1" id="NI" />
+      <Constituent sublattice="2" id="VA" />
     </Sublattices>
     <AMEND MODEL="GES A_P_D FCC_A1 MAGNETIC   0.0    0.25000E+00 F !" />
   </Phase>
-  <Unaries>
+  <Unary-parameters >
     <Parameter id="G(FCC_A1,FE:VA;0)"   Low_T="298.15"  Bibref="REF0" > 
       <Trange High_T="6000" > +GHFCCFE; />
     </Parameter>
@@ -101,8 +103,8 @@
     <Parameter id="BMAG(FCC_A1,NI:VA;0)"   Low_T="298.15"  Bibref="REF0" > 
       <Trange High_T="6000" > +.52; />
     </Parameter>
-  </Unaries>
-  <Binaries>
+  </Unary-parameters>
+  <Binary-parameters>
     <Parameter id="TC(FCC_A1,FE,NI:VA;0)"   Low_T="298.15"  Bibref="REF0" > 
       <Trange High_T="6000" > +2.27064276E+03; />
     </Parameter>
@@ -130,5 +132,5 @@
     <Parameter id="G(FCC_A1,FE,NI:VA;0)"   Low_T="298.15"  Bibref="REF0" > 
       <Trange High_T="6000" > +0; />
     </Parameter>
-  </Binaries>
+  </Binary-parameters>
 </Database>

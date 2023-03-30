@@ -2,7 +2,9 @@
 <?xml-model href="database.rng" schematypens="http://relaxng.org/ns/structure/1.0" type="application/xml"?>
 <Database version="0">
   <metadata>
-    <writer>xmltdbproject test</writer>
+    <writer>xmltdbproject test
+       TDBfile="C:\Users\bosun\Documents\OC\projects\XML\software\up-down-load\examples\alzn_mey.tdb"
+    </writer>
   </metadata>
   <Element id="/-" refstate="ELECTRON_GAS" mass="  0.000000E+00" H298="  0.000000E+00" S298="  0.000000E+00" />
   <Element id="VA" refstate="VACUUM" mass="  0.000000E+00" H298="  0.000000E+00" S298="  0.000000E+00" />
@@ -37,23 +39,23 @@
   </TPfun>
   <Phase id="LIQUID" Configurational_model="CEF" >
     <Sublattices number_of="1"  Ratios="1" >
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="ZN" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="ZN" />
     </Sublattices>
   </Phase>
   <Phase id="FCC_A1" Configurational_model="CEF" >
     <Sublattices number_of="1"  Ratios="1" >
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="ZN" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="ZN" />
     </Sublattices>
   </Phase>
   <Phase id="HCP_A3" Configurational_model="CEF" >
     <Sublattices number_of="1"  Ratios="1" >
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="ZN" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="ZN" />
     </Sublattices>
   </Phase>
-  <Unaries>
+  <Unary-parameters >
     <Parameter id="G(LIQUID,AL;0)"   Low_T="298.15"  Bibref="NONE" > 
       <Trange High_T="2900" > +GALLIQ; />
     </Parameter>
@@ -72,8 +74,8 @@
     <Parameter id="G(HCP_A3,ZN;0)"   Low_T="298.15"  Bibref="NONE" > 
       <Trange High_T="1700" > +GHSERZN; />
     </Parameter>
-  </Unaries>
-  <Binaries>
+  </Unary-parameters>
+  <Binary-parameters>
     <Parameter id="G(LIQUID,AL,ZN;0)"   Low_T="298.15"  Bibref="NONE" > 
       <Trange High_T="6000" > +10465.5-3.39259*T; />
     </Parameter>
@@ -92,5 +94,5 @@
     <Parameter id="G(HCP_A3,AL,ZN;3)"   Low_T="298.15"  Bibref="NONE" > 
       <Trange High_T="6000" > -702.8; />
     </Parameter>
-  </Binaries>
+  </Binary-parameters>
 </Database>

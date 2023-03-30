@@ -2,7 +2,9 @@
 <?xml-model href="database.rng" schematypens="http://relaxng.org/ns/structure/1.0" type="application/xml"?>
 <Database version="0">
   <metadata>
-    <writer>xmltdbproject test</writer>
+    <writer>xmltdbproject test
+       TDBfile="C:\Users\bosun\Documents\OC\projects\XML\software\up-down-load\examples\AlFe-4SLBF.TDB"
+    </writer>
   </metadata>
   <Element id="/-" refstate="ELECTRON_GAS" mass="  0.000000E+00" H298="  0.000000E+00" S298="  0.000000E+00" />
   <Element id="VA" refstate="VACUUM" mass="  0.000000E+00" H298="  0.000000E+00" S298="  0.000000E+00" />
@@ -97,66 +99,66 @@
   </TPfun>
   <Phase id="LIQUID" Configurational_model="CEF" >
     <Sublattices number_of="1"  Ratios="1" >
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="FE" />
     </Sublattices>
     <AMEND MODEL="LIQUID_PHASE            " />
   </Phase>
   <Phase id="A1_FCC" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  1" >
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="2" id="VA" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="2" id="VA" />
     </Sublattices>
     <AMEND MODEL="GES A_P_D @ MAGNETIC  -3.0    2.80000E-01 !" />
   </Phase>
   <Phase id="A2_BCC" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  3" >
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="2" id="VA" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="2" id="VA" />
     </Sublattices>
     <AMEND MODEL="GES A_P_D @ MAGNETIC  -1.0    4.00000E-01 !" />
   </Phase>
   <Phase id="AL13FE4" Configurational_model="CEF" >
     <Sublattices number_of="3"  Ratios="0.6275  0.235  0.1375" >
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="FE" />
-      </Constituent sublattice="3" id="AL" />
-      </Constituent sublattice="3" id="VA" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="FE" />
+      <Constituent sublattice="3" id="AL" />
+      <Constituent sublattice="3" id="VA" />
     </Sublattices>
   </Phase>
   <Phase id="AL2FE" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="2  1" >
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="FE" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="FE" />
     </Sublattices>
   </Phase>
   <Phase id="AL5FE2" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="5  2" >
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="2" id="FE" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="2" id="FE" />
     </Sublattices>
   </Phase>
   <Phase id="AL8FE5_D82" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="8  5" >
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="2" id="AL" />
-      </Constituent sublattice="2" id="FE" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="2" id="AL" />
+      <Constituent sublattice="2" id="FE" />
     </Sublattices>
   </Phase>
   <Phase id="BCC_4SL" Configurational_model="CEF" >
     <Sublattices number_of="5"  Ratios="0.25  0.25  0.25  0.25  3" >
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="2" id="AL" />
-      </Constituent sublattice="2" id="FE" />
-      </Constituent sublattice="3" id="AL" />
-      </Constituent sublattice="3" id="FE" />
-      </Constituent sublattice="4" id="AL" />
-      </Constituent sublattice="4" id="FE" />
-      </Constituent sublattice="5" id="VA" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="2" id="AL" />
+      <Constituent sublattice="2" id="FE" />
+      <Constituent sublattice="3" id="AL" />
+      <Constituent sublattice="3" id="FE" />
+      <Constituent sublattice="4" id="AL" />
+      <Constituent sublattice="4" id="FE" />
+      <Constituent sublattice="5" id="VA" />
     </Sublattices>
     <AMEND MODEL="GES A_P_D @ MAGNETIC  -1.0    4.00000E-01 !" />
     <AMEND MODEL="GES AMEND_PHASE_DESCRIPTION BCC_4SL DIS_PART A2_BCC,,,!" />
@@ -164,49 +166,49 @@
   </Phase>
   <Phase id="FCC_4SL" Configurational_model="CEF" >
     <Sublattices number_of="5"  Ratios="0.25  0.25  0.25  0.25  1" >
-      </Constituent sublattice="1" id="AL" />
-      </Constituent sublattice="1" id="FE" />
-      </Constituent sublattice="2" id="AL" />
-      </Constituent sublattice="2" id="FE" />
-      </Constituent sublattice="3" id="AL" />
-      </Constituent sublattice="3" id="FE" />
-      </Constituent sublattice="4" id="AL" />
-      </Constituent sublattice="4" id="FE" />
-      </Constituent sublattice="5" id="VA" />
+      <Constituent sublattice="1" id="AL" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="2" id="AL" />
+      <Constituent sublattice="2" id="FE" />
+      <Constituent sublattice="3" id="AL" />
+      <Constituent sublattice="3" id="FE" />
+      <Constituent sublattice="4" id="AL" />
+      <Constituent sublattice="4" id="FE" />
+      <Constituent sublattice="5" id="VA" />
     </Sublattices>
     <AMEND MODEL="GES A_P_D @ MAGNETIC  -3.0    2.80000E-01 !" />
     <AMEND MODEL="GES AMEND_PHASE_DESCRIPTION FCC_4SL DIS_PART A1_FCC,,,!" />
     <AMEND MODEL="FCC_PERMUTATIONS        " />
   </Phase>
-  <Unaries>
+  <Unary-parameters >
     <Parameter id="G(LIQUID,AL;0)"   Low_T="298.15"  Bibref="91Din" > 
       <Trange High_T="6000" > +GALLIQ; />
     </Parameter>
     <Parameter id="G(LIQUID,FE;0)"   Low_T="298.15"  Bibref="91Din" > 
       <Trange High_T="6000" > +GFELIQ; />
     </Parameter>
-    <Parameter id="G(A1_FCC,AL:VA;0)"   Low_T="298.15"  Bibref="  91Din" > 
+    <Parameter id="G(A1_FCC,AL:VA;0)"   Low_T="298.15"  Bibref="91Din" > 
       <Trange High_T="6000" > +GHSERAL; />
     </Parameter>
-    <Parameter id="G(A1_FCC,FE:VA;0)"   Low_T="298.15"  Bibref="  91Din" > 
+    <Parameter id="G(A1_FCC,FE:VA;0)"   Low_T="298.15"  Bibref="91Din" > 
       <Trange High_T="6000" > +GFEFCC; />
     </Parameter>
     <Parameter id="TC(A1_FCC,FE:VA;0)"   Low_T="298.15"  Bibref="91Din" > 
       <Trange High_T="6000" > -201; />
     </Parameter>
-    <Parameter id="BMAGN(A1_FCC,FE:VA;0)"   Low_T="298.15"  Bibref="  91Din" > 
+    <Parameter id="BMAGN(A1_FCC,FE:VA;0)"   Low_T="298.15"  Bibref="91Din" > 
       <Trange High_T="6000" > -2.1; />
     </Parameter>
     <Parameter id="G(A2_BCC,AL:VA;0)"   Low_T="298.15"  Bibref="91Din" > 
       <Trange High_T="2900" > +GALBCC; />
     </Parameter>
-    <Parameter id="G(A2_BCC,FE:VA;0)"   Low_T="298.15"  Bibref="  91Din" > 
+    <Parameter id="G(A2_BCC,FE:VA;0)"   Low_T="298.15"  Bibref="91Din" > 
       <Trange High_T="6000" > +GHSERFE; />
     </Parameter>
     <Parameter id="TC(A2_BCC,FE:VA;0)"   Low_T="298.15"  Bibref="91Din" > 
       <Trange High_T="6000" > 1043; />
     </Parameter>
-    <Parameter id="BMAGN(A2_BCC,FE:VA;0)"   Low_T="298.15"  Bibref="  91Din" > 
+    <Parameter id="BMAGN(A2_BCC,FE:VA;0)"   Low_T="298.15"  Bibref="91Din" > 
       <Trange High_T="6000" > 2.22; />
     </Parameter>
     <Parameter id="G(AL8FE5_D82,AL:AL;0)"   Low_T="298.15"  Bibref="08Sun" > 
@@ -221,36 +223,36 @@
     <Parameter id="G(FCC_4SL,FE:FE:FE:FE:VA;0)"   Low_T="298.15"  Bibref="08Con" > 
       <Trange High_T="6000" > +ZERO; />
     </Parameter>
-  </Unaries>
-  <Binaries>
+  </Unary-parameters>
+  <Binary-parameters>
     <Parameter id="G(LIQUID,AL,FE;0)"   Low_T="298.15"  Bibref="08Sun" > 
       <Trange High_T="6000" > -88090+19.8*T; />
     </Parameter>
-    <Parameter id="G(LIQUID,AL,FE;1)"   Low_T="298.15"  Bibref="  08Sun" > 
+    <Parameter id="G(LIQUID,AL,FE;1)"   Low_T="298.15"  Bibref="08Sun" > 
       <Trange High_T="6000" > -3800+3*T; />
     </Parameter>
     <Parameter id="G(LIQUID,AL,FE;2)"   Low_T="298.15"  Bibref="08Sun" > 
       <Trange High_T="6000" > -2000; />
     </Parameter>
-    <Parameter id="G(A1_FCC,AL,FE:VA;0)"   Low_T="298.15"  Bibref="  08Sun" > 
+    <Parameter id="G(A1_FCC,AL,FE:VA;0)"   Low_T="298.15"  Bibref="08Sun" > 
       <Trange High_T="6000" > +LFALFE0; />
     </Parameter>
-    <Parameter id="G(A1_FCC,AL,FE:VA;1)"   Low_T="298.15"  Bibref="  08Sun" > 
+    <Parameter id="G(A1_FCC,AL,FE:VA;1)"   Low_T="298.15"  Bibref="08Sun" > 
       <Trange High_T="6000" > +LFALFE1; />
     </Parameter>
-    <Parameter id="G(A1_FCC,AL,FE:VA;2)"   Low_T="298.15"  Bibref="  08Sun" > 
+    <Parameter id="G(A1_FCC,AL,FE:VA;2)"   Low_T="298.15"  Bibref="08Sun" > 
       <Trange High_T="6000" > +LFALFE2; />
     </Parameter>
     <Parameter id="G(A2_BCC,AL,FE:VA;0)"   Low_T="298.15"  Bibref="93Sei" > 
       <Trange High_T="6000" > -122960+32*T; />
     </Parameter>
-    <Parameter id="G(A2_BCC,AL,FE:VA;1)"   Low_T="298.15"  Bibref="  93Sei" > 
+    <Parameter id="G(A2_BCC,AL,FE:VA;1)"   Low_T="298.15"  Bibref="93Sei" > 
       <Trange High_T="6000" > 2945.2; />
     </Parameter>
-    <Parameter id="TC(A2_BCC,AL,FE:VA;0)"   Low_T="298.15"  Bibref="  01Ohn" > 
+    <Parameter id="TC(A2_BCC,AL,FE:VA;0)"   Low_T="298.15"  Bibref="01Ohn" > 
       <Trange High_T="6000" > -438; />
     </Parameter>
-    <Parameter id="TC(A2_BCC,AL,FE:VA;1)"   Low_T="298.15"  Bibref=" 01Ohn" > 
+    <Parameter id="TC(A2_BCC,AL,FE:VA;1)"   Low_T="298.15"  Bibref="01Ohn" > 
       <Trange High_T="6000" > -1720; />
     </Parameter>
     <Parameter id="G(AL13FE4,AL:FE:AL;0)"   Low_T="298.15"  Bibref="08Sun" > 
@@ -343,7 +345,7 @@
     <Parameter id="G(FCC_4SL,AL,FE:AL,FE:*:*:VA;0)"   Low_T="298.15"  Bibref="08Con" > 
       <Trange High_T="6000" > +SFALFE; />
     </Parameter>
-  </Binaries>
+  </Binary-parameters>
   <Bibliography>
     <Bibitem ID="91Din" > A T Dinsdale, Calphad 1991 />
     <Bibitem ID="93Sei" > M Seiersten, unpublished 1993 />
