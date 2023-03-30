@@ -193,6 +193,8 @@ MODULE XMLTDB_LIB
 !
 ! to check phases are OK (ambiguietty etc)
   character*24, dimension(:), allocatable :: phasenames
+! this is the global variable to know which line was read
+  integer nline
 !  
 !------- TDB KEYWORDS
 !
@@ -305,6 +307,8 @@ CONTAINS
        endif
 !
        if(xmlerr.ne.0) goto 2000
+! this makes it possible to specify line when errors in the getxyz routines
+       nline=nl
        select case(key)
 ! error
        case default
@@ -612,8 +616,8 @@ CONTAINS
           xmlerr=5000; goto 1000
        endif
     endif
-! we should noe be at the : for the first sublattice
-! constituents can be separated by "," or space
+! we should now be at the : for the first sublattice
+! constituents can be separated by "," or space (or both ...)
 ! sublattices are separated by ":"
 ! OC MQMQA special ....
     ncmax=0
@@ -630,7 +634,15 @@ CONTAINS
 ! end of sublattice
              cycle sub
           else
-! new constituent, note "*" is an accepted constituent meaning all
+! new constituent, note "*" is an accepted constituent meaning all or any
+             if(ll.eq.1 .and. nc.eq.0) then
+!                write(*,'(a,a,a,4i5)')'Line "',line(jp:ip+5),'" with ',&
+!                     jp,ip,kp,nline
+! Problem with Bengt's hmns file with a space after first :
+                if(ip.eq.jp .and. line(jp:jp).eq.' ') then
+                   ip=ip+1; cycle con
+                endif
+             endif
              nc=nc+1
              if(nc.lt.1 .or. nc.gt.30) goto 2000
              constarray(ll,nc)=line(jp:ip-1)
@@ -1257,12 +1269,12 @@ CONTAINS
 ! look at type_definitions
        tq=1
        do while(phlist(ni)%type_defs(tq:tq).ne.' ')
-! skip first dummy typedef
+! skip first dummy typedef %
           typedef=>type_def_list
           ff: do while(associated(typedef%next))
              if(typedef%id.eq.phlist(ni)%type_defs(tq:tq)) then
                 write(out,430)trim(typedef%action)
-430             format('    <AMEND MODEL="',a,'" />')
+430             format('    <Amend model="',a,'" />')
                 exit ff
              else
                 typedef=>typedef%next
