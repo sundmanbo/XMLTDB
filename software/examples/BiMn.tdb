@@ -1,0 +1,102 @@
+$  case_sensitive 
+
+Element         Bi       RHOMBOHEDRAL_A7    208.98    6426.6    56.735 !
+Element         Mn              CBCC_A12    54.938      4996     32.22 !
+Element         Va                VACUUM         0         0         0 !
+Element         /-          ELECTRON_GAS         0         0         0 !
+
+
+Function GHSERBI 298.15    -7817.776+128.418925*T-28.4096529*T*ln(T)+0.012338888*T**2-8.381598e-006*T**3; 544.55 Y
+    +2.94123e-005+30208.022-393.650351*T+51.8556592*T*ln(T)-0.075311163*T**2+1.3499885e-005*T**3-3616168*T**(-1)+1.66145e+025*T**(-9); 800 Y
+    -0.00023946-11045.664+182.548971*T-35.9824*T*ln(T)+0.0074266*T**2-1.046e-006*T**3+1.66145e+025*T**(-9); 1200 Y
+    -0.000371296-7581.312+124.77144*T-27.196*T*ln(T)+1.66145e+025*T**(-9); 3000 N !
+Function GBCCBI 298.15    +11297-13.9*T+GHSERBI; 3000 N !
+Function GFCCBI 298.15    +9900-12.5*T+GHSERBI; 3000 N !
+Function GLIQBI 298.15    +3428.29+107.782416*T-28.4096529*T*ln(T)+0.012338888*T**2-8.381598e-006*T**3-5.9549e-019*T**7; 544.55 Y
+    -0.00140303+41544.282-414.460769*T+51.8556592*T*ln(T)-0.075311163*T**2+1.3499885e-005*T**3-3616168*T**(-1); 800 Y
+    -0.000671902+290.595+161.738553*T-35.9824*T*ln(T)+0.0074266*T**2-1.046e-006*T**3; 1200 Y
+    +0.000396262+3754.947+103.961021*T-27.196*T*ln(T); 3000 N !
+Function GHSERMN 298.15    -8115.28+130.059*T-23.4582*T*ln(T)-0.00734768*T**2+69827.1*T**(-1); 1519 Y
+    -0.0083743-28733.41+312.2648*T-48*T*ln(T)+1.656847e+30*T**(-9); 2000 N !
+Function GBCCMN 298.15    +4879.98-2.209*T-0.2418*T*ln(T)-0.00009503*T**2-9827*T**(-1)+GHSERMN; 1519 Y
+    -0.0383839+5544.58-4.5605*T-3.91695e+29*T**(-9)+GHSERMN; 2000 N !
+Function GCUBMN 298.15    +2314.88+5.936*T-1.4203*T*ln(T)+0.00151409*T**2+442*T**(-1)+GHSERMN; 1519 Y
+    -0.0624838+442.65-0.9715*T+2.3107229e+30*T**(-9)+GHSERMN; 2000 N !
+Function GFCCMN 298.15    +4675.98+1.825*T-1.0595*T*ln(T)+0.00134768*T**2-227*T**(-1)+GHSERMN; 1519 Y
+    +0.0209696+2663.31-2.5984*T+2.2051175e+30*T**(-9)+GHSERMN; 2000 N !
+Function GLIQMN 298.15    +17859.91-12.6208*T-4.4192927e-21*T**7+GHSERMN; 1519 Y
+    -0.0282046+18739.51-13.2288*T-1.656847e+30*T**(-9)+GHSERMN; 2000 N !
+
+$ Variable: A variable is similar to a function and is a number only. The value of a variable can be changed in Pandat batch file
+Variable BEX 1  30; 3000 N !
+
+Function XT 1   T*720**(-1); 3000 N !
+Function FM1 1   EXP(-(XT)**3.417-EXP(28.796*(1.+0.5*BEX**0.5)**(-1)*ln(XT)) ); 3000 N !
+Function FM2 1   +0.1125*BEX**0.5*EXP(-20*(-1.+ XT)**2*(1.+0.005695*BEX)**(-2))/(1+EXP(-0.493539*(1.-XT))); 3000 N !
+Function FM3 1   +0.0151406*BEX*EXP(-XT)/(1+EXP(10.4351*(1.2-XT))); 3000 N !
+Function FM 1    +FM1+FM2+FM3; 3000 N !
+
+Type_Definition & GES AMEND_PHASE_DESCRIPTION * MAGNETIC -3 0.28 !
+Type_Definition ' GES AMEND_PHASE_DESCRIPTION Fcc MAGNETIC -3 0.28 !
+Type_Definition ( GES AMEND_PHASE_DESCRIPTION Bcc MAGNETIC -1 0.4 !
+
+$ Property: A property is similar to a fuction. A property can be used in Pandat batch file in an output table 
+$           or for defining a contour diagram. A property can use most of other properties in calculation such as 
+$           mu(Mn@Liquid) and f(@Bcc). A property can be used to define other properties.
+
+Property GMAG 1   -21.781266*BEX*FM; 6000 N !
+Property GMG30T 298     +1.45422 -667.9454497635123-0.08355755647484864*T+0.0005279638216828704*T**2 +3.509643524828126e-7*T**3+1.875830938746444e-10*T**4; 600 Y
+    6979.219101610996-48.32971486351175*T+0.1152679523873797*T**2 -0.000121808102616612*T**3+4.943099844699616e-8*T**4; 720 Y
+    31369.70925611074-186.1043826253854*T+0.394823506309674*T**2 -0.0003622690079357127*T**3+1.225042582498223e-7*T**4; 800 Y
+    -18725.00523029517+73.80746450058064*T-0.1105848494076637*T**2 +7.430013401930511e-5*T**3-1.884534431448572e-8*T**4; 1000 N REF:0 !
+
+Phase Liquid % 1 1 !
+Constituent Liquid :Bi,Mn:!
+    Parameter G(Liquid,Bi;0) 298.15    +GLIQBI; 3000 N !
+    Parameter G(Liquid,Mn;0) 298.15    +GLIQMN; 2000 N !
+    Parameter G(Liquid,Bi,Mn;0) 298.15  21696-25.958*T; 3000 N !
+    Parameter G(Liquid,Bi,Mn;1) 298.15  -22328+7.4855*T; 3000 N !
+    Parameter G(Liquid,Bi,Mn;2) 298.15  10.614*T; 3000 N !
+
+Phase Bcc %( 2 1 3 !
+Constituent Bcc :Bi,Mn:Va:!
+    Parameter G(Bcc,Bi:Va;0) 298.15    +GBCCBI; 3000 N !
+    Parameter G(Bcc,Mn:Va;0) 298.15    +GBCCMN; 2000 N !
+    Parameter G(Bcc,Bi,Mn:Va;0) 298.15    +50000; 6000 N !
+    Parameter BMAGN(Bcc,Mn:Va;0) 298.15    -0.27; 2000 N !
+    Parameter Tc(Bcc,Mn:Va;0) 298.15    -580; 2000 N !
+
+Phase Fcc %' 2 1 1 !
+Constituent Fcc :Bi,Mn:Va:!
+    Parameter G(Fcc,Bi:Va;0) 298.15    +GFCCBI; 3000 N !
+    Parameter G(Fcc,Mn:Va;0) 298.15    +GFCCMN; 2000 N !
+    Parameter G(Fcc,Bi,Mn:Va;0) 298.15    +50000; 6000 N !
+    Parameter BMAGN(Fcc,Mn:Va;0) 298.15    -1.86; 2000 N !
+    Parameter Tc(Fcc,Mn:Va;0) 298.15    -1620; 2000 N !
+
+Phase Cub % 2 1 1 !
+Constituent Cub :Mn:Va:!
+    Parameter G(Cub,Mn:Va;0) 298.15    +GCUBMN; 2000 N !
+
+Phase Cbcc %& 2 1 1 !
+Constituent Cbcc :Mn:Va:!
+    Parameter G(Cbcc,Mn:Va;0) 298.15    +GHSERMN; 2000 N !
+    Parameter BMAGN(Cbcc,Mn:Va;0) 298.15    -0.66; 2000 N !
+    Parameter Tc(Cbcc,Mn:Va;0) 298.15    -285; 2000 N !
+
+Phase Rhombo % 1 1 !
+Constituent Rhombo :Bi:!
+    Parameter G(Rhombo,Bi;0) 298.15    +GHSERBI; 3000 N !
+
+Phase Bi1Mn1_a %& 2 1 1 !
+Constituent Bi1Mn1_a :Bi:Mn:!
+    Parameter G(Bi1Mn1_a,Bi:Mn;0) 298.15  +GHSERBI+GHSERMN +GMAG-13698.48 + 11.745*T; 6000 N !
+    Parameter BMAGN(Bi1Mn1_a,Bi:Mn;0) 298.15   3.9; 6000 N !
+    Parameter TC(Bi1Mn1_a,Bi:Mn;0) 298.15   720; 6000 N !
+
+Phase BiMn_b %& 2 1 1.08 !
+Constituent BiMn_b :Bi:Mn:!
+    Parameter G(BiMn_b,Bi:Mn;0) 298.15  +GHSERBI+1.08*GHSERMN -17414.20 + 15.799*T; 6000 N !
+    Parameter BMAGN(BiMn_b,Bi:Mn;0) 298.14   1.7; 6000 N !
+    Parameter TC(BiMn_b,Bi:Mn;0) 298.14   470; 6000 N !
+

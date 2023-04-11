@@ -3,9 +3,19 @@
 <Database version="0">
   <metadata>
     <writer>xmltdbproject test
-       TDBfile="C:\Users\bosun\Documents\OC\projects\XML\software\up-down-load\examples\UZRO_18Qua.TDB"
+       TDBfile="C:\Users\bosun\Documents\GitHub\XMLTDB\software\examples\UZrO_18Qua-mod.TDB"
     </writer>
   </metadata>
+  <Statistics elements="5"  species="20"  phases="18"  parameters="101"  bibrefs="45"  />
+  <Defaults low_T="298.16" high_T="6000" />
+  <Models>
+    <Magnetic-model id="IHJBCC"  MPID1="TC" MPID2="BMAGN" bibref="82Her" > by Inden-Hillert-Jarl  for BCC with anti-ferromagnetic factor -1
+  Function below the ordering temperature TC with TAO=T/TC. +1-0.905299383*TAO**(-1)-0.153008346*TAO**3-.00680037095*TAO**9-.00153008346*TAO**15;
+  Function above the ordering temperature TC with TAO=T/TC. -.0641731208*TAO**(-5)-.00203724193*TAO**(-15)-.000427820805*TAO**(-25); </Magnetic-model>
+    <Magnetic-model id="IHJREST"  MPID1="TC" MPID2="BMAGN" bibref="82Her" > by Inden-Hillert-Jarl  for FCC and other phases with anti-ferromagnetic factor -3
+ Function below the ordering temperature TC with TAO=T/TC.+1-0.860338755*TAO**(-1)-0.17449124*TAO**3-.00775516624*TAO**9-.0017449124*TAO**15;
+ Function above the ordering temperature TC with TAO=T/TC. -.0426902268*TAO**(-5)-.0013552453*TAO**(-15)-.000284601512*TAO**(-25); </Magnetic-model>
+  </Models>
   <Element id="/-" refstate="ELECTRON_GAS" mass="  0.000000E+00" H298="  0.000000E+00" S298="  0.000000E+00" />
   <Element id="VA" refstate="VACUUM" mass="  0.000000E+00" H298="  0.000000E+00" S298="  0.000000E+00" />
   <Element id="O " refstate="GAS_1/2_MOLE_O2" mass="  1.599900E+01" H298="  4.341000E+03" S298="  1.025200E+02" />
@@ -32,203 +42,203 @@
   <Species id="ZRO" stoichiometry="O1ZR1" />
   <Species id="ZRO2" stoichiometry="O2ZR1" />
   <TPfun id="OGAS" Low_T="298.15" >
-    <Trange High_T="2950" > +243206.494-20.8612587*T-21.01555*T*LN(T)  +1.2687055E-04*T**2-1.23131283E-08*T**3-42897.09*T**(-1); />
-    <Trange High_T="6000" >   +252301.423-52.0847285*T-17.21188*T*LN(T)-5.413565E-04*T**2  +7.64520667E-09*T**3-3973170.5*T**(-1); />
+    <Trange High_T="2950" > +243206.494-20.8612587*T-21.01555*T*LN(T)  +1.2687055E-04*T**2-1.23131283E-08*T**3-42897.09*T**(-1); </Trange>
+    <Trange High_T="6000" >   +252301.423-52.0847285*T-17.21188*T*LN(T)-5.413565E-04*T**2  +7.64520667E-09*T**3-3973170.5*T**(-1); </Trange>
   </TPfun>
   <TPfun id="O2GAS" Low_T="298.15" >
-    <Trange High_T="900" > -6960.69252-51.1831473*T-22.25862*T*LN(T)  -.01023867*T**2+1.339947E-06*T**3-76749.55*T**(-1); />
-    <Trange High_T="3700" >   -13136.0172+24.743296*T-33.55726*T*LN(T)-.0012348985*T**2  +1.66943333E-08*T**3+539886*T**(-1); />
-    <Trange High_T="9600" >   +14154.6461-51.4854586*T-24.47978*T*LN(T)-.002634759*T**2  +6.01544333E-08*T**3-15120935*T**(-1); />
-    <Trange High_T="18500" >   -314316.628+515.068037*T-87.56143*T*LN(T)+.0025787245*T**2  -1.878765E-08*T**3+2.9052515E+08*T**(-1); />
-    <Trange High_T="20000" >   -108797.175+288.483019*T-63.737*T*LN(T)+.0014375*T**2-9E-09*T**3  +.25153895*T**(-1); />
+    <Trange High_T="900" > -6960.69252-51.1831473*T-22.25862*T*LN(T)  -.01023867*T**2+1.339947E-06*T**3-76749.55*T**(-1); </Trange>
+    <Trange High_T="3700" >   -13136.0172+24.743296*T-33.55726*T*LN(T)-.0012348985*T**2  +1.66943333E-08*T**3+539886*T**(-1); </Trange>
+    <Trange High_T="9600" >   +14154.6461-51.4854586*T-24.47978*T*LN(T)-.002634759*T**2  +6.01544333E-08*T**3-15120935*T**(-1); </Trange>
+    <Trange High_T="18500" >   -314316.628+515.068037*T-87.56143*T*LN(T)+.0025787245*T**2  -1.878765E-08*T**3+2.9052515E+08*T**(-1); </Trange>
+    <Trange High_T="20000" >   -108797.175+288.483019*T-63.737*T*LN(T)+.0014375*T**2-9E-09*T**3  +.25153895*T**(-1); </Trange>
   </TPfun>
   <TPfun id="O3GAS" Low_T="298.15" >
-    <Trange High_T="400" > +130696.944-37.9096651*T-27.58118*T*LN(T)  -.02763076*T**2+4.60539333E-06*T**3+99530.45*T**(-1); />
-    <Trange High_T="1300" >   +114760.623+176.626736*T-60.10286*T*LN(T)+.00206456*T**2  -5.17486667E-07*T**3+1572175*T**(-1); />
-    <Trange High_T="2100" >   +49468.3958+710.094819*T-134.3696*T*LN(T)+.039707355*T**2  -4.10457667E-06*T**3+12362250*T**(-1); />
-    <Trange High_T="2800" >   +866367.075-3566.80563*T+421.2001*T*LN(T)-.1284109*T**2  +5.44768833E-06*T**3-2.1304835E+08*T**(-1); />
-    <Trange High_T="3500" >   +409416.384-1950.70834*T+223.4437*T*LN(T)-.0922361*T**2  +4.306855E-06*T**3-21589870*T**(-1); />
-    <Trange High_T="4900" >   -1866338.6+6101.13383*T-764.8435*T*LN(T)+.09852775*T**2  -2.59784667E-06*T**3+9.610855E+08*T**(-1); />
-    <Trange High_T="6000" >   +97590.0432+890.79836*T-149.9608*T*LN(T)+.01283575*T**2  -3.555105E-07*T**3-2.1699975E+08*T**(-1); />
+    <Trange High_T="400" > +130696.944-37.9096651*T-27.58118*T*LN(T)  -.02763076*T**2+4.60539333E-06*T**3+99530.45*T**(-1); </Trange>
+    <Trange High_T="1300" >   +114760.623+176.626736*T-60.10286*T*LN(T)+.00206456*T**2  -5.17486667E-07*T**3+1572175*T**(-1); </Trange>
+    <Trange High_T="2100" >   +49468.3958+710.094819*T-134.3696*T*LN(T)+.039707355*T**2  -4.10457667E-06*T**3+12362250*T**(-1); </Trange>
+    <Trange High_T="2800" >   +866367.075-3566.80563*T+421.2001*T*LN(T)-.1284109*T**2  +5.44768833E-06*T**3-2.1304835E+08*T**(-1); </Trange>
+    <Trange High_T="3500" >   +409416.384-1950.70834*T+223.4437*T*LN(T)-.0922361*T**2  +4.306855E-06*T**3-21589870*T**(-1); </Trange>
+    <Trange High_T="4900" >   -1866338.6+6101.13383*T-764.8435*T*LN(T)+.09852775*T**2  -2.59784667E-06*T**3+9.610855E+08*T**(-1); </Trange>
+    <Trange High_T="6000" >   +97590.0432+890.79836*T-149.9608*T*LN(T)+.01283575*T**2  -3.555105E-07*T**3-2.1699975E+08*T**(-1); </Trange>
   </TPfun>
   <TPfun id="GASU" Low_T="298.15" >
-    <Trange High_T="900" > +523164.925+13.603288*T-32.513*T*LN(T)  +.01126565*T**2-2.43328E-06*T**3+151130*T**(-1); />
-    <Trange High_T="2100" >   +541065.13-173.693179*T-5.336*T*LN(T)-.00723615*T**2-4.306E-08*T**3  -2072960*T**(-1); />
-    <Trange High_T="4500" >   +605452.662-512.542339*T+38.748*T*LN(T)-.0208079*T**2+7.5045E-07*T**3  -19886375*T**(-1); />
-    <Trange High_T="9200" >   -41328.1657+1300.29089*T-176.856*T*LN(T)+.0113664*T**2  -1.56178333E-07*T**3+3.4654725E+08*T**(-1); />
-    <Trange High_T="12000" >   +410972.67+537.324611*T-92.012*T*LN(T)+.0043702*T**2  -4.90033333E-08*T**3-99572850*T**(-1); />
+    <Trange High_T="900" > +523164.925+13.603288*T-32.513*T*LN(T)  +.01126565*T**2-2.43328E-06*T**3+151130*T**(-1); </Trange>
+    <Trange High_T="2100" >   +541065.13-173.693179*T-5.336*T*LN(T)-.00723615*T**2-4.306E-08*T**3  -2072960*T**(-1); </Trange>
+    <Trange High_T="4500" >   +605452.662-512.542339*T+38.748*T*LN(T)-.0208079*T**2+7.5045E-07*T**3  -19886375*T**(-1); </Trange>
+    <Trange High_T="9200" >   -41328.1657+1300.29089*T-176.856*T*LN(T)+.0113664*T**2  -1.56178333E-07*T**3+3.4654725E+08*T**(-1); </Trange>
+    <Trange High_T="12000" >   +410972.67+537.324611*T-92.012*T*LN(T)+.0043702*T**2  -4.90033333E-08*T**3-99572850*T**(-1); </Trange>
   </TPfun>
   <TPfun id="UOGAS" Low_T="298.15" >
-    <Trange High_T="1300" > +7058.467+16.66929*T-38.48092*T*LN(T)  -.01650935*T**2+6.74198333E-06*T**3-1.22913333E-09*T**4+257767*T**(-1); />
-    <Trange High_T="4000" >   +10617.823+76.4054808*T-50.04939*T*LN(T)+.0090553*T**2  -2.0628666E-06*T**3+1.42865E-10*T**4-1254735*T**(-1); />
+    <Trange High_T="1300" > +7058.467+16.66929*T-38.48092*T*LN(T)  -.01650935*T**2+6.74198333E-06*T**3-1.22913333E-09*T**4+257767*T**(-1); </Trange>
+    <Trange High_T="4000" >   +10617.823+76.4054808*T-50.04939*T*LN(T)+.0090553*T**2  -2.0628666E-06*T**3+1.42865E-10*T**4-1254735*T**(-1); </Trange>
   </TPfun>
   <TPfun id="UO2GAS" Low_T="298.15" >
-    <Trange High_T="1500" > -477055.313+30.72281*T-44.35744*T*LN(T)  -.018817925*T**2+3.85927167E-06*T**3-4.58556667E-10*T**4  +37425.465*T**(-1); />
-    <Trange High_T="4000" >   -483042.479+128.845816*T-59.57586*T*LN(T)-.0026962*T**2  -1.57719683E-08*T**3+8.57269167E-12*T**4+315972.55*T**(-1); />
+    <Trange High_T="1500" > -477055.313+30.72281*T-44.35744*T*LN(T)  -.018817925*T**2+3.85927167E-06*T**3-4.58556667E-10*T**4  +37425.465*T**(-1); </Trange>
+    <Trange High_T="4000" >   -483042.479+128.845816*T-59.57586*T*LN(T)-.0026962*T**2  -1.57719683E-08*T**3+8.57269167E-12*T**4+315972.55*T**(-1); </Trange>
   </TPfun>
   <TPfun id="UO3GAS" Low_T="298.15" >
-    <Trange High_T="900" > -813296.059+27.9636972*T-46.69199*T*LN(T)  -.047347135*T**2+1.58195017E-05*T**3-2.84654167E-09*T**4  +139692.15*T**(-1); />
-    <Trange High_T="4000" >   -827058.826+248.932783*T-81.70962*T*LN(T)-.001004739*T**2  +1.85084167E-07*T**3-1.8022825E-11*T**4+1290177.5*T**(-1); />
+    <Trange High_T="900" > -813296.059+27.9636972*T-46.69199*T*LN(T)  -.047347135*T**2+1.58195017E-05*T**3-2.84654167E-09*T**4  +139692.15*T**(-1); </Trange>
+    <Trange High_T="4000" >   -827058.826+248.932783*T-81.70962*T*LN(T)-.001004739*T**2  +1.85084167E-07*T**3-1.8022825E-11*T**4+1290177.5*T**(-1); </Trange>
   </TPfun>
   <TPfun id="ZRGAS" Low_T="298.15" >
-    <Trange High_T="400" > +586876.841+74.4171195*T-38.69111*T*LN(T)  +.01152846*T**2-1.693255E-06*T**3+270638.8*T**(-1); />
-    <Trange High_T="1300" >   +595990.293-26.0530509*T-24.06106*T*LN(T)+.001743641*T**2  -5.94312333E-07*T**3-748947.5*T**(-1); />
-    <Trange High_T="2700" >   +593841.673-46.0204551*T-20.46361*T*LN(T)-.002961084*T**2  +1.08391433E-07*T**3+526352.5*T**(-1); />
-    <Trange High_T="6600" >   +630745.052-161.965371*T-6.647343*T*LN(T)-.0046738955*T**2  +1.06833583E-07*T**3-15872340*T**(-1); />
-    <Trange High_T="10000" >   +504260.272+131.813821*T-40.68801*T*LN(T)-6.38357E-04*T**2  +1.79125333E-08*T**3+71496950*T**(-1); />
+    <Trange High_T="400" > +586876.841+74.4171195*T-38.69111*T*LN(T)  +.01152846*T**2-1.693255E-06*T**3+270638.8*T**(-1); </Trange>
+    <Trange High_T="1300" >   +595990.293-26.0530509*T-24.06106*T*LN(T)+.001743641*T**2  -5.94312333E-07*T**3-748947.5*T**(-1); </Trange>
+    <Trange High_T="2700" >   +593841.673-46.0204551*T-20.46361*T*LN(T)-.002961084*T**2  +1.08391433E-07*T**3+526352.5*T**(-1); </Trange>
+    <Trange High_T="6600" >   +630745.052-161.965371*T-6.647343*T*LN(T)-.0046738955*T**2  +1.06833583E-07*T**3-15872340*T**(-1); </Trange>
+    <Trange High_T="10000" >   +504260.272+131.813821*T-40.68801*T*LN(T)-6.38357E-04*T**2  +1.79125333E-08*T**3+71496950*T**(-1); </Trange>
   </TPfun>
   <TPfun id="ZR2GAS" Low_T="298.15" >
-    <Trange High_T="3600" > +892794.963-14.4120751*T-37.13672*T*LN(T)  -3.2039655E-04*T**2-4.30605167E-09*T**3+85422.15*T**(-1); />
-    <Trange High_T="6000" >   +874148.858+9.34917918*T-39.33356*T*LN(T)-.001019669*T**2  +6.09799667E-08*T**3+14065805*T**(-1); />
+    <Trange High_T="3600" > +892794.963-14.4120751*T-37.13672*T*LN(T)  -3.2039655E-04*T**2-4.30605167E-09*T**3+85422.15*T**(-1); </Trange>
+    <Trange High_T="6000" >   +874148.858+9.34917918*T-39.33356*T*LN(T)-.001019669*T**2  +6.09799667E-08*T**3+14065805*T**(-1); </Trange>
   </TPfun>
   <TPfun id="ZROGAS" Low_T="298.15" >
-    <Trange High_T="500" > +84650.2481-322.81686*T+21.98592*T*LN(T)  -.10713165*T**2+2.81704E-05*T**3-333363.35*T**(-1); />
-    <Trange High_T="1100" >   +42648.3266+404.46472*T-93.37933*T*LN(T)+.03332466*T**2  -3.80849833E-06*T**3+2526299*T**(-1); />
-    <Trange High_T="4100" >   +84838.7072+11.5277083*T-37.46259*T*LN(T)+9.16682E-05*T**2  -7.005105E-08*T**3-3491878*T**(-1); />
-    <Trange High_T="9600" >   +106867.647-98.6658678*T-23.49987*T*LN(T)-.00315689*T**2  +5.93994E-08*T**3-6661880*T**(-1); />
-    <Trange High_T="10000" >   +255442.536-262.961956*T-6.281221*T*LN(T)-.0038787795*T**2  +6.18786667E-08*T**3-2.2466925E+08*T**(-1); />
+    <Trange High_T="500" > +84650.2481-322.81686*T+21.98592*T*LN(T)  -.10713165*T**2+2.81704E-05*T**3-333363.35*T**(-1); </Trange>
+    <Trange High_T="1100" >   +42648.3266+404.46472*T-93.37933*T*LN(T)+.03332466*T**2  -3.80849833E-06*T**3+2526299*T**(-1); </Trange>
+    <Trange High_T="4100" >   +84838.7072+11.5277083*T-37.46259*T*LN(T)+9.16682E-05*T**2  -7.005105E-08*T**3-3491878*T**(-1); </Trange>
+    <Trange High_T="9600" >   +106867.647-98.6658678*T-23.49987*T*LN(T)-.00315689*T**2  +5.93994E-08*T**3-6661880*T**(-1); </Trange>
+    <Trange High_T="10000" >   +255442.536-262.961956*T-6.281221*T*LN(T)-.0038787795*T**2  +6.18786667E-08*T**3-2.2466925E+08*T**(-1); </Trange>
   </TPfun>
   <TPfun id="ZRO2GAS" Low_T="298.15" >
-    <Trange High_T="700" > -332610.845+3.22325806*T-38.10718*T*LN(T)  -.01852473*T**2+3.29626E-06*T**3+218721.05*T**(-1); />
-    <Trange High_T="2600" >   -342836.09+140.579944*T-58.93983*T*LN(T)+6.65405E-04*T**2  -8.11812167E-08*T**3+1173742*T**(-1); />
-    <Trange High_T="4900" >   -272800.105-96.5265453*T-30.24766*T*LN(T)-.0038011495*T**2  -1.83201667E-11*T**3-28436635*T**(-1); />
-    <Trange High_T="6000" >   -36436.152-803.246488*T+54.45089*T*LN(T)-.017172935*T**2  +3.92562833E-07*T**3-1.509956E+08*T**(-1); />
+    <Trange High_T="700" > -332610.845+3.22325806*T-38.10718*T*LN(T)  -.01852473*T**2+3.29626E-06*T**3+218721.05*T**(-1); </Trange>
+    <Trange High_T="2600" >   -342836.09+140.579944*T-58.93983*T*LN(T)+6.65405E-04*T**2  -8.11812167E-08*T**3+1173742*T**(-1); </Trange>
+    <Trange High_T="4900" >   -272800.105-96.5265453*T-30.24766*T*LN(T)-.0038011495*T**2  -1.83201667E-11*T**3-28436635*T**(-1); </Trange>
+    <Trange High_T="6000" >   -36436.152-803.246488*T+54.45089*T*LN(T)-.017172935*T**2  +3.92562833E-07*T**3-1.509956E+08*T**(-1); </Trange>
   </TPfun>
   <TPfun id="GUO2L" Low_T="298.15" >
-    <Trange High_T="2600" > +LOWLIQ; />
-    <Trange High_T="6000" >   +O2ULIQ; />
+    <Trange High_T="2600" > +LOWLIQ; </Trange>
+    <Trange High_T="6000" >   +O2ULIQ; </Trange>
   </TPfun>
   <TPfun id="GZRO2L" Low_T="298.15" >
-    <Trange High_T="6000" > -965625.15+136.13*T+GLIQZR+2*GHSEROO; />
+    <Trange High_T="6000" > -965625.15+136.13*T+GLIQZR+2*GHSEROO; </Trange>
   </TPfun>
   <TPfun id="GLIQUU" Low_T="298.15" >
-    <Trange High_T="955" > +3947.766+120.631251*T-26.9182*T*LN(T)  +.00125156*T**2-4.42605E-06*T**3+38568*T**(-1); />
-    <Trange High_T="3000" >   -10166.3+281.797193*T-48.66*T*LN(T); />
+    <Trange High_T="955" > +3947.766+120.631251*T-26.9182*T*LN(T)  +.00125156*T**2-4.42605E-06*T**3+38568*T**(-1); </Trange>
+    <Trange High_T="3000" >   -10166.3+281.797193*T-48.66*T*LN(T); </Trange>
   </TPfun>
   <TPfun id="GLIQZR" Low_T="130" >
-    <Trange High_T="2128" > +18147.69-9.080812*T+GHSERZR+1.6275E-22*T**7; />
-    <Trange High_T="6000" >   -8281.26+253.812609*T-42.144*T*LN(T); />
+    <Trange High_T="2128" > +18147.69-9.080812*T+GHSERZR+1.6275E-22*T**7; </Trange>
+    <Trange High_T="6000" >   -8281.26+253.812609*T-42.144*T*LN(T); </Trange>
   </TPfun>
   <TPfun id="GHSEROO" Low_T="298.15" >
-    <Trange High_T="1000" > -3480.87-25.503038*T-11.136*T*LN(T)  -.005098888*T**2+6.61846E-07*T**3-38365*T**(-1); />
-    <Trange High_T="3300" >   -6568.763+12.65988*T-16.8138*T*LN(T)-5.95798E-04*T**2+6.781E-09*T**3  +262905*T**(-1); />
-    <Trange High_T="6000" >   -13986.728+31.259625*T-18.9536*T*LN(T)-4.25243E-04*T**2  +1.0721E-08*T**3+4383200*T**(-1); />
+    <Trange High_T="1000" > -3480.87-25.503038*T-11.136*T*LN(T)  -.005098888*T**2+6.61846E-07*T**3-38365*T**(-1); </Trange>
+    <Trange High_T="3300" >   -6568.763+12.65988*T-16.8138*T*LN(T)-5.95798E-04*T**2+6.781E-09*T**3  +262905*T**(-1); </Trange>
+    <Trange High_T="6000" >   -13986.728+31.259625*T-18.9536*T*LN(T)-4.25243E-04*T**2  +1.0721E-08*T**3+4383200*T**(-1); </Trange>
   </TPfun>
   <TPfun id="GBCCUU" Low_T="298.15" >
-    <Trange High_T="1049" > -752.767+131.5381*T-27.5152*T*LN(T)  -.00835595*T**2+9.67907E-07*T**3+204611*T**(-1); />
-    <Trange High_T="3000" >   -4698.365+202.685635*T-38.2836*T*LN(T); />
+    <Trange High_T="1049" > -752.767+131.5381*T-27.5152*T*LN(T)  -.00835595*T**2+9.67907E-07*T**3+204611*T**(-1); </Trange>
+    <Trange High_T="3000" >   -4698.365+202.685635*T-38.2836*T*LN(T); </Trange>
   </TPfun>
   <TPfun id="GBCCZR" Low_T="130" >
-    <Trange High_T="2128" > -525.539+124.9457*T-25.607406*T*LN(T)  -3.40084E-04*T**2-9.729E-09*T**3+25233*T**(-1)-7.6143E-11*T**4; />
-    <Trange High_T="6000" >   -4620.034+1.55998*T+GHSERZR+1.4103476E+32*T**(-9); />
+    <Trange High_T="2128" > -525.539+124.9457*T-25.607406*T*LN(T)  -3.40084E-04*T**2-9.729E-09*T**3+25233*T**(-1)-7.6143E-11*T**4; </Trange>
+    <Trange High_T="6000" >   -4620.034+1.55998*T+GHSERZR+1.4103476E+32*T**(-9); </Trange>
   </TPfun>
   <TPfun id="GHSERUU" Low_T="298.15" >
-    <Trange High_T="955" > -8407.734+130.955151*T-26.9182*T*LN(T)  +.00125156*T**2-4.42605E-06*T**3+38568*T**(-1); />
-    <Trange High_T="3000" >   -22521.8+292.121093*T-48.66*T*LN(T); />
+    <Trange High_T="955" > -8407.734+130.955151*T-26.9182*T*LN(T)  +.00125156*T**2-4.42605E-06*T**3+38568*T**(-1); </Trange>
+    <Trange High_T="3000" >   -22521.8+292.121093*T-48.66*T*LN(T); </Trange>
   </TPfun>
   <TPfun id="C14ZR" Low_T="298.15" >
-    <Trange High_T="6000" > +GFCCZR+16000; />
+    <Trange High_T="6000" > +GFCCZR+16000; </Trange>
   </TPfun>
   <TPfun id="GFCCZR" Low_T="298.15" >
-    <Trange High_T="6000" > +7600-.9*T+GHSERZR; />
+    <Trange High_T="6000" > +7600-.9*T+GHSERZR; </Trange>
   </TPfun>
   <TPfun id="C15ZR" Low_T="298.15" >
-    <Trange High_T="6000" > +GFCCZR+22800; />
+    <Trange High_T="6000" > +GFCCZR+22800; </Trange>
   </TPfun>
   <TPfun id="G3OO" Low_T="298.15" >
-    <Trange High_T="6000" > +G3OV+GHSEROO; />
+    <Trange High_T="6000" > +G3OV+GHSEROO; </Trange>
   </TPfun>
   <TPfun id="G4OO" Low_T="298.15" >
-    <Trange High_T="6000" > +G4OV+GHSEROO; />
+    <Trange High_T="6000" > +G4OV+GHSEROO; </Trange>
   </TPfun>
   <TPfun id="G5OO" Low_T="298.15" >
-    <Trange High_T="6000" > +G5OV+GHSEROO; />
+    <Trange High_T="6000" > +G5OV+GHSEROO; </Trange>
   </TPfun>
   <TPfun id="ZR2O2" Low_T="298.15" >
-    <Trange High_T="6000" > -363000+28*T; />
+    <Trange High_T="6000" > -363000+28*T; </Trange>
   </TPfun>
   <TPfun id="GHSERZR" Low_T="130" >
-    <Trange High_T="2128" > -7827.595+125.64905*T-24.1618*T*LN(T)-.00437791*T**2  +34971*T**(-1); />
-    <Trange High_T="6000" >   -26085.921+262.724183*T-42.144*T*LN(T)-1.342896E+31*T**(-9); />
+    <Trange High_T="2128" > -7827.595+125.64905*T-24.1618*T*LN(T)-.00437791*T**2  +34971*T**(-1); </Trange>
+    <Trange High_T="6000" >   -26085.921+262.724183*T-42.144*T*LN(T)-1.342896E+31*T**(-9); </Trange>
   </TPfun>
   <TPfun id="BIG1" Low_T="298.15" >
-    <Trange High_T="6000" > +100000; />
+    <Trange High_T="6000" > +100000; </Trange>
   </TPfun>
   <TPfun id="ZR4O2" Low_T="298.15" >
-    <Trange High_T="6000" > -1037342-49.9*T+29.65*T*LN(T)-.01*T**2; />
+    <Trange High_T="6000" > -1037342-49.9*T+29.65*T*LN(T)-.01*T**2; </Trange>
   </TPfun>
   <TPfun id="G3OV" Low_T="298.15" >
-    <Trange High_T="6000" > +G4OV-G4VV+G3VV; />
+    <Trange High_T="6000" > +G4OV-G4VV+G3VV; </Trange>
   </TPfun>
   <TPfun id="G4OV" Low_T="298.15" >
-    <Trange High_T="6000" > +GUO2; />
+    <Trange High_T="6000" > +GUO2; </Trange>
   </TPfun>
   <TPfun id="G5OV" Low_T="298.15" >
-    <Trange High_T="6000" > +GUO25-.5*GHSEROO+.69315*R*T; />
+    <Trange High_T="6000" > +GUO25-.5*GHSEROO+.69315*R*T; </Trange>
   </TPfun>
   <TPfun id="G3VV" Low_T="298.15" >
-    <Trange High_T="6000" > +GUO15-1.5*GHSEROO+1.12467*R*T; />
+    <Trange High_T="6000" > +GUO15-1.5*GHSEROO+1.12467*R*T; </Trange>
   </TPfun>
   <TPfun id="G4VV" Low_T="298.15" >
-    <Trange High_T="6000" > +G4OV-2*GHSEROO+545210.5; />
+    <Trange High_T="6000" > +G4OV-2*GHSEROO+545210.5; </Trange>
   </TPfun>
   <TPfun id="G5VV" Low_T="298.15" >
-    <Trange High_T="6000" > +G5OV-2*GHSEROO+700000; />
+    <Trange High_T="6000" > +G5OV-2*GHSEROO+700000; </Trange>
   </TPfun>
   <TPfun id="GZRO2CUB" Low_T="298.15" >
-    <Trange High_T="6000" > +GZRO2M+5468-4*T; />
+    <Trange High_T="6000" > +GZRO2M+5468-4*T; </Trange>
   </TPfun>
   <TPfun id="GTETUU" Low_T="298.15" >
-    <Trange High_T="941.5" > -5156.136+106.976316*T-22.841*T*LN(T)  -.01084475*T**2+2.7889E-08*T**3+81944*T**(-1); />
-    <Trange High_T="3000" >   -14327.309+244.16802*T-42.9278*T*LN(T); />
+    <Trange High_T="941.5" > -5156.136+106.976316*T-22.841*T*LN(T)  -.01084475*T**2+2.7889E-08*T**3+81944*T**(-1); </Trange>
+    <Trange High_T="3000" >   -14327.309+244.16802*T-42.9278*T*LN(T); </Trange>
   </TPfun>
   <TPfun id="GFCCUU" Low_T="298.15" >
-    <Trange High_T="955" > -3407.734+130.955151*T-26.9182*T*LN(T)  +.00125156*T**2-4.42605E-06*T**3+38568*T**(-1); />
-    <Trange High_T="3000" >   -17521.8+292.121093*T-48.66*T*LN(T); />
+    <Trange High_T="955" > -3407.734+130.955151*T-26.9182*T*LN(T)  +.00125156*T**2-4.42605E-06*T**3+38568*T**(-1); </Trange>
+    <Trange High_T="3000" >   -17521.8+292.121093*T-48.66*T*LN(T); </Trange>
   </TPfun>
   <TPfun id="GHCPUU" Low_T="298.15" >
-    <Trange High_T="6000" > +GBCCUU+5000; />
+    <Trange High_T="6000" > +GBCCUU+5000; </Trange>
   </TPfun>
   <TPfun id="GU3O8" Low_T="298.15" >
-    <Trange High_T="2000" > -3674804.49+1600.50059*T-276.747749*T*LN(T)  -.0136644165*T**2+2036667.44*T**(-1); />
+    <Trange High_T="2000" > -3674804.49+1600.50059*T-276.747749*T*LN(T)  -.0136644165*T**2+2036667.44*T**(-1); </Trange>
   </TPfun>
   <TPfun id="GU4O9" Low_T="298.15" >
-    <Trange High_T="2000" > -4621329.3+1786.83274*T-311.20912*T*LN(T)  -.0311301013*T**2+1741269.49*T**(-1); />
+    <Trange High_T="2000" > -4621329.3+1786.83274*T-311.20912*T*LN(T)  -.0311301013*T**2+1741269.49*T**(-1); </Trange>
   </TPfun>
   <TPfun id="GUO2POT" Low_T="298.15" >
-    <Trange High_T="6000" > -359898+56.43*T+.33333*GHSERUU+.66667*GHSEROO; />
+    <Trange High_T="6000" > -359898+56.43*T+.33333*GHSERUU+.66667*GHSEROO; </Trange>
   </TPfun>
   <TPfun id="GZRO2M" Low_T="298.15" >
-    <Trange High_T="6000" > -1103376.9+247.58658*T-8.076129*T*LN(T)+GHSERZR  +2*GHSEROO; />
+    <Trange High_T="6000" > -1103376.9+247.58658*T-8.076129*T*LN(T)+GHSERZR  +2*GHSEROO; </Trange>
   </TPfun>
   <TPfun id="GZRO2T" Low_T="298.15" >
-    <Trange High_T="6000" > -1036480.92-261.13659*T+59.015088*T*LN(T)  -.017726352*T**2+GHSERZR+2*GHSEROO; />
+    <Trange High_T="6000" > -1036480.92-261.13659*T+59.015088*T*LN(T)  -.017726352*T**2+GHSERZR+2*GHSEROO; </Trange>
   </TPfun>
   <TPfun id="LOWLIQ" Low_T="298.15" >
-    <Trange High_T="2600" > +G4OV+79775-25.0114*T-2.62269566E-21*T**7; />
+    <Trange High_T="2600" > +G4OV+79775-25.0114*T-2.62269566E-21*T**7; </Trange>
   </TPfun>
   <TPfun id="O2ULIQ" Low_T="298.15" >
-    <Trange High_T="6000" > -1590418+3618.8*T-480*T*LN(T)+.07*T**2-1E-06*T**3; />
+    <Trange High_T="6000" > -1590418+3618.8*T-480*T*LN(T)+.07*T**2-1E-06*T**3; </Trange>
   </TPfun>
   <TPfun id="GUO2" Low_T="298.15" >
-    <Trange High_T="6000" > -1118940.2+554.00559*T-93.268*T*LN(T)  +.0101704254*T**2-2.03335671E-06*T**3+1091073.7*T**(-1); />
+    <Trange High_T="6000" > -1118940.2+554.00559*T-93.268*T*LN(T)  +.0101704254*T**2-2.03335671E-06*T**3+1091073.7*T**(-1); </Trange>
   </TPfun>
   <TPfun id="GUO25" Low_T="298.15" >
-    <Trange High_T="6000" > +GUO2+.5*GHSEROO-58351.62+39.67611*T; />
+    <Trange High_T="6000" > +GUO2+.5*GHSEROO-58351.62+39.67611*T; </Trange>
   </TPfun>
   <TPfun id="GUO15" Low_T="298.15" >
-    <Trange High_T="6000" > +GUO2-.5*GHSEROO+747127-70.22618*T; />
+    <Trange High_T="6000" > +GUO2-.5*GHSEROO+747127-70.22618*T; </Trange>
   </TPfun>
   <TPfun id="UN_ASS" Low_T="298.15" >
-    <Trange High_T="300" > +0; />
+    <Trange High_T="300" > +0; </Trange>
   </TPfun>
   <TPfun id="GUBCC" Low_T="298.14" >
-    <Trange High_T="1049" > -752.767+131.5381*T-27.5152*T*LN(T)  -.00835595*T**2+9.67907E-07*T**3+204611*T**(-1); />
-    <Trange High_T="3000" >  -4698.365+202.685635*T-38.2836*T*LN(T); />
+    <Trange High_T="1049" > -752.767+131.5381*T-27.5152*T*LN(T)  -.00835595*T**2+9.67907E-07*T**3+204611*T**(-1); </Trange>
+    <Trange High_T="3000" >  -4698.365+202.685635*T-38.2836*T*LN(T); </Trange>
   </TPfun>
   <TPfun id="GZRBCC" Low_T="298.14" >
-    <Trange High_T="2128" > -525.539+124.9457*T  -25.607406*T*LN(T)-3.40084E-04*T**2-9.729E-09*T**3+25233*T**(-1)  -7.6143E-11*T**4; />
-    <Trange High_T="6000" >   -30705.955+264.284163*T-42.144*T*LN(T)+1.276058E+32*T**(-9); />
+    <Trange High_T="2128" > -525.539+124.9457*T  -25.607406*T*LN(T)-3.40084E-04*T**2-9.729E-09*T**3+25233*T**(-1)  -7.6143E-11*T**4; </Trange>
+    <Trange High_T="6000" >   -30705.955+264.284163*T-42.144*T*LN(T)+1.276058E+32*T**(-9); </Trange>
   </TPfun>
   <Phase id="GAS" Configurational_model="CEF" >
     <Sublattices number_of="1"  Ratios="1" >
@@ -244,7 +254,7 @@
       <Constituent sublattice="1" id="ZRO" />
       <Constituent sublattice="1" id="ZRO2" />
     </Sublattices>
-    <AMEND MODEL="GAS_PHASE               " />
+    <Amend model="GAS_PHASE               " />
   </Phase>
   <Phase id="LIQUID" Configurational_model="I2SL" >
     <Sublattices number_of="2"  Ratios="10  8" >
@@ -254,7 +264,7 @@
       <Constituent sublattice="2" id="VA" />
       <Constituent sublattice="2" id="O" />
     </Sublattices>
-    <AMEND MODEL="LIQUID_PHASE            " />
+    <Amend model="LIQUID_PHASE            " />
   </Phase>
   <Phase id="BCC_A2" Configurational_model="CEF" >
     <Sublattices number_of="2"  Ratios="1  3" >
@@ -263,7 +273,7 @@
       <Constituent sublattice="2" id="O" />
       <Constituent sublattice="2" id="VA" />
     </Sublattices>
-    <AMEND MODEL="GES A_P_D BCC_A2 MAGNETIC  -1.0    4.00000E-01 !" />
+    <Amend model="GES A_P_D BCC_A2 MAGNETIC  -1.0    4.00000E-01 !" />
   </Phase>
   <Phase id="C1_MO2" Configurational_model="CEF" >
     <Sublattices number_of="3"  Ratios="1  2  1" >
@@ -285,7 +295,7 @@
       <Constituent sublattice="2" id="O" />
       <Constituent sublattice="2" id="VA" />
     </Sublattices>
-    <AMEND MODEL="GES A_P_D HCP_A3 MAGNETIC  -3.0    2.80000E-01 !" />
+    <Amend model="GES A_P_D HCP_A3 MAGNETIC  -3.0    2.80000E-01 !" />
   </Phase>
   <Phase id="ORTHORHOMBIC_A20" Configurational_model="CEF" >
     <Sublattices number_of="1"  Ratios="1" >
@@ -371,359 +381,359 @@
   </Phase>
   <Unary-parameters >
     <Parameter id="G(GAS,O;0)"   Low_T="298.15"  Bibref="REF24" > 
-      <Trange High_T="6000" > +OGAS+RTLNP; />
+      <Trange High_T="6000" > +OGAS+RTLNP; </Trange>
     </Parameter>
     <Parameter id="G(GAS,O2;0)"   Low_T="298.15"  Bibref="REF25" > 
-      <Trange High_T="6000" > +O2GAS+RTLNP; />
+      <Trange High_T="6000" > +O2GAS+RTLNP; </Trange>
     </Parameter>
     <Parameter id="G(GAS,O3;0)"   Low_T="298.15"  Bibref="REF26" > 
-      <Trange High_T="6000" > +O3GAS+RTLNP; />
+      <Trange High_T="6000" > +O3GAS+RTLNP; </Trange>
     </Parameter>
-    <Parameter id="G(LIQUID,*:O;0)"   Low_T="298.15"  Bibref="REF3" > 
-      <Trange High_T="6000" > +GHSEROO-2648.9+31.44*T; />
+    <Parameter id="G(LIQUID,(*:O;0)"   Low_T="298.15"  Bibref="REF3" > 
+      <Trange High_T="6000" > +GHSEROO-2648.9+31.44*T; </Trange>
     </Parameter>
     <Parameter id="G(GAS,U;0)"   Low_T="298.15"  Bibref="REF38" > 
-      <Trange High_T="6000" > +GASU+RTLNP; />
+      <Trange High_T="6000" > +GASU+RTLNP; </Trange>
     </Parameter>
     <Parameter id="G(LIQUID,U+4:VA;0)"   Low_T="298.15"  Bibref="REF3" > 
-      <Trange High_T="6000" > +GLIQUU; />
+      <Trange High_T="6000" > +GLIQUU; </Trange>
     </Parameter>
     <Parameter id="G(BCC_A2,U:VA;0)"   Low_T="298.15"  Bibref="REF3" > 
-      <Trange High_T="6000" > +GBCCUU; />
+      <Trange High_T="6000" > +GBCCUU; </Trange>
     </Parameter>
     <Parameter id="G(C1_MO2,U+3:VA:VA;0)"   Low_T="298.15"  Bibref="REF40" > 
-      <Trange High_T="6000" > +G3VV; />
+      <Trange High_T="6000" > +G3VV; </Trange>
     </Parameter>
     <Parameter id="G(C1_MO2,U+4:VA:VA;0)"   Low_T="298.15"  Bibref="REF40" > 
-      <Trange High_T="6000" > +G4VV; />
+      <Trange High_T="6000" > +G4VV; </Trange>
     </Parameter>
     <Parameter id="G(C1_MO2,U+5:VA:VA;0)"   Low_T="298.15"  Bibref="REF40" > 
-      <Trange High_T="6000" > +G5VV; />
+      <Trange High_T="6000" > +G5VV; </Trange>
     </Parameter>
     <Parameter id="G(HCP_A3,U:VA;0)"   Low_T="298.15"  Bibref="06Kur" > 
-      <Trange High_T="1049" > +5000-752.767+131.5381*T  -27.5152*T*LN(T)-.00835595*T**2+9.67907E-07*T**3+204611*T**(-1); />
-      <Trange High_T="3000" >   +5000-4698.37+202.685635*T-38.2836*T*LN(T); />
+      <Trange High_T="1049" > +5000-752.767+131.5381*T  -27.5152*T*LN(T)-.00835595*T**2+9.67907E-07*T**3+204611*T**(-1); </Trange>
+      <Trange High_T="3000" >   +5000-4698.37+202.685635*T-38.2836*T*LN(T); </Trange>
     </Parameter>
     <Parameter id="G(ORTHORHOMBIC_A20,U;0)"   Low_T="298.15"  Bibref="REF3" > 
-      <Trange High_T="4000" > +GHSERUU; />
+      <Trange High_T="4000" > +GHSERUU; </Trange>
     </Parameter>
     <Parameter id="G(TETRAGONAL_U,U;0)"   Low_T="298.15"  Bibref="REF3" > 
-      <Trange High_T="3000" > +GTETUU; />
+      <Trange High_T="3000" > +GTETUU; </Trange>
     </Parameter>
     <Parameter id="G(ZRO2_TETR,U+4:VA;0)"   Low_T="298.15"  Bibref="REF69" > 
-      <Trange High_T="6000" > +G4OV-2*GHSEROO; />
+      <Trange High_T="6000" > +G4OV-2*GHSEROO; </Trange>
     </Parameter>
     <Parameter id="G(GAS,ZR;0)"   Low_T="298.15"  Bibref="REF45" > 
-      <Trange High_T="6000" > +ZRGAS+RTLNP; />
+      <Trange High_T="6000" > +ZRGAS+RTLNP; </Trange>
     </Parameter>
     <Parameter id="G(GAS,ZR2;0)"   Low_T="298.15"  Bibref="REF46" > 
-      <Trange High_T="6000" > +ZR2GAS+RTLNP; />
+      <Trange High_T="6000" > +ZR2GAS+RTLNP; </Trange>
     </Parameter>
     <Parameter id="G(LIQUID,ZR+4:VA;0)"   Low_T="298.15"  Bibref="REF3" > 
-      <Trange High_T="6000" > +GLIQZR; />
+      <Trange High_T="6000" > +GLIQZR; </Trange>
     </Parameter>
     <Parameter id="G(BCC_A2,ZR:VA;0)"   Low_T="298.15"  Bibref="REF13" > 
-      <Trange High_T="6000" > +GBCCZR; />
+      <Trange High_T="6000" > +GBCCZR; </Trange>
     </Parameter>
     <Parameter id="G(C1_MO2,ZR+2:VA:VA;0)"   Low_T="298.15"  Bibref="REF69" > 
-      <Trange High_T="6000" > +ZR2O2+GHSERZR; />
+      <Trange High_T="6000" > +ZR2O2+GHSERZR; </Trange>
     </Parameter>
     <Parameter id="G(C1_MO2,ZR+4:VA:VA;0)"   Low_T="298.15"  Bibref="REF149" > 
-      <Trange High_T="6000" > +ZR4O2+GHSERZR; />
+      <Trange High_T="6000" > +ZR4O2+GHSERZR; </Trange>
     </Parameter>
     <Parameter id="G(HCP_A3,ZR:VA;0)"   Low_T="298.15"  Bibref="REF3" > 
-      <Trange High_T="6000" > +GHSERZR; />
+      <Trange High_T="6000" > +GHSERZR; </Trange>
     </Parameter>
     <Parameter id="G(ORTHORHOMBIC_A20,ZR;0)"   Low_T="298.15"  Bibref="04Che" > 
-      <Trange High_T="3000" > +38000+GHSERZR; />
+      <Trange High_T="3000" > +38000+GHSERZR; </Trange>
     </Parameter>
     <Parameter id="G(TETRAGONAL_U,ZR;0)"   Low_T="298.15"  Bibref="NDLAT" > 
-      <Trange High_T="2500" > +3400+GBCCZR; />
+      <Trange High_T="2500" > +3400+GBCCZR; </Trange>
     </Parameter>
     <Parameter id="G(ZRO2_MONO,ZR+4:VA;0)"   Low_T="298.15"  Bibref="REF150" > 
-      <Trange High_T="6000" > +GZRO2M-2*GHSEROO; />
+      <Trange High_T="6000" > +GZRO2M-2*GHSEROO; </Trange>
     </Parameter>
     <Parameter id="G(ZRO2_TETR,ZR+4:VA;0)"   Low_T="298.15"  Bibref="REF151" > 
-      <Trange High_T="6000" > +GZRO2T-2*GHSEROO; />
+      <Trange High_T="6000" > +GZRO2T-2*GHSEROO; </Trange>
     </Parameter>
     <Parameter id="G(GAS,UO;0)"   Low_T="298.15"  Bibref="REF137" > 
-      <Trange High_T="6000" > +UOGAS+RTLNP; />
+      <Trange High_T="6000" > +UOGAS+RTLNP; </Trange>
     </Parameter>
     <Parameter id="G(GAS,UO2;0)"   Low_T="298.15"  Bibref="REF138" > 
-      <Trange High_T="6000" > +UO2GAS+RTLNP; />
+      <Trange High_T="6000" > +UO2GAS+RTLNP; </Trange>
     </Parameter>
     <Parameter id="G(GAS,UO3;0)"   Low_T="298.15"  Bibref="REF139" > 
-      <Trange High_T="6000" > +UO3GAS+RTLNP; />
+      <Trange High_T="6000" > +UO3GAS+RTLNP; </Trange>
     </Parameter>
     <Parameter id="G(GAS,ZRO;0)"   Low_T="298.15"  Bibref="REF144" > 
-      <Trange High_T="6000" > +ZROGAS+RTLNP; />
+      <Trange High_T="6000" > +ZROGAS+RTLNP; </Trange>
     </Parameter>
     <Parameter id="G(GAS,ZRO2;0)"   Low_T="298.15"  Bibref="REF145" > 
-      <Trange High_T="6000" > +ZRO2GAS+RTLNP; />
+      <Trange High_T="6000" > +ZRO2GAS+RTLNP; </Trange>
     </Parameter>
     <Parameter id="G(UZR_DELTA,ZR:ZR;0)"   Low_T="298.15"  Bibref="xio13" > 
-      <Trange High_T="3000" > 527.5+GHSERZR; />
+      <Trange High_T="3000" > 527.5+GHSERZR; </Trange>
     </Parameter>
   </Unary-parameters>
   <Binary-parameters>
     <Parameter id="G(LIQUID,U+4:O-2;0)"   Low_T="298.15"  Bibref="REF40" > 
-      <Trange High_T="6000" > +2*GUO2L; />
+      <Trange High_T="6000" > +2*GUO2L; </Trange>
     </Parameter>
     <Parameter id="G(LIQUID,U+4:O-2;0)"   Low_T="298.15"  Bibref="REF40" > 
-      <Trange High_T="6000" > +1773475.9-516*T; />
+      <Trange High_T="6000" > +1773475.9-516*T; </Trange>
     </Parameter>
     <Parameter id="G(LIQUID,U+4:O-2;1)"   Low_T="298.15"  Bibref="REF40" > 
-      <Trange High_T="6000" > +46774.9-120.37888*T; />
+      <Trange High_T="6000" > +46774.9-120.37888*T; </Trange>
     </Parameter>
     <Parameter id="G(LIQUID,U+4:O-2;2)"   Low_T="298.15"  Bibref="REF40" > 
-      <Trange High_T="6000" > -500000; />
+      <Trange High_T="6000" > -500000; </Trange>
     </Parameter>
     <Parameter id="G(BCC_A2,U:O;0)"   Low_T="298.15"  Bibref="REF102" > 
-      <Trange High_T="6000" > +GBCCUU+3*GHSEROO+200000; />
+      <Trange High_T="6000" > +GBCCUU+3*GHSEROO+200000; </Trange>
     </Parameter>
     <Parameter id="G(C1_MO2,U+3:O-2:O-2;0)"   Low_T="298.15"  Bibref="REF40" > 
-      <Trange High_T="6000" > +G3OO; />
+      <Trange High_T="6000" > +G3OO; </Trange>
     </Parameter>
     <Parameter id="G(C1_MO2,U+4:O-2:O-2;0)"   Low_T="298.15"  Bibref="REF40" > 
-      <Trange High_T="6000" > +G4OO; />
+      <Trange High_T="6000" > +G4OO; </Trange>
     </Parameter>
     <Parameter id="G(C1_MO2,U+5:O-2:O-2;0)"   Low_T="298.15"  Bibref="REF40" > 
-      <Trange High_T="6000" > +G5OO; />
+      <Trange High_T="6000" > +G5OO; </Trange>
     </Parameter>
     <Parameter id="G(C1_MO2,U+3:VA:O-2;0)"   Low_T="298.15"  Bibref="REF40" > 
-      <Trange High_T="6000" > +100000; />
+      <Trange High_T="6000" > +100000; </Trange>
     </Parameter>
     <Parameter id="G(C1_MO2,U+4:VA:O-2;0)"   Low_T="298.15"  Bibref="REF40" > 
-      <Trange High_T="6000" > +100000; />
+      <Trange High_T="6000" > +100000; </Trange>
     </Parameter>
     <Parameter id="G(C1_MO2,U+5:VA:O-2;0)"   Low_T="298.15"  Bibref="REF40" > 
-      <Trange High_T="6000" > +100000; />
+      <Trange High_T="6000" > +100000; </Trange>
     </Parameter>
     <Parameter id="G(C1_MO2,U+3:O-2:VA;0)"   Low_T="298.15"  Bibref="REF40" > 
-      <Trange High_T="6000" > +G3OV; />
+      <Trange High_T="6000" > +G3OV; </Trange>
     </Parameter>
     <Parameter id="G(C1_MO2,U+4:O-2:VA;0)"   Low_T="298.15"  Bibref="REF40" > 
-      <Trange High_T="6000" > +G4OV; />
+      <Trange High_T="6000" > +G4OV; </Trange>
     </Parameter>
     <Parameter id="G(C1_MO2,U+5:O-2:VA;0)"   Low_T="298.15"  Bibref="REF40" > 
-      <Trange High_T="6000" > +G5OV; />
+      <Trange High_T="6000" > +G5OV; </Trange>
     </Parameter>
     <Parameter id="G(HCP_A3,U:O;0)"   Low_T="298.15"  Bibref="REF102" > 
-      <Trange High_T="6000" > +GHCPUU+.5*GHSEROO+100000; />
+      <Trange High_T="6000" > +GHCPUU+.5*GHSEROO+100000; </Trange>
     </Parameter>
     <Parameter id="G(U3O8_s1,O:U;0)"   Low_T="298.15"  Bibref="REF40" > 
-      <Trange High_T="6000" > +GU3O8; />
+      <Trange High_T="6000" > +GU3O8; </Trange>
     </Parameter>
     <Parameter id="G(U3O8_S2,O:U;0)"   Low_T="298.15"  Bibref="REF141" > 
-      <Trange High_T="6000" > +GU3O8+135-.279503106*T; />
+      <Trange High_T="6000" > +GU3O8+135-.279503106*T; </Trange>
     </Parameter>
     <Parameter id="G(U3O8_S3,O:U;0)"   Low_T="298.15"  Bibref="REF141" > 
-      <Trange High_T="6000" > +GU3O8+283-.540066486*T; />
+      <Trange High_T="6000" > +GU3O8+283-.540066486*T; </Trange>
     </Parameter>
     <Parameter id="G(U3O8_S4,O:U;0)"   Low_T="298.15"  Bibref="REF141" > 
-      <Trange High_T="6000" > +GU3O8+597-.918379739*T; />
+      <Trange High_T="6000" > +GU3O8+597-.918379739*T; </Trange>
     </Parameter>
     <Parameter id="G(U4O9_s1,O:U;0)"   Low_T="298.15"  Bibref="REF40" > 
-      <Trange High_T="6000" > +GU4O9; />
+      <Trange High_T="6000" > +GU4O9; </Trange>
     </Parameter>
     <Parameter id="G(U4O9_S2,O:U;0)"   Low_T="298.15"  Bibref="REF142" > 
-      <Trange High_T="6000" > +GU4O9+2594-7.45402299*T; />
+      <Trange High_T="6000" > +GU4O9+2594-7.45402299*T; </Trange>
     </Parameter>
     <Parameter id="G(U4O9_S3,O:U;0)"   Low_T="298.15"  Bibref="REF142" > 
-      <Trange High_T="6000" > +GU4O9+2684.25-7.5602*T; />
+      <Trange High_T="6000" > +GU4O9+2684.25-7.5602*T; </Trange>
     </Parameter>
     <Parameter id="G(UO3,O:U;0)"   Low_T="298.15"  Bibref="REF140" > 
-      <Trange High_T="3000" > -1260394.62+616.475675*T  -105.7368*T*LN(T)+.0104274*T**2-3.18099167E-06*T**3+868736*T**(-1); />
+      <Trange High_T="3000" > -1260394.62+616.475675*T  -105.7368*T*LN(T)+.0104274*T**2-3.18099167E-06*T**3+868736*T**(-1); </Trange>
     </Parameter>
     <Parameter id="G(ZRO2_TETR,U+4:O-2;0)"   Low_T="298.15"  Bibref="REF143" > 
-      <Trange High_T="6000" > +G4OV+40000; />
+      <Trange High_T="6000" > +G4OV+40000; </Trange>
     </Parameter>
     <Parameter id="G(LIQUID,ZR+4:O-2;0)"   Low_T="298.15"  Bibref="REF146" > 
-      <Trange High_T="6000" > +2*GZRO2L; />
+      <Trange High_T="6000" > +2*GZRO2L; </Trange>
     </Parameter>
     <Parameter id="G(LIQUID,ZR+4:O-2;0)"   Low_T="298.15"  Bibref="REF146" > 
-      <Trange High_T="6000" > +424351.51-215.70189*T; />
+      <Trange High_T="6000" > +424351.51-215.70189*T; </Trange>
     </Parameter>
     <Parameter id="G(LIQUID,ZR+4:O-2;1)"   Low_T="298.15"  Bibref="REF146" > 
-      <Trange High_T="6000" > +211955.21-77.30708*T; />
+      <Trange High_T="6000" > +211955.21-77.30708*T; </Trange>
     </Parameter>
     <Parameter id="G(BCC_A2,ZR:O;0)"   Low_T="298.15"  Bibref="REF146" > 
-      <Trange High_T="6000" > +400000+GBCCZR+3*GHSEROO; />
+      <Trange High_T="6000" > +400000+GBCCZR+3*GHSEROO; </Trange>
     </Parameter>
     <Parameter id="G(BCC_A2,ZR:O;0)"   Low_T="298.15"  Bibref="REF146" > 
-      <Trange High_T="6000" > -2639295.07+280.8704*T; />
+      <Trange High_T="6000" > -2639295.07+280.8704*T; </Trange>
     </Parameter>
     <Parameter id="G(BCC_A2,ZR:O;1)"   Low_T="298.15"  Bibref="REF146" > 
-      <Trange High_T="6000" > -578130; />
+      <Trange High_T="6000" > -578130; </Trange>
     </Parameter>
     <Parameter id="G(C1_MO2,ZR+2:O-2:O-2;0)"   Low_T="298.15"  Bibref="REF148" > 
-      <Trange High_T="6000" > +ZR2O2+GHSERZR+2*GHSEROO  +BIG1; />
+      <Trange High_T="6000" > +ZR2O2+GHSERZR+2*GHSEROO  +BIG1; </Trange>
     </Parameter>
     <Parameter id="G(C1_MO2,ZR+4:O-2:O-2;0)"   Low_T="298.15"  Bibref="REF148" > 
-      <Trange High_T="6000" > +ZR4O2+GHSERZR+2*GHSEROO  +BIG1; />
+      <Trange High_T="6000" > +ZR4O2+GHSERZR+2*GHSEROO  +BIG1; </Trange>
     </Parameter>
     <Parameter id="G(C1_MO2,ZR+2:VA:O-2;0)"   Low_T="298.15"  Bibref="REF69" > 
-      <Trange High_T="6000" > +ZR2O2+GHSERZR+BIG1; />
+      <Trange High_T="6000" > +ZR2O2+GHSERZR+BIG1; </Trange>
     </Parameter>
     <Parameter id="G(C1_MO2,ZR+4:VA:O-2;0)"   Low_T="298.15"  Bibref="REF149" > 
-      <Trange High_T="6000" > +ZR4O2+GHSERZR+BIG1; />
+      <Trange High_T="6000" > +ZR4O2+GHSERZR+BIG1; </Trange>
     </Parameter>
     <Parameter id="G(C1_MO2,ZR+2:O-2:VA;0)"   Low_T="298.15"  Bibref="REF69" > 
-      <Trange High_T="6000" > +ZR2O2+GHSERZR+2*GHSEROO; />
+      <Trange High_T="6000" > +ZR2O2+GHSERZR+2*GHSEROO; </Trange>
     </Parameter>
     <Parameter id="G(C1_MO2,ZR+4:O-2:VA;0)"   Low_T="298.15"  Bibref="REF149" > 
-      <Trange High_T="6000" > +ZR4O2+GHSERZR+2*GHSEROO; />
+      <Trange High_T="6000" > +ZR4O2+GHSERZR+2*GHSEROO; </Trange>
     </Parameter>
     <Parameter id="G(C1_MO2,ZR+2,ZR+4:*:*;0)"   Low_T="298.15"  Bibref="REF180" > 
-      <Trange High_T="6000" > -221948+96.44803*T; />
+      <Trange High_T="6000" > -221948+96.44803*T; </Trange>
     </Parameter>
     <Parameter id="G(C1_MO2,ZR+2,ZR+4:*:*;1)"   Low_T="298.15"  Bibref="REF180" > 
-      <Trange High_T="6000" > -22085; />
+      <Trange High_T="6000" > -22085; </Trange>
     </Parameter>
     <Parameter id="G(HCP_A3,ZR:O;0)"   Low_T="298.15"  Bibref="REF147" > 
-      <Trange High_T="6000" > +GHSERZR+.5*GHSEROO  -277500+38.2*T; />
+      <Trange High_T="6000" > +GHSERZR+.5*GHSEROO  -277500+38.2*T; </Trange>
     </Parameter>
     <Parameter id="G(HCP_A3,ZR:O;0)"   Low_T="298.15"  Bibref="REF147" > 
-      <Trange High_T="6000" > -27000+13*T; />
+      <Trange High_T="6000" > -27000+13*T; </Trange>
     </Parameter>
     <Parameter id="G(HCP_A3,ZR:O;1)"   Low_T="298.15"  Bibref="REF147" > 
-      <Trange High_T="6000" > -9000+2*T; />
+      <Trange High_T="6000" > -9000+2*T; </Trange>
     </Parameter>
     <Parameter id="G(ZRO2_MONO,ZR+4:O-2;0)"   Low_T="298.15"  Bibref="REF146" > 
-      <Trange High_T="6000" > +GZRO2M; />
+      <Trange High_T="6000" > +GZRO2M; </Trange>
     </Parameter>
     <Parameter id="G(ZRO2_TETR,ZR+4:O-2;0)"   Low_T="298.15"  Bibref="REF146" > 
-      <Trange High_T="6000" > +GZRO2T; />
+      <Trange High_T="6000" > +GZRO2T; </Trange>
     </Parameter>
     <Parameter id="G(LIQUID,U+4,ZR+4:VA;0)"   Low_T="298.15"  Bibref="REFQUA" > 
-      <Trange High_T="3000" > +119660.499-66.6884312*T; />
+      <Trange High_T="3000" > +119660.499-66.6884312*T; </Trange>
     </Parameter>
     <Parameter id="G(LIQUID,U+4,ZR+4:VA;1)"   Low_T="298.15"  Bibref="REFQUA" > 
-      <Trange High_T="3000" > -12215.7964; />
+      <Trange High_T="3000" > -12215.7964; </Trange>
     </Parameter>
     <Parameter id="G(BCC_A2,U,ZR:VA;0)"   Low_T="298.15"  Bibref="REFQUA" > 
-      <Trange High_T="3000" > +28369.0639-14.741714*T; />
+      <Trange High_T="3000" > +28369.0639-14.741714*T; </Trange>
     </Parameter>
     <Parameter id="G(BCC_A2,U,ZR:VA;1)"   Low_T="298.15"  Bibref="REFQUA" > 
-      <Trange High_T="3000" > 4992.02639; />
+      <Trange High_T="3000" > 4992.02639; </Trange>
     </Parameter>
     <Parameter id="G(BCC_A2,U,ZR:VA;2)"   Low_T="298.15"  Bibref="REFQUA" > 
-      <Trange High_T="3000" > 2609.10711; />
+      <Trange High_T="3000" > 2609.10711; </Trange>
     </Parameter>
     <Parameter id="G(HCP_A3,U,ZR:VA;0)"   Low_T="298.15"  Bibref="REFQUA" > 
-      <Trange High_T="3000" > 26573.6011; />
+      <Trange High_T="3000" > 26573.6011; </Trange>
     </Parameter>
     <Parameter id="G(ORTHORHOMBIC_A20,U,ZR;0)"   Low_T="298.15"  Bibref="REFQUA" > 
-      <Trange High_T="3000" > -7000; />
+      <Trange High_T="3000" > -7000; </Trange>
     </Parameter>
     <Parameter id="G(TETRAGONAL_U,U,ZR;0)"   Low_T="298.15"  Bibref="REFQUA" > 
-      <Trange High_T="3000" > 27000; />
+      <Trange High_T="3000" > 27000; </Trange>
     </Parameter>
     <Parameter id="G(UZR_DELTA,U:ZR;0)"   Low_T="298.15"  Bibref="xio13" > 
-      <Trange High_T="3000" > 588.19+2.768*T+0.666667*GHSERUU+  0.333333*GHSERZR; />
+      <Trange High_T="3000" > 588.19+2.768*T+0.666667*GHSERUU+  0.333333*GHSERZR; </Trange>
     </Parameter>
     <Parameter id="L(UZR_DELTA,U,ZR:ZR;0)"   Low_T="298.15"  Bibref="REFQUA" > 
-      <Trange High_T="3000" > -2381.61+7.3129*T; />
+      <Trange High_T="3000" > -2381.61+7.3129*T; </Trange>
     </Parameter>
     <Parameter id="L(UZR_DELTA,U,ZR:ZR;1)"   Low_T="298.15"  Bibref="xio13" > 
-      <Trange High_T="3000" > 236.69-5.874*T; />
+      <Trange High_T="3000" > 236.69-5.874*T; </Trange>
     </Parameter>
   </Binary-parameters>
   <Higher-parameters>
     <Parameter id="G(LIQUID,U+4:O-2;0)"   Low_T="298.15"  Bibref="REF40" > 
-      <Trange High_T="6000" > -370000; />
+      <Trange High_T="6000" > -370000; </Trange>
     </Parameter>
     <Parameter id="G(C1_MO2,U+4,U+5:O-2:O-2;0)"   Low_T="298.15"  Bibref="REF40" > 
-      <Trange High_T="6000" > -124936.9-21.6838*T; />
+      <Trange High_T="6000" > -124936.9-21.6838*T; </Trange>
     </Parameter>
     <Parameter id="G(C1_MO2,U+3,U+4:O-2:VA;0)"   Low_T="298.15"  Bibref="REF40" > 
-      <Trange High_T="6000" > +40133.7; />
+      <Trange High_T="6000" > +40133.7; </Trange>
     </Parameter>
     <Parameter id="G(C1_MO2,U+3,U+4:O-2:VA;1)"   Low_T="298.15"  Bibref="REF40" > 
-      <Trange High_T="6000" > +1076.4; />
+      <Trange High_T="6000" > +1076.4; </Trange>
     </Parameter>
     <Parameter id="G(LIQUID,ZR+4:O-2;0)"   Low_T="298.15"  Bibref="REF146" > 
-      <Trange High_T="6000" > +50000; />
+      <Trange High_T="6000" > +50000; </Trange>
     </Parameter>
     <Parameter id="G(LIQUID,U+4,ZR+4:O-2;0)"   Low_T="298.15"  Bibref="REFQUA" > 
-      <Trange High_T="6000" > -70000; />
+      <Trange High_T="6000" > -70000; </Trange>
     </Parameter>
     <Parameter id="G(LIQUID,U+4,ZR+4:O-2;1)"   Low_T="298.15"  Bibref="REFQUA" > 
-      <Trange High_T="6000" > 60000; />
+      <Trange High_T="6000" > 60000; </Trange>
     </Parameter>
     <Parameter id="G(LIQUID,U+4,ZR+4:O-2;0)"   Low_T="298.15"  Bibref="REFQUA" > 
-      <Trange High_T="6000" > -1287053+421*T; />
+      <Trange High_T="6000" > -1287053+421*T; </Trange>
     </Parameter>
     <Parameter id="G(LIQUID,U+4,ZR+4:O-2;1)"   Low_T="298.15"  Bibref="REFQUA" > 
-      <Trange High_T="6000" > +280000; />
+      <Trange High_T="6000" > +280000; </Trange>
     </Parameter>
     <Parameter id="G(C1_MO2,U+3,ZR+4:O-2:VA;0)"   Low_T="298.15"  Bibref="REF180" > 
-      <Trange High_T="6000" > +200000; />
+      <Trange High_T="6000" > +200000; </Trange>
     </Parameter>
     <Parameter id="G(C1_MO2,U+4,ZR+4:O-2:VA;0)"   Low_T="298.15"  Bibref="REF143" > 
-      <Trange High_T="6000" > +86234-34.36*T; />
+      <Trange High_T="6000" > +86234-34.36*T; </Trange>
     </Parameter>
     <Parameter id="G(C1_MO2,U+4,ZR+4:O-2:VA;1)"   Low_T="298.15"  Bibref="REF143" > 
-      <Trange High_T="6000" > +12094; />
+      <Trange High_T="6000" > +12094; </Trange>
     </Parameter>
     <Parameter id="G(C1_MO2,U+4,ZR+2:O-2:VA;0)"   Low_T="298.15"  Bibref="REFQUA" > 
-      <Trange High_T="6000" > -336427+22.37*T; />
+      <Trange High_T="6000" > -336427+22.37*T; </Trange>
     </Parameter>
     <Parameter id="G(HCP_A3,U,ZR:O;0)"   Low_T="298.15"  Bibref="REFQUA" > 
-      <Trange High_T="6000" > -250000; />
+      <Trange High_T="6000" > -250000; </Trange>
     </Parameter>
     <Parameter id="G(BCC_A2,U,ZR:O;0)"   Low_T="298.15"  Bibref="REFQUA" > 
-      <Trange High_T="6000" > -100000; />
+      <Trange High_T="6000" > -100000; </Trange>
     </Parameter>
     <Parameter id="G(ZRO2_TETR,U+4,ZR+4:O-2;0)"   Low_T="298.15"  Bibref="REF143" > 
-      <Trange High_T="6000" > +41176-32.93*T; />
+      <Trange High_T="6000" > +41176-32.93*T; </Trange>
     </Parameter>
   </Higher-parameters>
   <Bibliography>
-    <Bibitem ID="REF24" > O1<G> JANAF 1982; ASSESSMENT DATED 3/77 SGTE OXYGEN <MONATOMIC  GAS>, from SSUB />
-    <Bibitem ID="REF25" > O2<G> T.C.R.A.S. Class: 1 OXYGEN <DIATOMIC GAS>, from SSUB />
-    <Bibitem ID="REF26" > O3<G> T.C.R.A.S. Class: 4 OZONE <GAS>, from SSUB />
-    <Bibitem ID="REF38" > U1<G> T.C.R.A.S Class: 4 Data provided by T.C.R.A.S. in 2000,  from SSUB />
-    <Bibitem ID="REF137" > O1U1<G> T.C.R.A.S Class: 6 Data provided by T.C.R.A.S. in 2000,  from SSUB, different of Tbase />
-    <Bibitem ID="REF138" > O2U1<G> T.C.R.A.S. Class: 6 URANIUM DIOXIDE <GAS>, from SSUB,  slightly different of Tbase />
-    <Bibitem ID="REF139" > O3U1<G> T.C.R.A.S Class: 6 Data provided by T.C.R.A.S. in 2000,  from SSUB, different of Tbase />
-    <Bibitem ID="REF45" > ZR1<G> T.C.R.A.S. Class: 1 ZIRCONIUM <GAS>, from SSUB />
-    <Bibitem ID="REF46" > ZR2<G> T.C.R.A.S. Class: 7, from SSUB />
-    <Bibitem ID="REF144" > O1ZR1<G> T.C.R.A.S. Class: 2 ZIRCONIUM <MONOXIDE GAS>, from SSUB />
-    <Bibitem ID="REF145" > O2ZR1<G> T.C.R.A.S. Class: 6 ZIRCONIUM DIOXIDE <GAS>, from SSUB />
-    <Bibitem ID="REF40" > C. Guéneau, N. Dupin, B. Sundman, C. Martial, J.-C. Dumas, S.  Gossé,2 S. Chatain, F. De Bruycker, D. Manara, R.J.M. Konings,  J. Nucl. Mat. 419 (1-3), 145-167 (2011); C-O-Pu-U />
-    <Bibitem ID="REF146" > P. Liang, N. Dupin, S.G. Fries, H.J. Seifert, I. Ansara, H. L.  Lukas, F. Aldinger, Z. Metallkd., 92 (7) 747 (2001); O-Zr />
-    <Bibitem ID="REF3" > A T Dinsdale, SGTE Data for Pure Elements, Calphad 15(1991)4 p  317-425; also in NPL Report DMA(A)195 Rev. August 1990 />
-    <Bibitem ID="REF143" > A. Quaini, C. Gueneau, 2013, provisional; Fe-O-U-Zr />
-    <Bibitem ID="REF31" > M. Kurata, Calphad, 23 (3-4), 305-337 1999 />
-    <Bibitem ID="REF181" > Thesis A. Quaini />
-    <Bibitem ID="REF102" > fixing some parameters of low importance />
-    <Bibitem ID="REF13" > A T Dinsdale, SGTE Data for Pure Elements, update 2001 />
-    <Bibitem ID="REF85" > N. DUpin, fixing parameters for metastable states, model  inconsistencies; october 2014 />
-    <Bibitem ID="REF15" > M.H.F. Sluiter, Calphad, 30, 357-66(2006); Endmember values />
-    <Bibitem ID="REF148" > B Sundman, to make ZrO2 model compatible with UO2 />
-    <Bibitem ID="REF69" > N. Dupin, modification of L. Kjellqvist CaO-ZrO2 due to  different ZrO2 description />
-    <Bibitem ID="REF149" > B. Sundman, another revision of Zr-O; 2012 />
-    <Bibitem ID="REF180" > A. Quaini et al. JNM 2016 article on PUO2-UO2-ZRO2 />
-    <Bibitem ID="REF16" > M.H.F. Sluiter, unpublished research (2013); More endmember  values />
-    <Bibitem ID="REF41" > M. Kurata, Am, Np , Fe systems, to be published, e-mail to ND  2010 feb 21 />
-    <Bibitem ID="REF27" > B. Hallstedt, Calphad, 16 (1992), 53-61; Si-O />
-    <Bibitem ID="REF170" > C. Gueneau, CEA Saclay; C-O-U />
-    <Bibitem ID="REF147" > B. Sundman, O-Zr revision of hcp description, 2007-04-09  Previous HCP had stoichiometry (zr)3(O,Va)3 with ordering New hcp  has stoichiometry (Zr)1(O,Va)0.5 and no ordering />
-    <Bibitem ID="REF39" >  SGTE unary database version 4.4 />
-    <Bibitem ID="REF47" > P.-Y. Chevalier, E. Fischer, B. Cheynet, Calphad 28 (2004) 15  -40; O-U-Zr />
-    <Bibitem ID="REF30" > M. Kurata, private communication 2006; Pu-Zr />
-    <Bibitem ID="REF14" >  ND 2010 sigma from Sluiter for TET_U for Mo, Ti, Cr; Revision  of Mo-U />
-    <Bibitem ID="REF141" > SSUB 3-URANIUM 8-OXIDE : M.H.Rand March 1994, taken from  Cordfunke. In the fuelbase, the expression relative to the alpha  form has been kept identical to SSUB for the higher temperatures  forms but the alpha form expression has been modified in 11GUE />
-    <Bibitem ID="REF142" > SSUB 4-URANIUM 9-OXIDE : M.H.Rand March 1994, taken from  Cordfunke. In the fuelbase, the expression relative to the alpha  form has been kept identical to SSUB for beta and to 08GUE for  gamma but the alpha form expression has been modified in 11GUE />
-    <Bibitem ID="REF140" > O3U1 T.C.R.A.S. Class: 7 URANIUM TRIOXIDE, from SSUB />
-    <Bibitem ID="REF150" > O. Fabrichnaya, C. Wang, M. Zinkevich, C.G. Levi and F.  Aldinger (2005): Phase equilibria and thermodynamic properties of  the ZrO2 -GdO1.5-YO1.5 system. J. Phase Equilibria, 26(6), 591  -604. />
-    <Bibitem ID="REF151" > S. Lakiza, O. Fabrichnaya, C. Wang, M. Zinkevich and F.  Aldinger (2006): Phase diagram of the ZrO2-Gd2O3-Al2O3 system. J.  Eur. Ceram. Soc., 26, 233-246. />
-    <Bibitem ID="89Lei" > L. Leibowitz and R.A. Blomquist,  J Nucl. Mat. 167 (1989) p 76-81; U-Zr />
-    <Bibitem ID="06Kur" > Kurata-2006 />
-    <Bibitem ID="REFQUA" > Paper U-Zr-O 2016 />
-    <Bibitem ID="xio13" > Xiong et al. JNM 443 (2013) 331-341 />
-    <Bibitem ID="04Che" > Chevalier 2004 />
-    <Bibitem ID="NDLAT" > TAF-ID V7 />
+    <Bibitem ID="REF24" Text="O1<G> JANAF 1982; ASSESSMENT DATED 3/77 SGTE OXYGEN <MONATOMIC  GAS>, from SSUB" />
+    <Bibitem ID="REF25" Text="O2<G> T.C.R.A.S. Class: 1 OXYGEN <DIATOMIC GAS>, from SSUB" />
+    <Bibitem ID="REF26" Text="O3<G> T.C.R.A.S. Class: 4 OZONE <GAS>, from SSUB" />
+    <Bibitem ID="REF38" Text="U1<G> T.C.R.A.S Class: 4 Data provided by T.C.R.A.S. in 2000,  from SSUB" />
+    <Bibitem ID="REF137" Text="O1U1<G> T.C.R.A.S Class: 6 Data provided by T.C.R.A.S. in 2000,  from SSUB, different of Tbase" />
+    <Bibitem ID="REF138" Text="O2U1<G> T.C.R.A.S. Class: 6 URANIUM DIOXIDE <GAS>, from SSUB,  slightly different of Tbase" />
+    <Bibitem ID="REF139" Text="O3U1<G> T.C.R.A.S Class: 6 Data provided by T.C.R.A.S. in 2000,  from SSUB, different of Tbase" />
+    <Bibitem ID="REF45" Text="ZR1<G> T.C.R.A.S. Class: 1 ZIRCONIUM <GAS>, from SSUB" />
+    <Bibitem ID="REF46" Text="ZR2<G> T.C.R.A.S. Class: 7, from SSUB" />
+    <Bibitem ID="REF144" Text="O1ZR1<G> T.C.R.A.S. Class: 2 ZIRCONIUM <MONOXIDE GAS>, from SSUB" />
+    <Bibitem ID="REF145" Text="O2ZR1<G> T.C.R.A.S. Class: 6 ZIRCONIUM DIOXIDE <GAS>, from SSUB" />
+    <Bibitem ID="REF40" Text="C. Guéneau, N. Dupin, B. Sundman, C. Martial, J.-C. Dumas, S.  Gossé,2 S. Chatain, F. De Bruycker, D. Manara, R.J.M. Konings,  J. Nucl. Mat. 419 (1-3), 145-167 (2011); C-O-Pu-U" />
+    <Bibitem ID="REF146" Text="P. Liang, N. Dupin, S.G. Fries, H.J. Seifert, I. Ansara, H. L.  Lukas, F. Aldinger, Z. Metallkd., 92 (7) 747 (2001); O-Zr" />
+    <Bibitem ID="REF3" Text="A T Dinsdale, SGTE Data for Pure Elements, Calphad 15(1991)4 p  317-425; also in NPL Report DMA(A)195 Rev. August 1990" />
+    <Bibitem ID="REF143" Text="A. Quaini, C. Gueneau, 2013, provisional; Fe-O-U-Zr" />
+    <Bibitem ID="REF31" Text="M. Kurata, Calphad, 23 (3-4), 305-337 1999" />
+    <Bibitem ID="REF181" Text="Thesis A. Quaini" />
+    <Bibitem ID="REF102" Text="fixing some parameters of low importance" />
+    <Bibitem ID="REF13" Text="A T Dinsdale, SGTE Data for Pure Elements, update 2001" />
+    <Bibitem ID="REF85" Text="N. DUpin, fixing parameters for metastable states, model  inconsistencies; october 2014" />
+    <Bibitem ID="REF15" Text="M.H.F. Sluiter, Calphad, 30, 357-66(2006); Endmember values" />
+    <Bibitem ID="REF148" Text="B Sundman, to make ZrO2 model compatible with UO2" />
+    <Bibitem ID="REF69" Text="N. Dupin, modification of L. Kjellqvist CaO-ZrO2 due to  different ZrO2 description" />
+    <Bibitem ID="REF149" Text="B. Sundman, another revision of Zr-O; 2012" />
+    <Bibitem ID="REF180" Text="A. Quaini et al. JNM 2016 article on PUO2-UO2-ZRO2" />
+    <Bibitem ID="REF16" Text="M.H.F. Sluiter, unpublished research (2013); More endmember  values" />
+    <Bibitem ID="REF41" Text="M. Kurata, Am, Np , Fe systems, to be published, e-mail to ND  2010 feb 21" />
+    <Bibitem ID="REF27" Text="B. Hallstedt, Calphad, 16 (1992), 53-61; Si-O" />
+    <Bibitem ID="REF170" Text="C. Gueneau, CEA Saclay; C-O-U" />
+    <Bibitem ID="REF147" Text="B. Sundman, O-Zr revision of hcp description, 2007-04-09  Previous HCP had stoichiometry (zr)3(O,Va)3 with ordering New hcp  has stoichiometry (Zr)1(O,Va)0.5 and no ordering" />
+    <Bibitem ID="REF39" Text=" SGTE unary database version 4.4" />
+    <Bibitem ID="REF47" Text="P.-Y. Chevalier, E. Fischer, B. Cheynet, Calphad 28 (2004) 15  -40; O-U-Zr" />
+    <Bibitem ID="REF30" Text="M. Kurata, private communication 2006; Pu-Zr" />
+    <Bibitem ID="REF14" Text=" ND 2010 sigma from Sluiter for TET_U for Mo, Ti, Cr; Revision  of Mo-U" />
+    <Bibitem ID="REF141" Text="SSUB 3-URANIUM 8-OXIDE : M.H.Rand March 1994, taken from  Cordfunke. In the fuelbase, the expression relative to the alpha  form has been kept identical to SSUB for the higher temperatures  forms but the alpha form expression has been modified in 11GUE" />
+    <Bibitem ID="REF142" Text="SSUB 4-URANIUM 9-OXIDE : M.H.Rand March 1994, taken from  Cordfunke. In the fuelbase, the expression relative to the alpha  form has been kept identical to SSUB for beta and to 08GUE for  gamma but the alpha form expression has been modified in 11GUE" />
+    <Bibitem ID="REF140" Text="O3U1 T.C.R.A.S. Class: 7 URANIUM TRIOXIDE, from SSUB" />
+    <Bibitem ID="REF150" Text="O. Fabrichnaya, C. Wang, M. Zinkevich, C.G. Levi and F.  Aldinger (2005): Phase equilibria and thermodynamic properties of  the ZrO2 -GdO1.5-YO1.5 system. J. Phase Equilibria, 26(6), 591  -604." />
+    <Bibitem ID="REF151" Text="S. Lakiza, O. Fabrichnaya, C. Wang, M. Zinkevich and F.  Aldinger (2006): Phase diagram of the ZrO2-Gd2O3-Al2O3 system. J.  Eur. Ceram. Soc., 26, 233-246." />
+    <Bibitem ID="89Lei" Text="L. Leibowitz and R.A. Blomquist,  J Nucl. Mat. 167 (1989) p 76-81; U-Zr" />
+    <Bibitem ID="06Kur" Text="Kurata-2006" />
+    <Bibitem ID="REFQUA" Text="Paper U-Zr-O 2016" />
+    <Bibitem ID="xio13" Text="Xiong et al. JNM 443 (2013) 331-341" />
+    <Bibitem ID="04Che" Text="Chevalier 2004" />
+    <Bibitem ID="NDLAT" Text="TAF-ID V7" />
   </Bibliography>
 </Database>

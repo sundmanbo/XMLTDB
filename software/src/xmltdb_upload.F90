@@ -10,7 +10,7 @@ program xmlupload
   integer lina,luta,last,ip,jp,kp
   character (len=256) :: file,tdbfile
   character (len=128) :: cline
-  character text*32,origin*32
+  character text*12,origin*32
   type(xmltdb_typedefs), pointer :: type_def
 !
 ! 8 max for elements, species, phases, parameters, tpfun, models,
@@ -40,14 +40,26 @@ program xmlupload
   call gparfilex('TDB file name: ',cline,last,1,tdbfile,' ',1,'?Read TDB')
 !
   origin='Thermo-Calc '
+  tofs=1
   text='dummy'
 ! the second to last argument is a proposed default answer
   call gparcdx('Software used to generate TDB: ',cline,last,1,text,origin,&
        '?Read TDB')
 !
   if(text.ne.origin) then
-     write(*,*)'No implemented'
-     stop
+     if(text.eq.software(4)) then
+        write(*,*)'Using MatCalc specials'
+        tofs=4
+     elseif(text.eq.software(3)) then
+        write(*,*)'Using Pandat specials'
+        tofs=3
+     else
+        write(*,107)text,software
+107     format('Unknown software "',a,'", allowed TDB formats are:',//4a/4a)
+        stop
+     endif
+  else
+     write(*,*)'Assuming Thermo-Calc compatible TDB file'
   endif
 !
   lina=21
@@ -90,7 +102,8 @@ program xmlupload
   open(luta,file='XMLTDB-file.XTD',access='sequential',&
        status='unknown',err=2200)
 !  
-  write(*,*)'Writing output on file: XMLTDB-file.XTD'
+  write(*,30)
+30 format(/'Writing output on file: XMLTDB-file.XTD')
   call write_xmltdb(luta,tdbfile)
   if(xmlerr.ne.0) goto 2300
   close(luta)

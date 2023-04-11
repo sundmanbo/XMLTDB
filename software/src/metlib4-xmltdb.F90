@@ -844,6 +844,7 @@ CONTAINS
           text(i:i)=char(ich1+iup)
        ENDIF
     ENDDO
+!    write(*,*)'Capson: ',iup,len_trim(text)
   END SUBROUTINE capson
   
 !/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/
