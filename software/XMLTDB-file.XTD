@@ -1,0 +1,283 @@
+<?xml version="1.0"?>
+<?xml-model href="database.rng" schematypens="http://relaxng.org/ns/structure/1.0" type="application/xml"?>
+<Database version="0">
+  <metadata>
+    <writer>xmltdbproject test
+       TDBfile="C:\Users\bosun\Documents\OC\projects\XML\software\up-down-load\examples\CrFe-noP.TDB"
+    </writer>
+  </metadata>
+  <Statistics elements="4"  species="3"  phases="11"  parameters="39"  bibrefs="8"  />
+  <Defaults low_T="298.15" high_T="6000" />
+  <Models>
+    <Magnetic-model id="IHJBCC"  MPID1="TC" MPID2="BMAGN" anti-ferromagnetic_factor=" -1.00" 
+       f_below_TC=" +1-0.905299383*TAO**(-1)-0.153008346*TAO**3-.00680037095*TAO**9-.00153008346*TAO**15;"
+       f_above_TC=" -.0641731208*TAO**(-5)-.00203724193*TAO**(-15)-.000427820805*TAO**(-25);" bibref="82Her" > in G=f(TAO)*LN(BETA+1) where TAO=T/TC
+    </Magnetic-model>
+    <Magnetic-model id="IHJREST"  MPID1="TC" MPID2="BMAGN" anti-ferromagnetic_factor=" -3.00" 
+       f_below_TC=" +1-0.860338755*TAO**(-1)-0.17449124*TAO**3-.00775516624*TAO**9-.0017449124*TAO**15;"
+       f_above_TC=" -.0426902268*TAO**(-5)-.0013552453*TAO**(-15)-.000284601512*TAO**(-25);" bibref="82Her" > in G=f(TAO)*LN(BETA+1) where TAO=T/TC
+    </Magnetic-model>
+    <Magnetic-model id="IHJQX"  MPID1="CT" MPID2="NT" MPID3="BMAGN" anti-ferromagnetic_factor="  0.00" 
+       f_below_TC=" +1-0.842849633*TAO**(-1)-0.174242226*TAO**3-.00774409892*TAO**9-.00174242226*TAO**15-.000646538871*TAO**21;"
+       f_above_TC=" -.0261039233*TAO**(-7)-.000870130777*TAO**(-21)-.000184262988*TAO**(-35)-6.65916411E-05*TAO**(-49);" bibref="12Xiong" > in G=f(TAO)*LN(BETA+1) where TAO=T/CT or T/NT
+    </Magnetic-model>
+    <Einstein-model id="GLOWTEIN" MPID1="LNTH" bibref="98Qing" > 
+       Gibbs energy due to the Einstein low T vibrational entropy model.
+    </Einstein-model>
+    <Liquid-2state-model id="LIQ2STATE" MPID1="G2"  MPID2="LNTH" bibref="14Becker" >
+      Unified model for the liquid and amorpheous state inluding the Einstein low T model
+    </Liquid-2state-model>
+    <Disordered-fraction-model id="DISFS" bibref="09Sun" >
+       The disordered fractions are summed over the ordered sublattices indicated at the phase.
+    </Disordered-fraction-model>
+    <FCC-permutations id="FCCPERM" bibref="09Sun" >
+      Permutations of ordered FCC parameters with the same set of elements are listed only once.
+    </FCC-permutations>
+    <BCC-permutations id="BCCPERM" bibref="09Sun" >
+      Permutations of ordered BCC parameters with the same set of elements are listed only once.
+    </BCC-permutations>
+  </Models>
+  <Element id="/-" refstate="Electron_gas" mass="  0.000000E+00" H298="  0.000000E+00" S298="  0.000000E+00" />
+  <Element id="VA" refstate="Vacuum" mass="  0.000000E+00" H298="  0.000000E+00" S298="  0.000000E+00" />
+  <Element id="CR" refstate="BCC_A2" mass="  5.199600E+01" H298="  4.050000E+03" S298="  2.356000E+01" />
+  <Element id="FE" refstate="BCC_A2" mass="  5.584700E+01" H298="  4.489000E+03" S298="  2.728000E+01" />
+  <Species id="VA" stoichiometry="VA" />
+  <Species id="CR" stoichiometry="CR" />
+  <Species id="FE" stoichiometry="FE" />
+  <TPfun id="RTLNP" Low_T="10" >
+    <Trange High_T="20000" > R*T*LN(1.0D-5*P); </Trange>
+  </TPfun>
+  <TPfun id="GHSERCR" Low_T="298.15" >
+    <Trange High_T="2180" > -8856.94+157.48*T-26.908*T*LN(+T)+.00189435*T**2  -1.47721E-06*T**3+139250*T**(-1); </Trange>
+    <Trange High_T="6000" >  -34869.344+344.18*T  -50*T*LN(+T)-2.88526E+32*T**(-9); </Trange>
+  </TPfun>
+  <TPfun id="GFELIQ" Low_T="298.15" >
+    <Trange High_T="1811" > +12040.17-6.55843*T-3.6751551E-21*T**7+GHSERFE; </Trange>
+    <Trange High_T="6000" >  -10839.7+291.302*T-46*T*LN(+T); </Trange>
+  </TPfun>
+  <TPfun id="GHSERFE" Low_T="298.15" >
+    <Trange High_T="1811" > +1225.7+124.134*T-23.5143*T*LN(+T)-.00439752*T**2  -5.8927E-08*T**3+77359*T**(-1); </Trange>
+    <Trange High_T="6000" >  -25383.581+299.31255*T  -46*T*LN(+T)+2.29603E+31*T**(-9); </Trange>
+  </TPfun>
+  <TPfun id="GCRFCC" Low_T="298.15" >
+    <Trange High_T="6000" > +7284+0.163*T+GHSERCR; </Trange>
+  </TPfun>
+  <TPfun id="GFEFCC" Low_T="298.15" >
+    <Trange High_T="1811" > -1462.4+8.282*T-1.15*T*LN(+T)+.00064*T**2+GHSERFE; </Trange>
+    <Trange High_T="6000" >  -27098.266+300.25256*T-46*T*LN(+T)+2.78854E+31*T**(-9); </Trange>
+  </TPfun>
+  <Phase id="LIQUID" Configurational_model="CEF" state="L" >
+    <Sublattices number_of="1"  Ratios="1" >
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="FE" />
+    </Sublattices>
+  </Phase>
+  <Phase id="BCC_A2" Configurational_model="CEF" state="S" >
+    <Sublattices number_of="2"  Ratios="1  3" >
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="2" id="VA" />
+    </Sublattices>
+    <Amend-phase model="IHJBCC" />
+  </Phase>
+  <Phase id="CBCC_A12" Configurational_model="CEF" state="S" >
+    <Sublattices number_of="2"  Ratios="1  1" >
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="2" id="VA" />
+    </Sublattices>
+    <Amend-phase model="IHJREST" />
+  </Phase>
+  <Phase id="CHI_A12" Configurational_model="CEF" state="S" >
+    <Sublattices number_of="3"  Ratios="24  10  24" >
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="2" id="CR" />
+      <Constituent sublattice="3" id="CR" />
+      <Constituent sublattice="3" id="FE" />
+    </Sublattices>
+  </Phase>
+  <Phase id="CR3SI" Configurational_model="CEF" state="S" >
+    <Sublattices number_of="2"  Ratios="3  1" >
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="2" id="CR" />
+    </Sublattices>
+  </Phase>
+  <Phase id="CRSI2" Configurational_model="CEF" state="S" >
+    <Sublattices number_of="2"  Ratios="1  2" >
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="2" id="CR" />
+    </Sublattices>
+  </Phase>
+  <Phase id="CUB_A13" Configurational_model="CEF" state="S" >
+    <Sublattices number_of="2"  Ratios="1  1" >
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="2" id="VA" />
+    </Sublattices>
+  </Phase>
+  <Phase id="FCC_A1" Configurational_model="CEF" state="S" >
+    <Sublattices number_of="2"  Ratios="1  1" >
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="2" id="VA" />
+    </Sublattices>
+    <Amend-phase model="IHJREST" />
+  </Phase>
+  <Phase id="FE4N" Configurational_model="CEF" state="S" >
+    <Sublattices number_of="2"  Ratios="4  1" >
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="2" id="VA" />
+    </Sublattices>
+  </Phase>
+  <Phase id="HCP_A3" Configurational_model="CEF" state="S" >
+    <Sublattices number_of="2"  Ratios="1  0.5" >
+      <Constituent sublattice="1" id="CR" />
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="2" id="VA" />
+    </Sublattices>
+    <Amend-phase model="IHJREST" />
+  </Phase>
+  <Phase id="SIGMA" Configurational_model="CEF" state="S" >
+    <Sublattices number_of="3"  Ratios="8  4  18" >
+      <Constituent sublattice="1" id="FE" />
+      <Constituent sublattice="2" id="CR" />
+      <Constituent sublattice="3" id="CR" />
+      <Constituent sublattice="3" id="FE" />
+    </Sublattices>
+  </Phase>
+  <Unary-parameters >
+    <Parameter id="G(LIQUID,CR;0)"   Low_T="298.15"  Bibref="REF283" > 
+      <Trange High_T="2180" > +24339.955-11.420225*T+2.37615E-21*T**7  +GHSERCR; </Trange>
+      <Trange High_T="6000" >  +18409.36-8.563683*T+2.88526E+32*T**(-9)+GHSERCR; </Trange>
+    </Parameter>
+    <Parameter id="G(LIQUID,FE;0)"   Low_T="298.15"  Bibref="REF283" > 
+      <Trange High_T="6000" > +GFELIQ; </Trange>
+    </Parameter>
+    <Parameter id="G(BCC_A2,CR:VA;0)"   Low_T="298.15"  Bibref="REF283" > 
+      <Trange High_T="6000" > +GHSERCR; </Trange>
+    </Parameter>
+    <Parameter id="TC(BCC_A2,CR:VA;0)"   Low_T="298.15"  Bibref="REF281" > 
+      <Trange High_T="6000" > -311.5; </Trange>
+    </Parameter>
+    <Parameter id="BMAG(BCC_A2,CR:VA;0)"   Low_T="298.15"  Bibref="REF281" > 
+      <Trange High_T="6000" > -.01; </Trange>
+      <!-- This should be -0.08. The == will be converted to == by upload -->
+    </Parameter>
+    <Parameter id="G(BCC_A2,FE:VA;0)"   Low_T="298.15"  Bibref="REF283" > 
+      <Trange High_T="6000" > +GHSERFE; </Trange>
+    </Parameter>
+    <Parameter id="TC(BCC_A2,FE:VA;0)"   Low_T="298.15"  Bibref="REF281" > 
+      <Trange High_T="6000" > +1043; </Trange>
+    </Parameter>
+    <Parameter id="BMAG(BCC_A2,FE:VA;0)"   Low_T="298.15"  Bibref="REF281" > 
+      <Trange High_T="6000" > +2.22; </Trange>
+    </Parameter>
+    <Parameter id="G(CBCC_A12,CR:VA;0)"   Low_T="298.15"  Bibref="REF283" > 
+      <Trange High_T="6000" > +11087+2.7196*T+GHSERCR; </Trange>
+    </Parameter>
+    <Parameter id="G(CBCC_A12,FE:VA;0)"   Low_T="298.15"  Bibref="REF283" > 
+      <Trange High_T="6000" > +4745+GHSERFE; </Trange>
+    </Parameter>
+    <Parameter id="G(CHI_A12,CR:CR:CR;0)"   Low_T="298.15"  Bibref="REF213" > 
+      <Trange High_T="6000" > +48*GCRFCC+10*GHSERCR+109000  +123*T; </Trange>
+    </Parameter>
+    <Parameter id="G(CR3SI,CR:CR;0)"   Low_T="298.15"  Bibref="REF90" > 
+      <Trange High_T="6000" > +17008.82+4*T+4*GHSERCR; </Trange>
+    </Parameter>
+    <Parameter id="G(CRSI2,CR:CR;0)"   Low_T="298.15"  Bibref="REF90" > 
+      <Trange High_T="6000" > +10000+10*T+3*GHSERCR; </Trange>
+    </Parameter>
+    <Parameter id="G(CUB_A13,CR:VA;0)"   Low_T="298.15"  Bibref="REF283" > 
+      <Trange High_T="6000" > +15899+0.6276*T+GHSERCR; </Trange>
+    </Parameter>
+    <Parameter id="G(CUB_A13,FE:VA;0)"   Low_T="298.15"  Bibref="REF283" > 
+      <Trange High_T="6000" > +3745+GHSERFE; </Trange>
+    </Parameter>
+    <Parameter id="G(FCC_A1,CR:VA;0)"   Low_T="298.15"  Bibref="REF281" > 
+      <Trange High_T="6000" > +GCRFCC; </Trange>
+    </Parameter>
+    <Parameter id="TC(FCC_A1,CR:VA;0)"   Low_T="298.15"  Bibref="REF281" > 
+      <Trange High_T="6000" > -1109; </Trange>
+    </Parameter>
+    <Parameter id="BMAG(FCC_A1,CR:VA;0)"   Low_T="298.15"  Bibref="REF281" > 
+      <Trange High_T="6000" > -2.46; </Trange>
+    </Parameter>
+    <Parameter id="G(FCC_A1,FE:VA;0)"   Low_T="298.15"  Bibref="REF283" > 
+      <Trange High_T="6000" > +GFEFCC; </Trange>
+    </Parameter>
+    <Parameter id="TC(FCC_A1,FE:VA;0)"   Low_T="298.15"  Bibref="REF281" > 
+      <Trange High_T="6000" > -201; </Trange>
+    </Parameter>
+    <Parameter id="BMAG(FCC_A1,FE:VA;0)"   Low_T="298.15"  Bibref="REF281" > 
+      <Trange High_T="6000" > -2.1; </Trange>
+    </Parameter>
+    <Parameter id="G(FE4N,FE:VA;0)"   Low_T="298.15"  Bibref="REF319" > 
+      <Trange High_T="6000" > +4*GFEFCC+10; </Trange>
+    </Parameter>
+    <Parameter id="G(HCP_A3,CR:VA;0)"   Low_T="298.15"  Bibref="REF283" > 
+      <Trange High_T="6000" > +4438+GHSERCR; </Trange>
+    </Parameter>
+    <Parameter id="TC(HCP_A3,CR:VA;0)"   Low_T="298.15"  Bibref="REF281" > 
+      <Trange High_T="6000" > -1109; </Trange>
+    </Parameter>
+    <Parameter id="BMAG(HCP_A3,CR:VA;0)"   Low_T="298.15"  Bibref="REF281" > 
+      <Trange High_T="6000" > -2.46; </Trange>
+    </Parameter>
+    <Parameter id="G(HCP_A3,FE:VA;0)"   Low_T="298.15"  Bibref="REF283" > 
+      <Trange High_T="1811" > -3705.78+12.591*T-1.15*T*LN(+T)  +.00064*T**2+GHSERFE; </Trange>
+      <Trange High_T="6000" >  -3957.199+5.24951*T  +4.9251E+30*T**(-9)+GHSERFE; </Trange>
+    </Parameter>
+  </Unary-parameters>
+  <Binary-parameters>
+    <Parameter id="G(LIQUID,CR,FE;0)"   Low_T="298.15"  Bibref="REF107" > 
+      <Trange High_T="6000" > -14550+6.65*T; </Trange>
+    </Parameter>
+    <Parameter id="G(BCC_A2,CR,FE:VA;0)"   Low_T="298.15"  Bibref="REF107" > 
+      <Trange High_T="6000" > +20500-9.68*T; </Trange>
+    </Parameter>
+    <Parameter id="TC(BCC_A2,CR,FE:VA;0)"   Low_T="298.15"  Bibref="REF107" > 
+      <Trange High_T="6000" > +1650; </Trange>
+    </Parameter>
+    <Parameter id="TC(BCC_A2,CR,FE:VA;1)"   Low_T="298.15"  Bibref="REF107" > 
+      <Trange High_T="6000" > +550; </Trange>
+    </Parameter>
+    <Parameter id="BMAG(BCC_A2,CR,FE:VA;0)"   Low_T="298.15"  Bibref="REF107" > 
+      <Trange High_T="6000" > -0.85; </Trange>
+    </Parameter>
+    <Parameter id="G(CHI_A12,CR:CR:FE;0)"   Low_T="298.15"  Bibref="REF213" > 
+      <Trange High_T="6000" > +24*GCRFCC+10*GHSERCR+24*GFEFCC  +500000; </Trange>
+    </Parameter>
+    <Parameter id="G(CHI_A12,FE:CR:CR;0)"   Low_T="298.15"  Bibref="REF115" > 
+      <Trange High_T="6000" > +24*GFEFCC+10*GHSERCR+24*GCRFCC  +18300-100*T; </Trange>
+    </Parameter>
+    <Parameter id="G(CHI_A12,FE:CR:FE;0)"   Low_T="298.15"  Bibref="REF115" > 
+      <Trange High_T="6000" > +48*GFEFCC+10*GHSERCR+57300  -100*T; </Trange>
+    </Parameter>
+    <Parameter id="G(FCC_A1,CR,FE:VA;0)"   Low_T="298.15"  Bibref="REF107" > 
+      <Trange High_T="6000" > +10833-7.477*T; </Trange>
+    </Parameter>
+    <Parameter id="G(FCC_A1,CR,FE:VA;1)"   Low_T="298.15"  Bibref="REF107" > 
+      <Trange High_T="6000" > +1410; </Trange>
+    </Parameter>
+    <Parameter id="G(HCP_A3,CR,FE:VA;0)"   Low_T="298.15"  Bibref="REF126" > 
+      <Trange High_T="6000" > +10833-7.477*T; </Trange>
+    </Parameter>
+    <Parameter id="G(SIGMA,FE:CR:CR;0)"   Low_T="298.15"  Bibref="REF107" > 
+      <Trange High_T="6000" > +8*GFEFCC+22*GHSERCR+92300-95.96*T; </Trange>
+    </Parameter>
+    <Parameter id="G(SIGMA,FE:CR:FE;0)"   Low_T="298.15"  Bibref="REF107" > 
+      <Trange High_T="6000" > +8*GFEFCC+4*GHSERCR  +18*GHSERFE+117300-95.96*T; </Trange>
+    </Parameter>
+  </Binary-parameters>
+  <Bibliography>
+    <Bibitem ID="REF283" Text="Alan Dinsdale, SGTE Data for Pure Elements, Calphad Vol  15(1991) p 317-425, also in NPL Report DMA(A)195 Rev. August  1990" />
+    <Bibitem ID="REF107" Text="J-O Andersson, B. Sundman, CALPHAD Vol 11, (1987), p 83-92  TRITA 0270 (1986); CR-FE" />
+    <Bibitem ID="REF281" Text="Alan Dinsdale, SGTE Data for Pure Elements, NPL Report  DMA(A)195 September 1989" />
+    <Bibitem ID="REF213" Text="P. Gustafson, TRITA-MAC 342, (1987); CR-FE-W" />
+    <Bibitem ID="REF115" Text="J-O Andersson, Met Trans A, Vol 19A, (1988) p 1385-1394  TRITA 0322 (1986); CR-FE-MO" />
+    <Bibitem ID="REF90" Text="I Ansara, unpublished work (1991); Cr-Si" />
+    <Bibitem ID="REF319" Text="H. Du and M. Hillert, revision; C-Fe-N" />
+    <Bibitem ID="REF126" Text="K. Frisk, Metall. Trans. Vol 21A (1990) p 2477-2488, TRITA  0409 (1989); CR-FE-N" />
+  </Bibliography>
+</Database>
