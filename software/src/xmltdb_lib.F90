@@ -13,6 +13,18 @@ MODULE XMLTDB_LIB
 !
   implicit none
 !
+!---------------------------
+! these are amend model indices
+    integer, parameter :: IHJBCC=1,IHJREST=2,IHJQX=3,GLOWTEIN=4
+    integer, parameter :: LIQ2STATE=5,VOLOWP=6,DISFS=7,FCCPERM=8
+    integer, parameter :: BCCPERM=9
+! Not yet unstalled
+    integer, parameter :: EEC=10,MQMQA=11,UNIQUAC=1
+! NOTE: DISFS require names of ordered and disordered phases and the number
+!        of sublattices to sum in the ordered phase
+!        (this value is either all or all except the last (intersttial))
+!----------------------------
+! error messages
   character (len=64), dimension(5000:5010) :: XMLTDBerror
   data XMLTDBerror(5000:5010) &
 !        123456789.123456789.123456789.123456789.123456789.123456789.1234
@@ -219,14 +231,6 @@ MODULE XMLTDB_LIB
 ! this is set to indicate the softtware, tofs=4 means MatCalc, =3 Pandat
   integer tofs
 !
-!---------------------------
-! these are amend model indices
-    integer, parameter :: IHJBCC=1,IHJREST=2,IHJQX=3,GLOWTEIN=4
-    integer, parameter :: LIQ2STATE=5,DISFS=6,FCCPERM=7,BCCPERM=8
-    integer, parameter :: EEC=9,MQMQA=10,UNIQUAC=11,VOLUME=12
-! NOTE: DISFS require names of ordered and disordered phases and the number
-!        of sublattices to sum in the ordered phase
-!        (this value is either all or all except the last (intersttial))
 !-----------------------------
 ! to check phases are OK (ambiguietty etc)
   character*24, dimension(:), allocatable :: phasenames
@@ -334,7 +338,7 @@ CONTAINS
 ! 4. Einstein low T vibrational model
     nomod=nomod+1
     mlist(nomod)%id='GLOWTEIN'
-    mlist(nomod)%bibref='98Qing'
+    mlist(nomod)%bibref='01Qing'
     mlist(nomod)%model_int=0
     mlist(nomod)%model_real=0.0D0
     mlist(nomod)%numberof_mpid=1
@@ -342,7 +346,7 @@ CONTAINS
     mlist(nomod)%required_mpid(1)='LNTH'
     allocate(mlist(nomod)%model_info(1))
     mlist(nomod)%model_info(1)='Gibbs energy due to the Einstein low T '//&
-         'vibrational entropy model.'
+         'vibrational entropy model, G=1.5*R*THETA+3*R*T*LN(1-EXP(-THETA/T)).'
 !----------------------------------------------
 ! 5. Liquid 2state model
     nomod=nomod+1
@@ -356,9 +360,24 @@ CONTAINS
     mlist(nomod)%required_mpid(2)='LNTH'
     allocate(mlist(nomod)%model_info(1))
     mlist(nomod)%model_info(1)='Unified model for the liquid and '//&
-         'amorpheous state inluding the Einstein low T model'
+         'amorphous state inluding the Einstein low T model'
 !----------------------------------------------
-! 6. Disordered model for different phases, need to know how many sublattices 
+! 6. Volume model for low and moderate Pressures (Lu 2003)
+    nomod=nomod+1
+    mlist(nomod)%ID='VOLOWP'
+! Reference paper by Lu, Selleby,Sundman 2005 in Acta Metal 
+    mlist(nomod)%bibref='05Lu'
+    mlist(nomod)%numberof_mpid=3
+    allocate(mlist(nomod)%required_mpid(3))
+    mlist(nomod)%required_mpid(1)='V0'
+    mlist(nomod)%required_mpid(2)='VA'
+    mlist(nomod)%required_mpid(3)='VB'
+    allocate(mlist(nomod)%model_info(1))
+    mlist(nomod)%model_info(1)='The volume of a phase is described '//&
+         'as function of T, P and the constitution of the phase.'
+!
+!----------------------------------------------
+! 7. Disordered model for different phases, need to know how many sublattices 
     nomod=nomod+1
     mlist(nomod)%ID='DISFS'
 ! Reference AL-Fe assessment or has disordered fraction sets been used before?
@@ -373,7 +392,7 @@ CONTAINS
 ! For sigma, mu all sublattices are normally summed.
 ! this is stored as model_int in the xmltdb_typdefs record for the ordered ph.
 !----------------------------------------------
-! 7. Permutation of ordered FCC parameters
+! 8. Permutation of ordered FCC parameters
     nomod=nomod+1
     mlist(nomod)%id='FCCPERM'
     mlist(nomod)%bibref='09Sun'
@@ -386,7 +405,7 @@ CONTAINS
     mlist(nomod)%model_info(1)='Permutations of ordered FCC parameters with '//&
          'the same set of elements are listed only once.'
 !----------------------------------------------
-! 8. Permutations of ordered BCC parameters
+! 9. Permutations of ordered BCC parameters
     nomod=nomod+1
     mlist(nomod)%id='BCCPERM'
     mlist(nomod)%bibref='09Sun'
@@ -1863,16 +1882,17 @@ CONTAINS
           cycle mout
 ! The IHJQX magnetic model has different mpid
 77        continue
-          write(out,217)trim(mlist(ni)%id),trim(mlist(ni)%required_mpid(1)),&
+          write(out,23)trim(mlist(ni)%id),trim(mlist(ni)%required_mpid(1)),&
                trim(mlist(ni)%required_mpid(2)),&
                trim(mlist(ni)%required_mpid(3)),mlist(ni)%model_real,&
                trim(mlist(ni)%model_info(1)),trim(mlist(ni)%model_info(2)),&
                trim(mlist(ni)%bibref)
-217        format(4x,'<Magnetic-model id="'a,'"  MPID1="',a,'" MPID2="',a,'"',&
+23        format(4x,'<Magnetic-model id="'a,'"  MPID1="',a,'" MPID2="',a,'"',&
                ' MPID3="',a,'" anti-ferromagnetic_factor="',F6.2,'" '/&
                6x,' f_below_TC="',a,'"'/&
                6x,' f_above_TC="',a,'" bibref="',a,'" >',&
-               ' in G=f(TAO)*LN(BETA+1) where TAO=T/CT or T/NT'/4x,'</Magnetic-model>')
+               ' in G=f(TAO)*LN(BETA+1) where TAO=T/CT or T/NT'/&
+               4x,'</Magnetic-model>')
        elseif(mlist(ni)%id(1:9).eq.'GLOWTEIN ') then
 ! 4 Einsten model
           write(out,24)trim(mlist(ni)%id),trim(mlist(ni)%required_mpid(1)),&
@@ -1881,32 +1901,41 @@ CONTAINS
                '" > '/7x,a/4x,'</Einstein-model>')
        elseif(mlist(ni)%id(1:10).eq.'LIQ2STATE ') then
 ! 5 liquid 2state
-          write(out,27)trim(mlist(ni)%id),trim(mlist(ni)%required_mpid(1)),&
+          write(out,26)trim(mlist(ni)%id),trim(mlist(ni)%required_mpid(1)),&
                trim(mlist(ni)%required_mpid(2)),trim(mlist(ni)%bibref),&
                trim(mlist(ni)%model_info(1))
-27        format(4x,'<Liquid-2state-model id="',a,'" MPID1="',a,'" ',&
+26        format(4x,'<Liquid-2state-model id="',a,'" MPID1="',a,'" ',&
                ' MPID2="',a,'" bibref="',a,'" >'/6x,a&
                /4x,'</Liquid-2state-model>')
-       elseif(mlist(ni)%id(1:6).eq.'DISFS ') then
-! 6 Disordered fraction sets
-          write(out,23)trim(mlist(ni)%id),trim(mlist(ni)%bibref),&
+       elseif(mlist(ni)%id(1:6).eq.'VOLOWP ') then
+! 6 Volume model
+          write(out,28)trim(mlist(ni)%id),trim(mlist(ni)%required_mpid(1)),&
+               trim(mlist(ni)%required_mpid(2)),&
+               trim(mlist(ni)%required_mpid(3)),trim(mlist(ni)%bibref),&
                trim(mlist(ni)%model_info(1))
-23        format(4x,'<Disordered-fraction-model id="',a,'" bibref="',a,'" >'/&
+28        format(4x,'<Volume-model id="',a,'" MPID1="',a,'" ',&
+               ' MPID2="',a,'" MPID3="',a,'" bibref="',a,'" >'/6x,a&
+               /4x,'</Volume-model>')
+       elseif(mlist(ni)%id(1:6).eq.'DISFS ') then
+! 7 Disordered fraction sets
+          write(out,36)trim(mlist(ni)%id),trim(mlist(ni)%bibref),&
+               trim(mlist(ni)%model_info(1))
+36        format(4x,'<Disordered-fraction-model id="',a,'" bibref="',a,'" >'/&
                7x,a/4x,'</Disordered-fraction-model>')
        elseif(mlist(ni)%id(1:8).eq.'FCCPERM ') then
-! 7 FCC permutations
-          write(out,25)trim(mlist(ni)%id),trim(mlist(ni)%bibref),&
+! 8 FCC permutations
+          write(out,38)trim(mlist(ni)%id),trim(mlist(ni)%bibref),&
                trim(mlist(ni)%model_info(1))
-25        format(4x,'<FCC-permutations id="',a,'" bibref="',a,'" >'/&
+38        format(4x,'<FCC-permutations id="',a,'" bibref="',a,'" >'/&
                6x,a/4x,'</FCC-permutations>')
        elseif(mlist(ni)%id(1:8).eq.'BCCPERM ') then
-! 8 BCC permutations
-          write(out,26)trim(mlist(ni)%id),trim(mlist(ni)%bibref),&
+! 9 BCC permutations
+          write(out,40)trim(mlist(ni)%id),trim(mlist(ni)%bibref),&
                trim(mlist(ni)%model_info(1))
-26        format(4x,'<BCC-permutations id="',a,'" bibref="',a,'" >'/&
+40        format(4x,'<BCC-permutations id="',a,'" bibref="',a,'" >'/&
                6x,a/4x,'</BCC-permutations>')
        else
-! 9 Volume model, 10 EEC, 11 MQMQA, 12 UNIQUAC, 13 EBEF ??
+! 10 Missing: 10 EEC, 11 MQMQA, 12 UNIQUAC, 13 EBEF ??
           write(*,*)'**** Unknown model "',trim(mlist(ni)%id),'"'
        endif
     enddo mout
@@ -2195,6 +2224,34 @@ CONTAINS
           write(out,910)trim(bibliolist(ni)%id),trim(clean)
 910       format('    <Bibitem ID="',a,'" Text="',a,'" />')
        enddo
+! Include the model references at the end
+       write(out,910)'82Her','S. Hertzman and B. Sundman, '//&
+            'A Thermodynamic analysis of the Fe-Cr system, '//&
+            'Calphad Vol 6 (1982) 67-80.'
+       write(out,910)'12Xiong','W. Xiong, Q. Chen, P. K. Korzhavyi and '//&
+            'M. Selleby, '//&
+            'An improved magnetic model for thermodynamic modeling, '//&
+            'Calphad, Vol 39 (2012) 11-20.'
+       write(out,910)'01Qing','Q. Chen and B. Sundman, '//&
+            'Modeling of thermodynamic properties for Bcc, Fcc, liquid, '//&
+            'and amorphous iron, '//&
+            'J. Phase Equilibria. Vol 22 (2001) 631-644.'
+       write(out,910)'14Becker','C. A. Becker, J. AAgren, M. Baricco, '//&
+            'Q. Chen, S. A. Decterov, U. R. Kattner, J. H. Perepezko, '//&
+            'G. R. Pottlacher and M. Selleby, '//&
+            'Thermodynamic modelling of liquids: CALPHAD approaches '//&
+            'and contributions from statistical physics. '//&
+            'Phys status solidi. B, Vol 251(1) (2014) 33-52.'
+       write(out,910)'05Lu','X-G. Lu, M. Selleby and B. Sundman, '//&
+            'Implementation of a new model for pressure dependence '//&
+            'of condensed phases in Thermo-Calc, '//&
+            'Calphad Vol 29 (2005) 49-55.'
+       write(out,910)'09Sun','B. Sundman, I. Ohnuma, N. Dupin, '//&
+            'U. R. Kattner, S. G. Fries, '//&
+            'An assessment of the entire Al–Fe system including '//&
+            'D03 ordering, '//&
+            'Acta Mater. Vol 57 (2009) 2896-2908'
+!       write(out,910)'
        write(out,911)
 911    format('  </Bibliography>')
     endif
