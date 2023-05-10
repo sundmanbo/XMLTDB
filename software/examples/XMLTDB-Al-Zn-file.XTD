@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+<?xml-model href="database.rng" schematypens="http://relaxng.org/ns/structure/1.0" type="application/xml"?>
+<Database version="0.0.1">
+  <metadata>
+    <writer>xmltdbproject test
+       TDBfile="C:\Users\bosun\Documents\GitHub\XMLTDB\software\examples\alzn_mey.tdb"
+       Software="Thermo-Calc"
+       Date="2023-05-10"
+    </writer>
+  </metadata>
+  <!-- Statistics elements="4"  species="3"  tpfuns="6"  phases="3"  parameters="12"  bibrefs="0"  -->
+  <Defaults low_T=" 298.15" high_T=" 6000.00" />
+  <Models>
+    <Magnetic-model id="IHJBCC"  MPID1="TC" MPID2="BMAGN" anti-ferromagnetic_factor=" -1.00" 
+       f_below_TC=" +1-0.905299383*TAO**(-1)-0.153008346*TAO**3-.00680037095*TAO**9-.00153008346*TAO**15;"
+       f_above_TC=" -.0641731208*TAO**(-5)-.00203724193*TAO**(-15)-.000427820805*TAO**(-25);" bibref="82Her" > in G=f(TAO)*LN(BETA+1) where TAO=T/TC
+    </Magnetic-model>
+    <Magnetic-model id="IHJREST"  MPID1="TC" MPID2="BMAGN" anti-ferromagnetic_factor=" -3.00" 
+       f_below_TC=" +1-0.860338755*TAO**(-1)-0.17449124*TAO**3-.00775516624*TAO**9-.0017449124*TAO**15;"
+       f_above_TC=" -.0426902268*TAO**(-5)-.0013552453*TAO**(-15)-.000284601512*TAO**(-25);" bibref="82Her" > in G=f(TAO)*LN(BETA+1) where TAO=T/TC
+    </Magnetic-model>
+    <Magnetic-model id="IHJQX"  MPID1="CT" MPID2="NT" MPID3="BMAGN" anti-ferromagnetic_factor="  0.00" 
+       f_below_TC=" +1-0.842849633*TAO**(-1)-0.174242226*TAO**3-.00774409892*TAO**9-.00174242226*TAO**15-.000646538871*TAO**21;"
+       f_above_TC=" -.0261039233*TAO**(-7)-.000870130777*TAO**(-21)-.000184262988*TAO**(-35)-6.65916411E-05*TAO**(-49);" bibref="12Xiong" > in G=f(TAO)*LN(BETA+1) where TAO=T/CT or T/NT
+    </Magnetic-model>
+    <Einstein-model id="GLOWTEIN" MPID1="LNTH" bibref="01Qing" > 
+       Gibbs energy due to the Einstein low T vibrational entropy model, G=1.5*R*THETA+3*R*T*LN(1-EXP(-THETA/T)).
+    </Einstein-model>
+    <Liquid-2state-model id="LIQ2STATE" MPID1="G2"  MPID2="LNTH" bibref="14Becker" >
+       Unified model for the liquid and the amorphous state treated as an Einstein solid
+    </Liquid-2state-model>
+    <Volume-model id="VOLOWP" MPID1="V0"  MPID2="VA" MPID3="VB" bibref="05Lu" >
+       The volume of a phase is described as function of T, P and its constitution.
+    </Volume-model>
+    <Disordered-fraction-model id="DISFS" bibref="09Sun" >
+       The disordered fractions are summed over the ordered sublattices indicated at the phase.  The Gibbs energy calculated 2 or 3 times as indicated by the CEF_appendix but the configurational entropy only once.
+    </Disordered-fraction-model>
+    <FCC-permutations id="FCCPERM" bibref="09Sun" >
+       Permutations of ordered FCC parameters with the same set of elements are listed only once.
+    </FCC-permutations>
+    <BCC-permutations id="BCCPERM" bibref="09Sun" >
+       Permutations of ordered BCC parameters with the same set of elements are listed only once.
+    </BCC-permutations>
+    <EEC id="EEC" bibref="20Sun" >
+       Equi-Entropy Criterion means that solid phases with higher entropy that the liquid phase must not be stable.
+    </EEC>
+  </Models>
+  <Element id="/-" refstate="ELECTRON_GAS" mass="  0.000000E+00" H298="  0.000000E+00" S298="  0.000000E+00" />
+  <Element id="VA" refstate="VACUUM" mass="  0.000000E+00" H298="  0.000000E+00" S298="  0.000000E+00" />
+  <Element id="AL" refstate="FCC_A1" mass="  2.698200E+01" H298="  4.577300E+03" S298="  2.832200E+01" />
+  <Element id="ZN" refstate="HCP_ZN" mass="  6.539000E+01" H298="  5.656800E+03" S298="  4.163100E+01" />
+  <Species id="VA" stoichiometry="VA" />
+  <Species id="AL" stoichiometry="AL" />
+  <Species id="ZN" stoichiometry="ZN" />
+  <TPfun id="GHSERAL" Low_T="298" >
+    <Trange High_T="700" Expression=" -7976.15+137.0715*T-24.36720*T*LN(T)-1.884662E-3*T**2-0.877664E-6*T**3  +74092*T**(-1);" />
+    <Trange High_T="933.6" Expression="   -11276.24+223.0269*T-38.58443*T*LN(T)+18.531982E-3*T**2-5.764227E-6*T**3  +74092*T**(-1);" />
+    <Trange High_T="2900" Expression="   -11277.68+188.6620*T-31.74819*T*LN(T)-1234.26E25*T**(-9);" />
+  </TPfun>
+  <TPfun id="GALLIQ" Low_T="298" >
+    <Trange High_T="700" Expression=" +3029.403+125.2307*T-24.36720*T*LN(T)-1.884662E-3*T**2-0.877664E-6*T**3  +74092*T**(-1)+79.401E-21*T**7;" />
+    <Trange High_T="933.6" Expression="   -270.6860+211.1861*T-38.58443*T*LN(T)+18.53198E-3*T**2-5.764227E-6*T**3  +74092*T**(-1)+79.401E-21*T**7;" />
+    <Trange High_T="2900" Expression="   -795.7090+177.4100*T-31.74819*T*LN(T);" />
+  </TPfun>
+  <TPfun id="GALHCP" Low_T="298" >
+    <Trange Expression="+5481-1.8*T+GHSERAL;" />
+  </TPfun>
+  <TPfun id="GHSERZN" Low_T="298" >
+    <Trange High_T="692.7" Expression=" -7285.787+118.4693*T-23.70131*T*LN(T)  -.001712034*T**2-1.264963E-06*T**3;" />
+    <Trange High_T="1700" Expression="   -11070.60+172.3449*T-31.38*T*LN(T)+4.70657E+26*T**(-9);" />
+  </TPfun>
+  <TPfun id="GZNLIQ"  >
+    <Trange High_T="692.7" Expression=" +7157.213-10.29299*T-3.5896E-19*T**7+GHSERZN;" />
+    <Trange High_T="1700" Expression="   +7450.168-10.737066*T-4.7051E+26*T**(-9)+GHSERZN;" />
+  </TPfun>
+  <TPfun id="GZNFCC"  >
+    <Trange High_T="1700" Expression=" +2969.82-1.56968*T+GHSERZN;" />
+  </TPfun>
+  <Phase id="LIQUID" Configuration_model="CEF" state="L" >
+    <Sublattices number_of="1"  Ratios="1" >
+      <Constituent sublattice="1" list="AL ZN" />
+    </Sublattices>
+  </Phase>
+  <Phase id="FCC_A1" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="1"  Ratios="1" >
+      <Constituent sublattice="1" list="AL ZN" />
+    </Sublattices>
+  </Phase>
+  <Phase id="HCP_A3" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="1"  Ratios="1" >
+      <Constituent sublattice="1" list="AL ZN" />
+    </Sublattices>
+  </Phase>
+  <Unary-parameters >
+    <Parameter id="G(LIQUID,AL;0)"   Bibref="NONE" > 
+      <Trange High_T="2900" Expression="+GALLIQ;" />
+    </Parameter>
+    <Parameter id="G(LIQUID,ZN;0)"   Bibref="NONE" > 
+      <Trange High_T="1700" Expression="+GZNLIQ;" />
+    </Parameter>
+    <Parameter id="G(FCC_A1,AL;0)"   Bibref="NONE" > 
+      <Trange High_T="2900" Expression="+GHSERAL;" />
+    </Parameter>
+    <Parameter id="G(FCC_A1,ZN;0)"   Bibref="NONE" > 
+      <Trange High_T="1700" Expression="+GZNFCC;" />
+    </Parameter>
+    <Parameter id="G(HCP_A3,AL;0)"   Bibref="NONE" > 
+      <Trange High_T="2900" Expression="+GALHCP;" />
+    </Parameter>
+    <Parameter id="G(HCP_A3,ZN;0)"   Bibref="NONE" > 
+      <Trange High_T="1700" Expression="+GHSERZN;" />
+    </Parameter>
+  </Unary-parameters>
+  <Binary-parameters>
+    <Parameter id="G(LIQUID,AL,ZN;0)"   Expression="+10465.5-3.39259*T;" Bibref="NONE" />
+    <Parameter id="G(FCC_A1,AL,ZN;0)"   Expression="+7297.5+0.47512*T;" Bibref="NONE" />
+    <Parameter id="G(FCC_A1,AL,ZN;1)"   Expression="+6612.9-4.5911*T;" Bibref="NONE" />
+    <Parameter id="G(FCC_A1,AL,ZN;2)"   Expression="-3097.2+3.30635*T;" Bibref="NONE" />
+    <Parameter id="G(HCP_A3,AL,ZN;0)"   Expression="+18821.0-8.95255*T;" Bibref="NONE" />
+    <Parameter id="G(HCP_A3,AL,ZN;3)"   Expression="-702.8;" Bibref="NONE" />
+  </Binary-parameters>
+  <TDB-comments>
+       0 $ ALZN
+       0 $
+       0 $ TDB-file for the thermodynamic assessment of the Al-ZN system
+       0 $
+       0 $-------------------------------------------------------------------------------
+       0 $ 2011.11.9
+       0 $
+       0 $ TDB file created by T.Abe, K.Hashimoto and Y.sawada
+       0 $
+       0 $ Particle Simulation and Thermodynamics Group, National Institute for
+       0 $ Materials Science. 1-2-1 Sengen, Tsukuba, Ibaraki 305-0047, Japan
+       0 $ e-mail: abe.taichi@nims.go.jp
+       0 $ Copyright (C) NIMS 2009
+       0 $
+       0 $ ------------------------------------------------------------------------------
+       0 $ PARAMETERS ARE TAKEN FROM
+       0 $ Reevaluation of the Al-Zn System,
+       0 $ Sabine an Mey, Z.Metallkd., 84 (1993) 451-455.
+       0 $
+       0 $ ------------------------------------------------------------------------------
+      25 $-------------------------------------------------------------------------------
+      25 $ FUNCTIONS FOR PURE AND OTHERS
+      25 $-------------------------------------------------------------------------------
+      47  $FUNCTION GZNLIQ     298.0  -1.285170+108.1769*T-23.70131*T*LN(T)
+      47  $    -.001712034*T**2-1.264963E-06*T**3-3.585652E-19*T**7;            692.7 Y
+      47  $    -11070.60+172.3449*T-31.38*T*LN(T)+4.70657E+26*T**(-9);           1700 N !
+      54 $-------------------------------------------------------------------------------
+      59 $-------------------------------------------------------------------------------
+      59 $ PARAMETERS FOR LIQUID PHASE
+      59 $-------------------------------------------------------------------------------
+      68 $-------------------------------------------------------------------------------
+      68 $ FUNCTIONS FOR FCC_A1
+      68 $-------------------------------------------------------------------------------
+      79 $-------------------------------------------------------------------------------
+      79 $ FUNCTIONS FOR HCP_A3
+      79 $-------------------------------------------------------------------------------
+      89 $
+      89 $------------------------------------------------------------------- END OF LINE
+  </TDB-comments>
+</Database>

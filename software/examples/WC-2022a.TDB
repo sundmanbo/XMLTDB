@@ -1,0 +1,214 @@
+$ 2022-01-11
+$ Valid for Thermo-Calc 2022a and higher versions
+
+ ELEMENT VA   VACUUM                    0.0000E+00   0.0000E+00   0.0000E+00 !
+ ELEMENT C    GRAPHITE                  1.2011E+01   1.0540E+03   5.7423E+00 !
+ ELEMENT W    BCC_A2                    1.8384E+02   4.9730E+03   3.2660E+01 !
+
+ DEFINE_SYSTEM_DEFAULT SPECIES 2 !
+
+ TEMPERATURE_LIMITS 1 6000 !
+
+ DEFAULT_COMMAND  DEFINE_SYSTEM_ELEMENT VA !
+
+ TYPE_DEF % SEQ * !
+
+$ general functions
+ FUNCTION RTEMP                1 +R#**-1*TEMP#;                  6000 N !
+ FUNCTION TEMP                 1 +T**-1;                         6000 N !
+ FUNCTION R                    1 8.31451;                        6000 N !
+
+$ Pure W
+$ bcc W
+ FUNCTION TESERWW              1 +230;                           6000 N !
+$ FUNCTION GESERWW1             1 +1-1*EXP(-TESERWW#*T**-1);      6000 N !
+$ FUNCTION GESERWW2             1 +1*LN(GESERWW1#);               6000 N !
+$ FUNCTION GESERWW3             1 +3*R#*T*GESERWW2#;              6000 N !
+$ FUNCTION GESERWW              1 +1.5*R#*TESERWW#+GESERWW3#;     6000 N !
+ 
+ FUNCTION G0SERWW              1 -7893-1.021774E-3*T**2
+     -6.23675524E-15*T**5;                                            6000 N !
+
+ FUNCTION GTSERWW              1 -1.021774E-3*T**2
+     -6.23675524E-15*T**5;                                            6000 N !
+
+$ fcc W
+ FUNCTION TEFCCWW              1 +236;                           6000 N !
+$ FUNCTION GEFCCWW1             1 +1-1*EXP(-TEFCCWW#*T**-1);      6000 N !
+$ FUNCTION GEFCCWW2             1 +1*LN(GEFCCWW1#);               6000 N !
+$ FUNCTION GEFCCWW3             1 +3*R#*T*GEFCCWW2#;              6000 N !
+$ FUNCTION GEFCCWW              1 +1.5*R#*TEFCCWW#+GEFCCWW3#;     6000 N !
+ 
+ FUNCTION G0FCCWW              1 +G0SERWW#+16243;                6000 N !
+
+$ hcp W
+ FUNCTION TEHCPWW              1 +230;                           6000 N !
+$ FUNCTION GEHCPWW              1 +1.5*R#*TEHCPWW#+GEHCPWW3#;     6000 N !
+$ FUNCTION GEHCPWW1             1 +1-1*EXP(-TEHCPWW#*T**-1);      6000 N !
+$ FUNCTION GEHCPWW2             1 +1*LN(GEHCPWW1#);               6000 N !
+$ FUNCTION GEHCPWW3             1 +3*R#*T*GEHCPWW2#;              6000 N !
+
+ FUNCTION G0HCPWW              1 +G0SERWW#+13692;                6000 N !
+ 
+$ liq W
+ FUNCTION TELIQWW              1 +183; 6000 N !
+ FUNCTION G0LIQWW              1 +22973-9.164E-4*T**2;           6000 N ! 
+ FUNCTION G2STWWL1             1 +98814-13.653*T
+     -1.178678*T*LN(T);                                            6000 N !
+$ FUNCTION G2STWWL2             1 -G2STWWL1#*RTEMP#;              6000 N !
+$ FUNCTION G2STWWL3             1 +1+1*EXP(G2STWWL2#);            6000 N !
+$ FUNCTION G2STWWL4             1 +1*LN(G2STWWL3#);               6000 N !
+$ FUNCTION G2STWWLI             1 -R#*T*G2STWWL4#;                6000 N !
+ 
+$ Pure C 
+$ gra C
+ FUNCTION G0SERCC              1 -17752.213-2.9531332E-4*T**2
+     -3.3998492E-16*T**5;                                             6000 N !
+ FUNCTION GTSERCC              1 -2.9531332E-4*T**2
+     -3.3998492E-16*T**5;                                             6000 N !
+
+$ dia C
+ FUNCTION G0DIACC              1 -16275.202-9.1299452E-5*T**2
+     -2.1653414E-16*T**5;                                             6000 N !
+
+$ liq C
+ FUNCTION TELIQCC              1 +608; 6000 N !
+ FUNCTION G0LIQCC              1 +88884-4.185E-4*T**2;     6000 N !
+ 
+ FUNCTION G2STCCL1             1 +34523-24.6*T+1.93765*T*LN(T);  6000 N !
+$ FUNCTION G2STCCL2             1 -G2STCCL1#*RTEMP#;              6000 N !
+$ FUNCTION G2STCCL3             1 +1+1*EXP(G2STCCL2#);            6000 N !
+$ FUNCTION G2STCCL4             1 +1*LN(G2STCCL3#);               6000 N !
+$ FUNCTION G2STCCLI             1 -R#*T*G2STCCL4#;                6000 N !
+ 
+$ W-C
+$ bcc W1C3 
+ FUNCTION TEBCCWC              1 +862;                           6000 N !
+$ FUNCTION GEBCCWC1             1 +1-1*EXP(-TEBCCWC#*T**-1);      6000 N !
+$ FUNCTION GEBCCWC2             1 +1*LN(GEBCCWC1#);               6000 N !
+$ FUNCTION GEBCCWC3             1 +3*R#*T*GEBCCWC2#;              6000 N !
+$ FUNCTION GEBCCWC              1 +1.5*R#*TEBCCWC#+GEBCCWC3#;     6000 N !
+
+$ fcc W1C1 
+ FUNCTION TEFCCWC              1 +518;              6000 N !
+$ FUNCTION GEFCCWC1             1 +1-1*EXP(-TEFCCWC#*T**-1);      6000 N !
+$ FUNCTION GEFCCWC2             1 +1*LN(GEFCCWC1#);               6000 N !
+$ FUNCTION GEFCCWC3             1 +3*R#*T*GEFCCWC2#;              6000 N !
+$ FUNCTION GEFCCWC              1 +1.5*R#*TEFCCWC#+GEFCCWC3#;     6000 N !
+
+$ hcp W1C0.5
+ FUNCTION TEHCPWC              1 +322;              6000 N !
+$ FUNCTION GEHCPWC              1 +1.5*R#*TEHCPWC#+GEHCPWC3#;     6000 N !
+$ FUNCTION GEHCPWC1             1 +1-1*EXP(-TEHCPWC#*T**-1);      6000 N !
+$ FUNCTION GEHCPWC2             1 +1*LN(GEHCPWC1#);               6000 N !
+$ FUNCTION GEHCPWC3             1 +3*R#*T*GEHCPWC2#;              6000 N !
+
+
+
+ PHASE BCC_A2   %         2 1 3  !
+ CONST BCC_A2             : W : C VA : !
+
+
+ PHASE DIAMOND  %         1 1  !
+ CONST DIAMOND            : C : !
+
+
+ PHASE FCC_A1   %         2 1 1  !
+ CONST FCC_A1             : W : C VA : !
+
+
+ PHASE GRAPHITE %         1 1  !
+ CONST GRAPHITE           : C : !
+
+
+ PHASE HCP_A3   %         2 1 0.5  !
+ CONST HCP_A3             : W : C VA : !
+
+
+ PHASE LIQUID   %         1 1  !
+ CONST LIQUID             : C W : !
+
+
+ PHASE MC_SHP   %         2 1 1  !
+ CONST MC_SHP             : W : C : !
+
+
+
+$ ==== [C] ====
+ PARAM G(DIAMOND,C;0)          1 +G0DIACC#;                 6000 N !
+ PARAM LNTHETA1(DIAMOND,C;0)   1 +1*LN(+813.63716);         6000 N !
+ PARAM THETAF1(DIAMOND,C;0)    1 +0.231791;                 6000 N !
+ PARAM LNTHETA2(DIAMOND,C;0)   1 +1*LN(+345.35022);         6000 N !
+ PARAM THETAF2(DIAMOND,C;0)    1 +0.0114797;                6000 N !
+ PARAM LNTHETA3(DIAMOND,C;0)   1 +1*LN(+1601.4467);         6000 N !
+ PARAM THETAF3(DIAMOND,C;0)    1 +0.763257386;              6000 N !
+
+ PARAM G(GRAPHITE,C;0)         1 +G0SERCC#;                 6000 N !
+ PARAM LNTHETA1(GRAPHITE,C;0)  1 +1*LN(+1953.2502);         6000 N !
+ PARAM THETAF1(GRAPHITE,C;0)   1 +0.484047107;              6000 N !
+ PARAM LNTHETA2(GRAPHITE,C;0)  1 +1*LN(+447.96926);         6000 N !
+ PARAM THETAF2(GRAPHITE,C;0)   1 +0.121581878;              6000 N !
+ PARAM LNTHETA3(GRAPHITE,C;0)  1 +1*LN(+947.01605);         6000 N !
+ PARAM THETAF3(GRAPHITE,C;0)   1 +0.349684332;              6000 N !
+ PARAM LNTHETA4(GRAPHITE,C;0)  1 +1*LN(+192.65039);         6000 N !
+ PARAM THETAF4(GRAPHITE,C;0)   1 +0.0388463641;             6000 N !
+ PARAM LNTHETA5(GRAPHITE,C;0)  1 +1*LN(+64.463356);         6000 N !
+ PARAM THETAF5(GRAPHITE,C;0)   1 +0.00584032345;            6000 N !
+
+ PARAM G(LIQUID,C;0)           1 +G0LIQCC#;                 6000 N !
+ PARAM GD(LIQUID,C;0)          1 +G2STCCL1#;                6000 N !
+ PARAM LNTHETA1(LIQUID,C;0)    1 +1*LN(+TELIQCC#);          6000 N !
+ PARAM THETAF1(LIQUID,C;0)     1 +1;                        6000 N !
+
+
+$ ==== [W] ====
+ PARAM LNTHETA1(BCC_A2,W:VA;0)  1  +LN(+TESERWW#); 6000 N !
+ PARAM THETAF1(BCC_A2,W:VA;0)   1  +1; 6000 N !
+ PARAM G(BCC_A2,W:VA;0)         1  +G0SERWW#; 6000 N !
+ 
+ PARAM LNTHETA1(FCC_A1,W:VA;0)  1  +LN(+TEFCCWW#); 6000 N !
+ PARAM THETAF1(FCC_A1,W:VA;0)   1  +1; 6000 N !
+ PARAM G(FCC_A1,W:VA;0)         1  +G0FCCWW#; 6000 N !
+
+ PARAM LNTHETA1(HCP_A3,W:VA;0)  1  +LN(+TEHCPWW#); 6000 N !
+ PARAM THETAF1(HCP_A3,W:VA;0)   1  +1; 6000 N ! 
+ PARAM G(HCP_A3,W:VA;0)         1  +G0HCPWW#; 6000 N !
+
+ PARAM G(LIQUID,W;0)           1 +G0LIQWW#;       6000 N !
+ PARAM GD(LIQUID,W;0)          1 +G2STWWL1#;                6000 N !
+ PARAM LNTHETA1(LIQUID,W;0)    1 +LN(+TELIQWW#);            6000 N !
+ PARAM THETAF1(LIQUID,W;0)     1 +1;                        6000 N !
+
+
+$ ==== [C, W] ====
+
+ PARAM LNTHETA1(BCC_A2,W:C;0)  1  +LN(+TEBCCWC#); 6000 N !
+ PARAM THETAF1(BCC_A2,W:C;0)   1  +1; 6000 N !
+ PARAM G(BCC_A2,W:C;0)         1 +GTSERWW#+3*GTSERCC#+439603;
+ 6000 N !
+ PARAM L(BCC_A2,W:C,VA;0)      1 +0;                        6000 N !
+
+ PARAM LNTHETA1(FCC_A1,W:C;0)  1  +LN(+TEFCCWC#); 6000 N !
+ PARAM THETAF1(FCC_A1,W:C;0)   1  +1; 6000 N !
+ PARAM G(FCC_A1,W:C;0)         1 +GTSERWW#+GTSERCC#-41041;
+ 6000 N !
+ PARAM L(FCC_A1,W:C,VA;0)      1 +10482;         6000 N !
+
+ PARAM LNTHETA1(HCP_A3,W:C;0)  1  +LN(+TEHCPWC#); 6000 N !
+ PARAM THETAF1(HCP_A3,W:C;0)   1  +1; 6000 N !
+ PARAM G(HCP_A3,W:C;0)         1 +GTSERWW#+0.5*GTSERCC#-22014;
+ 6000 N !
+ PARAM L(HCP_A3,W:C,VA;0)      1 +16621;         6000 N !
+
+ PARAM L(LIQUID,W,C;0)         1 -94206;         6000 N !
+ PARAM L(LIQUID,W,C;1)         1 +140715-24.1*T; 6000 N !
+ PARAM L(LIQUID,W,C;2)         1 +79220;         6000 N !
+
+ PARAM LNTHETA1(MC_SHP,W:C;0)  1 +LN(+276);                 6000 N !
+ PARAM LNTHETA2(MC_SHP,W:C;0)  1 +LN(+887);                 6000 N !
+ PARAM THETAF1(MC_SHP,W:C;0)   1 +.464626;                  6000 N !
+ PARAM THETAF2(MC_SHP,W:C;0)   1 +.535374;                  6000 N !
+ PARAM G(MC_SHP,W:C;0)         1 -60767-8.623395E-4*T**2
+   -4.15324459E-11*T**4;   6000 N !
+
+ 

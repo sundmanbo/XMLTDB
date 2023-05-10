@@ -154,6 +154,8 @@ $
 $ B) MatCalc specific commands
 $
 $ BOSSE: moved to later because XMLTDB converted check phase exist
+$ Added default T limits
+ TEMPERATURE-LIMITS  273.0 6000.00 !
 $
 $***************************************************************************
 $

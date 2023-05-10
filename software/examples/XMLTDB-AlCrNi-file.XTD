@@ -1,0 +1,589 @@
+<?xml version="1.0"?>
+<?xml-model href="database.rng" schematypens="http://relaxng.org/ns/structure/1.0" type="application/xml"?>
+<Database version="0.0.1">
+  <metadata>
+    <writer>xmltdbproject test
+       TDBfile="C:\Users\bosun\Documents\GitHub\XMLTDB\software\examples\AlCrNi_CEF_BEF_mod.TDB"
+       Software="Thermo-Calc"
+       Date="2023-05-10"
+    </writer>
+  </metadata>
+  <!-- Statistics elements="5"  species="7"  tpfuns="42"  phases="16"  parameters="83"  bibrefs="15"  -->
+  <Defaults low_T=" 298.15" high_T=" 6000.00" />
+  <Models>
+    <Magnetic-model id="IHJBCC"  MPID1="TC" MPID2="BMAGN" anti-ferromagnetic_factor=" -1.00" 
+       f_below_TC=" +1-0.905299383*TAO**(-1)-0.153008346*TAO**3-.00680037095*TAO**9-.00153008346*TAO**15;"
+       f_above_TC=" -.0641731208*TAO**(-5)-.00203724193*TAO**(-15)-.000427820805*TAO**(-25);" bibref="82Her" > in G=f(TAO)*LN(BETA+1) where TAO=T/TC
+    </Magnetic-model>
+    <Magnetic-model id="IHJREST"  MPID1="TC" MPID2="BMAGN" anti-ferromagnetic_factor=" -3.00" 
+       f_below_TC=" +1-0.860338755*TAO**(-1)-0.17449124*TAO**3-.00775516624*TAO**9-.0017449124*TAO**15;"
+       f_above_TC=" -.0426902268*TAO**(-5)-.0013552453*TAO**(-15)-.000284601512*TAO**(-25);" bibref="82Her" > in G=f(TAO)*LN(BETA+1) where TAO=T/TC
+    </Magnetic-model>
+    <Magnetic-model id="IHJQX"  MPID1="CT" MPID2="NT" MPID3="BMAGN" anti-ferromagnetic_factor="  0.00" 
+       f_below_TC=" +1-0.842849633*TAO**(-1)-0.174242226*TAO**3-.00774409892*TAO**9-.00174242226*TAO**15-.000646538871*TAO**21;"
+       f_above_TC=" -.0261039233*TAO**(-7)-.000870130777*TAO**(-21)-.000184262988*TAO**(-35)-6.65916411E-05*TAO**(-49);" bibref="12Xiong" > in G=f(TAO)*LN(BETA+1) where TAO=T/CT or T/NT
+    </Magnetic-model>
+    <Einstein-model id="GLOWTEIN" MPID1="LNTH" bibref="01Qing" > 
+       Gibbs energy due to the Einstein low T vibrational entropy model, G=1.5*R*THETA+3*R*T*LN(1-EXP(-THETA/T)).
+    </Einstein-model>
+    <Liquid-2state-model id="LIQ2STATE" MPID1="G2"  MPID2="LNTH" bibref="14Becker" >
+       Unified model for the liquid and the amorphous state treated as an Einstein solid
+    </Liquid-2state-model>
+    <Volume-model id="VOLOWP" MPID1="V0"  MPID2="VA" MPID3="VB" bibref="05Lu" >
+       The volume of a phase is described as function of T, P and its constitution.
+    </Volume-model>
+    <Disordered-fraction-model id="DISFS" bibref="09Sun" >
+       The disordered fractions are summed over the ordered sublattices indicated at the phase.  The Gibbs energy calculated 2 or 3 times as indicated by the CEF_appendix but the configurational entropy only once.
+    </Disordered-fraction-model>
+    <FCC-permutations id="FCCPERM" bibref="09Sun" >
+       Permutations of ordered FCC parameters with the same set of elements are listed only once.
+    </FCC-permutations>
+    <BCC-permutations id="BCCPERM" bibref="09Sun" >
+       Permutations of ordered BCC parameters with the same set of elements are listed only once.
+    </BCC-permutations>
+    <EEC id="EEC" bibref="20Sun" >
+       Equi-Entropy Criterion means that solid phases with higher entropy that the liquid phase must not be stable.
+    </EEC>
+  </Models>
+  <Element id="/-" refstate="ELECTRON_GAS" mass="  0.000000E+00" H298="  0.000000E+00" S298="  0.000000E+00" />
+  <Element id="VA" refstate="VACUUM" mass="  0.000000E+00" H298="  0.000000E+00" S298="  0.000000E+00" />
+  <Element id="AL" refstate="FCC_A1" mass="  2.698200E+01" H298="  4.577300E+03" S298="  2.832200E+01" />
+  <Element id="CR" refstate="BCC_A2" mass="  5.199600E+01" H298="  4.050000E+03" S298="  2.356000E+01" />
+  <Element id="NI" refstate="FCC_A1" mass="  5.869000E+01" H298="  4.787000E+03" S298="  2.979600E+01" />
+  <Species id="VA" stoichiometry="VA" />
+  <Species id="AL" stoichiometry="AL" />
+  <Species id="CR" stoichiometry="CR" />
+  <Species id="NI" stoichiometry="NI" />
+  <Species id="AL2" stoichiometry="AL2" />
+  <Species id="CR2" stoichiometry="CR2" />
+  <Species id="NI2" stoichiometry="NI2" />
+  <TPfun id="UNASS"  Expression="0;" />
+  <TPfun id="ZERO"  Expression="0;" />
+  <TPfun id="TROIS"  Expression="3;" />
+  <TPfun id="UNTIER"  Expression="TROIS**(-1);" />
+  <TPfun id="GHSERAL"  >
+    <Trange High_T="700" Expression=" -7976.15+137.093038*T-24.3671976*T*LN(T)  -.001884662*T**2-8.77664E-07*T**3+74092*T**(-1);" />
+    <Trange High_T="933.6" Expression="   -11276.24+223.048446*T-38.5844296*T*LN(T)  +.018531982*T**2-5.764227E-06*T**3+74092*T**(-1);" />
+    <Trange Expression="  -11278.378+188.684153*T-31.748192*T*LN(T)  -1.231E+28*T**(-9);" />
+  </TPfun>
+  <TPfun id="GHCPAL"  Expression="+5481-1.8*T+GHSERAL;" />
+  <TPfun id="GBCCAL"  Expression="+10083-4.813*T+GHSERAL;" />
+  <TPfun id="GLIQAL"  >
+    <Trange High_T="933.59" Expression=" +11005.029-11.841867*T+7.934E-20*T**7+GHSERAL;" />
+    <Trange Expression="  +10482.282-11.253974*T+1.231E+28*T**(-9)+GHSERAL;" />
+  </TPfun>
+  <TPfun id="B2ALVA" Low_T="295.15" >
+    <Trange Expression="10000-T;" />
+  </TPfun>
+  <TPfun id="LB2ALVA"  Expression="150000;" />
+  <TPfun id="GHSERCR"  >
+    <Trange High_T="2180" Expression=" -8856.94+157.48*T-26.908*T*LN(T)  +.00189435*T**2-1.47721E-06*T**3+139250*T**(-1);" />
+    <Trange Expression="  -34869.344+344.18*T-50*T*LN(T)-2.88526E+32*T**(-9);" />
+  </TPfun>
+  <TPfun id="GCRLIQ"  >
+    <Trange High_T="2180" Expression=" +24339.955-11.420225*T+2.37615E-21*T**7+GHSERCR;" />
+    <Trange Expression="  -16459.984+335.616316*T-50*T*LN(T);" />
+  </TPfun>
+  <TPfun id="GFCCCR"  Expression="+7284+.163*T+GHSERCR;" />
+  <TPfun id="GHCPCR"  Expression="+4438+GHSERCR;" />
+  <TPfun id="ACRBCC"  Expression="+1.7E-05*T+9.2E-09*T**2;" />
+  <TPfun id="BCRBCC"  Expression="+1+2.6E-11*P;" />
+  <TPfun id="CCRBCC"  Expression="2.08E-11;" />
+  <TPfun id="DCRBCC"  Expression="+1*LN(BCRBCC);" />
+  <TPfun id="VCRBCC"  Expression="+7.188E-06*EXP(ACRBCC);" />
+  <TPfun id="ECRBCC"  Expression="+1*LN(CCRBCC);" />
+  <TPfun id="XCRBCC"  Expression="+1*EXP(.8*DCRBCC)-1;" />
+  <TPfun id="YCRBCC"  Expression="+VCRBCC*EXP(-ECRBCC);" />
+  <TPfun id="ZCRBCC"  Expression="+1*LN(XCRBCC);" />
+  <TPfun id="GPCRBCC"  Expression="+YCRBCC*EXP(ZCRBCC);" />
+  <TPfun id="ACRLIQ"  Expression="+1.7E-05*T+9.2E-09*T**2;" />
+  <TPfun id="BCRLIQ"  Expression="+1+4.65E-11*P;" />
+  <TPfun id="CCRLIQ"  Expression="3.72E-11;" />
+  <TPfun id="DCRLIQ"  Expression="+1*LN(BCRLIQ);" />
+  <TPfun id="VCRLIQ"  Expression="+7.653E-06*EXP(ACRLIQ);" />
+  <TPfun id="ECRLIQ"  Expression="+1*LN(CCRLIQ);" />
+  <TPfun id="XCRLIQ"  Expression="+1*EXP(.8*DCRLIQ)-1;" />
+  <TPfun id="YCRLIQ"  Expression="+VCRLIQ*EXP(-ECRLIQ);" />
+  <TPfun id="ZCRLIQ"  Expression="+1*LN(XCRLIQ);" />
+  <TPfun id="GPCRLIQ"  Expression="+YCRLIQ*EXP(ZCRLIQ);" />
+  <TPfun id="GHSERNI"  >
+    <Trange High_T="1728" Expression=" -5179.159+117.854*T-22.096*T*LN(T)  -.0048407*T**2;" />
+    <Trange Expression="  -27840.655+279.135*T-43.1*T*LN(T)+1.12754E+31*T**(-9);" />
+  </TPfun>
+  <TPfun id="GHCPNI"  Expression="+1046+1.2552*T+GHSERNI;" />
+  <TPfun id="GBCCNI"  Expression="+8715.084-3.556*T+GHSERNI;" />
+  <TPfun id="B2NIVA" Low_T="295.15" >
+    <Trange Expression="+162397.3-27.40575*T;" />
+  </TPfun>
+  <TPfun id="LB2NIVA"  Expression="-64024.38+26.49419*T;" />
+  <TPfun id="B2ALNI" Low_T="295.15" >
+    <Trange Expression="-152397.3+26.40575*T;" />
+  </TPfun>
+  <TPfun id="LB2ALNI"  Expression="-52440.88+11.30117*T;" />
+  <TPfun id="UALNI"  Expression="-22212.8931+4.39570389*T;" />
+  <Phase id="LIQUID" Configuration_model="CEF" state="L" >
+    <Sublattices number_of="1"  Ratios="1" >
+      <Constituent sublattice="1" list="AL CR NI" />
+    </Sublattices>
+  </Phase>
+  <Phase id="FCC_A1" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="2"  Ratios="1  1" >
+      <Constituent sublattice="1" list="AL CR NI" />
+      <Constituent sublattice="2" list="VA" />
+    </Sublattices>
+    <Amend-phase model="IHJREST" />
+  </Phase>
+  <Phase id="BCC_A2" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="2"  Ratios="1  3" >
+      <Constituent sublattice="1" list="AL CR NI VA" />
+      <Constituent sublattice="2" list="VA" />
+    </Sublattices>
+    <Amend-phase model="IHJBCC" />
+  </Phase>
+  <Phase id="BCC_B2" Configuration_model="CEF_3terms" state="S" >
+    <Sublattices number_of="3"  Ratios="0.5  0.5  3" >
+      <Constituent sublattice="1" list="AL CR NI VA" />
+      <Constituent sublattice="2" list="AL CR NI VA" />
+      <Constituent sublattice="3" list="VA" />
+    </Sublattices>
+    <Amend-phase model="IHJBCC" />
+    <Amend-phase model="DISFS" info="BCC_B2 BCC_A2" sum_sublattices="2" />
+  </Phase>
+  <Phase id="FCC_L12" Configuration_model="CEF_3terms" state="S" >
+    <Sublattices number_of="5"  Ratios="0.25  0.25  0.25  0.25  1" >
+      <Constituent sublattice="1" list="AL CR NI" />
+      <Constituent sublattice="2" list="AL CR NI" />
+      <Constituent sublattice="3" list="AL CR NI" />
+      <Constituent sublattice="4" list="AL CR NI" />
+      <Constituent sublattice="5" list="VA" />
+    </Sublattices>
+    <Amend-phase model="IHJREST" />
+    <Amend-phase model="DISFS" info="FCC_L12 FCC_A1" sum_sublattices="4" />
+    <Amend-phase model="FCCPERM" info="The parameters have FCC permutations" />
+  </Phase>
+  <Phase id="AL11CR2" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="3"  Ratios="10  1  2" >
+      <Constituent sublattice="1" list="AL" />
+      <Constituent sublattice="2" list="AL" />
+      <Constituent sublattice="3" list="CR" />
+    </Sublattices>
+  </Phase>
+  <Phase id="AL13CR2" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="2"  Ratios="13  2" >
+      <Constituent sublattice="1" list="AL" />
+      <Constituent sublattice="2" list="CR" />
+    </Sublattices>
+  </Phase>
+  <Phase id="AL4CR" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="2"  Ratios="4  1" >
+      <Constituent sublattice="1" list="AL" />
+      <Constituent sublattice="2" list="CR" />
+    </Sublattices>
+  </Phase>
+  <Phase id="AL8CR5_H" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="2"  Ratios="8  5" >
+      <Constituent sublattice="1" list="AL" />
+      <Constituent sublattice="2" list="CR" />
+    </Sublattices>
+  </Phase>
+  <Phase id="AL8CR5_L" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="2"  Ratios="8  5" >
+      <Constituent sublattice="1" list="AL" />
+      <Constituent sublattice="2" list="CR" />
+    </Sublattices>
+  </Phase>
+  <Phase id="AL9CR4_H" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="2"  Ratios="9  4" >
+      <Constituent sublattice="1" list="AL" />
+      <Constituent sublattice="2" list="CR" />
+    </Sublattices>
+  </Phase>
+  <Phase id="AL9CR4_L" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="2"  Ratios="9  4" >
+      <Constituent sublattice="1" list="AL" />
+      <Constituent sublattice="2" list="CR" />
+    </Sublattices>
+  </Phase>
+  <Phase id="ALCR2" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="2"  Ratios="1  2" >
+      <Constituent sublattice="1" list="AL" />
+      <Constituent sublattice="2" list="CR" />
+    </Sublattices>
+  </Phase>
+  <Phase id="AL3NI1" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="2"  Ratios="0.75  0.25" >
+      <Constituent sublattice="1" list="AL" />
+      <Constituent sublattice="2" list="NI" />
+    </Sublattices>
+  </Phase>
+  <Phase id="AL3NI2" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="3"  Ratios="3  2  1" >
+      <Constituent sublattice="1" list="AL" />
+      <Constituent sublattice="2" list="AL NI" />
+      <Constituent sublattice="3" list="NI VA" />
+    </Sublattices>
+  </Phase>
+  <Phase id="AL3NI5" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="2"  Ratios="0.375  0.625" >
+      <Constituent sublattice="1" list="AL" />
+      <Constituent sublattice="2" list="NI" />
+    </Sublattices>
+  </Phase>
+  <Unary-parameters >
+    <Parameter id="G(LIQUID,AL;0)"   Low_T="298.13"  Bibref="91DIN" > 
+      <Trange High_T="933.6" Expression="+11005.029-11.841867*T+7.934E-20*T**7+GHSERAL;" />
+      <Trange High_T="6000" Expression="  +10482.382-11.253974*T+1.231E+28*T**(-9)  +GHSERAL;" />
+    </Parameter>
+    <Parameter id="G(FCC_A1,AL:VA;0)"   Expression="+GHSERAL;" Bibref="91DIN" />
+    <Parameter id="G(BCC_A2,AL:VA;0)"   Expression="+GBCCAL;" Bibref="91DIN" />
+    <Parameter id="L(BCC_A2,AL,VA:VA;0)"   Expression="B2ALVA+LB2ALVA;" Bibref="99DUP" />
+    <Parameter id="G(BCC_B2,AL:VA:VA;0)"   Expression=".5*B2ALVA-.5*LB2ALVA;" Bibref="99DUP" />
+    <Parameter id="G(BCC_B2,VA:AL:VA;0)"   Expression=".5*B2ALVA-.5*LB2ALVA;" Bibref="99DUP" />
+    <Parameter id="G(LIQUID,CR;0)"   Expression="+GCRLIQ+GPCRLIQ;" Bibref="91DIN" />
+    <Parameter id="G(FCC_A1,CR:VA;0)"   Expression="+GFCCCR+GPCRBCC;" Bibref="89DIN" />
+    <Parameter id="TC(FCC_A1,CR:VA;0)"   Expression="-1109;" Bibref="89DIN" />
+    <Parameter id="BMAGN(FCC_A1,CR:VA;0)"   Expression="-2.46;" Bibref="89DIN" />
+    <Parameter id="G(BCC_A2,CR:VA;0)"   Expression="+GHSERCR+GPCRBCC;" Bibref="91DIN" />
+    <Parameter id="TC(BCC_A2,CR:VA;0)"   Expression="-311.5;" Bibref="89DIN" />
+    <Parameter id="BMAGN(BCC_A2,CR:VA;0)"   Expression="-.008;" Bibref="89DIN" />
+    <Parameter id="L(BCC_A2,CR,VA:VA;0)"   Expression="100000;" Bibref="01DUP" />
+    <Parameter id="G(BCC_B2,CR:VA:VA;0)"   Expression="0;" Bibref="01DUP" />
+    <Parameter id="G(BCC_B2,VA:CR:VA;0)"   Expression="0;" Bibref="01DUP" />
+    <Parameter id="G(LIQUID,NI;0)"   Low_T="298.13"  Bibref="91DIN" > 
+      <Trange High_T="1728" Expression="+16414.686-9.397*T-3.82318E-21*T**7+GHSERNI;" />
+      <Trange High_T="6000" Expression="  +18290.88-10.537*T-1.12754E+31*T**(-9)  +GHSERNI;" />
+    </Parameter>
+    <Parameter id="G(FCC_A1,NI:VA;0)"   Expression="+GHSERNI;" Bibref="91DIN" />
+    <Parameter id="TC(FCC_A1,NI:VA;0)"   Expression="633;" Bibref="89DIN" />
+    <Parameter id="BMAGN(FCC_A1,NI:VA;0)"   Expression=".52;" Bibref="89DIN" />
+    <Parameter id="G(BCC_A2,NI:VA;0)"   Expression="+GBCCNI;" Bibref="91DIN" />
+    <Parameter id="TC(BCC_A2,NI:VA;0)"   Expression="575;" Bibref="89DIN" />
+    <Parameter id="BMAGN(BCC_A2,NI:VA;0)"   Expression=".85;" Bibref="89DIN" />
+    <Parameter id="L(BCC_A2,NI,VA:VA;0)"   Expression="B2NIVA+LB2NIVA;" Bibref="99DUP" />
+    <Parameter id="G(BCC_B2,VA:NI:VA;0)"   Expression=".5*B2NIVA-.5*LB2NIVA;" Bibref="99DUP" />
+    <Parameter id="G(BCC_B2,NI:VA:VA;0)"   Expression=".5*B2NIVA-.5*LB2NIVA;" Bibref="99DUP" />
+    <Parameter id="G(AL3NI2,AL:AL:VA;0)"   Expression="+5*GBCCAL  +30000-3*T;" Bibref="95DUP3" />
+  </Unary-parameters>
+  <Binary-parameters>
+    <Parameter id="L(LIQUID,AL,CR;0)"   Expression="-29000;" Bibref="91SAU1" />
+    <Parameter id="L(LIQUID,AL,CR;1)"   Expression="-11000;" Bibref="91SAU1" />
+    <Parameter id="G(FCC_A1,AL,CR:VA;0)"   Expression="-45900+6*T;" Bibref="91SAU1" />
+    <Parameter id="G(BCC_A2,AL,CR:VA;0)"   Expression="-54900+10*T;" Bibref="91SAU1" />
+    <Parameter id="G(BCC_B2,AL:CR:VA;0)"   Expression="-2000;" Bibref="01DUP" />
+    <Parameter id="G(BCC_B2,CR:AL:VA;0)"   Expression="-2000;" Bibref="01DUP" />
+    <Parameter id="G(FCC_L12,AL:CR:*:*:VA;0)"   Expression="-830;" Bibref="01DUP" />
+    <Parameter id="G(AL11CR2,AL:AL:CR;0)"   Expression="+11*GHSERAL+2*GHSERCR-175500+25.805*T;" Bibref="91SAU1" />
+    <Parameter id="G(AL13CR2,AL:CR;0)"   Expression="+13*GHSERAL+2*GHSERCR-174405+22.2*T;" Bibref="91SAU1" />
+    <Parameter id="G(AL4CR,AL:CR;0)"   Expression="+4*GHSERAL+GHSERCR-89025+19.05*T;" Bibref="91SAU1" />
+    <Parameter id="G(AL8CR5_H,AL:CR;0)"   Expression="+8*GHSERAL+5*GHSERCR-147732-58.5*T;" Bibref="91SAU1" />
+    <Parameter id="G(AL8CR5_L,AL:CR;0)"   Expression="+8*GHSERAL+5*GHSERCR-229515;" Bibref="91SAU1" />
+    <Parameter id="G(AL9CR4_H,AL:CR;0)"   Expression="+9*GHSERAL+4*GHSERCR-134433-56.16*T;" Bibref="91SAU1" />
+    <Parameter id="G(AL9CR4_L,AL:CR;0)"   Expression="+9*GHSERAL+4*GHSERCR-230750+16.094*T;" Bibref="91SAU1" />
+    <Parameter id="G(ALCR2,AL:CR;0)"   Expression="+GHSERAL+2*GHSERCR-32700-8.79*T;" Bibref="91SAU1" />
+    <Parameter id="L(LIQUID,AL,NI;0)"   Expression="-207109.28+41.31501*T;" Bibref="95DUP3" />
+    <Parameter id="L(LIQUID,AL,NI;1)"   Expression="-10185.79+5.8714*T;" Bibref="95DUP3" />
+    <Parameter id="L(LIQUID,AL,NI;2)"   Expression="+81204.81-31.95713*T;" Bibref="95DUP3" />
+    <Parameter id="L(LIQUID,AL,NI;3)"   Expression="+4365.35-2.51632*T;" Bibref="95DUP3" />
+    <Parameter id="L(LIQUID,AL,NI;4)"   Expression="-22101.64+13.16341*T;" Bibref="95DUP3" />
+    <Parameter id="TC(FCC_A1,AL,NI:VA;0)"   Expression="-1112;" Bibref="95DUP3" />
+    <Parameter id="TC(FCC_A1,AL,NI:VA;1)"   Expression="1745;" Bibref="95DUP3" />
+    <Parameter id="G(FCC_A1,AL,NI:VA;0)"   Expression="-162407.75+16.212965*T;" Bibref="95DUP3" />
+    <Parameter id="G(FCC_A1,AL,NI:VA;1)"   Expression="+73417.798-34.914168*T;" Bibref="95DUP3" />
+    <Parameter id="G(FCC_A1,AL,NI:VA;2)"   Expression="+33471.014-9.8373558*T;" Bibref="95DUP3" />
+    <Parameter id="G(FCC_A1,AL,NI:VA;3)"   Expression="-30758.01+10.25267*T;" Bibref="95DUP3" />
+    <Parameter id="L(BCC_A2,AL,NI:VA;0)"   Expression="B2ALNI+LB2ALNI;" Bibref="99DUP" />
+    <Parameter id="G(BCC_B2,AL:NI:VA;0)"   Expression=".5*B2ALNI-.5*LB2ALNI;" Bibref="99DUP" />
+    <Parameter id="G(BCC_B2,NI:AL:VA;0)"   Expression=".5*B2ALNI-.5*LB2ALNI;" Bibref="99DUP" />
+    <Parameter id="G(FCC_L12,AL:NI:*:*:VA;0)"   Expression="2*UNTIER*UALNI;" Bibref="01DUP" />
+    <Parameter id="L(FCC_L12,AL,NI:*:*:*:VA;1)"   Expression="7203.60609-3.74273030*T;" Bibref="01DUP" />
+    <Parameter id="G(AL3NI1,AL:NI;0)"   Expression="-48483.73+12.29913*T +.75*GHSERAL+.25*GHSERNI;" Bibref="95DUP3" />
+    <Parameter id="G(AL3NI2,AL:AL:NI;0)"   Expression="+5*GBCCAL+GBCCNI  -39465.978+7.89525*T;" Bibref="95DUP3" />
+    <Parameter id="G(AL3NI2,AL:NI:NI;0)"   Expression="+3*GBCCAL+3*GBCCNI  -427191.9+79.21725*T;" Bibref="95DUP3" />
+    <Parameter id="G(AL3NI2,AL:NI:VA;0)"   Expression="+3*GBCCAL+2*GBCCNI  -357725.92+68.322*T;" Bibref="95DUP3" />
+    <Parameter id="L(AL3NI2,AL:AL,NI:*;0)"   Expression="-193484.18+131.79*T;" Bibref="95DUP3" />
+    <Parameter id="L(AL3NI2,AL:*:NI;0)"   Expression="-22001.7+7.0332*T;" Bibref="95DUP3" />
+    <Parameter id="G(AL3NI5,AL:NI;0)"   Expression="+.375*GHSERAL+.625*GHSERNI  -55507.7594+7.2648103*T;" Bibref="95DUP3" />
+    <Parameter id="L(LIQUID,CR,NI;0)"   Expression="+318-7.3318*T;" Bibref="91LEE" />
+    <Parameter id="L(LIQUID,CR,NI;1)"   Expression="+16941-6.3696*T;" Bibref="91LEE" />
+    <Parameter id="G(FCC_A1,CR,NI:VA;0)"   Expression="+8030-12.8801*T;" Bibref="91LEE" />
+    <Parameter id="G(FCC_A1,CR,NI:VA;1)"   Expression="+33080-16.0362*T;" Bibref="91LEE" />
+    <Parameter id="TC(FCC_A1,CR,NI:VA;0)"   Expression="-3605;" Bibref="86DIN" />
+    <Parameter id="BMAGN(FCC_A1,CR,NI:VA;0)"   Expression="-1.91;" Bibref="86DIN" />
+    <Parameter id="G(BCC_A2,CR,NI:VA;0)"   Expression="+17170-11.8199*T;" Bibref="91LEE" />
+    <Parameter id="G(BCC_A2,CR,NI:VA;1)"   Expression="+34418-11.8577*T;" Bibref="91LEE" />
+    <Parameter id="TC(BCC_A2,CR,NI:VA;0)"   Expression="2373;" Bibref="86DIN" />
+    <Parameter id="TC(BCC_A2,CR,NI:VA;1)"   Expression="617;" Bibref="86DIN" />
+    <Parameter id="BMAGN(BCC_A2,CR,NI:VA;0)"   Expression="4;" Bibref="86DIN" />
+    <Parameter id="G(BCC_B2,CR:NI:VA;0)"   Expression="4000;" Bibref="01DUP" />
+    <Parameter id="G(BCC_B2,NI:CR:VA;0)"   Expression="4000;" Bibref="01DUP" />
+    <Parameter id="G(FCC_L12,CR:NI:*:*:VA;0)"   Expression="-1980;" Bibref="01DUP" />
+  </Binary-parameters>
+  <Higher-parameters>
+    <Parameter id="L(LIQUID,AL,CR,NI;0)"   Expression="16000;" Bibref="01DUP" />
+    <Parameter id="G(FCC_A1,AL,CR,NI:VA;0)"   Expression="30300;" Bibref="01DUP" />
+    <Parameter id="G(BCC_A2,AL,CR,NI:VA;0)"   Expression="42500;" Bibref="01DUP" />
+    <Parameter id="G(FCC_L12,AL:CR:NI:NI:VA;0)"   Expression="6650;" Bibref="01DUP" />
+  </Higher-parameters>
+  <Bibliography>
+    <Bibitem ID="86DIN" Text="A. Dinsdale, T. Chart, MTDS NPL, Unpublished work (1986); CR-NI" />
+    <Bibitem ID="89DIN" Text="Alan Dinsdale, SGTE Data for Pure Elements,  NPL Report DMA(A)195 September 1989" />
+    <Bibitem ID="91DIN" Text="Alan Dinsdale, SGTE Data for Pure Elements, NPL Report  DMA(A)195 Rev. August 1990" />
+    <Bibitem ID="91LEE" Text="Byeong-Joo Lee, unpublished revision (1991); C-Cr-Fe-Ni" />
+    <Bibitem ID="91SAU1" Text="Nigel Saunders, 1991, based on  N. Saunders, V.G. Rivlin  Z. metallkde, 78 (11), 795-801 (1987); Al-Cr" />
+    <Bibitem ID="91DIN" Text="Alan Dinsdale, SGTE Data for Pure Elements,  Calphad Vol 15(1991) p 317-425,  also in NPL Report DMA(A)195 Rev. August 1990" />
+    <Bibitem ID="95DUP3" Text="N. Dupin, Thesis, LTPCM, France, 1995;  Al-Ni,  also in I. Ansara, N. Dupin, H.L. Lukas, B. SUndman  J. Alloys Compds, 247 (1-2), 20-30 (1997)" />
+    <Bibitem ID="99DUP" Text="N. Dupin, I. Ansara,  Z. metallkd., Vol 90 (1999) p 76-85;  Al-Ni" />
+    <Bibitem ID="01DUP" Text=" N. Dupin, I. Ansara, B. Sundman  Thermodynamic Re-Assessment of the Ternary System Al-Cr-Ni,  Calphad, 25 (2), 279-298 (2001); Al-Cr-Ni" />
+    <Bibitem ID="REF184" Text="AL1[G] CODATA KEY VALUES SGTE **  ALUMINIUM [GAS]  Cp values similar in Codata Key Values and IVTAN Vol. 3" />
+    <Bibitem ID="REF448" Text="AL2[G] CHATILLON(1992)  Enthalpy of formation for Al1[g] taken from Codata Key Values.  Enthalpy of form. from TPIS dissociation energy mean Value  corrected with new fef from Sunil K.K. and Jordan K.D.  (J.Phys. Chem. 92(1988)2774) ab initio calculations." />
+    <Bibitem ID="REF4465" Text="CR1[G] T.C.R.A.S. Class: 1  CHROMIUM [GAS]" />
+    <Bibitem ID="REF4591" Text="CR2[G] T.C.R.A.S. Class: 6" />
+    <Bibitem ID="REF7504" Text="NI1[G] T.C.R.A.S Class: 1  Data provided by T.C.R.A.S. October 1996" />
+    <Bibitem ID="REF7553" Text="NI2[G] T.C.R.A.S Class: 5  Data provided by T.C.R.A.S. October 1996" />
+    <Bibitem ID="60Koh" Text="F. Kohler, Monatsh Chem, Vol 91 (1960) 738--740" />
+    <Bibitem ID="65Toop" Text="G. W. Toop, Trans Metall Soc, AIME  Vol 233 (1965) 850--854" />
+    <Bibitem ID="82Her" Text="S. Hertzman and B. Sundman, A Thermodynamic analysis of the Fe-Cr system, Calphad Vol 6 (1982) 67-80." />
+    <Bibitem ID="12Xiong" Text="W. Xiong, Q. Chen, P. K. Korzhavyi and M. Selleby, An improved magnetic model for thermodynamic modeling, Calphad, Vol 39 (2012) 11-20." />
+    <Bibitem ID="01Qing" Text="Q. Chen and B. Sundman, Modeling of thermodynamic properties for Bcc, Fcc, liquid, and amorphous iron, J. Phase Equilibria. Vol 22 (2001) 631-644." />
+    <Bibitem ID="14Becker" Text="C. A. Becker, J. Agren, M. Baricco, Q. Chen, S. A. Decterov, U. R. Kattner, J. H. Perepezko, G. R. Pottlacher and M. Selleby, Thermodynamic modelling of liquids: CALPHAD approaches and contributions from statistical physics. Phys status solidi. B, Vol 251(1) (2014) 33-52." />
+    <Bibitem ID="05Lu" Text="X-G. Lu, M. Selleby and B. Sundman, Implementation of a new model for pressure dependence of condensed phases in Thermo-Calc, Calphad Vol 29 (2005) 49-55." />
+    <Bibitem ID="09Sun" Text="B. Sundman, I. Ohnuma, N. Dupin, U. R. Kattner, S. G. Fries, An assessment of the entire Al–Fe system including D03 ordering, Acta Mater. Vol 57 (2009) 2896-2908" />
+    <Bibitem ID="09Sun" Text="B. Sundman, I. Ohnuma, N. Dupin, U. R. Kattner, S. G. Fries, An assessment of the entire Al–Fe system including D03 ordering, Acta Mater. Vol 57 (2009) 2896-2908" />
+    <Bibitem ID="20Sun" Text="B. Sundman, U. R. Kattner, M. Hillert, M. Selleby, J. Agren, S. Bigdeli, Q. Chen, A. Dinsdale, B. Hallstedt, A. Khvan, H. Mao and R. OtisA method for handling the estrapolation of solid crystalline phases to temperature above their melting point, Calphad Vol 68 (2020) 101737" />
+  </Bibliography>
+  <TDB-comments>
+       0 $ The parameters of this database follows the publication
+       0 $ N. Dupin, I. Ansara, B. Sundman
+       0 $ Thermodynamic Re-Assessment of the Ternary System Al-Cr-Ni,
+       0 $ Calphad, 25 (2), 279-298 (2001).
+       0 $ The L12 and A1 phases are described with a single description using
+       0 $ 4 sublattices with the F option in the BEF
+       0 $ Currently, this file can only be used by the software OpenCalphad
+      63 $Bosse moved all type_defs before they are used
+      67 $Bosse conditional not implemented
+      67 $ TYPE_DEFINITION G GES A_P_D FCC_L12 C_S 2 NI:NI:NI:AL:VA !
+      67 $ TYPE_DEFINITION G IF (AL AND NI) THEN
+      67 $                   GES A_P_D FCC_L12 C_S 2 NI:NI:NI:AL:VA !
+      67 $ TYPE_DEFINITION G IF (NI) THEN
+      67 $                   GES A_P_D FCC_L12 MAJ 1 NI:NI:NI:NI:VA !
+      67 $Bosse conditional not implemented
+      67 $ TYPE_DEFINITION W GES A_P_D BCC_B2 C_S,, NI:AL:VA !
+      67 $ TYPE_DEFINITION W IF (CR AND AL AND NI) THEN
+      67 $                   GES A_P_D BCC_B2 C_S,, NI:AL:VA !
+      67 $ TYPE_DEFINITION W IF (CR) THEN
+      67 $                   GES A_P_D BCC_B2 MAJ 1 CR:CR:VA !
+      93 $ PHASE BCC_B2  %BCW  3 .5 .5    3 !
+      97 $ PHASE FCC_L12:F  %ADG  5 .25 .25 .25  .25   1 !
+     107 $****************************************************************************
+     107 $
+     107 $                                                            UNARY PARAMETERS
+     107 $
+     107 $----------------------------------------------------------------------------
+     107 $
+     107 $                                                                          Al
+     107 $
+     107 $                                                                   FUNCTIONS
+     107 $
+     127 $
+     129 $
+     131 $
+     136 $
+     136 $                                                                LIQUID PHASE
+     136 $
+     144 $      +GHSERAL;,,N 91DIN ! !!!! software bug (several)
+     144 $
+     144 $                                                                FCC_A1 PHASE
+     144 $
+     149 $
+     149 $                                                                BCC_A2 PHASE
+     149 $
+     156 $
+     156 $                                                                BCC_B2 PHASE
+     156 $
+     161 $
+     161 $----------------------------------------------------------------------------
+     161 $
+     161 $                                                                          Cr
+     161 $
+     161 $                                                                   FUNCTIONS
+     161 $
+     173 $
+     178 $
+     180 $
+     182 $
+     193 $
+     204 $
+     204 $                                                                LIQUID PHASE
+     204 $
+     208 $
+     208 $                                                                FCC_A1 PHASE
+     208 $
+     214 $
+     214 $                                                                BCC_A2 PHASE
+     214 $
+     221 $
+     221 $                                                                BCC_B2 PHASE
+     221 $
+     226 $
+     226 $----------------------------------------------------------------------------
+     226 $
+     226 $                                                                          Ni
+     226 $
+     226 $                                                                   FUNCTIONS
+     226 $
+     238 $
+     240 $
+     242 $
+     242 $                                                                LIQUID PHASE
+     242 $
+     250 $
+     250 $                                                                FCC_A1 PHASE
+     250 $
+     256 $
+     256 $                                                                BCC_A2 PHASE
+     256 $
+     265 $
+     265 $                                                                BCC_B2 PHASE
+     265 $
+     270 $
+     270 $****************************************************************************
+     270 $
+     270 $                                                           BINARY PARAMETERS
+     270 $
+     270 $----------------------------------------------------------------------------
+     270 $
+     270 $                                                                       Al-Cr
+     270 $                             Mainly from Saunders (COST507)
+     270 $                             Metastable B2 and L12 from revision of Al-Cr-Ni
+     270 $
+     270 $                                                                LIQUID PHASE
+     270 $
+     285 $
+     285 $                                                                FCC_A1 PHASE
+     285 $
+     289 $
+     289 $                                                                BCC_A2 PHASE
+     289 $
+     293 $
+     293 $                                                                BCC_B2 PHASE
+     293 $                                                                  metastable
+     293 $ Present work: july 1999, study of Al-Cr-Ni, revision of NDTH. The B2
+     293 $ phase is not stabilized enough to become stable in the Al-Cr. It is
+     293 $ thus not in agreement with "T. Helander, and O. Tolochko, J. of Phase
+     293 $ Eq, 20 (1) 1999, 57-60." Further study on the extension of the B2 phase
+     293 $ towards AlCr in Al-Cr-Ni would be desirable.
+     303 $
+     303 $                                                               FCC_L12 PHASE
+     303 $                                                                  metastable
+     303 $ Present work: july 1999, study of Al-Cr-Ni, revision of NDTH.
+     308 $
+     308 $                                                               AL11CR2 PHASE
+     308 $
+     315 $
+     315 $                                                               AL13CR2 PHASE
+     315 $
+     322 $
+     322 $                                                                 AL4CR PHASE
+     322 $
+     329 $
+     329 $                                                              AL8CR5_H PHASE
+     329 $
+     336 $
+     336 $                                                              AL8CR5_L PHASE
+     336 $
+     343 $
+     343 $                                                              AL9CR4_H PHASE
+     343 $
+     350 $
+     350 $                                                              AL9CR4_L PHASE
+     350 $
+     357 $
+     357 $                                                                 ALCR2 PHASE
+     357 $
+     364 $
+     364 $----------------------------------------------------------------------------
+     364 $
+     364 $                                                                       Al-Ni
+     364 $                     Mainly from ND thesis,
+     364 $                     slighly revised to get better solvus at low temperature
+     364 $
+     364 $                                                                LIQUID PHASE
+     364 $
+     378 $
+     378 $                                                                FCC_A1 PHASE
+     378 $
+     387 $
+     387 $                                                                BCC_A2 PHASE
+     387 $                                                                  metastable
+     387 $
+     393 $ problem wih ! as part of reference ....
+     393 $ PARA L(BCC_A2,AL,NI:VA;0)  298.15  B2ALNI+LB2ALNI;,, N 99DUP!
+     396 $
+     396 $                                                                BCC_B2 PHASE
+     396 $
+     401 $
+     401 $                                                               FCC_L12 PHASE
+     401 $
+     409 $
+     409 $                                                                AL3NI1 PHASE
+     409 $
+     417 $
+     417 $                                                                AL3NI2 PHASE
+     417 $
+     434 $
+     434 $                                                                AL3NI5 PHASE
+     434 $
+     441 $
+     441 $----------------------------------------------------------------------------
+     441 $
+     441 $                                                                       Cr-Ni
+     441 $                             Mainly from SSOL
+     441 $                             Metastable B2 and L12 from revision of Al-Cr-Ni
+     441 $
+     441 $                                                                LIQUID PHASE
+     441 $
+     452 $
+     452 $                                                                FCC_A1 PHASE
+     452 $
+     459 $
+     459 $                                                                BCC_A2 PHASE
+     459 $
+     467 $
+     467 $                                                                BCC_B2 PHASE
+     467 $                                                                  metastable
+     467 $
+     467 $ Present work: july 1999, study of Al-Cr-Ni, revision of NDTH.
+     474 $
+     474 $                                                               FCC_L12 PHASE
+     474 $                                                                  metastable
+     474 $ Present work: july 1999, study of Al-Cr-Ni, revision of NDTH.
+     474 $ The L12 phase is metastable in the binary Cr-Ni while it was stable in NDTH.
+     480 $
+     480 $****************************************************************************
+     480 $
+     480 $                                                          TERNARY PARAMETERS
+     480 $
+     480 $----------------------------------------------------------------------------
+     480 $
+     480 $                                                                    Al-Cr-Ni
+     480 $                                    July 1999, ND
+     480 $                                    Revision. Main changes:
+     480 $                                    - description of the A2/B2
+     480 $                                    - new liquidus data taken into account
+     480 $                                    - simpler ternary interaction parameters
+     480 $
+     480 $                                                                LIQUID PHASE
+     480 $
+     497 $
+     497 $                                                                FCC_A1 PHASE
+     497 $
+     501 $
+     501 $                                                                BCC_A2 PHASE
+     501 $
+     505 $
+     505 $                                                               FCC_L12 PHASE
+     505 $
+     509 $
+     509 $****************************************************************************
+  </TDB-comments>
+</Database>

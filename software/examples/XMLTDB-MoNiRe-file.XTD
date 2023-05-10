@@ -1,0 +1,494 @@
+<?xml version="1.0"?>
+<?xml-model href="database.rng" schematypens="http://relaxng.org/ns/structure/1.0" type="application/xml"?>
+<Database version="0.0.1">
+  <metadata>
+    <writer>xmltdbproject test
+       TDBfile="C:\Users\bosun\Documents\GitHub\XMLTDB\software\examples\MoNiRe_BEF.TDB"
+       Software="Thermo-Calc"
+       Date="2023-05-10"
+    </writer>
+  </metadata>
+  <!-- Statistics elements="5"  species="4"  tpfuns="73"  phases="9"  parameters="179"  bibrefs="9"  -->
+  <Defaults low_T=" 298.15" high_T=" 6000.00" />
+  <Models>
+    <Magnetic-model id="IHJBCC"  MPID1="TC" MPID2="BMAGN" anti-ferromagnetic_factor=" -1.00" 
+       f_below_TC=" +1-0.905299383*TAO**(-1)-0.153008346*TAO**3-.00680037095*TAO**9-.00153008346*TAO**15;"
+       f_above_TC=" -.0641731208*TAO**(-5)-.00203724193*TAO**(-15)-.000427820805*TAO**(-25);" bibref="82Her" > in G=f(TAO)*LN(BETA+1) where TAO=T/TC
+    </Magnetic-model>
+    <Magnetic-model id="IHJREST"  MPID1="TC" MPID2="BMAGN" anti-ferromagnetic_factor=" -3.00" 
+       f_below_TC=" +1-0.860338755*TAO**(-1)-0.17449124*TAO**3-.00775516624*TAO**9-.0017449124*TAO**15;"
+       f_above_TC=" -.0426902268*TAO**(-5)-.0013552453*TAO**(-15)-.000284601512*TAO**(-25);" bibref="82Her" > in G=f(TAO)*LN(BETA+1) where TAO=T/TC
+    </Magnetic-model>
+    <Magnetic-model id="IHJQX"  MPID1="CT" MPID2="NT" MPID3="BMAGN" anti-ferromagnetic_factor="  0.00" 
+       f_below_TC=" +1-0.842849633*TAO**(-1)-0.174242226*TAO**3-.00774409892*TAO**9-.00174242226*TAO**15-.000646538871*TAO**21;"
+       f_above_TC=" -.0261039233*TAO**(-7)-.000870130777*TAO**(-21)-.000184262988*TAO**(-35)-6.65916411E-05*TAO**(-49);" bibref="12Xiong" > in G=f(TAO)*LN(BETA+1) where TAO=T/CT or T/NT
+    </Magnetic-model>
+    <Einstein-model id="GLOWTEIN" MPID1="LNTH" bibref="01Qing" > 
+       Gibbs energy due to the Einstein low T vibrational entropy model, G=1.5*R*THETA+3*R*T*LN(1-EXP(-THETA/T)).
+    </Einstein-model>
+    <Liquid-2state-model id="LIQ2STATE" MPID1="G2"  MPID2="LNTH" bibref="14Becker" >
+       Unified model for the liquid and the amorphous state treated as an Einstein solid
+    </Liquid-2state-model>
+    <Volume-model id="VOLOWP" MPID1="V0"  MPID2="VA" MPID3="VB" bibref="05Lu" >
+       The volume of a phase is described as function of T, P and its constitution.
+    </Volume-model>
+    <Disordered-fraction-model id="DISFS" bibref="09Sun" >
+       The disordered fractions are summed over the ordered sublattices indicated at the phase.  The Gibbs energy calculated 2 or 3 times as indicated by the CEF_appendix but the configurational entropy only once.
+    </Disordered-fraction-model>
+    <FCC-permutations id="FCCPERM" bibref="09Sun" >
+       Permutations of ordered FCC parameters with the same set of elements are listed only once.
+    </FCC-permutations>
+    <BCC-permutations id="BCCPERM" bibref="09Sun" >
+       Permutations of ordered BCC parameters with the same set of elements are listed only once.
+    </BCC-permutations>
+    <EEC id="EEC" bibref="20Sun" >
+       Equi-Entropy Criterion means that solid phases with higher entropy that the liquid phase must not be stable.
+    </EEC>
+  </Models>
+  <Element id="/-" refstate="ELECTRON_GAS" mass="  0.000000E+00" H298="  0.000000E+00" S298="  0.000000E+00" />
+  <Element id="VA" refstate="VACUUM" mass="  0.000000E+00" H298="  0.000000E+00" S298="  0.000000E+00" />
+  <Element id="MO" refstate="BCC_A2" mass="  9.594000E+01" H298="  4.589000E+03" S298="  2.856000E+01" />
+  <Element id="NI" refstate="FCC_A1" mass="  5.869000E+01" H298="  4.787000E+03" S298="  2.979600E+01" />
+  <Element id="RE" refstate="HCP_A3" mass="  1.862100E+02" H298="  5.355500E+03" S298="  3.652600E+01" />
+  <Species id="VA" stoichiometry="VA" />
+  <Species id="MO" stoichiometry="MO" />
+  <Species id="NI" stoichiometry="NI" />
+  <Species id="RE" stoichiometry="RE" />
+  <TPfun id="GHSERMO"  >
+    <Trange High_T="2896" Expression=" -7746.302+131.9197*T-23.56414*T*LN(T)-.003443396*T**2+5.66283E-07*T**3  +65812*T**(-1)-1.30927E-10*T**4;" />
+    <Trange Expression="  -30556.41+283.559746*T-42.63829*T*LN(T)-4.849315E+33*T**(-9);" />
+  </TPfun>
+  <TPfun id="GFCCMO"  >
+    <Trange High_T="2896" Expression=" +7453.698+132.5497*T-23.56414*T*LN(T)-.003443396*T**2+5.66283E-07*T**3  +65812*T**(-1)-1.30927E-10*T**4;" />
+    <Trange Expression="  -15356.41+284.189746*T-42.63829*T*LN(T)-4.849315E+33*T**(-9);" />
+  </TPfun>
+  <TPfun id="GHCPMO"  >
+    <Trange High_T="2896" Expression=" +3803.698+131.9197*T-23.56414*T*LN(T)-.003443396*T**2+5.66283E-07*T**3  +65812*T**(-1)-1.30927E-10*T**4;" />
+    <Trange Expression="  -19006.41+283.559746*T-42.63829*T*LN(T)-4.849315E+33*T**(-9);" />
+  </TPfun>
+  <TPfun id="GLIQMO"  >
+    <Trange High_T="2896" Expression=" +34085.045+117.224788*T-23.56414*T*LN(T)-.003443396*T**2+5.66283E-07*T**3  +65812*T**(-1)-1.30927E-10*T**4+4.24519E-22*T**7;" />
+    <Trange Expression="  +3538.963+271.6697*T-42.63829*T*LN(T);" />
+  </TPfun>
+  <TPfun id="GHSERNI"  >
+    <Trange High_T="1728" Expression=" -5179.159+117.854*T-22.096*T*LN(T)-.0048407*T**2;" />
+    <Trange Expression="  -27840.655+279.135*T-43.1*T*LN(T)+1.12754E+31*T**(-9);" />
+  </TPfun>
+  <TPfun id="GBCCNI"  >
+    <Trange High_T="1728" Expression=" +3535.925+114.298*T-22.096*T*LN(T)-4.8407E-3*T**2;" />
+    <Trange Expression="  -19125.571+275.579*T-43.1*T*LN(T)+1127.54E28*T**(-9);" />
+  </TPfun>
+  <TPfun id="GHCPNI"  >
+    <Trange High_T="1728" Expression=" -4133.159+119.109*T-22.096*T*LN(T)-.0048407*T**2;" />
+    <Trange Expression="  -26794.655+280.39*T-43.1*T*LN(T)+1.12754E+31*T**(-9);" />
+  </TPfun>
+  <TPfun id="GBCCNI"  >
+    <Trange High_T="1728" Expression=" +3535.925+114.298*T-22.096*T*LN(T)-.0048407*T**2;" />
+    <Trange Expression="  -19125.571+275.579*T-43.1*T*LN(T)+1.12754E+31*T**(-9);" />
+  </TPfun>
+  <TPfun id="GLIQNI"  >
+    <Trange High_T="1728" Expression=" +11235.527+108.457*T-22.096*T*LN(T)-.0048407*T**2-3.82318E-21*T**7;" />
+    <Trange Expression="  -9549.775+268.598*T-43.1*T*LN(T);" />
+  </TPfun>
+  <TPfun id="GHSERRE"  >
+    <Trange High_T="1200" Expression=" -7695.279+128.421589*T-24.348*T*LN(T)-.00253505*T**2+1.92818E-07*T**3  +32915*T**(-1);" />
+    <Trange High_T="2400" Expression="   -15775.998+194.667426*T-33.586*T*LN(T)+.00224565*T**2-2.81835E-07*T**3  +1376270*T**(-1);" />
+    <Trange High_T="3458" Expression="   -70882.739+462.110749*T-67.956*T*LN(T)+.01184945*T**2-7.88955E-07*T**3  +18075200*T**(-1);" />
+    <Trange High_T="5000" Expression="   +346325.888-1211.37186*T+140.831655*T*LN(T)-.033764567*T**2  +1.053726E-06*T**3-1.34548866E+08*T**(-1);" />
+    <Trange Expression="  -78564.296+346.997842*T-49.519*T*LN(T);" />
+  </TPfun>
+  <TPfun id="GFCCRE"  >
+    <Trange High_T="1200" Expression=" +3304.721+126.921589*T-24.348*T*LN(T)-.00253505*T**2+1.92818E-07*T**3  +32915*T**(-1);" />
+    <Trange High_T="2400" Expression="   -4775.998+193.167426*T-33.586*T*LN(T)+.00224565*T**2-2.81835E-07*T**3  +1376270*T**(-1);" />
+    <Trange High_T="3458" Expression="   -59882.739+460.610749*T-67.956*T*LN(T)+.01184945*T**2-7.88955E-07*T**3  +18075200*T**(-1);" />
+    <Trange High_T="5000" Expression="   +357325.888-1212.87186*T+140.831655*T*LN(T)-.033764567*T**2  +1.053726E-06*T**3-1.34548866E+08*T**(-1);" />
+    <Trange Expression="  -67564.296+345.497842*T-49.519*T*LN(T);" />
+  </TPfun>
+  <TPfun id="GBCCRE"  >
+    <Trange High_T="1200" Expression=" +9304.721+124.721589*T-24.348*T*LN(T)-.00253505*T**2+1.92818E-07*T**3  +32915*T**(-1);" />
+    <Trange High_T="2400" Expression="   +1224.002+190.967426*T-33.586*T*LN(T)+.00224565*T**2-2.81835E-07*T**3  +1376270*T**(-1);" />
+    <Trange High_T="3458" Expression="   -53882.739+458.410749*T-67.956*T*LN(T)+.01184945*T**2-7.88955E-07*T**3  +18075200*T**(-1);" />
+    <Trange High_T="5000" Expression="   +363325.888-1215.07186*T+140.831655*T*LN(T)-.033764567*T**2  +1.053726E-06*T**3-1.34548866E+08*T**(-1);" />
+    <Trange Expression="  -61564.296+343.297842*T-49.519*T*LN(T);" />
+  </TPfun>
+  <TPfun id="GLIQRE"  >
+    <Trange High_T="1200" Expression=" +16125.604+122.076209*T-24.348*T*LN(T)-.00253505*T**2+1.92818E-07*T**3  +32915*T**(-1);" />
+    <Trange High_T="2000" Expression="   +8044.885+188.322047*T-33.586*T*LN(T)+.00224565*T**2-2.81835E-07*T**3  +1376270*T**(-1);" />
+    <Trange High_T="3458" Expression="   +568842.665-2527.83846*T+314.178898*T*LN(T)-.08939817*T**2  +3.92854E-06*T**3-1.63100987E+08*T**(-1);" />
+    <Trange Expression="  -39044.888+335.723691*T-49.519*T*LN(T);" />
+  </TPfun>
+  <TPfun id="M1R2"  Expression="+680;" />
+  <TPfun id="M1R3"  Expression="+16094;" />
+  <TPfun id="M2R3"  Expression="-14434;" />
+  <TPfun id="M1R4"  Expression="+0;" />
+  <TPfun id="M2R4"  Expression="-81839;" />
+  <TPfun id="M3R4"  Expression="-86837;" />
+  <TPfun id="M1R5"  Expression="+4361;" />
+  <TPfun id="M2R5"  Expression="-28743;" />
+  <TPfun id="M3R5"  Expression="-73358;" />
+  <TPfun id="M4R5"  Expression="+21024;" />
+  <TPfun id="R1M2"  Expression="-22076;" />
+  <TPfun id="R1M3"  Expression="-19297;" />
+  <TPfun id="R1M4"  Expression="+5847;" />
+  <TPfun id="R1M5"  Expression="-30827;" />
+  <TPfun id="R2M3"  Expression="+6571;" />
+  <TPfun id="R2M4"  Expression="+42569;" />
+  <TPfun id="R2M5"  Expression="-25482;" />
+  <TPfun id="R3M4"  Expression="-1467;" />
+  <TPfun id="R3M5"  Expression="-62108;" />
+  <TPfun id="R4M5"  Expression="-119768;" />
+  <TPfun id="M1N2"  Expression="-112309;" />
+  <TPfun id="M1N3"  Expression="+29525;" />
+  <TPfun id="M2N3"  Expression="-109029;" />
+  <TPfun id="M1N4"  Expression="-965;" />
+  <TPfun id="M2N4"  Expression="-134018;" />
+  <TPfun id="M3N4"  Expression="-167595;" />
+  <TPfun id="M1N5"  Expression="-40910;" />
+  <TPfun id="M2N5"  Expression="-2219;" />
+  <TPfun id="M3N5"  Expression="+66189;" />
+  <TPfun id="M4N5"  Expression="-16596;" />
+  <TPfun id="N1M2"  Expression="-73811;" />
+  <TPfun id="N1M3"  Expression="-7043;" />
+  <TPfun id="N1M4"  Expression="-41875;" />
+  <TPfun id="N1M5"  Expression="+17271;" />
+  <TPfun id="N2M3"  Expression="+82688;" />
+  <TPfun id="N2M4"  Expression="+63970;" />
+  <TPfun id="N2M5"  Expression="+97740;" />
+  <TPfun id="N3M4"  Expression="+19008;" />
+  <TPfun id="N3M5"  Expression="+55865;" />
+  <TPfun id="N4M5"  Expression="-114625;" />
+  <TPfun id="R1N2"  Expression="-2123;" />
+  <TPfun id="R1N3"  Expression="-19973;" />
+  <TPfun id="R2N3"  Expression="+5210;" />
+  <TPfun id="R1N4"  Expression="-1351;" />
+  <TPfun id="R2N4"  Expression="-89153;" />
+  <TPfun id="R3N4"  Expression="-89828;" />
+  <TPfun id="R1N5"  Expression="-61558;" />
+  <TPfun id="R2N5"  Expression="-2026;" />
+  <TPfun id="R3N5"  Expression="+75934;" />
+  <TPfun id="R4N5"  Expression="-24700;" />
+  <TPfun id="N1R2"  Expression="-103625;" />
+  <TPfun id="N1R3"  Expression="+20648;" />
+  <TPfun id="N1R4"  Expression="-88284;" />
+  <TPfun id="N1R5"  Expression="+32709;" />
+  <TPfun id="N2R3"  Expression="-46120;" />
+  <TPfun id="N2R4"  Expression="+91951;" />
+  <TPfun id="N2R5"  Expression="+36182;" />
+  <TPfun id="N3R4"  Expression="+70531;" />
+  <TPfun id="N3R5"  Expression="+136624;" />
+  <TPfun id="N4R5"  Expression="-77381;" />
+  <Phase id="LIQUID" Configuration_model="CEF" state="L" >
+    <Sublattices number_of="1"  Ratios="1" >
+      <Constituent sublattice="1" list="MO RE NI" />
+    </Sublattices>
+  </Phase>
+  <Phase id="FCC_A1" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="2"  Ratios="1  1" >
+      <Constituent sublattice="1" list="MO RE NI" />
+      <Constituent sublattice="2" list="VA" />
+    </Sublattices>
+    <Amend-phase model="IHJREST" />
+  </Phase>
+  <Phase id="BCC_A2" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="2"  Ratios="1  3" >
+      <Constituent sublattice="1" list="MO RE NI" />
+      <Constituent sublattice="2" list="VA" />
+    </Sublattices>
+    <Amend-phase model="IHJBCC" />
+  </Phase>
+  <Phase id="HCP_A3" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="2"  Ratios="1  0.5" >
+      <Constituent sublattice="1" list="MO RE NI" />
+      <Constituent sublattice="2" list="VA" />
+    </Sublattices>
+    <Amend-phase model="IHJREST" />
+  </Phase>
+  <Phase id="MONI_DELTA" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="3"  Ratios="24  20  12" >
+      <Constituent sublattice="1" list="NI" />
+      <Constituent sublattice="2" list="MO NI" />
+      <Constituent sublattice="3" list="MO" />
+    </Sublattices>
+  </Phase>
+  <Phase id="DIS_CHI" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="1"  Ratios="1" >
+      <Constituent sublattice="1" list="MO RE NI" />
+    </Sublattices>
+  </Phase>
+  <Phase id="CHI" Configuration_model="CEF_2terms" state="S" >
+    <Sublattices number_of="4"  Ratios="2  8  24  24" >
+      <Constituent sublattice="1" list="MO RE NI" />
+      <Constituent sublattice="2" list="MO RE NI" />
+      <Constituent sublattice="3" list="MO RE NI" />
+      <Constituent sublattice="4" list="MO RE NI" />
+    </Sublattices>
+    <Amend-phase model="DISFS" info="CHI DIS_CHI" sum_sublattices="4" />
+  </Phase>
+  <Phase id="DIS_SIG" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="1"  Ratios="1" >
+      <Constituent sublattice="1" list="MO RE NI" />
+    </Sublattices>
+  </Phase>
+  <Phase id="SIGMA" Configuration_model="CEF_2terms" state="S" >
+    <Sublattices number_of="5"  Ratios="2  4  8  8  8" >
+      <Constituent sublattice="1" list="MO RE NI" />
+      <Constituent sublattice="2" list="MO RE NI" />
+      <Constituent sublattice="3" list="MO RE NI" />
+      <Constituent sublattice="4" list="MO RE NI" />
+      <Constituent sublattice="5" list="MO RE NI" />
+    </Sublattices>
+    <Amend-phase model="DISFS" info="SIGMA DIS_SIG" sum_sublattices="5" />
+  </Phase>
+  <Unary-parameters >
+    <Parameter id="G(BCC_A2,MO:VA;0)"   Expression="+GHSERMO;" Bibref="REF1" />
+    <Parameter id="G(BCC_A2,NI:VA;0)"   Expression="+GBCCNI;" Bibref="REF1" />
+    <Parameter id="TC(BCC_A2,NI:VA;0)"   Expression="575;" Bibref="REF1" />
+    <Parameter id="BMAGN(BCC_A2,NI:VA;0)"   Expression=".85;" Bibref="REF1" />
+    <Parameter id="G(BCC_A2,RE:VA;0)"   Expression="+GBCCRE;" Bibref="REF1" />
+    <Parameter id="G(FCC_A1,MO:VA;0)"   Expression="+GFCCMO;" Bibref="REF1" />
+    <Parameter id="G(FCC_A1,NI:VA;0)"   Expression="+GHSERNI;" Bibref="REF1" />
+    <Parameter id="TC(FCC_A1,NI:VA;0)"   Expression="633;" Bibref="REF1" />
+    <Parameter id="BMAGN(FCC_A1,NI:VA;0)"   Expression=".52;" Bibref="REF1" />
+    <Parameter id="G(FCC_A1,RE:VA;0)"   Expression="GFCCRE;" Bibref="REF1" />
+    <Parameter id="G(HCP_A3,MO:VA;0)"   Expression="+GHCPMO;" Bibref="REF1" />
+    <Parameter id="G(HCP_A3,NI:VA;0)"   Expression="+GHCPNI;" Bibref="NONE" />
+    <Parameter id="G(HCP_A3,RE:VA;0)"   Expression="+GHSERRE;" Bibref="REF1" />
+    <Parameter id="G(LIQUID,MO;0)"   Expression="GLIQMO;" Bibref="REF1" />
+    <Parameter id="G(LIQUID,NI;0)"   Expression="GLIQNI;" Bibref="REF1" />
+    <Parameter id="G(LIQUID,RE;0)"   Expression="GLIQRE;" Bibref="REF1" />
+    <Parameter id="G(DIS_CHI,MO;0)"   Expression="+26126+GHSERMO-0.5596*T;" Bibref="REF9" />
+    <Parameter id="G(DIS_CHI,RE;0)"   Expression="+4903+GHSERRE+0.00905*T;" Bibref="REF9" />
+    <Parameter id="G(DIS_SIG,MO;0)"   Expression="+16098+GHSERMO+1.251*T;" Bibref="REF9" />
+    <Parameter id="G(DIS_SIG,RE;0)"   Expression="+9331+GHSERRE-1.205*T;" Bibref="REF9" />
+    <Parameter id="G(DIS_SIG,NI;0)"   Expression="+13582+GHSERNI+3*T;" Bibref="MONIRE" />
+    <Parameter id="G(DIS_CHI,NI;0)"   Expression="+13550+GHSERNI+6*T;" Bibref="MONIRE!" />
+  </Unary-parameters>
+  <Binary-parameters>
+    <Parameter id="L(LIQUID,MO,NI;0)"   Expression="-46540+19.53*T;" Bibref="90Fri4" />
+    <Parameter id="L(LIQUID,MO,NI;1)"   Expression="2915;" Bibref="90Fri4" />
+    <Parameter id="L(FCC_A1,MO,NI:VA;0)"   Expression="+4803.7-5.96*T;" Bibref="90Fri4" />
+    <Parameter id="L(FCC_A1,MO,NI:VA;1)"   Expression="10880;" Bibref="90Fri4" />
+    <Parameter id="L(BCC_A2,MO,NI:VA;0)"   Expression="46422;" Bibref="90Fri4" />
+    <Parameter id="G(MONI_DELTA,NI:MO:MO;0)"   Expression="+24*GHSERNI+32*GHSERMO-212100+1089*T-142*T*LN(T);" Bibref="90Fri4" />
+    <Parameter id="G(MONI_DELTA,NI:NI:MO;0)"   Expression="+24*GHSERNI+20*GBCCNI+12*GHSERMO-1030-93.5*T+13.5*T*LN(T);" Bibref="90Fri4" />
+    <Parameter id="L(HCP_A3,MO,NI:VA;0)"   Expression="+4803.7-5.96*T;" Bibref="MONIRE" />
+    <Parameter id="L(HCP_A3,MO,NI:VA;1)"   Expression="+10880;" Bibref="MONIRE" />
+    <Parameter id="G(CHI,NI:MO:MO:MO;0)"   Expression="+219710;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,MO:NI:MO:MO;0)"   Expression="+814131;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,NI:NI:MO:MO;0)"   Expression="+965490;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,MO:MO:NI:MO;0)"   Expression="-172228;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,MO:MO:MO:NI;0)"   Expression="-481244;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,NI:MO:NI:MO;0)"   Expression="-43099;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,NI:MO:MO:NI;0)"   Expression="-352925;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,MO:NI:NI:MO;0)"   Expression="-163370;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,MO:NI:MO:NI;0)"   Expression="-532188;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,NI:NI:NI:MO;0)"   Expression="+14892;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,NI:NI:MO:NI;0)"   Expression="-271198;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,MO:MO:NI:NI;0)"   Expression="-877718;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,NI:MO:NI:NI;0)"   Expression="-849987;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,MO:NI:NI:NI;0)"   Expression="-221731;" Bibref="DFTCHI" />
+    <Parameter id="G(SIGMA,MO:NI:*:*:*;0)"   Expression="-112309;" Bibref="ND" />
+    <Parameter id="G(SIGMA,MO:*:NI:*:*;0)"   Expression="+29525;" Bibref="ND" />
+    <Parameter id="G(SIGMA,MO:*:*:NI:*;0)"   Expression="-965;" Bibref="ND" />
+    <Parameter id="G(SIGMA,MO:*:*:*:NI;0)"   Expression="-40910;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:MO:NI:*:*;0)"   Expression="-109029;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:MO:*:NI:*;0)"   Expression="-134018;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:MO:*:*:NI;0)"   Expression="-2219;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:*:MO:NI:*;0)"   Expression="-167595;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:*:MO:*:NI;0)"   Expression="+66189;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:*:*:MO:NI;0)"   Expression="-16596;" Bibref="ND" />
+    <Parameter id="G(SIGMA,NI:MO:*:*:*;0)"   Expression="-73811;" Bibref="ND" />
+    <Parameter id="G(SIGMA,NI:*:MO:*:*;0)"   Expression="-7043;" Bibref="ND" />
+    <Parameter id="G(SIGMA,NI:*:*:MO:*;0)"   Expression="-41875;" Bibref="ND" />
+    <Parameter id="G(SIGMA,NI:*:*:*:MO;0)"   Expression="+17271;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:NI:MO:*:*;0)"   Expression="+82688;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:NI:*:MO:*;0)"   Expression="+63970;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:NI:*:*:MO;0)"   Expression="+97740;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:*:NI:MO:*;0)"   Expression="+19008;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:*:NI:*:MO;0)"   Expression="+55865;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:*:*:NI:MO;0)"   Expression="-114625;" Bibref="ND" />
+    <Parameter id="L(BCC_A2,MO,RE:VA;0)"   Expression="-15025+11.404*T;" Bibref="REF9" />
+    <Parameter id="L(BCC_A2,MO,RE:VA;1)"   Expression="+8.07*T;" Bibref="REF9" />
+    <Parameter id="L(HCP_A3,MO,RE:VA;0)"   Expression="+12740+1.951*T;" Bibref="REF9" />
+    <Parameter id="L(LIQUID,MO,RE;0)"   Expression="-15025+11.404*T-2610;" Bibref="REF9" />
+    <Parameter id="L(LIQUID,MO,RE;1)"   Expression="+8.07*T-7790;" Bibref="REF9" />
+    <Parameter id="L(FCC_A1,MO,RE:VA;0)"   Expression="+12740+1.951*T;" Bibref="MONIRE" />
+    <Parameter id="G(CHI,RE:MO:MO:MO;0)"   Expression="+72898;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,MO:RE:MO:MO;0)"   Expression="+238327;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,RE:RE:MO:MO;0)"   Expression="+327082;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,MO:MO:RE:MO;0)"   Expression="-194830;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,MO:MO:MO:RE;0)"   Expression="-681482;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,RE:MO:RE:MO;0)"   Expression="-127372;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,RE:MO:MO:RE;0)"   Expression="-583384;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,MO:RE:RE:MO;0)"   Expression="+141480;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,MO:RE:MO:RE;0)"   Expression="-300477;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,RE:RE:RE:MO;0)"   Expression="+239483;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,RE:RE:MO:RE;0)"   Expression="-165184;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,MO:MO:RE:RE;0)"   Expression="-569681;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,RE:MO:RE:RE;0)"   Expression="-468084;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,MO:RE:RE:RE;0)"   Expression="-125904;" Bibref="DFTCHI" />
+    <Parameter id="G(SIGMA,MO:RE:*:*:*;0)"   Expression="+680;" Bibref="ND" />
+    <Parameter id="G(SIGMA,MO:*:RE:*:*;0)"   Expression="+16094;" Bibref="ND" />
+    <Parameter id="G(SIGMA,MO:*:*:RE:*;0)"   Expression="+0;" Bibref="ND" />
+    <Parameter id="G(SIGMA,MO:*:*:*:RE;0)"   Expression="+4361;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:MO:RE:*:*;0)"   Expression="-14434;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:MO:*:RE:*;0)"   Expression="-81839;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:MO:*:*:RE;0)"   Expression="-28743;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:*:MO:RE:*;0)"   Expression="-86837;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:*:MO:*:RE;0)"   Expression="-73358;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:*:*:MO:RE;0)"   Expression="+21024;" Bibref="ND" />
+    <Parameter id="G(SIGMA,RE:MO:*:*:*;0)"   Expression="-22076;" Bibref="ND" />
+    <Parameter id="G(SIGMA,RE:*:MO:*:*;0)"   Expression="-19297;" Bibref="ND" />
+    <Parameter id="G(SIGMA,RE:*:*:MO:*;0)"   Expression="+5847;" Bibref="ND" />
+    <Parameter id="G(SIGMA,RE:*:*:*:MO;0)"   Expression="-30827;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:RE:MO:*:*;0)"   Expression="+6571;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:RE:*:MO:*;0)"   Expression="+42569;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:RE:*:*:MO;0)"   Expression="-25482;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:*:RE:MO:*;0)"   Expression="-1467;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:*:RE:*:MO;0)"   Expression="-62108;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:*:*:RE:MO;0)"   Expression="-119768;" Bibref="ND" />
+    <Parameter id="L(LIQUID,NI,RE;0)"   Expression="21480.3504;" Bibref="NIRE" />
+    <Parameter id="L(FCC_A1,NI,RE:VA;0)"   Expression="5054.48711+8.28748232*T;" Bibref="NIRE" />
+    <Parameter id="L(HCP_A3,NI,RE:VA;0)"   Expression="9968.56426+7.59954301*T;" Bibref="NIRE" />
+    <Parameter id="L(BCC_A2,NI,RE:VA;0)"   Expression="+21480.3504;" Bibref="MONIRE" />
+    <Parameter id="G(CHI,RE:NI:NI:NI;0)"   Expression="-89694;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,NI:RE:NI:NI;0)"   Expression="-393802;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,RE:RE:NI:NI;0)"   Expression="-511876;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,NI:NI:RE:NI;0)"   Expression="+232248;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,NI:NI:NI:RE;0)"   Expression="+59918;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,RE:NI:RE:NI;0)"   Expression="+163650;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,RE:NI:NI:RE;0)"   Expression="-40656;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,NI:RE:RE:NI;0)"   Expression="-135674;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,NI:RE:NI:RE;0)"   Expression="+217732;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,RE:RE:RE:NI;0)"   Expression="-276649;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,RE:RE:NI:RE;0)"   Expression="+262496;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,NI:NI:RE:RE;0)"   Expression="-36360;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,RE:NI:RE:RE;0)"   Expression="-99055;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,NI:RE:RE:RE;0)"   Expression="+78569;" Bibref="DFTCHI" />
+    <Parameter id="G(SIGMA,NI:RE:*:*:*;0)"   Expression="-103625;" Bibref="ND" />
+    <Parameter id="G(SIGMA,NI:*:RE:*:*;0)"   Expression="+20648;" Bibref="ND" />
+    <Parameter id="G(SIGMA,NI:*:*:RE:*;0)"   Expression="-88284;" Bibref="ND" />
+    <Parameter id="G(SIGMA,NI:*:*:*:RE;0)"   Expression="+32709;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:NI:RE:*:*;0)"   Expression="-46120;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:NI:*:RE:*;0)"   Expression="+91951;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:NI:*:*:RE;0)"   Expression="+36182;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:*:NI:RE:*;0)"   Expression="+70531;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:*:NI:*:RE;0)"   Expression="+136624;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:*:*:NI:RE;0)"   Expression="-77381;" Bibref="ND" />
+    <Parameter id="G(SIGMA,RE:NI:*:*:*;0)"   Expression="-2123;" Bibref="ND" />
+    <Parameter id="G(SIGMA,RE:*:NI:*:*;0)"   Expression="-19973;" Bibref="ND" />
+    <Parameter id="G(SIGMA,RE:*:*:NI:*;0)"   Expression="-1351;" Bibref="ND" />
+    <Parameter id="G(SIGMA,RE:*:*:*:NI;0)"   Expression="-61558;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:RE:NI:*:*;0)"   Expression="+5210;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:RE:*:NI:*;0)"   Expression="-89153;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:RE:*:*:NI;0)"   Expression="-2026;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:*:RE:NI:*;0)"   Expression="-89828;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:*:RE:*:NI;0)"   Expression="+75934;" Bibref="ND" />
+    <Parameter id="G(SIGMA,*:*:*:RE:NI;0)"   Expression="-24700;" Bibref="ND" />
+  </Binary-parameters>
+  <Higher-parameters>
+    <Parameter id="G(CHI,NI:MO:MO:RE;0)"   Expression="-519693;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,NI:RE:MO:RE;0)"   Expression="-106844;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,NI:MO:RE:MO;0)"   Expression="+35426;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,NI:RE:MO:MO;0)"   Expression="+496740;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,NI:MO:RE:RE;0)"   Expression="-409153;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,NI:RE:RE:MO;0)"   Expression="+366739;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,RE:NI:MO:RE;0)"   Expression="+16373;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,MO:NI:RE:MO;0)"   Expression="+533241;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,MO:NI:RE:RE;0)"   Expression="-211610;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,RE:NI:RE:MO;0)"   Expression="+600355;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,RE:NI:MO:MO;0)"   Expression="+913000;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,MO:NI:MO:RE;0)"   Expression="-113332;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,NI:NI:RE:MO;0)"   Expression="+632479;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,NI:NI:MO:RE;0)"   Expression="+16967;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,RE:MO:NI:RE;0)"   Expression="-31431;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,MO:RE:NI:RE;0)"   Expression="+124857;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,RE:RE:NI:MO;0)"   Expression="+85119;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,RE:MO:NI:MO;0)"   Expression="-105163;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,MO:RE:NI:MO;0)"   Expression="-19854;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,MO:MO:NI:RE;0)"   Expression="-145816;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,RE:MO:RE:NI;0)"   Expression="-458236;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,MO:MO:RE:NI;0)"   Expression="-524528;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,MO:RE:RE:NI;0)"   Expression="-344447;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,RE:MO:MO:NI;0)"   Expression="-425639;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,MO:RE:MO:NI;0)"   Expression="-447354;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,RE:RE:MO:NI;0)"   Expression="-400043;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,NI:RE:NI:MO;0)"   Expression="+144227;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,NI:MO:NI:RE;0)"   Expression="-89466;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,NI:RE:MO:NI;0)"   Expression="-234016;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,NI:MO:RE:NI;0)"   Expression="-393733;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,RE:NI:NI:MO;0)"   Expression="-122124;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,MO:NI:NI:RE;0)"   Expression="-194827;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,RE:NI:MO:NI;0)"   Expression="-389947;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,MO:NI:RE:NI;0)"   Expression="+3924;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,RE:MO:NI:NI;0)"   Expression="-862872;" Bibref="DFTCHI" />
+    <Parameter id="G(CHI,MO:RE:NI:NI;0)"   Expression="-559164;" Bibref="DFTCHI" />
+  </Higher-parameters>
+  <Bibliography>
+    <Bibitem ID="REF1" Text="PURE4 - SGTE Pure Elements (Unary) Database (Version 4.6),  developed by SGTE (Scientific Group Thermodata Europe), 1991-2008,  and provided by TCSAB (Jan. 2008)." />
+    <Bibitem ID="REF5" Text="JC Crivello 2012 march, Armide project v1.13 chi phase" />
+    <Bibitem ID="REF9" Text="R. Mathieu et al., Armide project Calphad, 43 (2013) 18-31" />
+    <Bibitem ID="DFTSIG" Text="JC Crivello 2012 march, Armide project v1.9 sigma phase" />
+    <Bibitem ID="DFTCHI" Text="JC Crivello 2012 march, Armide project v1.13 chi phase" />
+    <Bibitem ID="90Fri4" Text="K Frisk, Calphad 14(1990)3 p 311-320; Mo-Ni" />
+    <Bibitem ID="NIRE" Text="K. Yaqoob and JM Joubert" />
+    <Bibitem ID="MONIRE" Text="ND Mo-Ni-Re tests" />
+    <Bibitem ID="ND" Text="N. Dupin , BEF testing" />
+    <Bibitem ID="60Koh" Text="F. Kohler, Monatsh Chem, Vol 91 (1960) 738--740" />
+    <Bibitem ID="65Toop" Text="G. W. Toop, Trans Metall Soc, AIME  Vol 233 (1965) 850--854" />
+    <Bibitem ID="82Her" Text="S. Hertzman and B. Sundman, A Thermodynamic analysis of the Fe-Cr system, Calphad Vol 6 (1982) 67-80." />
+    <Bibitem ID="12Xiong" Text="W. Xiong, Q. Chen, P. K. Korzhavyi and M. Selleby, An improved magnetic model for thermodynamic modeling, Calphad, Vol 39 (2012) 11-20." />
+    <Bibitem ID="01Qing" Text="Q. Chen and B. Sundman, Modeling of thermodynamic properties for Bcc, Fcc, liquid, and amorphous iron, J. Phase Equilibria. Vol 22 (2001) 631-644." />
+    <Bibitem ID="14Becker" Text="C. A. Becker, J. Agren, M. Baricco, Q. Chen, S. A. Decterov, U. R. Kattner, J. H. Perepezko, G. R. Pottlacher and M. Selleby, Thermodynamic modelling of liquids: CALPHAD approaches and contributions from statistical physics. Phys status solidi. B, Vol 251(1) (2014) 33-52." />
+    <Bibitem ID="05Lu" Text="X-G. Lu, M. Selleby and B. Sundman, Implementation of a new model for pressure dependence of condensed phases in Thermo-Calc, Calphad Vol 29 (2005) 49-55." />
+    <Bibitem ID="09Sun" Text="B. Sundman, I. Ohnuma, N. Dupin, U. R. Kattner, S. G. Fries, An assessment of the entire Al–Fe system including D03 ordering, Acta Mater. Vol 57 (2009) 2896-2908" />
+    <Bibitem ID="09Sun" Text="B. Sundman, I. Ohnuma, N. Dupin, U. R. Kattner, S. G. Fries, An assessment of the entire Al–Fe system including D03 ordering, Acta Mater. Vol 57 (2009) 2896-2908" />
+    <Bibitem ID="20Sun" Text="B. Sundman, U. R. Kattner, M. Hillert, M. Selleby, J. Agren, S. Bigdeli, Q. Chen, A. Dinsdale, B. Hallstedt, A. Khvan, H. Mao and R. OtisA method for handling the estrapolation of solid crystalline phases to temperature above their melting point, Calphad Vol 68 (2020) 101737" />
+  </Bibliography>
+  <TDB-comments>
+       0 $
+       0 $ Mo-Ni-Re ND 2017 June 1st - to be used with OC
+       0 $
+       0 $   Mo-Re Mathieu 2013, sigma slightly modified to use BEF
+       0 $   Mo-Ni Frisk 1994
+       0 $   Ni-Re Yakoob 2012
+       0 $
+       0 $ CHI and SIGMA
+       0 $         with disordered contribution
+       0 $ DIS_CHI and DIS_SIGMA
+       0 $         H:DFT S: assessed
+       0 $ CHI
+       0 $         all compounds from DFT
+       0 $ SIGMA
+       0 $         BEF
+       0 $
+     226 $=========================================================================
+     226 $                                                         Unary parameters
+     226 $=========================================================================
+     226 $-------------------------------------------------------------------- SGTE
+     252 $-------------------------------------------------------------------- DFT
+     252 $ PARA G(DIS_CHI,MO;0) 298.15 +26126+GHSERMO;,, N DFTCHI !
+     252 $ PARA G(DIS_CHI,NI;0) 298.15 +13550+GHSERNI;,, N DFTCHI !
+     252 $ PARA G(DIS_CHI,RE;0) 298.15  +4903+GHSERRE;,, N DFTCHI !
+     252 $ PARA G(DIS_SIG,MO;0) 298.15 +16098+GHSERMO;,, N DFTSIG !
+     252 $ PARA G(DIS_SIG,NI;0) 298.15 +13582+GHSERNI;,, N DFTSIG !
+     252 $ PARA G(DIS_SIG,RE;0) 298.15  +9331+GHSERRE;,, N DFTSIG !
+     252 $----------------------------------------------------------------------------
+     252 $                                                        S assessed in Mo-Re
+     271 $----------------------------------------------------------------------------
+     271 $                                               Ni sigma and chi - test for S
+     277 $=========================================================================
+     277 $                                                        Binary parameters
+     277 $=========================================================================
+     277 $------------------------------------------------------------------- Mo-Ni
+     296 $ ID to FCC
+     336 $------------------------------------------------------------------- Mo-Re
+     346 $ ID to HCP
+     385 $------------------------------------------------------------------- Ni-Re
+     393 $ ID to LIQ
+     432 $=========================================================================
+     432 $                                                       Ternary parameters
+     432 $=========================================================================
+     473 $============================================================================
+  </TDB-comments>
+</Database>

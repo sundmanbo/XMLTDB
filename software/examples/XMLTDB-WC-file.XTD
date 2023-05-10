@@ -1,0 +1,227 @@
+<?xml version="1.0"?>
+<?xml-model href="database.rng" schematypens="http://relaxng.org/ns/structure/1.0" type="application/xml"?>
+<Database version="0.0.1">
+  <metadata>
+    <writer>xmltdbproject test
+       TDBfile="C:\Users\bosun\Documents\GitHub\XMLTDB\software\examples\WC-2022a.TDB"
+       Software="Thermo-Calc"
+       Date="2023-05-10"
+    </writer>
+  </metadata>
+  <!-- Statistics elements="3"  species="3"  tpfuns="22"  phases="7"  parameters="55"  bibrefs="0"  -->
+  <Defaults low_T="   1.00" high_T=" 6000.00" />
+  <Models>
+    <Magnetic-model id="IHJBCC"  MPID1="TC" MPID2="BMAGN" anti-ferromagnetic_factor=" -1.00" 
+       f_below_TC=" +1-0.905299383*TAO**(-1)-0.153008346*TAO**3-.00680037095*TAO**9-.00153008346*TAO**15;"
+       f_above_TC=" -.0641731208*TAO**(-5)-.00203724193*TAO**(-15)-.000427820805*TAO**(-25);" bibref="82Her" > in G=f(TAO)*LN(BETA+1) where TAO=T/TC
+    </Magnetic-model>
+    <Magnetic-model id="IHJREST"  MPID1="TC" MPID2="BMAGN" anti-ferromagnetic_factor=" -3.00" 
+       f_below_TC=" +1-0.860338755*TAO**(-1)-0.17449124*TAO**3-.00775516624*TAO**9-.0017449124*TAO**15;"
+       f_above_TC=" -.0426902268*TAO**(-5)-.0013552453*TAO**(-15)-.000284601512*TAO**(-25);" bibref="82Her" > in G=f(TAO)*LN(BETA+1) where TAO=T/TC
+    </Magnetic-model>
+    <Magnetic-model id="IHJQX"  MPID1="CT" MPID2="NT" MPID3="BMAGN" anti-ferromagnetic_factor="  0.00" 
+       f_below_TC=" +1-0.842849633*TAO**(-1)-0.174242226*TAO**3-.00774409892*TAO**9-.00174242226*TAO**15-.000646538871*TAO**21;"
+       f_above_TC=" -.0261039233*TAO**(-7)-.000870130777*TAO**(-21)-.000184262988*TAO**(-35)-6.65916411E-05*TAO**(-49);" bibref="12Xiong" > in G=f(TAO)*LN(BETA+1) where TAO=T/CT or T/NT
+    </Magnetic-model>
+    <Einstein-model id="GLOWTEIN" MPID1="LNTH" bibref="01Qing" > 
+       Gibbs energy due to the Einstein low T vibrational entropy model, G=1.5*R*THETA+3*R*T*LN(1-EXP(-THETA/T)).
+    </Einstein-model>
+    <Liquid-2state-model id="LIQ2STATE" MPID1="G2"  MPID2="LNTH" bibref="14Becker" >
+       Unified model for the liquid and the amorphous state treated as an Einstein solid
+    </Liquid-2state-model>
+    <Volume-model id="VOLOWP" MPID1="V0"  MPID2="VA" MPID3="VB" bibref="05Lu" >
+       The volume of a phase is described as function of T, P and its constitution.
+    </Volume-model>
+    <Disordered-fraction-model id="DISFS" bibref="09Sun" >
+       The disordered fractions are summed over the ordered sublattices indicated at the phase.  The Gibbs energy calculated 2 or 3 times as indicated by the CEF_appendix but the configurational entropy only once.
+    </Disordered-fraction-model>
+    <FCC-permutations id="FCCPERM" bibref="09Sun" >
+       Permutations of ordered FCC parameters with the same set of elements are listed only once.
+    </FCC-permutations>
+    <BCC-permutations id="BCCPERM" bibref="09Sun" >
+       Permutations of ordered BCC parameters with the same set of elements are listed only once.
+    </BCC-permutations>
+    <EEC id="EEC" bibref="20Sun" >
+       Equi-Entropy Criterion means that solid phases with higher entropy that the liquid phase must not be stable.
+    </EEC>
+  </Models>
+  <Element id="VA" refstate="VACUUM" mass="  0.000000E+00" H298="  0.000000E+00" S298="  0.000000E+00" />
+  <Element id="C " refstate="GRAPHITE" mass="  1.201100E+01" H298="  1.054000E+03" S298="  5.742300E+00" />
+  <Element id="W " refstate="BCC_A2" mass="  1.838400E+02" H298="  4.973000E+03" S298="  3.266000E+01" />
+  <Species id="VA" stoichiometry="VA" />
+  <Species id="C" stoichiometry="C" />
+  <Species id="W" stoichiometry="W" />
+  <TPfun id="RTEMP"  Expression="+R**-1*TEMP;" />
+  <TPfun id="TEMP"  Expression="+T**-1;" />
+  <TPfun id="R"  Expression="8.31451;" />
+  <TPfun id="TESERWW"  Expression="+230;" />
+  <TPfun id="G0SERWW"  Expression="-7893-1.021774E-3*T**2  -6.23675524E-15*T**5;" />
+  <TPfun id="GTSERWW"  Expression="-1.021774E-3*T**2  -6.23675524E-15*T**5;" />
+  <TPfun id="TEFCCWW"  Expression="+236;" />
+  <TPfun id="G0FCCWW"  Expression="+G0SERWW+16243;" />
+  <TPfun id="TEHCPWW"  Expression="+230;" />
+  <TPfun id="G0HCPWW"  Expression="+G0SERWW+13692;" />
+  <TPfun id="TELIQWW"  Expression="+183;" />
+  <TPfun id="G0LIQWW"  Expression="+22973-9.164E-4*T**2;" />
+  <TPfun id="G2STWWL1"  Expression="+98814-13.653*T  -1.178678*T*LN(T);" />
+  <TPfun id="G0SERCC"  Expression="-17752.213-2.9531332E-4*T**2  -3.3998492E-16*T**5;" />
+  <TPfun id="GTSERCC"  Expression="-2.9531332E-4*T**2  -3.3998492E-16*T**5;" />
+  <TPfun id="G0DIACC"  Expression="-16275.202-9.1299452E-5*T**2  -2.1653414E-16*T**5;" />
+  <TPfun id="TELIQCC"  Expression="+608;" />
+  <TPfun id="G0LIQCC"  Expression="+88884-4.185E-4*T**2;" />
+  <TPfun id="G2STCCL1"  Expression="+34523-24.6*T+1.93765*T*LN(T);" />
+  <TPfun id="TEBCCWC"  Expression="+862;" />
+  <TPfun id="TEFCCWC"  Expression="+518;" />
+  <TPfun id="TEHCPWC"  Expression="+322;" />
+  <Phase id="BCC_A2" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="2"  Ratios="1  3" >
+      <Constituent sublattice="1" list="W" />
+      <Constituent sublattice="2" list="C VA" />
+    </Sublattices>
+  </Phase>
+  <Phase id="DIAMOND" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="1"  Ratios="1" >
+      <Constituent sublattice="1" list="C" />
+    </Sublattices>
+  </Phase>
+  <Phase id="FCC_A1" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="2"  Ratios="1  1" >
+      <Constituent sublattice="1" list="W" />
+      <Constituent sublattice="2" list="C VA" />
+    </Sublattices>
+  </Phase>
+  <Phase id="GRAPHITE" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="1"  Ratios="1" >
+      <Constituent sublattice="1" list="C" />
+    </Sublattices>
+  </Phase>
+  <Phase id="HCP_A3" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="2"  Ratios="1  0.5" >
+      <Constituent sublattice="1" list="W" />
+      <Constituent sublattice="2" list="C VA" />
+    </Sublattices>
+  </Phase>
+  <Phase id="LIQUID" Configuration_model="CEF" state="L" >
+    <Sublattices number_of="1"  Ratios="1" >
+      <Constituent sublattice="1" list="C W" />
+    </Sublattices>
+  </Phase>
+  <Phase id="MC_SHP" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="2"  Ratios="1  1" >
+      <Constituent sublattice="1" list="W" />
+      <Constituent sublattice="2" list="C" />
+    </Sublattices>
+  </Phase>
+  <Unary-parameters >
+    <Parameter id="G(DIAMOND,C;0)"   Expression="+G0DIACC;" Bibref="NONE" />
+    <Parameter id="LNTHETA1(DIAMOND,C;0)"   Expression="+1*LN(+813.63716);" Bibref="NONE" />
+    <Parameter id="THETAF1(DIAMOND,C;0)"   Expression="+0.231791;" Bibref="NONE" />
+    <Parameter id="LNTHETA2(DIAMOND,C;0)"   Expression="+1*LN(+345.35022);" Bibref="NONE" />
+    <Parameter id="THETAF2(DIAMOND,C;0)"   Expression="+0.0114797;" Bibref="NONE" />
+    <Parameter id="LNTHETA3(DIAMOND,C;0)"   Expression="+1*LN(+1601.4467);" Bibref="NONE" />
+    <Parameter id="THETAF3(DIAMOND,C;0)"   Expression="+0.763257386;" Bibref="NONE" />
+    <Parameter id="G(GRAPHITE,C;0)"   Expression="+G0SERCC;" Bibref="NONE" />
+    <Parameter id="LNTHETA1(GRAPHITE,C;0)"   Expression="+1*LN(+1953.2502);" Bibref="NONE" />
+    <Parameter id="THETAF1(GRAPHITE,C;0)"   Expression="+0.484047107;" Bibref="NONE" />
+    <Parameter id="LNTHETA2(GRAPHITE,C;0)"   Expression="+1*LN(+447.96926);" Bibref="NONE" />
+    <Parameter id="THETAF2(GRAPHITE,C;0)"   Expression="+0.121581878;" Bibref="NONE" />
+    <Parameter id="LNTHETA3(GRAPHITE,C;0)"   Expression="+1*LN(+947.01605);" Bibref="NONE" />
+    <Parameter id="THETAF3(GRAPHITE,C;0)"   Expression="+0.349684332;" Bibref="NONE" />
+    <Parameter id="LNTHETA4(GRAPHITE,C;0)"   Expression="+1*LN(+192.65039);" Bibref="NONE" />
+    <Parameter id="THETAF4(GRAPHITE,C;0)"   Expression="+0.0388463641;" Bibref="NONE" />
+    <Parameter id="LNTHETA5(GRAPHITE,C;0)"   Expression="+1*LN(+64.463356);" Bibref="NONE" />
+    <Parameter id="THETAF5(GRAPHITE,C;0)"   Expression="+0.00584032345;" Bibref="NONE" />
+    <Parameter id="G(LIQUID,C;0)"   Expression="+G0LIQCC;" Bibref="NONE" />
+    <Parameter id="GD(LIQUID,C;0)"   Expression="+G2STCCL1;" Bibref="NONE" />
+    <Parameter id="LNTHETA1(LIQUID,C;0)"   Expression="+1*LN(+TELIQCC);" Bibref="NONE" />
+    <Parameter id="THETAF1(LIQUID,C;0)"   Expression="+1;" Bibref="NONE" />
+    <Parameter id="LNTHETA1(BCC_A2,W:VA;0)"   Expression="+LN(+TESERWW);" Bibref="NONE" />
+    <Parameter id="THETAF1(BCC_A2,W:VA;0)"   Expression="+1;" Bibref="NONE" />
+    <Parameter id="G(BCC_A2,W:VA;0)"   Expression="+G0SERWW;" Bibref="NONE" />
+    <Parameter id="LNTHETA1(FCC_A1,W:VA;0)"   Expression="+LN(+TEFCCWW);" Bibref="NONE" />
+    <Parameter id="THETAF1(FCC_A1,W:VA;0)"   Expression="+1;" Bibref="NONE" />
+    <Parameter id="G(FCC_A1,W:VA;0)"   Expression="+G0FCCWW;" Bibref="NONE" />
+    <Parameter id="LNTHETA1(HCP_A3,W:VA;0)"   Expression="+LN(+TEHCPWW);" Bibref="NONE" />
+    <Parameter id="THETAF1(HCP_A3,W:VA;0)"   Expression="+1;" Bibref="NONE" />
+    <Parameter id="G(HCP_A3,W:VA;0)"   Expression="+G0HCPWW;" Bibref="NONE" />
+    <Parameter id="G(LIQUID,W;0)"   Expression="+G0LIQWW;" Bibref="NONE" />
+    <Parameter id="GD(LIQUID,W;0)"   Expression="+G2STWWL1;" Bibref="NONE" />
+    <Parameter id="LNTHETA1(LIQUID,W;0)"   Expression="+LN(+TELIQWW);" Bibref="NONE" />
+    <Parameter id="THETAF1(LIQUID,W;0)"   Expression="+1;" Bibref="NONE" />
+  </Unary-parameters>
+  <Binary-parameters>
+    <Parameter id="LNTHETA1(BCC_A2,W:C;0)"   Expression="+LN(+TEBCCWC);" Bibref="NONE" />
+    <Parameter id="THETAF1(BCC_A2,W:C;0)"   Expression="+1;" Bibref="NONE" />
+    <Parameter id="G(BCC_A2,W:C;0)"   Expression="+GTSERWW+3*GTSERCC+439603;" Bibref="NONE" />
+    <Parameter id="L(BCC_A2,W:C;0)"   Expression="+0;" Bibref="NONE" />
+    <Parameter id="LNTHETA1(FCC_A1,W:C;0)"   Expression="+LN(+TEFCCWC);" Bibref="NONE" />
+    <Parameter id="THETAF1(FCC_A1,W:C;0)"   Expression="+1;" Bibref="NONE" />
+    <Parameter id="G(FCC_A1,W:C;0)"   Expression="+GTSERWW+GTSERCC-41041;" Bibref="NONE" />
+    <Parameter id="L(FCC_A1,W:C;0)"   Expression="+10482;" Bibref="NONE" />
+    <Parameter id="LNTHETA1(HCP_A3,W:C;0)"   Expression="+LN(+TEHCPWC);" Bibref="NONE" />
+    <Parameter id="THETAF1(HCP_A3,W:C;0)"   Expression="+1;" Bibref="NONE" />
+    <Parameter id="G(HCP_A3,W:C;0)"   Expression="+GTSERWW+0.5*GTSERCC-22014;" Bibref="NONE" />
+    <Parameter id="L(HCP_A3,W:C;0)"   Expression="+16621;" Bibref="NONE" />
+    <Parameter id="L(LIQUID,W,C;0)"   Expression="-94206;" Bibref="NONE" />
+    <Parameter id="L(LIQUID,W,C;1)"   Expression="+140715-24.1*T;" Bibref="NONE" />
+    <Parameter id="L(LIQUID,W,C;2)"   Expression="+79220;" Bibref="NONE" />
+    <Parameter id="LNTHETA1(MC_SHP,W:C;0)"   Expression="+LN(+276);" Bibref="NONE" />
+    <Parameter id="LNTHETA2(MC_SHP,W:C;0)"   Expression="+LN(+887);" Bibref="NONE" />
+    <Parameter id="THETAF1(MC_SHP,W:C;0)"   Expression="+.464626;" Bibref="NONE" />
+    <Parameter id="THETAF2(MC_SHP,W:C;0)"   Expression="+.535374;" Bibref="NONE" />
+    <Parameter id="G(MC_SHP,W:C;0)"   Expression="-60767-8.623395E-4*T**2  -4.15324459E-11*T**4;" Bibref="NONE" />
+  </Binary-parameters>
+  <TDB-comments>
+       0 $ 2022-01-11
+       0 $ Valid for Thermo-Calc 2022a and higher versions
+      14 $ general functions
+      19 $ Pure W
+      19 $ bcc W
+      23 $ FUNCTION GESERWW1             1 +1-1*EXP(-TESERWW#*T**-1);      6000 N !
+      23 $ FUNCTION GESERWW2             1 +1*LN(GESERWW1#);               6000 N !
+      23 $ FUNCTION GESERWW3             1 +3*R#*T*GESERWW2#;              6000 N !
+      23 $ FUNCTION GESERWW              1 +1.5*R#*TESERWW#+GESERWW3#;     6000 N !
+      33 $ fcc W
+      36 $ FUNCTION GEFCCWW1             1 +1-1*EXP(-TEFCCWW#*T**-1);      6000 N !
+      36 $ FUNCTION GEFCCWW2             1 +1*LN(GEFCCWW1#);               6000 N !
+      36 $ FUNCTION GEFCCWW3             1 +3*R#*T*GEFCCWW2#;              6000 N !
+      36 $ FUNCTION GEFCCWW              1 +1.5*R#*TEFCCWW#+GEFCCWW3#;     6000 N !
+      42 $ hcp W
+      45 $ FUNCTION GEHCPWW              1 +1.5*R#*TEHCPWW#+GEHCPWW3#;     6000 N !
+      45 $ FUNCTION GEHCPWW1             1 +1-1*EXP(-TEHCPWW#*T**-1);      6000 N !
+      45 $ FUNCTION GEHCPWW2             1 +1*LN(GEHCPWW1#);               6000 N !
+      45 $ FUNCTION GEHCPWW3             1 +3*R#*T*GEHCPWW2#;              6000 N !
+      51 $ liq W
+      57 $ FUNCTION G2STWWL2             1 -G2STWWL1#*RTEMP#;              6000 N !
+      57 $ FUNCTION G2STWWL3             1 +1+1*EXP(G2STWWL2#);            6000 N !
+      57 $ FUNCTION G2STWWL4             1 +1*LN(G2STWWL3#);               6000 N !
+      57 $ FUNCTION G2STWWLI             1 -R#*T*G2STWWL4#;                6000 N !
+      57 $ Pure C
+      57 $ gra C
+      68 $ dia C
+      72 $ liq C
+      78 $ FUNCTION G2STCCL2             1 -G2STCCL1#*RTEMP#;              6000 N !
+      78 $ FUNCTION G2STCCL3             1 +1+1*EXP(G2STCCL2#);            6000 N !
+      78 $ FUNCTION G2STCCL4             1 +1*LN(G2STCCL3#);               6000 N !
+      78 $ FUNCTION G2STCCLI             1 -R#*T*G2STCCL4#;                6000 N !
+      78 $ W-C
+      78 $ bcc W1C3
+      86 $ FUNCTION GEBCCWC1             1 +1-1*EXP(-TEBCCWC#*T**-1);      6000 N !
+      86 $ FUNCTION GEBCCWC2             1 +1*LN(GEBCCWC1#);               6000 N !
+      86 $ FUNCTION GEBCCWC3             1 +3*R#*T*GEBCCWC2#;              6000 N !
+      86 $ FUNCTION GEBCCWC              1 +1.5*R#*TEBCCWC#+GEBCCWC3#;     6000 N !
+      86 $ fcc W1C1
+      93 $ FUNCTION GEFCCWC1             1 +1-1*EXP(-TEFCCWC#*T**-1);      6000 N !
+      93 $ FUNCTION GEFCCWC2             1 +1*LN(GEFCCWC1#);               6000 N !
+      93 $ FUNCTION GEFCCWC3             1 +3*R#*T*GEFCCWC2#;              6000 N !
+      93 $ FUNCTION GEFCCWC              1 +1.5*R#*TEFCCWC#+GEFCCWC3#;     6000 N !
+      93 $ hcp W1C0.5
+     100 $ FUNCTION GEHCPWC              1 +1.5*R#*TEHCPWC#+GEHCPWC3#;     6000 N !
+     100 $ FUNCTION GEHCPWC1             1 +1-1*EXP(-TEHCPWC#*T**-1);      6000 N !
+     100 $ FUNCTION GEHCPWC2             1 +1*LN(GEHCPWC1#);               6000 N !
+     100 $ FUNCTION GEHCPWC3             1 +3*R#*T*GEHCPWC2#;              6000 N !
+     133 $ ==== [C] ====
+     161 $ ==== [W] ====
+     180 $ ==== [C, W] ====
+  </TDB-comments>
+</Database>

@@ -1,20 +1,49 @@
 <?xml version="1.0"?>
 <?xml-model href="database.rng" schematypens="http://relaxng.org/ns/structure/1.0" type="application/xml"?>
-<Database version="0">
+<Database version="0.0.1">
   <metadata>
     <writer>xmltdbproject test
        TDBfile="C:\Users\bosun\Documents\GitHub\XMLTDB\software\examples\BiMn.tdb"
+       Software="Pandat"
+       Date="2023-05-10"
     </writer>
   </metadata>
-  <Statistics elements="4"  species="3"  phases="8"  parameters="26"  bibrefs="0"  />
-  <Defaults low_T="298.16" high_T="6000" />
+  <!-- Statistics elements="4"  species="3"  tpfuns="14"  phases="8"  parameters="26"  bibrefs="0"  -->
+  <Defaults low_T=" 298.15" high_T=" 6000.00" />
   <Models>
-    <Magnetic-model id="IHJBCC"  MPID1="TC" MPID2="BMAGN" bibref="82Her" > by Inden-Hillert-Jarl  for BCC with anti-ferromagnetic factor -1
-  Function below the ordering temperature TC with TAO=T/TC. +1-0.905299383*TAO**(-1)-0.153008346*TAO**3-.00680037095*TAO**9-.00153008346*TAO**15;
-  Function above the ordering temperature TC with TAO=T/TC. -.0641731208*TAO**(-5)-.00203724193*TAO**(-15)-.000427820805*TAO**(-25); </Magnetic-model>
-    <Magnetic-model id="IHJREST"  MPID1="TC" MPID2="BMAGN" bibref="82Her" > by Inden-Hillert-Jarl  for FCC and other phases with anti-ferromagnetic factor -3
- Function below the ordering temperature TC with TAO=T/TC.+1-0.860338755*TAO**(-1)-0.17449124*TAO**3-.00775516624*TAO**9-.0017449124*TAO**15;
- Function above the ordering temperature TC with TAO=T/TC. -.0426902268*TAO**(-5)-.0013552453*TAO**(-15)-.000284601512*TAO**(-25); </Magnetic-model>
+    <Magnetic-model id="IHJBCC"  MPID1="TC" MPID2="BMAGN" anti-ferromagnetic_factor=" -1.00" 
+       f_below_TC=" +1-0.905299383*TAO**(-1)-0.153008346*TAO**3-.00680037095*TAO**9-.00153008346*TAO**15;"
+       f_above_TC=" -.0641731208*TAO**(-5)-.00203724193*TAO**(-15)-.000427820805*TAO**(-25);" bibref="82Her" > in G=f(TAO)*LN(BETA+1) where TAO=T/TC
+    </Magnetic-model>
+    <Magnetic-model id="IHJREST"  MPID1="TC" MPID2="BMAGN" anti-ferromagnetic_factor=" -3.00" 
+       f_below_TC=" +1-0.860338755*TAO**(-1)-0.17449124*TAO**3-.00775516624*TAO**9-.0017449124*TAO**15;"
+       f_above_TC=" -.0426902268*TAO**(-5)-.0013552453*TAO**(-15)-.000284601512*TAO**(-25);" bibref="82Her" > in G=f(TAO)*LN(BETA+1) where TAO=T/TC
+    </Magnetic-model>
+    <Magnetic-model id="IHJQX"  MPID1="CT" MPID2="NT" MPID3="BMAGN" anti-ferromagnetic_factor="  0.00" 
+       f_below_TC=" +1-0.842849633*TAO**(-1)-0.174242226*TAO**3-.00774409892*TAO**9-.00174242226*TAO**15-.000646538871*TAO**21;"
+       f_above_TC=" -.0261039233*TAO**(-7)-.000870130777*TAO**(-21)-.000184262988*TAO**(-35)-6.65916411E-05*TAO**(-49);" bibref="12Xiong" > in G=f(TAO)*LN(BETA+1) where TAO=T/CT or T/NT
+    </Magnetic-model>
+    <Einstein-model id="GLOWTEIN" MPID1="LNTH" bibref="01Qing" > 
+       Gibbs energy due to the Einstein low T vibrational entropy model, G=1.5*R*THETA+3*R*T*LN(1-EXP(-THETA/T)).
+    </Einstein-model>
+    <Liquid-2state-model id="LIQ2STATE" MPID1="G2"  MPID2="LNTH" bibref="14Becker" >
+       Unified model for the liquid and the amorphous state treated as an Einstein solid
+    </Liquid-2state-model>
+    <Volume-model id="VOLOWP" MPID1="V0"  MPID2="VA" MPID3="VB" bibref="05Lu" >
+       The volume of a phase is described as function of T, P and its constitution.
+    </Volume-model>
+    <Disordered-fraction-model id="DISFS" bibref="09Sun" >
+       The disordered fractions are summed over the ordered sublattices indicated at the phase.  The Gibbs energy calculated 2 or 3 times as indicated by the CEF_appendix but the configurational entropy only once.
+    </Disordered-fraction-model>
+    <FCC-permutations id="FCCPERM" bibref="09Sun" >
+       Permutations of ordered FCC parameters with the same set of elements are listed only once.
+    </FCC-permutations>
+    <BCC-permutations id="BCCPERM" bibref="09Sun" >
+       Permutations of ordered BCC parameters with the same set of elements are listed only once.
+    </BCC-permutations>
+    <EEC id="EEC" bibref="20Sun" >
+       Equi-Entropy Criterion means that solid phases with higher entropy that the liquid phase must not be stable.
+    </EEC>
   </Models>
   <Element id="BI" refstate="RHOMBOHEDRAL_A7" mass="  2.089800E+02" H298="  6.426600E+03" S298="  5.673500E+01" />
   <Element id="MN" refstate="CBCC_A12" mass="  5.493800E+01" H298="  4.996000E+03" S298="  3.222000E+01" />
@@ -23,192 +52,180 @@
   <Species id="BI" stoichiometry="BI" />
   <Species id="MN" stoichiometry="MN" />
   <Species id="VA" stoichiometry="VA" />
-  <TPfun id="GHSERBI" Low_T="298.15" >
-    <Trange High_T="544.55" > -7817.776+128.418925*T-28.4096529*T*LN(T)+0.012338888*T**2-8.381598E-006*T**3; </Trange>
-    <Trange High_T="800" >   +2.94123E-005+30208.022-393.650351*T+51.8556592*T*LN(T)-0.075311163*T**2+1.3499885E-005*T**3-3616168*T**(-1)+1.66145E+025*T**(-9); </Trange>
-    <Trange High_T="1200" >   -0.00023946-11045.664+182.548971*T-35.9824*T*LN(T)+0.0074266*T**2-1.046E-006*T**3+1.66145E+025*T**(-9); </Trange>
-    <Trange High_T="3000" >   -0.000371296-7581.312+124.77144*T-27.196*T*LN(T)+1.66145E+025*T**(-9); </Trange>
+  <TPfun id="GHSERBI"  >
+    <Trange High_T="544.55" Expression=" -7817.776+128.418925*T-28.4096529*T*LN(T)+0.012338888*T**2-8.381598E-006*T**3;" />
+    <Trange High_T="800" Expression="   +2.94123E-005+30208.022-393.650351*T+51.8556592*T*LN(T)-0.075311163*T**2+1.3499885E-005*T**3-3616168*T**(-1)+1.66145E+025*T**(-9);" />
+    <Trange High_T="1200" Expression="   -0.00023946-11045.664+182.548971*T-35.9824*T*LN(T)+0.0074266*T**2-1.046E-006*T**3+1.66145E+025*T**(-9);" />
+    <Trange High_T="3000" Expression="   -0.000371296-7581.312+124.77144*T-27.196*T*LN(T)+1.66145E+025*T**(-9);" />
   </TPfun>
-  <TPfun id="GBCCBI" Low_T="298.15" >
-    <Trange High_T="3000" > +11297-13.9*T+GHSERBI; </Trange>
+  <TPfun id="GBCCBI"  >
+    <Trange High_T="3000" Expression=" +11297-13.9*T+GHSERBI;" />
   </TPfun>
-  <TPfun id="GFCCBI" Low_T="298.15" >
-    <Trange High_T="3000" > +9900-12.5*T+GHSERBI; </Trange>
+  <TPfun id="GFCCBI"  >
+    <Trange High_T="3000" Expression=" +9900-12.5*T+GHSERBI;" />
   </TPfun>
-  <TPfun id="GLIQBI" Low_T="298.15" >
-    <Trange High_T="544.55" > +3428.29+107.782416*T-28.4096529*T*LN(T)+0.012338888*T**2-8.381598E-006*T**3-5.9549E-019*T**7; </Trange>
-    <Trange High_T="800" >   -0.00140303+41544.282-414.460769*T+51.8556592*T*LN(T)-0.075311163*T**2+1.3499885E-005*T**3-3616168*T**(-1); </Trange>
-    <Trange High_T="1200" >   -0.000671902+290.595+161.738553*T-35.9824*T*LN(T)+0.0074266*T**2-1.046E-006*T**3; </Trange>
-    <Trange High_T="3000" >   +0.000396262+3754.947+103.961021*T-27.196*T*LN(T); </Trange>
+  <TPfun id="GLIQBI"  >
+    <Trange High_T="544.55" Expression=" +3428.29+107.782416*T-28.4096529*T*LN(T)+0.012338888*T**2-8.381598E-006*T**3-5.9549E-019*T**7;" />
+    <Trange High_T="800" Expression="   -0.00140303+41544.282-414.460769*T+51.8556592*T*LN(T)-0.075311163*T**2+1.3499885E-005*T**3-3616168*T**(-1);" />
+    <Trange High_T="1200" Expression="   -0.000671902+290.595+161.738553*T-35.9824*T*LN(T)+0.0074266*T**2-1.046E-006*T**3;" />
+    <Trange High_T="3000" Expression="   +0.000396262+3754.947+103.961021*T-27.196*T*LN(T);" />
   </TPfun>
-  <TPfun id="GHSERMN" Low_T="298.15" >
-    <Trange High_T="1519" > -8115.28+130.059*T-23.4582*T*LN(T)-0.00734768*T**2+69827.1*T**(-1); </Trange>
-    <Trange High_T="2000" >   -0.0083743-28733.41+312.2648*T-48*T*LN(T)+1.656847E+30*T**(-9); </Trange>
+  <TPfun id="GHSERMN"  >
+    <Trange High_T="1519" Expression=" -8115.28+130.059*T-23.4582*T*LN(T)-0.00734768*T**2+69827.1*T**(-1);" />
+    <Trange High_T="2000" Expression="   -0.0083743-28733.41+312.2648*T-48*T*LN(T)+1.656847E+30*T**(-9);" />
   </TPfun>
-  <TPfun id="GBCCMN" Low_T="298.15" >
-    <Trange High_T="1519" > +4879.98-2.209*T-0.2418*T*LN(T)-0.00009503*T**2-9827*T**(-1)+GHSERMN; </Trange>
-    <Trange High_T="2000" >   -0.0383839+5544.58-4.5605*T-3.91695E+29*T**(-9)+GHSERMN; </Trange>
+  <TPfun id="GBCCMN"  >
+    <Trange High_T="1519" Expression=" +4879.98-2.209*T-0.2418*T*LN(T)-0.00009503*T**2-9827*T**(-1)+GHSERMN;" />
+    <Trange High_T="2000" Expression="   -0.0383839+5544.58-4.5605*T-3.91695E+29*T**(-9)+GHSERMN;" />
   </TPfun>
-  <TPfun id="GCUBMN" Low_T="298.15" >
-    <Trange High_T="1519" > +2314.88+5.936*T-1.4203*T*LN(T)+0.00151409*T**2+442*T**(-1)+GHSERMN; </Trange>
-    <Trange High_T="2000" >   -0.0624838+442.65-0.9715*T+2.3107229E+30*T**(-9)+GHSERMN; </Trange>
+  <TPfun id="GCUBMN"  >
+    <Trange High_T="1519" Expression=" +2314.88+5.936*T-1.4203*T*LN(T)+0.00151409*T**2+442*T**(-1)+GHSERMN;" />
+    <Trange High_T="2000" Expression="   -0.0624838+442.65-0.9715*T+2.3107229E+30*T**(-9)+GHSERMN;" />
   </TPfun>
-  <TPfun id="GFCCMN" Low_T="298.15" >
-    <Trange High_T="1519" > +4675.98+1.825*T-1.0595*T*LN(T)+0.00134768*T**2-227*T**(-1)+GHSERMN; </Trange>
-    <Trange High_T="2000" >   +0.0209696+2663.31-2.5984*T+2.2051175E+30*T**(-9)+GHSERMN; </Trange>
+  <TPfun id="GFCCMN"  >
+    <Trange High_T="1519" Expression=" +4675.98+1.825*T-1.0595*T*LN(T)+0.00134768*T**2-227*T**(-1)+GHSERMN;" />
+    <Trange High_T="2000" Expression="   +0.0209696+2663.31-2.5984*T+2.2051175E+30*T**(-9)+GHSERMN;" />
   </TPfun>
   <TPfun id="BEX" Low_T="1"  type="Variable" >
-    <Trange High_T="3000" > 30; </Trange>
+    <Trange High_T="3000" Expression=" 30;" />
   </TPfun>
   <TPfun id="XT" Low_T="1" >
-    <Trange High_T="3000" > T*720**(-1); </Trange>
+    <Trange High_T="3000" Expression=" T*720**(-1);" />
   </TPfun>
   <TPfun id="FM1" Low_T="1" >
-    <Trange High_T="3000" > EXP(-(XT)**3.417-EXP(28.796*(1.+0.5*BEX**0.5)**(-1)*LN(XT)) ); </Trange>
+    <Trange High_T="3000" Expression=" EXP(-(XT)**3.417-EXP(28.796*(1.+0.5*BEX**0.5)**(-1)*LN(XT)) );" />
   </TPfun>
   <TPfun id="FM2" Low_T="1" >
-    <Trange High_T="3000" > +0.1125*BEX**0.5*EXP(-20*(-1.+ XT)**2*(1.+0.005695*BEX)**(-2))/(1+EXP(-0.493539*(1.-XT))); </Trange>
+    <Trange High_T="3000" Expression=" +0.1125*BEX**0.5*EXP(-20*(-1.+ XT)**2*(1.+0.005695*BEX)**(-2))/(1+EXP(-0.493539*(1.-XT)));" />
   </TPfun>
   <TPfun id="FM3" Low_T="1" >
-    <Trange High_T="3000" > +0.0151406*BEX*EXP(-XT)/(1+EXP(10.4351*(1.2-XT))); </Trange>
+    <Trange High_T="3000" Expression=" +0.0151406*BEX*EXP(-XT)/(1+EXP(10.4351*(1.2-XT)));" />
   </TPfun>
   <TPfun id="GMG30T" Low_T="298"  type="Property" >
-    <Trange High_T="600" > +1.45422 -667.9454497635123-0.08355755647484864*T+0.0005279638216828704*T**2 +3.509643524828126E-7*T**3+1.875830938746444E-10*T**4; </Trange>
-    <Trange High_T="720" >   6979.219101610996-48.32971486351175*T+0.1152679523873797*T**2 -0.000121808102616612*T**3+4.943099844699616E-8*T**4; </Trange>
-    <Trange High_T="800" >   31369.70925611074-186.1043826253854*T+0.394823506309674*T**2 -0.0003622690079357127*T**3+1.225042582498223E-7*T**4; </Trange>
-    <Trange High_T="1000" >   -18725.00523029517+73.80746450058064*T-0.1105848494076637*T**2 +7.430013401930511E-5*T**3-1.884534431448572E-8*T**4; </Trange>
+    <Trange High_T="600" Expression=" +1.45422 -667.9454497635123-0.08355755647484864*T+0.0005279638216828704*T**2 +3.509643524828126E-7*T**3+1.875830938746444E-10*T**4;" />
+    <Trange High_T="720" Expression="   6979.219101610996-48.32971486351175*T+0.1152679523873797*T**2 -0.000121808102616612*T**3+4.943099844699616E-8*T**4;" />
+    <Trange High_T="800" Expression="   31369.70925611074-186.1043826253854*T+0.394823506309674*T**2 -0.0003622690079357127*T**3+1.225042582498223E-7*T**4;" />
+    <Trange High_T="1000" Expression="   -18725.00523029517+73.80746450058064*T-0.1105848494076637*T**2 +7.430013401930511E-5*T**3-1.884534431448572E-8*T**4;" />
   </TPfun>
-  <Phase id="LIQUID" Configurational_model="CEF" >
+  <Phase id="LIQUID" Configuration_model="CEF" state="L" >
     <Sublattices number_of="1"  Ratios="1" >
-      <Constituent sublattice="1" id="BI" />
-      <Constituent sublattice="1" id="MN" />
+      <Constituent sublattice="1" list="BI MN" />
     </Sublattices>
   </Phase>
-  <Phase id="BCC" Configurational_model="CEF" >
+  <Phase id="BCC" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="1  3" >
-      <Constituent sublattice="1" id="BI" />
-      <Constituent sublattice="1" id="MN" />
-      <Constituent sublattice="2" id="VA" />
+      <Constituent sublattice="1" list="BI MN" />
+      <Constituent sublattice="2" list="VA" />
     </Sublattices>
-    <Amend model="GES AMEND_PHASE_DESCRIPTION BCC MAGNETIC -1 0.4 !" />
+    <Amend-phase model="IHJREST" />
   </Phase>
-  <Phase id="FCC" Configurational_model="CEF" >
+  <Phase id="FCC" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="1  1" >
-      <Constituent sublattice="1" id="BI" />
-      <Constituent sublattice="1" id="MN" />
-      <Constituent sublattice="2" id="VA" />
+      <Constituent sublattice="1" list="BI MN" />
+      <Constituent sublattice="2" list="VA" />
     </Sublattices>
-    <Amend model="GES AMEND_PHASE_DESCRIPTION FCC MAGNETIC -3 0.28 !" />
+    <Amend-phase model="IHJREST" />
   </Phase>
-  <Phase id="CUB" Configurational_model="CEF" >
+  <Phase id="CUB" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="1  1" >
-      <Constituent sublattice="1" id="MN" />
-      <Constituent sublattice="2" id="VA" />
+      <Constituent sublattice="1" list="MN" />
+      <Constituent sublattice="2" list="VA" />
     </Sublattices>
   </Phase>
-  <Phase id="CBCC" Configurational_model="CEF" >
+  <Phase id="CBCC" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="1  1" >
-      <Constituent sublattice="1" id="MN" />
-      <Constituent sublattice="2" id="VA" />
+      <Constituent sublattice="1" list="MN" />
+      <Constituent sublattice="2" list="VA" />
     </Sublattices>
   </Phase>
-  <Phase id="RHOMBO" Configurational_model="CEF" >
+  <Phase id="RHOMBO" Configuration_model="CEF" state="S" >
     <Sublattices number_of="1"  Ratios="1" >
-      <Constituent sublattice="1" id="BI" />
+      <Constituent sublattice="1" list="BI" />
     </Sublattices>
   </Phase>
-  <Phase id="BI1MN1_A" Configurational_model="CEF" >
+  <Phase id="BI1MN1_A" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="1  1" >
-      <Constituent sublattice="1" id="BI" />
-      <Constituent sublattice="2" id="MN" />
+      <Constituent sublattice="1" list="BI" />
+      <Constituent sublattice="2" list="MN" />
     </Sublattices>
   </Phase>
-  <Phase id="BIMN_B" Configurational_model="CEF" >
+  <Phase id="BIMN_B" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="1  1.08" >
-      <Constituent sublattice="1" id="BI" />
-      <Constituent sublattice="2" id="MN" />
+      <Constituent sublattice="1" list="BI" />
+      <Constituent sublattice="2" list="MN" />
     </Sublattices>
   </Phase>
   <Unary-parameters >
-    <Parameter id="G(LIQUID,BI;0)"   Low_T="298.15"  Bibref="NONE" > 
-      <Trange High_T="3000" > +GLIQBI; </Trange>
+    <Parameter id="G(LIQUID,BI;0)"   Bibref="NONE" > 
+      <Trange High_T="3000" Expression="+GLIQBI;" />
     </Parameter>
-    <Parameter id="G(LIQUID,MN;0)"   Low_T="298.15"  Bibref="NONE" > 
-      <Trange High_T="2000" > +GLIQMN; </Trange>
+    <Parameter id="G(LIQUID,MN;0)"   Bibref="NONE" > 
+      <Trange High_T="2000" Expression="+GLIQMN;" />
     </Parameter>
-    <Parameter id="G(BCC,BI:VA;0)"   Low_T="298.15"  Bibref="NONE" > 
-      <Trange High_T="3000" > +GBCCBI; </Trange>
+    <Parameter id="G(BCC,BI:VA;0)"   Bibref="NONE" > 
+      <Trange High_T="3000" Expression="+GBCCBI;" />
     </Parameter>
-    <Parameter id="G(BCC,MN:VA;0)"   Low_T="298.15"  Bibref="NONE" > 
-      <Trange High_T="2000" > +GBCCMN; </Trange>
+    <Parameter id="G(BCC,MN:VA;0)"   Bibref="NONE" > 
+      <Trange High_T="2000" Expression="+GBCCMN;" />
     </Parameter>
-    <Parameter id="BMAGN(BCC,MN:VA;0)"   Low_T="298.15"  Bibref="NONE" > 
-      <Trange High_T="2000" > -0.27; </Trange>
+    <Parameter id="BMAGN(BCC,MN:VA;0)"   Bibref="NONE" > 
+      <Trange High_T="2000" Expression="-0.27;" />
     </Parameter>
-    <Parameter id="TC(BCC,MN:VA;0)"   Low_T="298.15"  Bibref="NONE" > 
-      <Trange High_T="2000" > -580; </Trange>
+    <Parameter id="TC(BCC,MN:VA;0)"   Bibref="NONE" > 
+      <Trange High_T="2000" Expression="-580;" />
     </Parameter>
-    <Parameter id="G(FCC,BI:VA;0)"   Low_T="298.15"  Bibref="NONE" > 
-      <Trange High_T="3000" > +GFCCBI; </Trange>
+    <Parameter id="G(FCC,BI:VA;0)"   Bibref="NONE" > 
+      <Trange High_T="3000" Expression="+GFCCBI;" />
     </Parameter>
-    <Parameter id="G(FCC,MN:VA;0)"   Low_T="298.15"  Bibref="NONE" > 
-      <Trange High_T="2000" > +GFCCMN; </Trange>
+    <Parameter id="G(FCC,MN:VA;0)"   Bibref="NONE" > 
+      <Trange High_T="2000" Expression="+GFCCMN;" />
     </Parameter>
-    <Parameter id="BMAGN(FCC,MN:VA;0)"   Low_T="298.15"  Bibref="NONE" > 
-      <Trange High_T="2000" > -1.86; </Trange>
+    <Parameter id="BMAGN(FCC,MN:VA;0)"   Bibref="NONE" > 
+      <Trange High_T="2000" Expression="-1.86;" />
     </Parameter>
-    <Parameter id="TC(FCC,MN:VA;0)"   Low_T="298.15"  Bibref="NONE" > 
-      <Trange High_T="2000" > -1620; </Trange>
+    <Parameter id="TC(FCC,MN:VA;0)"   Bibref="NONE" > 
+      <Trange High_T="2000" Expression="-1620;" />
     </Parameter>
-    <Parameter id="G(CUB,MN:VA;0)"   Low_T="298.15"  Bibref="NONE" > 
-      <Trange High_T="2000" > +GCUBMN; </Trange>
+    <Parameter id="G(CUB,MN:VA;0)"   Bibref="NONE" > 
+      <Trange High_T="2000" Expression="+GCUBMN;" />
     </Parameter>
-    <Parameter id="G(CBCC,MN:VA;0)"   Low_T="298.15"  Bibref="NONE" > 
-      <Trange High_T="2000" > +GHSERMN; </Trange>
+    <Parameter id="G(CBCC,MN:VA;0)"   Bibref="NONE" > 
+      <Trange High_T="2000" Expression="+GHSERMN;" />
     </Parameter>
-    <Parameter id="BMAGN(CBCC,MN:VA;0)"   Low_T="298.15"  Bibref="NONE" > 
-      <Trange High_T="2000" > -0.66; </Trange>
+    <Parameter id="BMAGN(CBCC,MN:VA;0)"   Bibref="NONE" > 
+      <Trange High_T="2000" Expression="-0.66;" />
     </Parameter>
-    <Parameter id="TC(CBCC,MN:VA;0)"   Low_T="298.15"  Bibref="NONE" > 
-      <Trange High_T="2000" > -285; </Trange>
+    <Parameter id="TC(CBCC,MN:VA;0)"   Bibref="NONE" > 
+      <Trange High_T="2000" Expression="-285;" />
     </Parameter>
-    <Parameter id="G(RHOMBO,BI;0)"   Low_T="298.15"  Bibref="NONE" > 
-      <Trange High_T="3000" > +GHSERBI; </Trange>
+    <Parameter id="G(RHOMBO,BI;0)"   Bibref="NONE" > 
+      <Trange High_T="3000" Expression="+GHSERBI;" />
     </Parameter>
   </Unary-parameters>
   <Binary-parameters>
-    <Parameter id="G(LIQUID,BI,MN;0)"   Low_T="298.15"  Bibref="NONE" > 
-      <Trange High_T="3000" > 21696-25.958*T; </Trange>
+    <Parameter id="G(LIQUID,BI,MN;0)"   Bibref="NONE" > 
+      <Trange High_T="3000" Expression="21696-25.958*T;" />
     </Parameter>
-    <Parameter id="G(LIQUID,BI,MN;1)"   Low_T="298.15"  Bibref="NONE" > 
-      <Trange High_T="3000" > -22328+7.4855*T; </Trange>
+    <Parameter id="G(LIQUID,BI,MN;1)"   Bibref="NONE" > 
+      <Trange High_T="3000" Expression="-22328+7.4855*T;" />
     </Parameter>
-    <Parameter id="G(LIQUID,BI,MN;2)"   Low_T="298.15"  Bibref="NONE" > 
-      <Trange High_T="3000" > 10.614*T; </Trange>
+    <Parameter id="G(LIQUID,BI,MN;2)"   Bibref="NONE" > 
+      <Trange High_T="3000" Expression="10.614*T;" />
     </Parameter>
-    <Parameter id="G(BCC,BI,MN:VA;0)"   Low_T="298.15"  Bibref="NONE" > 
-      <Trange High_T="6000" > +50000; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC,BI,MN:VA;0)"   Low_T="298.15"  Bibref="NONE" > 
-      <Trange High_T="6000" > +50000; </Trange>
-    </Parameter>
-    <Parameter id="G(BI1MN1_A,BI:MN;0)"   Low_T="298.15"  Bibref="NONE" > 
-      <Trange High_T="6000" > +GHSERBI+GHSERMN +GMAG-13698.48 + 11.745*T; </Trange>
-    </Parameter>
-    <Parameter id="BMAGN(BI1MN1_A,BI:MN;0)"   Low_T="298.15"  Bibref="NONE" > 
-      <Trange High_T="6000" > 3.9; </Trange>
-    </Parameter>
-    <Parameter id="TC(BI1MN1_A,BI:MN;0)"   Low_T="298.15"  Bibref="NONE" > 
-      <Trange High_T="6000" > 720; </Trange>
-    </Parameter>
-    <Parameter id="G(BIMN_B,BI:MN;0)"   Low_T="298.15"  Bibref="NONE" > 
-      <Trange High_T="6000" > +GHSERBI+1.08*GHSERMN -17414.20 + 15.799*T; </Trange>
-    </Parameter>
-    <Parameter id="BMAGN(BIMN_B,BI:MN;0)"   Low_T="298.14"  Bibref="NONE" > 
-      <Trange High_T="6000" > 1.7; </Trange>
-    </Parameter>
-    <Parameter id="TC(BIMN_B,BI:MN;0)"   Low_T="298.14"  Bibref="NONE" > 
-      <Trange High_T="6000" > 470; </Trange>
-    </Parameter>
+    <Parameter id="G(BCC,BI,MN:VA;0)"   Expression="+50000;" Bibref="NONE" />
+    <Parameter id="G(FCC,BI,MN:VA;0)"   Expression="+50000;" Bibref="NONE" />
+    <Parameter id="G(BI1MN1_A,BI:MN;0)"   Expression="+GHSERBI+GHSERMN +GMAG-13698.48 + 11.745*T;" Bibref="NONE" />
+    <Parameter id="BMAGN(BI1MN1_A,BI:MN;0)"   Expression="3.9;" Bibref="NONE" />
+    <Parameter id="TC(BI1MN1_A,BI:MN;0)"   Expression="720;" Bibref="NONE" />
+    <Parameter id="G(BIMN_B,BI:MN;0)"   Expression="+GHSERBI+1.08*GHSERMN -17414.20 + 15.799*T;" Bibref="NONE" />
+    <Parameter id="BMAGN(BIMN_B,BI:MN;0)"   Expression="1.7;" Bibref="NONE" />
+    <Parameter id="TC(BIMN_B,BI:MN;0)"   Expression="470;" Bibref="NONE" />
   </Binary-parameters>
+  <TDB-comments>
+       0 $  case_sensitive
+      28 $ Variable: A variable is similar to a function and is a number only. The value
+      41 $ Property: A property is similar to a fuction. A property can be used in Pandat
+      41 $           or for defining a contour diagram. A property can use most of other
+      41 $           mu(Mn@Liquid) and f(@Bcc). A property can be used to define other pr
+  </TDB-comments>
 </Database>

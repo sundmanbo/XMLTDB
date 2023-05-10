@@ -1,20 +1,49 @@
 <?xml version="1.0"?>
 <?xml-model href="database.rng" schematypens="http://relaxng.org/ns/structure/1.0" type="application/xml"?>
-<Database version="0">
+<Database version="0.0.1">
   <metadata>
     <writer>xmltdbproject test
        TDBfile="C:\Users\bosun\Documents\GitHub\XMLTDB\software\examples\steel7.TDB"
+       Software="Thermo-Calc"
+       Date="2023-05-10"
     </writer>
   </metadata>
-  <Statistics elements="8"  species="15"  phases="40"  parameters="356"  bibrefs="39"  />
-  <Defaults low_T="298.16" high_T="6000" />
+  <!-- Statistics elements="8"  species="15"  tpfuns="145"  phases="40"  parameters="356"  bibrefs="39"  -->
+  <Defaults low_T=" 298.15" high_T=" 6000.00" />
   <Models>
-    <Magnetic-model id="IHJBCC"  MPID1="TC" MPID2="BMAGN" bibref="82Her" > by Inden-Hillert-Jarl  for BCC with anti-ferromagnetic factor -1
-  Function below the ordering temperature TC with TAO=T/TC. +1-0.905299383*TAO**(-1)-0.153008346*TAO**3-.00680037095*TAO**9-.00153008346*TAO**15;
-  Function above the ordering temperature TC with TAO=T/TC. -.0641731208*TAO**(-5)-.00203724193*TAO**(-15)-.000427820805*TAO**(-25); </Magnetic-model>
-    <Magnetic-model id="IHJREST"  MPID1="TC" MPID2="BMAGN" bibref="82Her" > by Inden-Hillert-Jarl  for FCC and other phases with anti-ferromagnetic factor -3
- Function below the ordering temperature TC with TAO=T/TC.+1-0.860338755*TAO**(-1)-0.17449124*TAO**3-.00775516624*TAO**9-.0017449124*TAO**15;
- Function above the ordering temperature TC with TAO=T/TC. -.0426902268*TAO**(-5)-.0013552453*TAO**(-15)-.000284601512*TAO**(-25); </Magnetic-model>
+    <Magnetic-model id="IHJBCC"  MPID1="TC" MPID2="BMAGN" anti-ferromagnetic_factor=" -1.00" 
+       f_below_TC=" +1-0.905299383*TAO**(-1)-0.153008346*TAO**3-.00680037095*TAO**9-.00153008346*TAO**15;"
+       f_above_TC=" -.0641731208*TAO**(-5)-.00203724193*TAO**(-15)-.000427820805*TAO**(-25);" bibref="82Her" > in G=f(TAO)*LN(BETA+1) where TAO=T/TC
+    </Magnetic-model>
+    <Magnetic-model id="IHJREST"  MPID1="TC" MPID2="BMAGN" anti-ferromagnetic_factor=" -3.00" 
+       f_below_TC=" +1-0.860338755*TAO**(-1)-0.17449124*TAO**3-.00775516624*TAO**9-.0017449124*TAO**15;"
+       f_above_TC=" -.0426902268*TAO**(-5)-.0013552453*TAO**(-15)-.000284601512*TAO**(-25);" bibref="82Her" > in G=f(TAO)*LN(BETA+1) where TAO=T/TC
+    </Magnetic-model>
+    <Magnetic-model id="IHJQX"  MPID1="CT" MPID2="NT" MPID3="BMAGN" anti-ferromagnetic_factor="  0.00" 
+       f_below_TC=" +1-0.842849633*TAO**(-1)-0.174242226*TAO**3-.00774409892*TAO**9-.00174242226*TAO**15-.000646538871*TAO**21;"
+       f_above_TC=" -.0261039233*TAO**(-7)-.000870130777*TAO**(-21)-.000184262988*TAO**(-35)-6.65916411E-05*TAO**(-49);" bibref="12Xiong" > in G=f(TAO)*LN(BETA+1) where TAO=T/CT or T/NT
+    </Magnetic-model>
+    <Einstein-model id="GLOWTEIN" MPID1="LNTH" bibref="01Qing" > 
+       Gibbs energy due to the Einstein low T vibrational entropy model, G=1.5*R*THETA+3*R*T*LN(1-EXP(-THETA/T)).
+    </Einstein-model>
+    <Liquid-2state-model id="LIQ2STATE" MPID1="G2"  MPID2="LNTH" bibref="14Becker" >
+       Unified model for the liquid and the amorphous state treated as an Einstein solid
+    </Liquid-2state-model>
+    <Volume-model id="VOLOWP" MPID1="V0"  MPID2="VA" MPID3="VB" bibref="05Lu" >
+       The volume of a phase is described as function of T, P and its constitution.
+    </Volume-model>
+    <Disordered-fraction-model id="DISFS" bibref="09Sun" >
+       The disordered fractions are summed over the ordered sublattices indicated at the phase.  The Gibbs energy calculated 2 or 3 times as indicated by the CEF_appendix but the configurational entropy only once.
+    </Disordered-fraction-model>
+    <FCC-permutations id="FCCPERM" bibref="09Sun" >
+       Permutations of ordered FCC parameters with the same set of elements are listed only once.
+    </FCC-permutations>
+    <BCC-permutations id="BCCPERM" bibref="09Sun" >
+       Permutations of ordered BCC parameters with the same set of elements are listed only once.
+    </BCC-permutations>
+    <EEC id="EEC" bibref="20Sun" >
+       Equi-Entropy Criterion means that solid phases with higher entropy that the liquid phase must not be stable.
+    </EEC>
   </Models>
   <Element id="/-" refstate="ELECTRON_GAS" mass="  0.000000E+00" H298="  0.000000E+00" S298="  0.000000E+00" />
   <Element id="VA" refstate="VACUUM" mass="  0.000000E+00" H298="  0.000000E+00" S298="  0.000000E+00" />
@@ -39,1862 +68,860 @@
   <Species id="V1C1" stoichiometry="V1C1" />
   <Species id="C4" stoichiometry="C4" />
   <Species id="C5" stoichiometry="C5" />
-  <TPfun id="GHSERCC" Low_T="298.15" >
-    <Trange High_T="6000" > -17368.441+170.73*T-24.3*T*LN(T)  -4.723E-04*T**2+2562600*T**(-1)-2.643E+08*T**(-2)+1.2E+10*T**(-3); </Trange>
-  </TPfun>
-  <TPfun id="GPCLIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +YCLIQ*EXP(ZCLIQ); </Trange>
-  </TPfun>
-  <TPfun id="GHSERCR" Low_T="298.15" >
-    <Trange High_T="2180" > -8856.94+157.48*T-26.908*T*LN(T)  +.00189435*T**2-1.47721E-06*T**3+139250*T**(-1); </Trange>
-    <Trange High_T="6000" >   -34869.344+344.18*T-50*T*LN(T)-2.88526E+32*T**(-9); </Trange>
-  </TPfun>
-  <TPfun id="GPCRLIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +YCRLIQ*EXP(ZCRLIQ); </Trange>
-  </TPfun>
-  <TPfun id="GFELIQ" Low_T="298.15" >
-    <Trange High_T="1811" > +12040.17-6.55843*T-3.6751551E-21*T**7  +GHSERFE; </Trange>
-    <Trange High_T="6000" >   -10839.7+291.302*T-46*T*LN(T); </Trange>
-  </TPfun>
-  <TPfun id="GPFELIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +YFELIQ*EXP(ZFELIQ); </Trange>
-  </TPfun>
-  <TPfun id="GHSERMO" Low_T="298.15" >
-    <Trange High_T="2896" > -7746.302+131.9197*T-23.56414*T*LN(T)  -.003443396*T**2+5.66283E-07*T**3+65812*T**(-1)-1.30927E-10*T**4; </Trange>
-    <Trange High_T="5000" >   -30556.41+283.559746*T-42.63829*T*LN(T)-4.849315E+33*T**(-9); </Trange>
-  </TPfun>
-  <TPfun id="GPMOLIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +YMOLIQ*EXP(ZMOLIQ); </Trange>
-  </TPfun>
-  <TPfun id="GHSERSI" Low_T="298.15" >
-    <Trange High_T="1687" > -8162.609+137.227259*T-22.8317533*T*LN(T)  -.001912904*T**2-3.552E-09*T**3+176667*T**(-1); </Trange>
-    <Trange High_T="3600" >   -9457.642+167.271767*T-27.196*T*LN(T)-4.20369E+30*T**(-9); </Trange>
-  </TPfun>
-  <TPfun id="GHSERVV" Low_T="298.15" >
-    <Trange High_T="790" > -7930.43+133.346053*T-24.134*T*LN(T)  -.003098*T**2+1.2175E-07*T**3+69460*T**(-1); </Trange>
-    <Trange High_T="2183" >   -7967.842+143.291093*T-25.9*T*LN(T)+6.25E-05*T**2-6.8E-07*T**3; </Trange>
-    <Trange High_T="4000" >   -41689.864+321.140783*T-47.43*T*LN(T)+6.44389E+31*T**(-9); </Trange>
-  </TPfun>
-  <TPfun id="GPCRBCC" Low_T="298.15" >
-    <Trange High_T="6000" > +YCRBCC*EXP(ZCRBCC); </Trange>
-  </TPfun>
-  <TPfun id="GPCGRA" Low_T="298.15" >
-    <Trange High_T="6000" > +YCGRA*EXP(ZCGRA); </Trange>
-  </TPfun>
-  <TPfun id="GHSERFE" Low_T="298.15" >
-    <Trange High_T="1811" > +1225.7+124.134*T-23.5143*T*LN(T)  -.00439752*T**2-5.8927E-08*T**3+77359*T**(-1); </Trange>
-    <Trange High_T="6000" >   -25383.581+299.31255*T-46*T*LN(T)+2.29603E+31*T**(-9); </Trange>
-  </TPfun>
-  <TPfun id="GPFEBCC" Low_T="298.15" >
-    <Trange High_T="6000" > +YFEBCC*EXP(ZFEBCC); </Trange>
-  </TPfun>
-  <TPfun id="GSIBCC" Low_T="298.15" >
-    <Trange High_T="6000" > +47000-22.5*T+GHSERSI; </Trange>
-  </TPfun>
-  <TPfun id="GPMOBCC" Low_T="298.15" >
-    <Trange High_T="6000" > +YMOBCC*EXP(ZMOBCC); </Trange>
-  </TPfun>
-  <TPfun id="GFECEM" Low_T="298.15" >
-    <Trange High_T="6000" > -10745+706.04*T-120.6*T*LN(T)+GPCEM1; </Trange>
-  </TPfun>
-  <TPfun id="GCRFCC" Low_T="298.15" >
-    <Trange High_T="6000" > +7284+.163*T+GHSERCR; </Trange>
-  </TPfun>
-  <TPfun id="GFEFCC" Low_T="298.15" >
-    <Trange High_T="1811" > -1462.4+8.282*T-1.15*T*LN(T)+6.4E-04*T**2  +GHSERFE; </Trange>
-    <Trange High_T="6000" >   -27098.266+300.25256*T-46*T*LN(T)+2.78854E+31*T**(-9); </Trange>
-  </TPfun>
-  <TPfun id="GMOFCC" Low_T="298.15" >
-    <Trange High_T="6000" > +15200+.63*T+GHSERMO; </Trange>
-  </TPfun>
-  <TPfun id="GPCDIA" Low_T="298.15" >
-    <Trange High_T="6000" > +YCDIA*EXP(ZCDIA); </Trange>
-  </TPfun>
-  <TPfun id="GPCFCC" Low_T="298.15" >
-    <Trange High_T="6000" > +YCFCC*EXP(ZFEFCC); </Trange>
-  </TPfun>
-  <TPfun id="GPFEFCC" Low_T="298.15" >
-    <Trange High_T="6000" > +YFEFCC*EXP(ZFEFCC); </Trange>
-  </TPfun>
-  <TPfun id="GHSERVZ" Low_T="298.15" >
-    <Trange High_T="790" > -7930.43+133.346053*T-24.134*T*LN(T)  -.003098*T**2+1.2175E-07*T**3+69460*T**(-1); </Trange>
-    <Trange High_T="4000" >   -7967.842+143.291093*T-25.9*T*LN(T)+6.25E-05*T**2-6.8E-07*T**3; </Trange>
-    <Trange High_T="6000" >   -41689.864+321.140783*T-47.43*T*LN(T)+6.44389E+31*T**(-9); </Trange>
-  </TPfun>
-  <TPfun id="GPFEHCP" Low_T="298.15" >
-    <Trange High_T="6000" > +YFEHCP*EXP(ZFEHCP); </Trange>
-  </TPfun>
-  <TPfun id="GCRM23C6" Low_T="298.15" >
-    <Trange High_T="6000" > -521983+3622.24*T-620.965*T*LN(T)  -.126431*T**2; </Trange>
-  </TPfun>
-  <TPfun id="GFEM23C6" Low_T="298.15" >
-    <Trange High_T="6000" > +7.666667*GFECEM-1.666667*GHSERCC+66920  -40*T; </Trange>
-  </TPfun>
-  <TPfun id="GVM23C6" Low_T="298.15" >
-    <Trange High_T="6000" > -990367+4330.63*T-728.829*T*LN(T)  +5003425*T**(-1); </Trange>
-  </TPfun>
-  <TPfun id="GCRM3C2" Low_T="298.15" >
-    <Trange High_T="6000" > -100823.8+530.66989*T-89.6694*T*LN(T)  -.0301188*T**2; </Trange>
-  </TPfun>
-  <TPfun id="GCRM7C3" Low_T="298.15" >
-    <Trange High_T="6000" > -201690+1103.128*T-190.177*T*LN(T)  -.0578207*T**2; </Trange>
-  </TPfun>
-  <TPfun id="GPMU1" Low_T="298.15" >
-    <Trange High_T="6000" > +8.72E-05*P; </Trange>
-  </TPfun>
-  <TPfun id="GPMU2" Low_T="298.15" >
-    <Trange High_T="6000" > +1.04E-04*P; </Trange>
-  </TPfun>
-  <TPfun id="GPR1" Low_T="298.15" >
-    <Trange High_T="6000" > +3.81E-04*P; </Trange>
-  </TPfun>
-  <TPfun id="GPR2" Low_T="298.15" >
-    <Trange High_T="6000" > +4.33E-04*P; </Trange>
-  </TPfun>
-  <TPfun id="GPSIG1" Low_T="298.15" >
-    <Trange High_T="6000" > +1.09E-04*P; </Trange>
-  </TPfun>
-  <TPfun id="GPSIG2" Low_T="298.15" >
-    <Trange High_T="6000" > +1.117E-04*P; </Trange>
-  </TPfun>
-  <TPfun id="L0BCC" Low_T="298.15" >
-    <Trange High_T="6000" > -27809+11.62*T; </Trange>
-  </TPfun>
-  <TPfun id="FESIW1" Low_T="298.15" >
-    <Trange High_T="6000" > +1260*R; </Trange>
-  </TPfun>
-  <TPfun id="L1BCC" Low_T="298.15" >
-    <Trange High_T="6000" > -11544; </Trange>
-  </TPfun>
-  <TPfun id="L2BCC" Low_T="298.15" >
-    <Trange High_T="6000" > 3890; </Trange>
-  </TPfun>
-  <TPfun id="ETCFESI" Low_T="298.15" >
-    <Trange High_T="6000" > 63; </Trange>
-  </TPfun>
-  <TPfun id="YCLIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +VCLIQ*EXP(-ECLIQ); </Trange>
-  </TPfun>
-  <TPfun id="ZCLIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(XCLIQ); </Trange>
-  </TPfun>
-  <TPfun id="YCRLIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +VCRLIQ*EXP(-ECRLIQ); </Trange>
-  </TPfun>
-  <TPfun id="ZCRLIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(XCRLIQ); </Trange>
-  </TPfun>
-  <TPfun id="YFELIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +VFELIQ*EXP(-EFELIQ); </Trange>
-  </TPfun>
-  <TPfun id="ZFELIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(XFELIQ); </Trange>
-  </TPfun>
-  <TPfun id="YMOLIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +VMOLIQ*EXP(-EMOLIQ); </Trange>
-  </TPfun>
-  <TPfun id="ZMOLIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(XMOLIQ); </Trange>
-  </TPfun>
-  <TPfun id="YCRBCC" Low_T="298.15" >
-    <Trange High_T="6000" > +VCRBCC*EXP(-ECRBCC); </Trange>
-  </TPfun>
-  <TPfun id="ZCRBCC" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(XCRBCC); </Trange>
-  </TPfun>
-  <TPfun id="YCGRA" Low_T="298.15" >
-    <Trange High_T="6000" > +VCGRA*EXP(-ECGRA); </Trange>
-  </TPfun>
-  <TPfun id="ZCGRA" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(XCGRA); </Trange>
-  </TPfun>
-  <TPfun id="YFEBCC" Low_T="298.15" >
-    <Trange High_T="6000" > +VFEBCC*EXP(-EFEBCC); </Trange>
-  </TPfun>
-  <TPfun id="ZFEBCC" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(XFEBCC); </Trange>
-  </TPfun>
-  <TPfun id="YMOBCC" Low_T="298.15" >
-    <Trange High_T="6000" > +VMOBCC*EXP(-EMOBCC); </Trange>
-  </TPfun>
-  <TPfun id="ZMOBCC" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(XMOBCC); </Trange>
-  </TPfun>
-  <TPfun id="GPCEM1" Low_T="298.15" >
-    <Trange High_T="6000" > +VCEM1*P; </Trange>
-  </TPfun>
-  <TPfun id="YCDIA" Low_T="298.15" >
-    <Trange High_T="6000" > +VCDIA*EXP(-ECDIA); </Trange>
-  </TPfun>
-  <TPfun id="ZCDIA" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(XCDIA); </Trange>
-  </TPfun>
-  <TPfun id="YCFCC" Low_T="298.15" >
-    <Trange High_T="6000" > +VCFCC*EXP(-EFEFCC); </Trange>
-  </TPfun>
-  <TPfun id="ZFEFCC" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(XFEFCC); </Trange>
-  </TPfun>
-  <TPfun id="YFEFCC" Low_T="298.15" >
-    <Trange High_T="6000" > +VFEFCC*EXP(-EFEFCC); </Trange>
-  </TPfun>
-  <TPfun id="YFEHCP" Low_T="298.15" >
-    <Trange High_T="6000" > +VFEHCP*EXP(-EFEHCP); </Trange>
-  </TPfun>
-  <TPfun id="ZFEHCP" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(XFEHCP); </Trange>
-  </TPfun>
-  <TPfun id="VCLIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +7.626E-06*EXP(ACLIQ); </Trange>
-  </TPfun>
-  <TPfun id="ECLIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(CCLIQ); </Trange>
-  </TPfun>
-  <TPfun id="XCLIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +1*EXP(.5*DCLIQ)-1; </Trange>
-  </TPfun>
-  <TPfun id="VCRLIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +7.653E-06*EXP(ACRLIQ); </Trange>
-  </TPfun>
-  <TPfun id="ECRLIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(CCRLIQ); </Trange>
-  </TPfun>
-  <TPfun id="XCRLIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +1*EXP(.8*DCRLIQ)-1; </Trange>
-  </TPfun>
-  <TPfun id="VFELIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +6.46677E-06*EXP(AFELIQ); </Trange>
-  </TPfun>
-  <TPfun id="EFELIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(CFELIQ); </Trange>
-  </TPfun>
-  <TPfun id="XFELIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +1*EXP(.8484467*DFELIQ)-1; </Trange>
-  </TPfun>
-  <TPfun id="VMOLIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +9.75079E-06*EXP(AMOLIQ); </Trange>
-  </TPfun>
-  <TPfun id="EMOLIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(CMOLIQ); </Trange>
-  </TPfun>
-  <TPfun id="XMOLIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +1*EXP(.6923076*DMOBCC)-1; </Trange>
-  </TPfun>
-  <TPfun id="VCRBCC" Low_T="298.15" >
-    <Trange High_T="6000" > +7.188E-06*EXP(ACRBCC); </Trange>
-  </TPfun>
-  <TPfun id="ECRBCC" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(CCRBCC); </Trange>
-  </TPfun>
-  <TPfun id="XCRBCC" Low_T="298.15" >
-    <Trange High_T="6000" > +1*EXP(.8*DCRBCC)-1; </Trange>
-  </TPfun>
-  <TPfun id="VCGRA" Low_T="298.15" >
-    <Trange High_T="6000" > +5.259E-06*EXP(ACGRA); </Trange>
-  </TPfun>
-  <TPfun id="ECGRA" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(CCGRA); </Trange>
-  </TPfun>
-  <TPfun id="XCGRA" Low_T="298.15" >
-    <Trange High_T="6000" > +1*EXP(.9166667*DCGRA)-1; </Trange>
-  </TPfun>
-  <TPfun id="VFEBCC" Low_T="298.15" >
-    <Trange High_T="6000" > +7.042095E-06*EXP(AFEBCC); </Trange>
-  </TPfun>
-  <TPfun id="EFEBCC" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(CFEBCC); </Trange>
-  </TPfun>
-  <TPfun id="XFEBCC" Low_T="298.15" >
-    <Trange High_T="6000" > +1*EXP(.7874195*DFEBCC)-1; </Trange>
-  </TPfun>
-  <TPfun id="VMOBCC" Low_T="298.15" >
-    <Trange High_T="6000" > +9.34372E-06*EXP(AMOBCC); </Trange>
-  </TPfun>
-  <TPfun id="EMOBCC" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(CMOBCC); </Trange>
-  </TPfun>
-  <TPfun id="XMOBCC" Low_T="298.15" >
-    <Trange High_T="6000" > +1*EXP(.6923076*DMOBCC)-1; </Trange>
-  </TPfun>
-  <TPfun id="VCEM1" Low_T="298.15" >
-    <Trange High_T="6000" > +2.339E-05*EXP(ACEM1); </Trange>
-  </TPfun>
-  <TPfun id="VCDIA" Low_T="298.15" >
-    <Trange High_T="6000" > +3.412E-06*EXP(ACDIA); </Trange>
-  </TPfun>
-  <TPfun id="ECDIA" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(CCDIA); </Trange>
-  </TPfun>
-  <TPfun id="XCDIA" Low_T="298.15" >
-    <Trange High_T="6000" > +1*EXP(.8*DCDIA)-1; </Trange>
-  </TPfun>
-  <TPfun id="VCFCC" Low_T="298.15" >
-    <Trange High_T="6000" > +1.031E-05*EXP(ACFCC); </Trange>
-  </TPfun>
-  <TPfun id="EFEFCC" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(CFEFCC); </Trange>
-  </TPfun>
-  <TPfun id="XFEFCC" Low_T="298.15" >
-    <Trange High_T="6000" > +1*EXP(.8064454*DFEFCC)-1; </Trange>
-  </TPfun>
-  <TPfun id="VFEFCC" Low_T="298.15" >
-    <Trange High_T="6000" > +6.688726E-06*EXP(AFEFCC); </Trange>
-  </TPfun>
-  <TPfun id="VFEHCP" Low_T="298.15" >
-    <Trange High_T="6000" > +6.59121E-06*EXP(AFEHCP); </Trange>
-  </TPfun>
-  <TPfun id="EFEHCP" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(CFEHCP); </Trange>
-  </TPfun>
-  <TPfun id="XFEHCP" Low_T="298.15" >
-    <Trange High_T="6000" > +1*EXP(.8064454*DFEHCP)-1; </Trange>
-  </TPfun>
-  <TPfun id="ACLIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +2.32E-05*T+2.85E-09*T**2; </Trange>
-  </TPfun>
-  <TPfun id="CCLIQ" Low_T="298.15" >
-    <Trange High_T="6000" > 1.6E-10; </Trange>
-  </TPfun>
-  <TPfun id="DCLIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(BCLIQ); </Trange>
-  </TPfun>
-  <TPfun id="ACRLIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +1.7E-05*T+9.2E-09*T**2; </Trange>
-  </TPfun>
-  <TPfun id="CCRLIQ" Low_T="298.15" >
-    <Trange High_T="6000" > 3.72E-11; </Trange>
-  </TPfun>
-  <TPfun id="DCRLIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(BCRLIQ); </Trange>
-  </TPfun>
-  <TPfun id="AFELIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +1.135E-04*T; </Trange>
-  </TPfun>
-  <TPfun id="CFELIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +4.22534787E-12+2.71569924E-14*T; </Trange>
-  </TPfun>
-  <TPfun id="DFELIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(BFELIQ); </Trange>
-  </TPfun>
-  <TPfun id="AMOLIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +1.4378E-05*T+2.33031E-10*T**2  +1.14687E-12*T**3; </Trange>
-  </TPfun>
-  <TPfun id="CMOLIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +7.88107E-12+3.375E-16*T+8.775E-20*T**2; </Trange>
-  </TPfun>
-  <TPfun id="DMOBCC" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(BMOBCC); </Trange>
-  </TPfun>
-  <TPfun id="ACRBCC" Low_T="298.15" >
-    <Trange High_T="6000" > +1.7E-05*T+9.2E-09*T**2; </Trange>
-  </TPfun>
-  <TPfun id="CCRBCC" Low_T="298.15" >
-    <Trange High_T="6000" > 2.08E-11; </Trange>
-  </TPfun>
-  <TPfun id="DCRBCC" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(BCRBCC); </Trange>
-  </TPfun>
-  <TPfun id="ACGRA" Low_T="298.15" >
-    <Trange High_T="6000" > +2.32E-05*T+2.85E-09*T**2; </Trange>
-  </TPfun>
-  <TPfun id="CCGRA" Low_T="298.15" >
-    <Trange High_T="6000" > 3.3E-10; </Trange>
-  </TPfun>
-  <TPfun id="DCGRA" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(BCGRA); </Trange>
-  </TPfun>
-  <TPfun id="AFEBCC" Low_T="298.15" >
-    <Trange High_T="6000" > +2.3987E-05*T+1.2845E-08*T**2; </Trange>
-  </TPfun>
-  <TPfun id="CFEBCC" Low_T="298.15" >
-    <Trange High_T="6000" > +2.20949565E-11+2.41329523E-16*T; </Trange>
-  </TPfun>
-  <TPfun id="DFEBCC" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(BFEBCC); </Trange>
-  </TPfun>
-  <TPfun id="AMOBCC" Low_T="298.15" >
-    <Trange High_T="6000" > +1.4378E-05*T+2.33031E-10*T**2  +1.14687E-12*T**3; </Trange>
-  </TPfun>
-  <TPfun id="CMOBCC" Low_T="298.15" >
-    <Trange High_T="6000" > +7.88107E-12+3.375E-16*T+8.775E-20*T**2; </Trange>
-  </TPfun>
-  <TPfun id="ACEM1" Low_T="298.15" >
-    <Trange High_T="6000" > -1.36E-05*T+4E-08*T**2; </Trange>
-  </TPfun>
-  <TPfun id="ACDIA" Low_T="298.15" >
-    <Trange High_T="6000" > +2.43E-06*T+5E-09*T**2; </Trange>
-  </TPfun>
-  <TPfun id="CCDIA" Low_T="298.15" >
-    <Trange High_T="6000" > 6.8E-12; </Trange>
-  </TPfun>
-  <TPfun id="DCDIA" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(BCDIA); </Trange>
-  </TPfun>
-  <TPfun id="ACFCC" Low_T="298.15" >
-    <Trange High_T="6000" > +1.44E-04*T; </Trange>
-  </TPfun>
-  <TPfun id="CFEFCC" Low_T="298.15" >
-    <Trange High_T="6000" > +2.62285341E-11+2.71455808E-16*T; </Trange>
-  </TPfun>
-  <TPfun id="DFEFCC" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(BFEFCC); </Trange>
-  </TPfun>
-  <TPfun id="AFEFCC" Low_T="298.15" >
-    <Trange High_T="6000" > +7.3097E-05*T; </Trange>
-  </TPfun>
-  <TPfun id="AFEHCP" Low_T="298.15" >
-    <Trange High_T="6000" > +7.3646E-05*T; </Trange>
-  </TPfun>
-  <TPfun id="CFEHCP" Low_T="298.15" >
-    <Trange High_T="6000" > +2.62285341E-11+2.71455808E-16*T; </Trange>
-  </TPfun>
-  <TPfun id="DFEHCP" Low_T="298.15" >
-    <Trange High_T="6000" > +1*LN(BFEHCP); </Trange>
-  </TPfun>
-  <TPfun id="BCLIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +1+3.2E-10*P; </Trange>
-  </TPfun>
-  <TPfun id="BCRLIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +1+4.65E-11*P; </Trange>
-  </TPfun>
-  <TPfun id="BFELIQ" Low_T="298.15" >
-    <Trange High_T="6000" > +1+4.98009787E-12*P+3.20078924E-14*T*P; </Trange>
-  </TPfun>
-  <TPfun id="BMOBCC" Low_T="298.15" >
-    <Trange High_T="6000" > +1+1.13837E-11*P+4.875E-16*T*P  +1.2675E-19*T**2*P; </Trange>
-  </TPfun>
-  <TPfun id="BCRBCC" Low_T="298.15" >
-    <Trange High_T="6000" > +1+2.6E-11*P; </Trange>
-  </TPfun>
-  <TPfun id="BCGRA" Low_T="298.15" >
-    <Trange High_T="6000" > +1+3.6E-10*P; </Trange>
-  </TPfun>
-  <TPfun id="BFEBCC" Low_T="298.15" >
-    <Trange High_T="6000" > +1+2.80599565E-11*P+3.06481523E-16*T*P; </Trange>
-  </TPfun>
-  <TPfun id="BCDIA" Low_T="298.15" >
-    <Trange High_T="6000" > +1+8.5E-12*P; </Trange>
-  </TPfun>
-  <TPfun id="BFEFCC" Low_T="298.15" >
-    <Trange High_T="6000" > +1+3.25236341E-11*P+3.36607808E-16*T*P; </Trange>
-  </TPfun>
-  <TPfun id="BFEHCP" Low_T="298.15" >
-    <Trange High_T="6000" > +1+3.25236341E-11*P+3.36607808E-16*T*P; </Trange>
-  </TPfun>
-  <TPfun id="UN_ASS" Low_T="298.15" >
-    <Trange High_T="300" > 0; </Trange>
-  </TPfun>
-  <Phase id="SIC" Configurational_model="CEF" >
+  <TPfun id="GHSERCC"  Expression="-17368.441+170.73*T-24.3*T*LN(T)  -4.723E-04*T**2+2562600*T**(-1)-2.643E+08*T**(-2)+1.2E+10*T**(-3);" />
+  <TPfun id="GPCLIQ"  Expression="+YCLIQ*EXP(ZCLIQ);" />
+  <TPfun id="GHSERCR"  >
+    <Trange High_T="2180" Expression=" -8856.94+157.48*T-26.908*T*LN(T)  +.00189435*T**2-1.47721E-06*T**3+139250*T**(-1);" />
+    <Trange Expression="  -34869.344+344.18*T-50*T*LN(T)-2.88526E+32*T**(-9);" />
+  </TPfun>
+  <TPfun id="GPCRLIQ"  Expression="+YCRLIQ*EXP(ZCRLIQ);" />
+  <TPfun id="GFELIQ"  >
+    <Trange High_T="1811" Expression=" +12040.17-6.55843*T-3.6751551E-21*T**7  +GHSERFE;" />
+    <Trange Expression="  -10839.7+291.302*T-46*T*LN(T);" />
+  </TPfun>
+  <TPfun id="GPFELIQ"  Expression="+YFELIQ*EXP(ZFELIQ);" />
+  <TPfun id="GHSERMO"  >
+    <Trange High_T="2896" Expression=" -7746.302+131.9197*T-23.56414*T*LN(T)  -.003443396*T**2+5.66283E-07*T**3+65812*T**(-1)-1.30927E-10*T**4;" />
+    <Trange High_T="5000" Expression="   -30556.41+283.559746*T-42.63829*T*LN(T)-4.849315E+33*T**(-9);" />
+  </TPfun>
+  <TPfun id="GPMOLIQ"  Expression="+YMOLIQ*EXP(ZMOLIQ);" />
+  <TPfun id="GHSERSI"  >
+    <Trange High_T="1687" Expression=" -8162.609+137.227259*T-22.8317533*T*LN(T)  -.001912904*T**2-3.552E-09*T**3+176667*T**(-1);" />
+    <Trange High_T="3600" Expression="   -9457.642+167.271767*T-27.196*T*LN(T)-4.20369E+30*T**(-9);" />
+  </TPfun>
+  <TPfun id="GHSERVV"  >
+    <Trange High_T="790" Expression=" -7930.43+133.346053*T-24.134*T*LN(T)  -.003098*T**2+1.2175E-07*T**3+69460*T**(-1);" />
+    <Trange High_T="2183" Expression="   -7967.842+143.291093*T-25.9*T*LN(T)+6.25E-05*T**2-6.8E-07*T**3;" />
+    <Trange High_T="4000" Expression="   -41689.864+321.140783*T-47.43*T*LN(T)+6.44389E+31*T**(-9);" />
+  </TPfun>
+  <TPfun id="GPCRBCC"  Expression="+YCRBCC*EXP(ZCRBCC);" />
+  <TPfun id="GPCGRA"  Expression="+YCGRA*EXP(ZCGRA);" />
+  <TPfun id="GHSERFE"  >
+    <Trange High_T="1811" Expression=" +1225.7+124.134*T-23.5143*T*LN(T)  -.00439752*T**2-5.8927E-08*T**3+77359*T**(-1);" />
+    <Trange Expression="  -25383.581+299.31255*T-46*T*LN(T)+2.29603E+31*T**(-9);" />
+  </TPfun>
+  <TPfun id="GPFEBCC"  Expression="+YFEBCC*EXP(ZFEBCC);" />
+  <TPfun id="GSIBCC"  Expression="+47000-22.5*T+GHSERSI;" />
+  <TPfun id="GPMOBCC"  Expression="+YMOBCC*EXP(ZMOBCC);" />
+  <TPfun id="GFECEM"  Expression="-10745+706.04*T-120.6*T*LN(T)+GPCEM1;" />
+  <TPfun id="GCRFCC"  Expression="+7284+.163*T+GHSERCR;" />
+  <TPfun id="GFEFCC"  >
+    <Trange High_T="1811" Expression=" -1462.4+8.282*T-1.15*T*LN(T)+6.4E-04*T**2  +GHSERFE;" />
+    <Trange Expression="  -27098.266+300.25256*T-46*T*LN(T)+2.78854E+31*T**(-9);" />
+  </TPfun>
+  <TPfun id="GMOFCC"  Expression="+15200+.63*T+GHSERMO;" />
+  <TPfun id="GPCDIA"  Expression="+YCDIA*EXP(ZCDIA);" />
+  <TPfun id="GPCFCC"  Expression="+YCFCC*EXP(ZFEFCC);" />
+  <TPfun id="GPFEFCC"  Expression="+YFEFCC*EXP(ZFEFCC);" />
+  <TPfun id="GHSERVZ"  >
+    <Trange High_T="790" Expression=" -7930.43+133.346053*T-24.134*T*LN(T)  -.003098*T**2+1.2175E-07*T**3+69460*T**(-1);" />
+    <Trange High_T="4000" Expression="   -7967.842+143.291093*T-25.9*T*LN(T)+6.25E-05*T**2-6.8E-07*T**3;" />
+    <Trange Expression="  -41689.864+321.140783*T-47.43*T*LN(T)+6.44389E+31*T**(-9);" />
+  </TPfun>
+  <TPfun id="GPFEHCP"  Expression="+YFEHCP*EXP(ZFEHCP);" />
+  <TPfun id="GCRM23C6"  Expression="-521983+3622.24*T-620.965*T*LN(T)  -.126431*T**2;" />
+  <TPfun id="GFEM23C6"  Expression="+7.666667*GFECEM-1.666667*GHSERCC+66920  -40*T;" />
+  <TPfun id="GVM23C6"  Expression="-990367+4330.63*T-728.829*T*LN(T)  +5003425*T**(-1);" />
+  <TPfun id="GCRM3C2"  Expression="-100823.8+530.66989*T-89.6694*T*LN(T)  -.0301188*T**2;" />
+  <TPfun id="GCRM7C3"  Expression="-201690+1103.128*T-190.177*T*LN(T)  -.0578207*T**2;" />
+  <TPfun id="GPMU1"  Expression="+8.72E-05*P;" />
+  <TPfun id="GPMU2"  Expression="+1.04E-04*P;" />
+  <TPfun id="GPR1"  Expression="+3.81E-04*P;" />
+  <TPfun id="GPR2"  Expression="+4.33E-04*P;" />
+  <TPfun id="GPSIG1"  Expression="+1.09E-04*P;" />
+  <TPfun id="GPSIG2"  Expression="+1.117E-04*P;" />
+  <TPfun id="L0BCC"  Expression="-27809+11.62*T;" />
+  <TPfun id="FESIW1"  Expression="+1260*R;" />
+  <TPfun id="L1BCC"  Expression="-11544;" />
+  <TPfun id="L2BCC"  Expression="3890;" />
+  <TPfun id="ETCFESI"  Expression="63;" />
+  <TPfun id="YCLIQ"  Expression="+VCLIQ*EXP(-ECLIQ);" />
+  <TPfun id="ZCLIQ"  Expression="+1*LN(XCLIQ);" />
+  <TPfun id="YCRLIQ"  Expression="+VCRLIQ*EXP(-ECRLIQ);" />
+  <TPfun id="ZCRLIQ"  Expression="+1*LN(XCRLIQ);" />
+  <TPfun id="YFELIQ"  Expression="+VFELIQ*EXP(-EFELIQ);" />
+  <TPfun id="ZFELIQ"  Expression="+1*LN(XFELIQ);" />
+  <TPfun id="YMOLIQ"  Expression="+VMOLIQ*EXP(-EMOLIQ);" />
+  <TPfun id="ZMOLIQ"  Expression="+1*LN(XMOLIQ);" />
+  <TPfun id="YCRBCC"  Expression="+VCRBCC*EXP(-ECRBCC);" />
+  <TPfun id="ZCRBCC"  Expression="+1*LN(XCRBCC);" />
+  <TPfun id="YCGRA"  Expression="+VCGRA*EXP(-ECGRA);" />
+  <TPfun id="ZCGRA"  Expression="+1*LN(XCGRA);" />
+  <TPfun id="YFEBCC"  Expression="+VFEBCC*EXP(-EFEBCC);" />
+  <TPfun id="ZFEBCC"  Expression="+1*LN(XFEBCC);" />
+  <TPfun id="YMOBCC"  Expression="+VMOBCC*EXP(-EMOBCC);" />
+  <TPfun id="ZMOBCC"  Expression="+1*LN(XMOBCC);" />
+  <TPfun id="GPCEM1"  Expression="+VCEM1*P;" />
+  <TPfun id="YCDIA"  Expression="+VCDIA*EXP(-ECDIA);" />
+  <TPfun id="ZCDIA"  Expression="+1*LN(XCDIA);" />
+  <TPfun id="YCFCC"  Expression="+VCFCC*EXP(-EFEFCC);" />
+  <TPfun id="ZFEFCC"  Expression="+1*LN(XFEFCC);" />
+  <TPfun id="YFEFCC"  Expression="+VFEFCC*EXP(-EFEFCC);" />
+  <TPfun id="YFEHCP"  Expression="+VFEHCP*EXP(-EFEHCP);" />
+  <TPfun id="ZFEHCP"  Expression="+1*LN(XFEHCP);" />
+  <TPfun id="VCLIQ"  Expression="+7.626E-06*EXP(ACLIQ);" />
+  <TPfun id="ECLIQ"  Expression="+1*LN(CCLIQ);" />
+  <TPfun id="XCLIQ"  Expression="+1*EXP(.5*DCLIQ)-1;" />
+  <TPfun id="VCRLIQ"  Expression="+7.653E-06*EXP(ACRLIQ);" />
+  <TPfun id="ECRLIQ"  Expression="+1*LN(CCRLIQ);" />
+  <TPfun id="XCRLIQ"  Expression="+1*EXP(.8*DCRLIQ)-1;" />
+  <TPfun id="VFELIQ"  Expression="+6.46677E-06*EXP(AFELIQ);" />
+  <TPfun id="EFELIQ"  Expression="+1*LN(CFELIQ);" />
+  <TPfun id="XFELIQ"  Expression="+1*EXP(.8484467*DFELIQ)-1;" />
+  <TPfun id="VMOLIQ"  Expression="+9.75079E-06*EXP(AMOLIQ);" />
+  <TPfun id="EMOLIQ"  Expression="+1*LN(CMOLIQ);" />
+  <TPfun id="XMOLIQ"  Expression="+1*EXP(.6923076*DMOBCC)-1;" />
+  <TPfun id="VCRBCC"  Expression="+7.188E-06*EXP(ACRBCC);" />
+  <TPfun id="ECRBCC"  Expression="+1*LN(CCRBCC);" />
+  <TPfun id="XCRBCC"  Expression="+1*EXP(.8*DCRBCC)-1;" />
+  <TPfun id="VCGRA"  Expression="+5.259E-06*EXP(ACGRA);" />
+  <TPfun id="ECGRA"  Expression="+1*LN(CCGRA);" />
+  <TPfun id="XCGRA"  Expression="+1*EXP(.9166667*DCGRA)-1;" />
+  <TPfun id="VFEBCC"  Expression="+7.042095E-06*EXP(AFEBCC);" />
+  <TPfun id="EFEBCC"  Expression="+1*LN(CFEBCC);" />
+  <TPfun id="XFEBCC"  Expression="+1*EXP(.7874195*DFEBCC)-1;" />
+  <TPfun id="VMOBCC"  Expression="+9.34372E-06*EXP(AMOBCC);" />
+  <TPfun id="EMOBCC"  Expression="+1*LN(CMOBCC);" />
+  <TPfun id="XMOBCC"  Expression="+1*EXP(.6923076*DMOBCC)-1;" />
+  <TPfun id="VCEM1"  Expression="+2.339E-05*EXP(ACEM1);" />
+  <TPfun id="VCDIA"  Expression="+3.412E-06*EXP(ACDIA);" />
+  <TPfun id="ECDIA"  Expression="+1*LN(CCDIA);" />
+  <TPfun id="XCDIA"  Expression="+1*EXP(.8*DCDIA)-1;" />
+  <TPfun id="VCFCC"  Expression="+1.031E-05*EXP(ACFCC);" />
+  <TPfun id="EFEFCC"  Expression="+1*LN(CFEFCC);" />
+  <TPfun id="XFEFCC"  Expression="+1*EXP(.8064454*DFEFCC)-1;" />
+  <TPfun id="VFEFCC"  Expression="+6.688726E-06*EXP(AFEFCC);" />
+  <TPfun id="VFEHCP"  Expression="+6.59121E-06*EXP(AFEHCP);" />
+  <TPfun id="EFEHCP"  Expression="+1*LN(CFEHCP);" />
+  <TPfun id="XFEHCP"  Expression="+1*EXP(.8064454*DFEHCP)-1;" />
+  <TPfun id="ACLIQ"  Expression="+2.32E-05*T+2.85E-09*T**2;" />
+  <TPfun id="CCLIQ"  Expression="1.6E-10;" />
+  <TPfun id="DCLIQ"  Expression="+1*LN(BCLIQ);" />
+  <TPfun id="ACRLIQ"  Expression="+1.7E-05*T+9.2E-09*T**2;" />
+  <TPfun id="CCRLIQ"  Expression="3.72E-11;" />
+  <TPfun id="DCRLIQ"  Expression="+1*LN(BCRLIQ);" />
+  <TPfun id="AFELIQ"  Expression="+1.135E-04*T;" />
+  <TPfun id="CFELIQ"  Expression="+4.22534787E-12+2.71569924E-14*T;" />
+  <TPfun id="DFELIQ"  Expression="+1*LN(BFELIQ);" />
+  <TPfun id="AMOLIQ"  Expression="+1.4378E-05*T+2.33031E-10*T**2  +1.14687E-12*T**3;" />
+  <TPfun id="CMOLIQ"  Expression="+7.88107E-12+3.375E-16*T+8.775E-20*T**2;" />
+  <TPfun id="DMOBCC"  Expression="+1*LN(BMOBCC);" />
+  <TPfun id="ACRBCC"  Expression="+1.7E-05*T+9.2E-09*T**2;" />
+  <TPfun id="CCRBCC"  Expression="2.08E-11;" />
+  <TPfun id="DCRBCC"  Expression="+1*LN(BCRBCC);" />
+  <TPfun id="ACGRA"  Expression="+2.32E-05*T+2.85E-09*T**2;" />
+  <TPfun id="CCGRA"  Expression="3.3E-10;" />
+  <TPfun id="DCGRA"  Expression="+1*LN(BCGRA);" />
+  <TPfun id="AFEBCC"  Expression="+2.3987E-05*T+1.2845E-08*T**2;" />
+  <TPfun id="CFEBCC"  Expression="+2.20949565E-11+2.41329523E-16*T;" />
+  <TPfun id="DFEBCC"  Expression="+1*LN(BFEBCC);" />
+  <TPfun id="AMOBCC"  Expression="+1.4378E-05*T+2.33031E-10*T**2  +1.14687E-12*T**3;" />
+  <TPfun id="CMOBCC"  Expression="+7.88107E-12+3.375E-16*T+8.775E-20*T**2;" />
+  <TPfun id="ACEM1"  Expression="-1.36E-05*T+4E-08*T**2;" />
+  <TPfun id="ACDIA"  Expression="+2.43E-06*T+5E-09*T**2;" />
+  <TPfun id="CCDIA"  Expression="6.8E-12;" />
+  <TPfun id="DCDIA"  Expression="+1*LN(BCDIA);" />
+  <TPfun id="ACFCC"  Expression="+1.44E-04*T;" />
+  <TPfun id="CFEFCC"  Expression="+2.62285341E-11+2.71455808E-16*T;" />
+  <TPfun id="DFEFCC"  Expression="+1*LN(BFEFCC);" />
+  <TPfun id="AFEFCC"  Expression="+7.3097E-05*T;" />
+  <TPfun id="AFEHCP"  Expression="+7.3646E-05*T;" />
+  <TPfun id="CFEHCP"  Expression="+2.62285341E-11+2.71455808E-16*T;" />
+  <TPfun id="DFEHCP"  Expression="+1*LN(BFEHCP);" />
+  <TPfun id="BCLIQ"  Expression="+1+3.2E-10*P;" />
+  <TPfun id="BCRLIQ"  Expression="+1+4.65E-11*P;" />
+  <TPfun id="BFELIQ"  Expression="+1+4.98009787E-12*P+3.20078924E-14*T*P;" />
+  <TPfun id="BMOBCC"  Expression="+1+1.13837E-11*P+4.875E-16*T*P  +1.2675E-19*T**2*P;" />
+  <TPfun id="BCRBCC"  Expression="+1+2.6E-11*P;" />
+  <TPfun id="BCGRA"  Expression="+1+3.6E-10*P;" />
+  <TPfun id="BFEBCC"  Expression="+1+2.80599565E-11*P+3.06481523E-16*T*P;" />
+  <TPfun id="BCDIA"  Expression="+1+8.5E-12*P;" />
+  <TPfun id="BFEFCC"  Expression="+1+3.25236341E-11*P+3.36607808E-16*T*P;" />
+  <TPfun id="BFEHCP"  Expression="+1+3.25236341E-11*P+3.36607808E-16*T*P;" />
+  <TPfun id="UN_ASS"  >
+    <Trange High_T="300" Expression=" 0;" />
+  </TPfun>
+  <Phase id="SIC" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="1  1" >
-      <Constituent sublattice="1" id="SI" />
-      <Constituent sublattice="2" id="C" />
+      <Constituent sublattice="1" list="SI" />
+      <Constituent sublattice="2" list="C" />
     </Sublattices>
   </Phase>
-  <Phase id="BCC_A2" Configurational_model="CEF" >
+  <Phase id="BCC_A2" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="1  3" >
-      <Constituent sublattice="1" id="CR" />
-      <Constituent sublattice="1" id="FE" />
-      <Constituent sublattice="1" id="MO" />
-      <Constituent sublattice="1" id="SI" />
-      <Constituent sublattice="1" id="V" />
-      <Constituent sublattice="2" id="C" />
-      <Constituent sublattice="2" id="VA" />
+      <Constituent sublattice="1" list="CR FE MO SI V" />
+      <Constituent sublattice="2" list="C VA" />
     </Sublattices>
-    <Amend model="GES A_P_D BCC_A2 MAGNETIC  -1.0    4.00000E-01 !" />
+    <Amend-phase model="IHJBCC" />
   </Phase>
-  <Phase id="CEMENTITE" Configurational_model="CEF" >
+  <Phase id="CEMENTITE" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="3  1" >
-      <Constituent sublattice="1" id="CR" />
-      <Constituent sublattice="1" id="FE" />
-      <Constituent sublattice="1" id="MO" />
-      <Constituent sublattice="1" id="V" />
-      <Constituent sublattice="2" id="C" />
+      <Constituent sublattice="1" list="CR FE MO V" />
+      <Constituent sublattice="2" list="C" />
     </Sublattices>
   </Phase>
-  <Phase id="CHI_A12" Configurational_model="CEF" >
+  <Phase id="CHI_A12" Configuration_model="CEF" state="S" >
     <Sublattices number_of="3"  Ratios="24  10  24" >
-      <Constituent sublattice="1" id="CR" />
-      <Constituent sublattice="1" id="FE" />
-      <Constituent sublattice="2" id="CR" />
-      <Constituent sublattice="2" id="MO" />
-      <Constituent sublattice="3" id="CR" />
-      <Constituent sublattice="3" id="FE" />
-      <Constituent sublattice="3" id="MO" />
+      <Constituent sublattice="1" list="CR FE" />
+      <Constituent sublattice="2" list="CR MO" />
+      <Constituent sublattice="3" list="CR FE MO" />
     </Sublattices>
   </Phase>
-  <Phase id="CR2VC2" Configurational_model="CEF" >
+  <Phase id="CR2VC2" Configuration_model="CEF" state="S" >
     <Sublattices number_of="3"  Ratios="2  1  2" >
-      <Constituent sublattice="1" id="CR" />
-      <Constituent sublattice="2" id="V" />
-      <Constituent sublattice="3" id="C" />
+      <Constituent sublattice="1" list="CR" />
+      <Constituent sublattice="2" list="V" />
+      <Constituent sublattice="3" list="C" />
     </Sublattices>
   </Phase>
-  <Phase id="CR3SI" Configurational_model="CEF" >
+  <Phase id="CR3SI" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="3  1" >
-      <Constituent sublattice="1" id="CR" />
-      <Constituent sublattice="1" id="SI" />
-      <Constituent sublattice="2" id="CR" />
-      <Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="1" list="CR SI" />
+      <Constituent sublattice="2" list="CR SI" />
     </Sublattices>
   </Phase>
-  <Phase id="CR5SI3" Configurational_model="CEF" >
+  <Phase id="CR5SI3" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="5  3" >
-      <Constituent sublattice="1" id="CR" />
-      <Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="1" list="CR" />
+      <Constituent sublattice="2" list="SI" />
     </Sublattices>
   </Phase>
-  <Phase id="CR1SI1" Configurational_model="CEF" >
+  <Phase id="CR1SI1" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="1  1" >
-      <Constituent sublattice="1" id="CR" />
-      <Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="1" list="CR" />
+      <Constituent sublattice="2" list="SI" />
     </Sublattices>
   </Phase>
-  <Phase id="CRSI2" Configurational_model="CEF" >
+  <Phase id="CRSI2" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="1  2" >
-      <Constituent sublattice="1" id="CR" />
-      <Constituent sublattice="1" id="SI" />
-      <Constituent sublattice="2" id="CR" />
-      <Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="1" list="CR SI" />
+      <Constituent sublattice="2" list="CR SI" />
     </Sublattices>
   </Phase>
-  <Phase id="CUB_A13" Configurational_model="CEF" >
+  <Phase id="CUB_A13" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="1  1" >
-      <Constituent sublattice="1" id="CR" />
-      <Constituent sublattice="1" id="FE" />
-      <Constituent sublattice="1" id="SI" />
-      <Constituent sublattice="1" id="V" />
-      <Constituent sublattice="2" id="C" />
-      <Constituent sublattice="2" id="VA" />
+      <Constituent sublattice="1" list="CR FE SI V" />
+      <Constituent sublattice="2" list="C VA" />
     </Sublattices>
   </Phase>
-  <Phase id="DIAMOND_A4" Configurational_model="CEF" >
+  <Phase id="DIAMOND_A4" Configuration_model="CEF" state="S" >
     <Sublattices number_of="1"  Ratios="1" >
-      <Constituent sublattice="1" id="C" />
-      <Constituent sublattice="1" id="SI" />
+      <Constituent sublattice="1" list="C SI" />
     </Sublattices>
   </Phase>
-  <Phase id="FCC_A1" Configurational_model="CEF" >
+  <Phase id="FCC_A1" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="1  1" >
-      <Constituent sublattice="1" id="CR" />
-      <Constituent sublattice="1" id="FE" />
-      <Constituent sublattice="1" id="MO" />
-      <Constituent sublattice="1" id="SI" />
-      <Constituent sublattice="1" id="V" />
-      <Constituent sublattice="2" id="C" />
-      <Constituent sublattice="2" id="VA" />
+      <Constituent sublattice="1" list="CR FE MO SI V" />
+      <Constituent sublattice="2" list="C VA" />
     </Sublattices>
-    <Amend model="GES A_P_D FCC_A1 MAGNETIC  -3.0    2.80000E-01 !" />
+    <Amend-phase model="IHJREST" />
   </Phase>
-  <Phase id="FE1SI1" Configurational_model="CEF" >
+  <Phase id="FE1SI1" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="0.5  0.5" >
-      <Constituent sublattice="1" id="FE" />
-      <Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="1" list="FE" />
+      <Constituent sublattice="2" list="SI" />
     </Sublattices>
   </Phase>
-  <Phase id="FE2SI" Configurational_model="CEF" >
+  <Phase id="FE2SI" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="0.666667  0.333333" >
-      <Constituent sublattice="1" id="FE" />
-      <Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="1" list="FE" />
+      <Constituent sublattice="2" list="SI" />
     </Sublattices>
   </Phase>
-  <Phase id="FE4N" Configurational_model="CEF" >
+  <Phase id="FE4N" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="4  1" >
-      <Constituent sublattice="1" id="FE" />
-      <Constituent sublattice="2" id="C" />
-      <Constituent sublattice="2" id="VA" />
+      <Constituent sublattice="1" list="FE" />
+      <Constituent sublattice="2" list="C VA" />
     </Sublattices>
   </Phase>
-  <Phase id="FE5SI3" Configurational_model="CEF" >
+  <Phase id="FE5SI3" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="0.625  0.375" >
-      <Constituent sublattice="1" id="FE" />
-      <Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="1" list="FE" />
+      <Constituent sublattice="2" list="SI" />
     </Sublattices>
   </Phase>
-  <Phase id="FE8SI2C" Configurational_model="CEF" >
+  <Phase id="FE8SI2C" Configuration_model="CEF" state="S" >
     <Sublattices number_of="3"  Ratios="8  2  1" >
-      <Constituent sublattice="1" id="FE" />
-      <Constituent sublattice="2" id="SI" />
-      <Constituent sublattice="3" id="C" />
+      <Constituent sublattice="1" list="FE" />
+      <Constituent sublattice="2" list="SI" />
+      <Constituent sublattice="3" list="C" />
     </Sublattices>
   </Phase>
-  <Phase id="FECN_CHI" Configurational_model="CEF" >
+  <Phase id="FECN_CHI" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="5  2" >
-      <Constituent sublattice="1" id="FE" />
-      <Constituent sublattice="2" id="C" />
+      <Constituent sublattice="1" list="FE" />
+      <Constituent sublattice="2" list="C" />
     </Sublattices>
   </Phase>
-  <Phase id="FESI2_H" Configurational_model="CEF" >
+  <Phase id="FESI2_H" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="0.3  0.7" >
-      <Constituent sublattice="1" id="FE" />
-      <Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="1" list="FE" />
+      <Constituent sublattice="2" list="SI" />
     </Sublattices>
   </Phase>
-  <Phase id="FESI2_L" Configurational_model="CEF" >
+  <Phase id="FESI2_L" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="0.333333  0.666667" >
-      <Constituent sublattice="1" id="FE" />
-      <Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="1" list="FE" />
+      <Constituent sublattice="2" list="SI" />
     </Sublattices>
   </Phase>
-  <Phase id="GRAPHITE" Configurational_model="CEF" >
+  <Phase id="GRAPHITE" Configuration_model="CEF" state="S" >
     <Sublattices number_of="1"  Ratios="1" >
-      <Constituent sublattice="1" id="C" />
+      <Constituent sublattice="1" list="C" />
     </Sublattices>
   </Phase>
-  <Phase id="HCP_A3" Configurational_model="CEF" >
+  <Phase id="HCP_A3" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="1  0.5" >
-      <Constituent sublattice="1" id="CR" />
-      <Constituent sublattice="1" id="FE" />
-      <Constituent sublattice="1" id="MO" />
-      <Constituent sublattice="1" id="SI" />
-      <Constituent sublattice="1" id="V" />
-      <Constituent sublattice="2" id="C" />
-      <Constituent sublattice="2" id="VA" />
+      <Constituent sublattice="1" list="CR FE MO SI V" />
+      <Constituent sublattice="2" list="C VA" />
     </Sublattices>
-    <Amend model="GES A_P_D HCP_A3 MAGNETIC  -3.0    2.80000E-01 !" />
+    <Amend-phase model="IHJREST" />
   </Phase>
-  <Phase id="KSI_CARBIDE" Configurational_model="CEF" >
+  <Phase id="KSI_CARBIDE" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="3  1" >
-      <Constituent sublattice="1" id="CR" />
-      <Constituent sublattice="1" id="FE" />
-      <Constituent sublattice="1" id="MO" />
-      <Constituent sublattice="2" id="C" />
+      <Constituent sublattice="1" list="CR FE MO" />
+      <Constituent sublattice="2" list="C" />
     </Sublattices>
   </Phase>
-  <Phase id="LAVES_PHASE" Configurational_model="CEF" >
+  <Phase id="LAVES_PHASE" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="2  1" >
-      <Constituent sublattice="1" id="CR" />
-      <Constituent sublattice="1" id="FE" />
-      <Constituent sublattice="2" id="MO" />
+      <Constituent sublattice="1" list="CR FE" />
+      <Constituent sublattice="2" list="MO" />
     </Sublattices>
   </Phase>
-  <Phase id="M23C6" Configurational_model="CEF" >
+  <Phase id="M23C6" Configuration_model="CEF" state="S" >
     <Sublattices number_of="3"  Ratios="20  3  6" >
-      <Constituent sublattice="1" id="CR" />
-      <Constituent sublattice="1" id="FE" />
-      <Constituent sublattice="1" id="V" />
-      <Constituent sublattice="2" id="CR" />
-      <Constituent sublattice="2" id="FE" />
-      <Constituent sublattice="2" id="MO" />
-      <Constituent sublattice="2" id="V" />
-      <Constituent sublattice="3" id="C" />
+      <Constituent sublattice="1" list="CR FE V" />
+      <Constituent sublattice="2" list="CR FE MO V" />
+      <Constituent sublattice="3" list="C" />
     </Sublattices>
   </Phase>
-  <Phase id="M3C2" Configurational_model="CEF" >
+  <Phase id="M3C2" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="3  2" >
-      <Constituent sublattice="1" id="CR" />
-      <Constituent sublattice="1" id="MO" />
-      <Constituent sublattice="1" id="V" />
-      <Constituent sublattice="2" id="C" />
+      <Constituent sublattice="1" list="CR MO V" />
+      <Constituent sublattice="2" list="C" />
     </Sublattices>
   </Phase>
-  <Phase id="M3SI" Configurational_model="CEF" >
+  <Phase id="M3SI" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="3  1" >
-      <Constituent sublattice="1" id="FE" />
-      <Constituent sublattice="2" id="SI" />
+      <Constituent sublattice="1" list="FE" />
+      <Constituent sublattice="2" list="SI" />
     </Sublattices>
   </Phase>
-  <Phase id="M5C2" Configurational_model="CEF" >
+  <Phase id="M5C2" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="5  2" >
-      <Constituent sublattice="1" id="FE" />
-      <Constituent sublattice="1" id="V" />
-      <Constituent sublattice="2" id="C" />
+      <Constituent sublattice="1" list="FE V" />
+      <Constituent sublattice="2" list="C" />
     </Sublattices>
   </Phase>
-  <Phase id="M6C" Configurational_model="CEF" >
+  <Phase id="M6C" Configuration_model="CEF" state="S" >
     <Sublattices number_of="4"  Ratios="2  2  2  1" >
-      <Constituent sublattice="1" id="FE" />
-      <Constituent sublattice="2" id="MO" />
-      <Constituent sublattice="3" id="CR" />
-      <Constituent sublattice="3" id="FE" />
-      <Constituent sublattice="3" id="MO" />
-      <Constituent sublattice="3" id="V" />
-      <Constituent sublattice="4" id="C" />
+      <Constituent sublattice="1" list="FE" />
+      <Constituent sublattice="2" list="MO" />
+      <Constituent sublattice="3" list="CR FE MO V" />
+      <Constituent sublattice="4" list="C" />
     </Sublattices>
   </Phase>
-  <Phase id="M7C3" Configurational_model="CEF" >
+  <Phase id="M7C3" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="7  3" >
-      <Constituent sublattice="1" id="CR" />
-      <Constituent sublattice="1" id="FE" />
-      <Constituent sublattice="1" id="MO" />
-      <Constituent sublattice="1" id="V" />
-      <Constituent sublattice="2" id="C" />
+      <Constituent sublattice="1" list="CR FE MO V" />
+      <Constituent sublattice="2" list="C" />
     </Sublattices>
   </Phase>
-  <Phase id="MC_ETA" Configurational_model="CEF" >
+  <Phase id="MC_ETA" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="1  1" >
-      <Constituent sublattice="1" id="MO" />
-      <Constituent sublattice="2" id="C" />
-      <Constituent sublattice="2" id="VA" />
+      <Constituent sublattice="1" list="MO" />
+      <Constituent sublattice="2" list="C VA" />
     </Sublattices>
   </Phase>
-  <Phase id="MC_SHP" Configurational_model="CEF" >
+  <Phase id="MC_SHP" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="1  1" >
-      <Constituent sublattice="1" id="MO" />
-      <Constituent sublattice="2" id="C" />
+      <Constituent sublattice="1" list="MO" />
+      <Constituent sublattice="2" list="C" />
     </Sublattices>
   </Phase>
-  <Phase id="MONI_DELTA" Configurational_model="CEF" >
+  <Phase id="MONI_DELTA" Configuration_model="CEF" state="S" >
     <Sublattices number_of="3"  Ratios="24  20  12" >
-      <Constituent sublattice="1" id="CR" />
-      <Constituent sublattice="1" id="FE" />
-      <Constituent sublattice="2" id="CR" />
-      <Constituent sublattice="2" id="FE" />
-      <Constituent sublattice="2" id="MO" />
-      <Constituent sublattice="3" id="MO" />
+      <Constituent sublattice="1" list="CR FE" />
+      <Constituent sublattice="2" list="CR FE MO" />
+      <Constituent sublattice="3" list="MO" />
     </Sublattices>
   </Phase>
-  <Phase id="MU_PHASE" Configurational_model="CEF" >
+  <Phase id="MU_PHASE" Configuration_model="CEF" state="S" >
     <Sublattices number_of="3"  Ratios="7  2  4" >
-      <Constituent sublattice="1" id="CR" />
-      <Constituent sublattice="1" id="FE" />
-      <Constituent sublattice="2" id="MO" />
-      <Constituent sublattice="3" id="CR" />
-      <Constituent sublattice="3" id="FE" />
-      <Constituent sublattice="3" id="MO" />
+      <Constituent sublattice="1" list="CR FE" />
+      <Constituent sublattice="2" list="MO" />
+      <Constituent sublattice="3" list="CR FE MO" />
     </Sublattices>
   </Phase>
-  <Phase id="P_PHASE" Configurational_model="CEF" >
+  <Phase id="P_PHASE" Configuration_model="CEF" state="S" >
     <Sublattices number_of="3"  Ratios="24  20  12" >
-      <Constituent sublattice="1" id="CR" />
-      <Constituent sublattice="1" id="FE" />
-      <Constituent sublattice="2" id="CR" />
-      <Constituent sublattice="2" id="FE" />
-      <Constituent sublattice="2" id="MO" />
-      <Constituent sublattice="3" id="MO" />
+      <Constituent sublattice="1" list="CR FE" />
+      <Constituent sublattice="2" list="CR FE MO" />
+      <Constituent sublattice="3" list="MO" />
     </Sublattices>
   </Phase>
-  <Phase id="R_PHASE" Configurational_model="CEF" >
+  <Phase id="R_PHASE" Configuration_model="CEF" state="S" >
     <Sublattices number_of="3"  Ratios="27  14  12" >
-      <Constituent sublattice="1" id="CR" />
-      <Constituent sublattice="1" id="FE" />
-      <Constituent sublattice="2" id="MO" />
-      <Constituent sublattice="3" id="CR" />
-      <Constituent sublattice="3" id="FE" />
-      <Constituent sublattice="3" id="MO" />
+      <Constituent sublattice="1" list="CR FE" />
+      <Constituent sublattice="2" list="MO" />
+      <Constituent sublattice="3" list="CR FE MO" />
     </Sublattices>
   </Phase>
-  <Phase id="LIQUID" Configurational_model="CEF" >
+  <Phase id="LIQUID" Configuration_model="CEF" state="L" >
     <Sublattices number_of="1"  Ratios="1" >
-      <Constituent sublattice="1" id="C" />
-      <Constituent sublattice="1" id="CR" />
-      <Constituent sublattice="1" id="FE" />
-      <Constituent sublattice="1" id="MO" />
-      <Constituent sublattice="1" id="SI" />
-      <Constituent sublattice="1" id="V" />
+      <Constituent sublattice="1" list="C CR FE MO SI V" />
     </Sublattices>
-    <Amend model="LIQUID_PHASE            " />
   </Phase>
-  <Phase id="SIGMA" Configurational_model="CEF" >
+  <Phase id="SIGMA" Configuration_model="CEF" state="S" >
     <Sublattices number_of="3"  Ratios="8  4  18" >
-      <Constituent sublattice="1" id="FE" />
-      <Constituent sublattice="2" id="CR" />
-      <Constituent sublattice="2" id="MO" />
-      <Constituent sublattice="2" id="V" />
-      <Constituent sublattice="3" id="CR" />
-      <Constituent sublattice="3" id="FE" />
-      <Constituent sublattice="3" id="MO" />
-      <Constituent sublattice="3" id="V" />
+      <Constituent sublattice="1" list="FE" />
+      <Constituent sublattice="2" list="CR MO V" />
+      <Constituent sublattice="3" list="CR FE MO V" />
     </Sublattices>
   </Phase>
-  <Phase id="CBCC_A12" Configurational_model="CEF" >
+  <Phase id="CBCC_A12" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="1  1" >
-      <Constituent sublattice="1" id="CR" />
-      <Constituent sublattice="1" id="FE" />
-      <Constituent sublattice="1" id="SI" />
-      <Constituent sublattice="1" id="V" />
-      <Constituent sublattice="2" id="C" />
-      <Constituent sublattice="2" id="VA" />
+      <Constituent sublattice="1" list="CR FE SI V" />
+      <Constituent sublattice="2" list="C VA" />
     </Sublattices>
-    <Amend model="GES A_P_D CBCC_A12 MAGNETIC  -3.0    2.80000E-01 !" />
+    <Amend-phase model="IHJREST" />
   </Phase>
-  <Phase id="V3C2" Configurational_model="CEF" >
+  <Phase id="V3C2" Configuration_model="CEF" state="S" >
     <Sublattices number_of="2"  Ratios="3  2" >
-      <Constituent sublattice="1" id="FE" />
-      <Constituent sublattice="1" id="V" />
-      <Constituent sublattice="2" id="C" />
+      <Constituent sublattice="1" list="FE V" />
+      <Constituent sublattice="2" list="C" />
     </Sublattices>
   </Phase>
   <Unary-parameters >
-    <Parameter id="G(BCC_A2,CR:VA;0)"   Low_T="298.15"  Bibref="REF283" > 
-      <Trange High_T="6000" > +GHSERCR+GPCRBCC; </Trange>
+    <Parameter id="G(BCC_A2,CR:VA;0)"   Expression="+GHSERCR+GPCRBCC;" Bibref="REF283" />
+    <Parameter id="TC(BCC_A2,CR:VA;0)"   Expression="-311.5;" Bibref="REF281" />
+    <Parameter id="BMAGN(BCC_A2,CR:VA;0)"   Expression="-.01;" Bibref="REF281" />
+    <Parameter id="G(BCC_A2,FE:VA;0)"   Expression="+GHSERFE+GPFEBCC;" Bibref="REF283" />
+    <Parameter id="TC(BCC_A2,FE:VA;0)"   Expression="1043;" Bibref="REF281" />
+    <Parameter id="BMAGN(BCC_A2,FE:VA;0)"   Expression="2.22;" Bibref="REF281" />
+    <Parameter id="G(BCC_A2,MO:VA;0)"   Bibref="REF283" > 
+      <Trange High_T="5000" Expression="+GHSERMO+GPMOBCC;" />
     </Parameter>
-    <Parameter id="TC(BCC_A2,CR:VA;0)"   Low_T="298.15"  Bibref="REF281" > 
-      <Trange High_T="6000" > -311.5; </Trange>
+    <Parameter id="G(BCC_A2,SI:VA;0)"   Bibref="REF283" > 
+      <Trange High_T="3600" Expression="+GSIBCC;" />
     </Parameter>
-    <Parameter id="BMAGN(BCC_A2,CR:VA;0)"   Low_T="298.15"  Bibref="REF281" > 
-      <Trange High_T="6000" > -.01; </Trange>
+    <Parameter id="G(BCC_A2,V:VA;0)"   Bibref="REF283" > 
+      <Trange High_T="4000" Expression="+GHSERVV;" />
     </Parameter>
-    <Parameter id="G(BCC_A2,FE:VA;0)"   Low_T="298.15"  Bibref="REF283" > 
-      <Trange High_T="6000" > +GHSERFE+GPFEBCC; </Trange>
+    <Parameter id="G(CHI_A12,CR:CR:CR;0)"   Expression="+48*GCRFCC+10*GHSERCR  +109000+123*T;" Bibref="REF213" />
+    <Parameter id="G(CR3SI,CR:CR;0)"   Expression="+17008.82+4*T+4*GHSERCR;" Bibref="REF90" />
+    <Parameter id="G(CR3SI,SI:SI;0)"   Expression="+24543.3+4*T+4*GHSERSI;" Bibref="REF90" />
+    <Parameter id="G(CRSI2,CR:CR;0)"   Expression="+10000+10*T+3*GHSERCR;" Bibref="REF90" />
+    <Parameter id="G(CRSI2,SI:SI;0)"   Expression="+77711.85-15.05638*T+3*GHSERSI;" Bibref="REF90" />
+    <Parameter id="G(CUB_A13,CR:VA;0)"   Expression="+15899+.6276*T+GHSERCR;" Bibref="REF283" />
+    <Parameter id="G(CUB_A13,FE:VA;0)"   Expression="+3745+GHSERFE;" Bibref="REF283" />
+    <Parameter id="G(CUB_A13,SI:VA;0)"   Bibref="REF283" > 
+      <Trange High_T="3600" Expression="+47279-20.377*T+GHSERSI;" />
     </Parameter>
-    <Parameter id="TC(BCC_A2,FE:VA;0)"   Low_T="298.15"  Bibref="REF281" > 
-      <Trange High_T="6000" > 1043; </Trange>
+    <Parameter id="G(CUB_A13,V:VA;0)"   Bibref="REF0" > 
+      <Trange High_T="300" Expression="UN_ASS;" />
     </Parameter>
-    <Parameter id="BMAGN(BCC_A2,FE:VA;0)"   Low_T="298.15"  Bibref="REF281" > 
-      <Trange High_T="6000" > 2.22; </Trange>
+    <Parameter id="G(DIAMOND_A4,C;0)"   Expression="-16359.441+175.61*T  -24.31*T*LN(T)-4.723E-04*T**2+2698000*T**(-1)-2.61E+08*T**(-2)  +1.11E+10*T**(-3)+GPCDIA;" Bibref="REF283" />
+    <Parameter id="G(DIAMOND_A4,SI;0)"   Bibref="REF283" > 
+      <Trange High_T="3600" Expression="+GHSERSI;" />
     </Parameter>
-    <Parameter id="G(BCC_A2,MO:VA;0)"   Low_T="298.15"  Bibref="REF283" > 
-      <Trange High_T="5000" > +GHSERMO+GPMOBCC; </Trange>
+    <Parameter id="G(FCC_A1,CR:VA;0)"   Expression="+GCRFCC+GPCRBCC;" Bibref="REF281" />
+    <Parameter id="TC(FCC_A1,CR:VA;0)"   Expression="-1109;" Bibref="REF281" />
+    <Parameter id="BMAGN(FCC_A1,CR:VA;0)"   Expression="-2.46;" Bibref="REF281" />
+    <Parameter id="G(FCC_A1,FE:VA;0)"   Expression="+GFEFCC+GPFEFCC;" Bibref="REF283" />
+    <Parameter id="TC(FCC_A1,FE:VA;0)"   Expression="-201;" Bibref="REF281" />
+    <Parameter id="BMAGN(FCC_A1,FE:VA;0)"   Expression="-2.1;" Bibref="REF281" />
+    <Parameter id="G(FCC_A1,MO:VA;0)"   Bibref="REF283" > 
+      <Trange High_T="5000" Expression="+15200+.63*T+GHSERMO+GPMOBCC;" />
     </Parameter>
-    <Parameter id="G(BCC_A2,SI:VA;0)"   Low_T="298.15"  Bibref="REF283" > 
-      <Trange High_T="3600" > +GSIBCC; </Trange>
+    <Parameter id="G(FCC_A1,SI:VA;0)"   Bibref="REF283" > 
+      <Trange High_T="3600" Expression="+51000-21.8*T+GHSERSI;" />
     </Parameter>
-    <Parameter id="G(BCC_A2,V:VA;0)"   Low_T="298.15"  Bibref="REF283" > 
-      <Trange High_T="4000" > +GHSERVV; </Trange>
+    <Parameter id="G(FCC_A1,V:VA;0)"   Bibref="REF283" > 
+      <Trange High_T="4000" Expression="+7500+1.7*T+GHSERVZ;" />
     </Parameter>
-    <Parameter id="G(CHI_A12,CR:CR:CR;0)"   Low_T="298.15"  Bibref="REF213" > 
-      <Trange High_T="6000" > +48*GCRFCC+10*GHSERCR  +109000+123*T; </Trange>
+    <Parameter id="G(FE4N,FE:VA;0)"   Expression="+4*GFEFCC+10;" Bibref="REF319" />
+    <Parameter id="G(GRAPHITE,C;0)"   Expression="+GHSERCC+GPCGRA;" Bibref="REF283" />
+    <Parameter id="G(HCP_A3,CR:VA;0)"   Expression="+4438+GHSERCR+GPCRBCC;" Bibref="REF283" />
+    <Parameter id="TC(HCP_A3,CR:VA;0)"   Expression="-1109;" Bibref="REF281" />
+    <Parameter id="BMAGN(HCP_A3,CR:VA;0)"   Expression="-2.46;" Bibref="REF281" />
+    <Parameter id="G(HCP_A3,FE:VA;0)"   Bibref="REF283" > 
+      <Trange High_T="1811" Expression="-3705.78+12.591*T-1.15*T*LN(T)  +6.4E-04*T**2+GHSERFE+GPFEHCP;" />
+      <Trange High_T="6000" Expression="  -3957.199+5.24951*T+4.9251E+30*T**(-9)+GHSERFE+GPFEHCP;" />
     </Parameter>
-    <Parameter id="G(CR3SI,CR:CR;0)"   Low_T="298.15"  Bibref="REF90" > 
-      <Trange High_T="6000" > +17008.82+4*T+4*GHSERCR; </Trange>
+    <Parameter id="G(HCP_A3,MO:VA;0)"   Bibref="REF283" > 
+      <Trange High_T="5000" Expression="+11550+GHSERMO+GPMOBCC;" />
     </Parameter>
-    <Parameter id="G(CR3SI,SI:SI;0)"   Low_T="298.15"  Bibref="REF90" > 
-      <Trange High_T="6000" > +24543.3+4*T+4*GHSERSI; </Trange>
+    <Parameter id="G(HCP_A3,SI:VA;0)"   Bibref="REF283" > 
+      <Trange High_T="3600" Expression="+49200-20.8*T+GHSERSI;" />
     </Parameter>
-    <Parameter id="G(CRSI2,CR:CR;0)"   Low_T="298.15"  Bibref="REF90" > 
-      <Trange High_T="6000" > +10000+10*T+3*GHSERCR; </Trange>
+    <Parameter id="G(HCP_A3,V:VA;0)"   Bibref="REF283" > 
+      <Trange High_T="4000" Expression="+4000+2.4*T+GHSERVZ;" />
     </Parameter>
-    <Parameter id="G(CRSI2,SI:SI;0)"   Low_T="298.15"  Bibref="REF90" > 
-      <Trange High_T="6000" > +77711.85-15.05638*T+3*GHSERSI; </Trange>
+    <Parameter id="G(MC_ETA,MO:VA;0)"   Expression="+GHSERMO+15200+.63*T;" Bibref="REF113" />
+    <Parameter id="G(LIQUID,C;0)"   Expression="+117369-24.63*T+GHSERCC+GPCLIQ;" Bibref="REF283" />
+    <Parameter id="G(LIQUID,CR;0)"   Bibref="REF283" > 
+      <Trange High_T="2180" Expression="+24339.955-11.420225*T  +2.37615E-21*T**7+GHSERCR+GPCRLIQ;" />
+      <Trange High_T="6000" Expression="  +18409.36-8.563683*T+2.88526E+32*T**(-9)+GHSERCR+GPCRLIQ;" />
     </Parameter>
-    <Parameter id="G(CUB_A13,CR:VA;0)"   Low_T="298.15"  Bibref="REF283" > 
-      <Trange High_T="6000" > +15899+.6276*T+GHSERCR; </Trange>
+    <Parameter id="G(LIQUID,FE;0)"   Expression="+GFELIQ+GPFELIQ;" Bibref="REF283" />
+    <Parameter id="G(LIQUID,MO;0)"   Bibref="REF283" > 
+      <Trange High_T="2896" Expression="+41831.347-14.694912*T  +4.24519E-22*T**7+GHSERMO+GPMOLIQ;" />
+      <Trange High_T="5000" Expression="  +34095.373-11.890046*T+4.849315E+33*T**(-9)+GHSERMO+GPMOLIQ;" />
     </Parameter>
-    <Parameter id="G(CUB_A13,FE:VA;0)"   Low_T="298.15"  Bibref="REF283" > 
-      <Trange High_T="6000" > +3745+GHSERFE; </Trange>
+    <Parameter id="G(LIQUID,SI;0)"   Bibref="REF283" > 
+      <Trange High_T="1687" Expression="+50696.36-30.099439*T  +2.09307E-21*T**7+GHSERSI;" />
+      <Trange High_T="3600" Expression="  +49828.165-29.559069*T+4.20369E+30*T**(-9)+GHSERSI;" />
     </Parameter>
-    <Parameter id="G(CUB_A13,SI:VA;0)"   Low_T="298.15"  Bibref="REF283" > 
-      <Trange High_T="3600" > +47279-20.377*T+GHSERSI; </Trange>
+    <Parameter id="G(LIQUID,V;0)"   Bibref="REF283" > 
+      <Trange High_T="790" Expression="+20764.117-9.455552*T  -5.19136E-22*T**7+GHSERVV;" />
+      <Trange High_T="2183" Expression="  +20764.117-9.455552*T-5.19136E-22*T**7+GHSERVV;" />
+      <Trange High_T="4000" Expression="  +22072.354-10.0848*T-6.44389E+31*T**(-9)+GHSERVV;" />
     </Parameter>
-    <Parameter id="G(CUB_A13,V:VA;0)"   Low_T="298.15"  Bibref="REF0" > 
-      <Trange High_T="300" > UN_ASS; </Trange>
+    <Parameter id="G(CBCC_A12,CR:VA;0)"   Expression="+11087+2.7196*T+GHSERCR;" Bibref="REF283" />
+    <Parameter id="G(CBCC_A12,FE:VA;0)"   Expression="+4745+GHSERFE;" Bibref="REF283" />
+    <Parameter id="G(CBCC_A12,SI:VA;0)"   Bibref="REF283" > 
+      <Trange High_T="3600" Expression="+50208-20.377*T+GHSERSI;" />
     </Parameter>
-    <Parameter id="G(DIAMOND_A4,C;0)"   Low_T="298.15"  Bibref="REF283" > 
-      <Trange High_T="6000" > -16359.441+175.61*T  -24.31*T*LN(T)-4.723E-04*T**2+2698000*T**(-1)-2.61E+08*T**(-2)  +1.11E+10*T**(-3)+GPCDIA; </Trange>
-    </Parameter>
-    <Parameter id="G(DIAMOND_A4,SI;0)"   Low_T="298.15"  Bibref="REF283" > 
-      <Trange High_T="3600" > +GHSERSI; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,CR:VA;0)"   Low_T="298.15"  Bibref="REF281" > 
-      <Trange High_T="6000" > +GCRFCC+GPCRBCC; </Trange>
-    </Parameter>
-    <Parameter id="TC(FCC_A1,CR:VA;0)"   Low_T="298.15"  Bibref="REF281" > 
-      <Trange High_T="6000" > -1109; </Trange>
-    </Parameter>
-    <Parameter id="BMAGN(FCC_A1,CR:VA;0)"   Low_T="298.15"  Bibref="REF281" > 
-      <Trange High_T="6000" > -2.46; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,FE:VA;0)"   Low_T="298.15"  Bibref="REF283" > 
-      <Trange High_T="6000" > +GFEFCC+GPFEFCC; </Trange>
-    </Parameter>
-    <Parameter id="TC(FCC_A1,FE:VA;0)"   Low_T="298.15"  Bibref="REF281" > 
-      <Trange High_T="6000" > -201; </Trange>
-    </Parameter>
-    <Parameter id="BMAGN(FCC_A1,FE:VA;0)"   Low_T="298.15"  Bibref="REF281" > 
-      <Trange High_T="6000" > -2.1; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,MO:VA;0)"   Low_T="298.15"  Bibref="REF283" > 
-      <Trange High_T="5000" > +15200+.63*T+GHSERMO+GPMOBCC; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,SI:VA;0)"   Low_T="298.15"  Bibref="REF283" > 
-      <Trange High_T="3600" > +51000-21.8*T+GHSERSI; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,V:VA;0)"   Low_T="298.15"  Bibref="REF283" > 
-      <Trange High_T="4000" > +7500+1.7*T+GHSERVZ; </Trange>
-    </Parameter>
-    <Parameter id="G(FE4N,FE:VA;0)"   Low_T="298.15"  Bibref="REF319" > 
-      <Trange High_T="6000" > +4*GFEFCC+10; </Trange>
-    </Parameter>
-    <Parameter id="G(GRAPHITE,C;0)"   Low_T="298.15"  Bibref="REF283" > 
-      <Trange High_T="6000" > +GHSERCC+GPCGRA; </Trange>
-    </Parameter>
-    <Parameter id="G(HCP_A3,CR:VA;0)"   Low_T="298.15"  Bibref="REF283" > 
-      <Trange High_T="6000" > +4438+GHSERCR+GPCRBCC; </Trange>
-    </Parameter>
-    <Parameter id="TC(HCP_A3,CR:VA;0)"   Low_T="298.15"  Bibref="REF281" > 
-      <Trange High_T="6000" > -1109; </Trange>
-    </Parameter>
-    <Parameter id="BMAGN(HCP_A3,CR:VA;0)"   Low_T="298.15"  Bibref="REF281" > 
-      <Trange High_T="6000" > -2.46; </Trange>
-    </Parameter>
-    <Parameter id="G(HCP_A3,FE:VA;0)"   Low_T="298.15"  Bibref="REF283" > 
-      <Trange High_T="1811" > -3705.78+12.591*T-1.15*T*LN(T)  +6.4E-04*T**2+GHSERFE+GPFEHCP; </Trange>
-      <Trange High_T="6000" >   -3957.199+5.24951*T+4.9251E+30*T**(-9)+GHSERFE+GPFEHCP; </Trange>
-    </Parameter>
-    <Parameter id="G(HCP_A3,MO:VA;0)"   Low_T="298.15"  Bibref="REF283" > 
-      <Trange High_T="5000" > +11550+GHSERMO+GPMOBCC; </Trange>
-    </Parameter>
-    <Parameter id="G(HCP_A3,SI:VA;0)"   Low_T="298.15"  Bibref="REF283" > 
-      <Trange High_T="3600" > +49200-20.8*T+GHSERSI; </Trange>
-    </Parameter>
-    <Parameter id="G(HCP_A3,V:VA;0)"   Low_T="298.15"  Bibref="REF283" > 
-      <Trange High_T="4000" > +4000+2.4*T+GHSERVZ; </Trange>
-    </Parameter>
-    <Parameter id="G(MC_ETA,MO:VA;0)"   Low_T="298.15"  Bibref="REF113" > 
-      <Trange High_T="6000" > +GHSERMO+15200+.63*T; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,C;0)"   Low_T="298.15"  Bibref="REF283" > 
-      <Trange High_T="6000" > +117369-24.63*T+GHSERCC+GPCLIQ; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,CR;0)"   Low_T="298.15"  Bibref="REF283" > 
-      <Trange High_T="2180" > +24339.955-11.420225*T  +2.37615E-21*T**7+GHSERCR+GPCRLIQ; </Trange>
-      <Trange High_T="6000" >   +18409.36-8.563683*T+2.88526E+32*T**(-9)+GHSERCR+GPCRLIQ; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,FE;0)"   Low_T="298.15"  Bibref="REF283" > 
-      <Trange High_T="6000" > +GFELIQ+GPFELIQ; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,MO;0)"   Low_T="298.15"  Bibref="REF283" > 
-      <Trange High_T="2896" > +41831.347-14.694912*T  +4.24519E-22*T**7+GHSERMO+GPMOLIQ; </Trange>
-      <Trange High_T="5000" >   +34095.373-11.890046*T+4.849315E+33*T**(-9)+GHSERMO+GPMOLIQ; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,SI;0)"   Low_T="298.15"  Bibref="REF283" > 
-      <Trange High_T="1687" > +50696.36-30.099439*T  +2.09307E-21*T**7+GHSERSI; </Trange>
-      <Trange High_T="3600" >   +49828.165-29.559069*T+4.20369E+30*T**(-9)+GHSERSI; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,V;0)"   Low_T="298.15"  Bibref="REF283" > 
-      <Trange High_T="790" > +20764.117-9.455552*T  -5.19136E-22*T**7+GHSERVV; </Trange>
-      <Trange High_T="2183" >   +20764.117-9.455552*T-5.19136E-22*T**7+GHSERVV; </Trange>
-      <Trange High_T="4000" >   +22072.354-10.0848*T-6.44389E+31*T**(-9)+GHSERVV; </Trange>
-    </Parameter>
-    <Parameter id="G(CBCC_A12,CR:VA;0)"   Low_T="298.15"  Bibref="REF283" > 
-      <Trange High_T="6000" > +11087+2.7196*T+GHSERCR; </Trange>
-    </Parameter>
-    <Parameter id="G(CBCC_A12,FE:VA;0)"   Low_T="298.15"  Bibref="REF283" > 
-      <Trange High_T="6000" > +4745+GHSERFE; </Trange>
-    </Parameter>
-    <Parameter id="G(CBCC_A12,SI:VA;0)"   Low_T="298.15"  Bibref="REF283" > 
-      <Trange High_T="3600" > +50208-20.377*T+GHSERSI; </Trange>
-    </Parameter>
-    <Parameter id="G(CBCC_A12,V:VA;0)"   Low_T="298.15"  Bibref="REF0" > 
-      <Trange High_T="300" > UN_ASS; </Trange>
+    <Parameter id="G(CBCC_A12,V:VA;0)"   Bibref="REF0" > 
+      <Trange High_T="300" Expression="UN_ASS;" />
     </Parameter>
   </Unary-parameters>
   <Binary-parameters>
-    <Parameter id="G(SIC,SI:C;0)"   Low_T="298.15"  Bibref="REF286" > 
-      <Trange High_T="700" > -85572.2636+173.200518*T  -25.856*T*LN(T)-.02106825*T**2+3.2153E-06*T**3+438415*T**(-1); </Trange>
-      <Trange High_T="2100" >   -95145.9018+300.345769*T-45.093*T*LN(T)-.00366815*T**2  +2.19983333E-07*T**3+1341065*T**(-1); </Trange>
-      <Trange High_T="4000" >   -105007.971+360.308813*T-53.073*T*LN(T)-7.4525E-04*T**2  +1.73166667E-08*T**3+3693345*T**(-1); </Trange>
-    </Parameter>
-    <Parameter id="G(BCC_A2,CR:C;0)"   Low_T="298.15"  Bibref="REF101" > 
-      <Trange High_T="6000" > +GHSERCR+3*GHSERCC+GPCRBCC  +3*GPCGRA+416000; </Trange>
-    </Parameter>
-    <Parameter id="TC(BCC_A2,CR:C;0)"   Low_T="298.15"  Bibref="REF101" > 
-      <Trange High_T="6000" > -311.5; </Trange>
-    </Parameter>
-    <Parameter id="BMAGN(BCC_A2,CR:C;0)"   Low_T="298.15"  Bibref="REF101" > 
-      <Trange High_T="6000" > -.008; </Trange>
-    </Parameter>
-    <Parameter id="G(BCC_A2,FE:C;0)"   Low_T="298.15"  Bibref="REF190" > 
-      <Trange High_T="6000" > +322050+75.667*T+GHSERFE  +GPFEBCC+3*GHSERCC+3*GPCGRA; </Trange>
-    </Parameter>
-    <Parameter id="TC(BCC_A2,FE:C;0)"   Low_T="298.15"  Bibref="REF190" > 
-      <Trange High_T="6000" > 1043; </Trange>
-    </Parameter>
-    <Parameter id="BMAGN(BCC_A2,FE:C;0)"   Low_T="298.15"  Bibref="REF190" > 
-      <Trange High_T="6000" > 2.22; </Trange>
-    </Parameter>
-    <Parameter id="G(BCC_A2,MO:C;0)"   Low_T="298.15"  Bibref="REF104" > 
-      <Trange High_T="6000" > +331000-75*T+GHSERMO+3*GHSERCC; </Trange>
-    </Parameter>
-    <Parameter id="G(BCC_A2,SI:C;0)"   Low_T="298.15"  Bibref="REF98" > 
-      <Trange High_T="6000" > +322050-75.667*T+GSIBCC  +3*GHSERCC+3*GPCGRA; </Trange>
-    </Parameter>
-    <Parameter id="G(BCC_A2,V:C;0)"   Low_T="298.15"  Bibref="REF256" > 
-      <Trange High_T="6000" > +108449+GHSERVV+3*GHSERCC; </Trange>
-    </Parameter>
-    <Parameter id="G(BCC_A2,CR:C;0)"   Low_T="298.15"  Bibref="REF101" > 
-      <Trange High_T="6000" > -190*T; </Trange>
-    </Parameter>
-    <Parameter id="G(BCC_A2,FE:C;0)"   Low_T="298.15"  Bibref="REF190" > 
-      <Trange High_T="6000" > -190*T; </Trange>
-    </Parameter>
-    <Parameter id="G(BCC_A2,V:C;0)"   Low_T="298.15"  Bibref="REF256" > 
-      <Trange High_T="6000" > -297868; </Trange>
-    </Parameter>
-    <Parameter id="G(BCC_A2,CR,FE:VA;0)"   Low_T="298.15"  Bibref="REF107" > 
-      <Trange High_T="6000" > +20500-9.68*T; </Trange>
-    </Parameter>
-    <Parameter id="TC(BCC_A2,CR,FE:VA;0)"   Low_T="298.15"  Bibref="REF107" > 
-      <Trange High_T="6000" > 1650; </Trange>
-    </Parameter>
-    <Parameter id="TC(BCC_A2,CR,FE:VA;1)"   Low_T="298.15"  Bibref="REF107" > 
-      <Trange High_T="6000" > 550; </Trange>
-    </Parameter>
-    <Parameter id="BMAGN(BCC_A2,CR,FE:VA;0)"   Low_T="298.15"  Bibref="REF107" > 
-      <Trange High_T="6000" > -.85; </Trange>
-    </Parameter>
-    <Parameter id="G(BCC_A2,CR,MO:VA;0)"   Low_T="298.15"  Bibref="REF123" > 
-      <Trange High_T="6000" > +28890-7.962*T; </Trange>
-    </Parameter>
-    <Parameter id="G(BCC_A2,CR,MO:VA;1)"   Low_T="298.15"  Bibref="REF123" > 
-      <Trange High_T="6000" > +5974-2.428*T; </Trange>
-    </Parameter>
-    <Parameter id="G(BCC_A2,CR,SI:VA;0)"   Low_T="298.15"  Bibref="REF90" > 
-      <Trange High_T="6000" > -102850.19+9.85457*T; </Trange>
-    </Parameter>
-    <Parameter id="G(BCC_A2,CR,SI:VA;1)"   Low_T="298.15"  Bibref="REF90" > 
-      <Trange High_T="6000" > -49502.35+13.76967*T; </Trange>
-    </Parameter>
-    <Parameter id="G(BCC_A2,CR,V:VA;0)"   Low_T="298.15"  Bibref="REF323" > 
-      <Trange High_T="6000" > -9875-2.6964*T; </Trange>
-    </Parameter>
-    <Parameter id="G(BCC_A2,CR,V:VA;1)"   Low_T="298.15"  Bibref="REF323" > 
-      <Trange High_T="6000" > -1720-2.5237*T; </Trange>
-    </Parameter>
-    <Parameter id="G(BCC_A2,FE,MO:VA;0)"   Low_T="298.15"  Bibref="REF10" > 
-      <Trange High_T="6000" > +36818-9.141*T; </Trange>
-    </Parameter>
-    <Parameter id="G(BCC_A2,FE,MO:VA;1)"   Low_T="298.15"  Bibref="REF10" > 
-      <Trange High_T="6000" > -362-5.724*T; </Trange>
-    </Parameter>
-    <Parameter id="TC(BCC_A2,FE,MO:VA;0)"   Low_T="298.15"  Bibref="REF10" > 
-      <Trange High_T="6000" > 335; </Trange>
-    </Parameter>
-    <Parameter id="TC(BCC_A2,FE,MO:VA;1)"   Low_T="298.15"  Bibref="REF10" > 
-      <Trange High_T="6000" > 526; </Trange>
-    </Parameter>
-    <Parameter id="G(BCC_A2,FE,SI:VA;0)"   Low_T="298.15"  Bibref="REF98" > 
-      <Trange High_T="6000" > +4*L0BCC-4*FESIW1; </Trange>
-    </Parameter>
-    <Parameter id="G(BCC_A2,FE,SI:VA;1)"   Low_T="298.15"  Bibref="REF98" > 
-      <Trange High_T="6000" > +8*L1BCC; </Trange>
-    </Parameter>
-    <Parameter id="G(BCC_A2,FE,SI:VA;2)"   Low_T="298.15"  Bibref="REF98" > 
-      <Trange High_T="6000" > +16*L2BCC; </Trange>
-    </Parameter>
-    <Parameter id="TC(BCC_A2,FE,SI:VA;1)"   Low_T="298.15"  Bibref="REF98" > 
-      <Trange High_T="6000" > +8*ETCFESI; </Trange>
-    </Parameter>
-    <Parameter id="G(BCC_A2,FE,V:VA;0)"   Low_T="298.15"  Bibref="REF269" > 
-      <Trange High_T="6000" > -23674+.465*T; </Trange>
-    </Parameter>
-    <Parameter id="G(BCC_A2,FE,V:VA;1)"   Low_T="298.15"  Bibref="REF269" > 
-      <Trange High_T="6000" > 8283; </Trange>
-    </Parameter>
-    <Parameter id="TC(BCC_A2,FE,V:VA;0)"   Low_T="298.15"  Bibref="REF111" > 
-      <Trange High_T="6000" > -110; </Trange>
-    </Parameter>
-    <Parameter id="TC(BCC_A2,FE,V:VA;1)"   Low_T="298.15"  Bibref="REF111" > 
-      <Trange High_T="6000" > 3075; </Trange>
-    </Parameter>
-    <Parameter id="TC(BCC_A2,FE,V:VA;2)"   Low_T="298.15"  Bibref="REF111" > 
-      <Trange High_T="6000" > 808; </Trange>
-    </Parameter>
-    <Parameter id="TC(BCC_A2,FE,V:VA;3)"   Low_T="298.15"  Bibref="REF111" > 
-      <Trange High_T="6000" > -2169; </Trange>
-    </Parameter>
-    <Parameter id="BMAGN(BCC_A2,FE,V:VA;0)"   Low_T="298.15"  Bibref="REF111" > 
-      <Trange High_T="6000" > -2.26; </Trange>
-    </Parameter>
-    <Parameter id="G(CEMENTITE,CR:C;0)"   Low_T="298.15"  Bibref="REF322" > 
-      <Trange High_T="6000" > +3*GHSERCR+GHSERCC-48000  -9.2888*T; </Trange>
-    </Parameter>
-    <Parameter id="G(CEMENTITE,FE:C;0)"   Low_T="298.15"  Bibref="REF190" > 
-      <Trange High_T="6000" > +GFECEM; </Trange>
-    </Parameter>
-    <Parameter id="G(CEMENTITE,MO:C;0)"   Low_T="298.15"  Bibref="REF104" > 
-      <Trange High_T="6000" > +3*GHSERMO+GHSERCC+77000  -57.4*T; </Trange>
-    </Parameter>
-    <Parameter id="G(CEMENTITE,V:C;0)"   Low_T="298.15"  Bibref="REF275" > 
-      <Trange High_T="6000" > -156971+601.922*T  -100.438*T*LN(T)+765557*T**(-1); </Trange>
-    </Parameter>
-    <Parameter id="G(CHI_A12,FE:CR:CR;0)"   Low_T="298.15"  Bibref="REF115" > 
-      <Trange High_T="6000" > +24*GFEFCC+10*GHSERCR  +24*GCRFCC+18300-100*T; </Trange>
-    </Parameter>
-    <Parameter id="G(CHI_A12,CR:MO:CR;0)"   Low_T="298.15"  Bibref="REF213" > 
-      <Trange High_T="6000" > +24*GCRFCC+10*GHSERMO  +24*GCRFCC-26000; </Trange>
-    </Parameter>
-    <Parameter id="G(CHI_A12,CR:CR:FE;0)"   Low_T="298.15"  Bibref="REF213" > 
-      <Trange High_T="6000" > +24*GCRFCC+10*GHSERCR  +24*GFEFCC+500000; </Trange>
-    </Parameter>
-    <Parameter id="G(CHI_A12,FE:CR:FE;0)"   Low_T="298.15"  Bibref="REF115" > 
-      <Trange High_T="6000" > +48*GFEFCC+10*GHSERCR  +57300-100*T; </Trange>
-    </Parameter>
-    <Parameter id="G(CHI_A12,FE:MO:FE;0)"   Low_T="298.15"  Bibref="REF115" > 
-      <Trange High_T="6000" > +48*GFEFCC+10*GHSERMO  +305210-270*T; </Trange>
-    </Parameter>
-    <Parameter id="G(CHI_A12,CR:CR:MO;0)"   Low_T="298.15"  Bibref="REF213" > 
-      <Trange High_T="6000" > +24*GCRFCC+10*GHSERCR  +24*GMOFCC+500000; </Trange>
-    </Parameter>
-    <Parameter id="G(CHI_A12,CR:MO:MO;0)"   Low_T="298.15"  Bibref="REF213" > 
-      <Trange High_T="6000" > +24*GCRFCC+10*GHSERMO  +24*GMOFCC+500000; </Trange>
-    </Parameter>
-    <Parameter id="G(CHI_A12,FE:MO:MO;0)"   Low_T="298.15"  Bibref="REF115" > 
-      <Trange High_T="6000" > +24*GFEFCC+10*GHSERMO  +24*GMOFCC+97300-100*T; </Trange>
-    </Parameter>
-    <Parameter id="G(CR3SI,SI:CR;0)"   Low_T="298.15"  Bibref="REF90" > 
-      <Trange High_T="6000" > +167008.8+4*T+GHSERCR  +3*GHSERSI; </Trange>
-    </Parameter>
-    <Parameter id="G(CR3SI,CR:SI;0)"   Low_T="298.15"  Bibref="REF90" > 
-      <Trange High_T="6000" > -125456.6+4*T+3*GHSERCR  +GHSERSI; </Trange>
-    </Parameter>
-    <Parameter id="G(CR5SI3,CR:SI;0)"   Low_T="298.15"  Bibref="REF90" > 
-      <Trange High_T="6000" > -318953.76+1067.49776*T  -182.57818*T*LN(T)-.02391968*T**2-2.31728E-06*T**3; </Trange>
-    </Parameter>
-    <Parameter id="G(CR1SI1,CR:SI;0)"   Low_T="298.15"  Bibref="REF90" > 
-      <Trange High_T="6000" > -79041.68+311.75228*T  -51.62865*T*LN(T)-.00447355*T**2+391330*T**(-1); </Trange>
-    </Parameter>
-    <Parameter id="G(CRSI2,SI:CR;0)"   Low_T="298.15"  Bibref="REF90" > 
-      <Trange High_T="6000" > +150000-T+2*GHSERCR+GHSERSI; </Trange>
-    </Parameter>
-    <Parameter id="G(CRSI2,CR:SI;0)"   Low_T="298.15"  Bibref="REF90" > 
-      <Trange High_T="6000" > -96793.65+333.25242*T  -57.85575*T*LN(T)-.01322769*T**2-4.3203E-07*T**3; </Trange>
-    </Parameter>
-    <Parameter id="G(CRSI2,CR:CR;0)"   Low_T="298.15"  Bibref="REF90" > 
-      <Trange High_T="6000" > -57532.96+11.37201*T; </Trange>
-    </Parameter>
-    <Parameter id="G(CRSI2,SI:CR;0)"   Low_T="298.15"  Bibref="REF90" > 
-      <Trange High_T="6000" > -57532.96+11.37201*T; </Trange>
-    </Parameter>
-    <Parameter id="G(CUB_A13,CR:C;0)"   Low_T="298.15"  Bibref="REF0" > 
-      <Trange High_T="300" > UN_ASS; </Trange>
-    </Parameter>
-    <Parameter id="G(CUB_A13,FE:C;0)"   Low_T="298.15"  Bibref="REF267" > 
-      <Trange High_T="6000" > +90000+GHSERFE+GHSERCC; </Trange>
-    </Parameter>
-    <Parameter id="G(CUB_A13,SI:C;0)"   Low_T="298.15"  Bibref="REF177" > 
-      <Trange High_T="3000" > +1000000+566.0326*T  -85.955678*T*LN(T)-.007814909*T**2+3.7239E-07*T**3+1688653*T**(-1); </Trange>
-    </Parameter>
-    <Parameter id="G(CUB_A13,V:C;0)"   Low_T="298.15"  Bibref="REF275" > 
-      <Trange High_T="6000" > +10000+GHSERVV+GHSERCC; </Trange>
-    </Parameter>
-    <Parameter id="G(CUB_A13,FE:C;0)"   Low_T="298.15"  Bibref="REF267" > 
-      <Trange High_T="6000" > -34671; </Trange>
-    </Parameter>
-    <Parameter id="G(CUB_A13,FE,SI:VA;0)"   Low_T="298.15"  Bibref="REF42" > 
-      <Trange High_T="6000" > -153141+46.48*T; </Trange>
-    </Parameter>
-    <Parameter id="G(CUB_A13,FE,SI:VA;1)"   Low_T="298.15"  Bibref="REF42" > 
-      <Trange High_T="6000" > -92352; </Trange>
-    </Parameter>
-    <Parameter id="G(CUB_A13,FE,SI:VA;2)"   Low_T="298.15"  Bibref="REF42" > 
-      <Trange High_T="6000" > 62240; </Trange>
-    </Parameter>
-    <Parameter id="G(CUB_A13,FE,V:VA;0)"   Low_T="298.15"  Bibref="REF275" > 
-      <Trange High_T="6000" > -10000; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,CR:C;0)"   Low_T="298.15"  Bibref="REF322" > 
-      <Trange High_T="6000" > +GHSERCR+GHSERCC+1200-1.94*T; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,FE:C;0)"   Low_T="298.15"  Bibref="REF190" > 
-      <Trange High_T="6000" > +77207-15.877*T+GFEFCC+GHSERCC  +GPCFCC; </Trange>
-    </Parameter>
-    <Parameter id="TC(FCC_A1,FE:C;0)"   Low_T="298.15"  Bibref="REF190" > 
-      <Trange High_T="6000" > -201; </Trange>
-    </Parameter>
-    <Parameter id="BMAGN(FCC_A1,FE:C;0)"   Low_T="298.15"  Bibref="REF190" > 
-      <Trange High_T="6000" > -2.1; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,MO:C;0)"   Low_T="298.15"  Bibref="REF104" > 
-      <Trange High_T="6000" > -7500-8.3*T-750000*T**(-1)  +GHSERMO+GHSERCC; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,SI:C;0)"   Low_T="298.15"  Bibref="REF98" > 
-      <Trange High_T="6000" > +GHSERSI+GHSERCC-20510+38.7*T; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,V:C;0)"   Low_T="298.15"  Bibref="REF256" > 
-      <Trange High_T="6000" > -117302+262.57*T-41.756*T*LN(T)  -.00557101*T**2+590546*T**(-1); </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,CR:C;0)"   Low_T="298.15"  Bibref="REF322" > 
-      <Trange High_T="6000" > -11977+6.8194*T; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,FE:C;0)"   Low_T="298.15"  Bibref="REF190" > 
-      <Trange High_T="6000" > -34671; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,MO:C;0)"   Low_T="298.15"  Bibref="REF104" > 
-      <Trange High_T="6000" > -41300; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,V:C;0)"   Low_T="298.15"  Bibref="REF256" > 
-      <Trange High_T="6000" > -74811+10.201*T; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,V:C;1)"   Low_T="298.15"  Bibref="REF256" > 
-      <Trange High_T="6000" > -30394; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,CR,FE:VA;0)"   Low_T="298.15"  Bibref="REF107" > 
-      <Trange High_T="6000" > +10833-7.477*T; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,CR,FE:VA;1)"   Low_T="298.15"  Bibref="REF107" > 
-      <Trange High_T="6000" > 1410; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,CR,MO:VA;0)"   Low_T="298.15"  Bibref="REF58" > 
-      <Trange High_T="6000" > +28890-7.962*T; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,CR,MO:VA;1)"   Low_T="298.15"  Bibref="REF58" > 
-      <Trange High_T="6000" > +5974-2.428*T; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,CR,SI:VA;0)"   Low_T="298.15"  Bibref="REF58" > 
-      <Trange High_T="6000" > -122850+9.85457*T; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,CR,SI:VA;1)"   Low_T="298.15"  Bibref="REF58" > 
-      <Trange High_T="6000" > -49502+13.76967*T; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,CR,V:VA;0)"   Low_T="298.15"  Bibref="REF323" > 
-      <Trange High_T="6000" > -9874-2.6964*T; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,CR,V:VA;1)"   Low_T="298.15"  Bibref="REF323" > 
-      <Trange High_T="6000" > -1720-2.5237*T; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,FE,MO:VA;0)"   Low_T="298.15"  Bibref="REF10" > 
-      <Trange High_T="6000" > +28347-17.691*T; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,FE,SI:VA;0)"   Low_T="298.15"  Bibref="REF98" > 
-      <Trange High_T="6000" > -125248+41.116*T; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,FE,SI:VA;1)"   Low_T="298.15"  Bibref="REF98" > 
-      <Trange High_T="6000" > -142708; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,FE,SI:VA;2)"   Low_T="298.15"  Bibref="REF98" > 
-      <Trange High_T="6000" > 89907; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,FE,V:VA;0)"   Low_T="298.15"  Bibref="REF269" > 
-      <Trange High_T="6000" > -15291-4.138*T; </Trange>
-    </Parameter>
-    <Parameter id="G(FE1SI1,FE:SI;0)"   Low_T="298.15"  Bibref="REF98" > 
-      <Trange High_T="6000" > +.5*GHSERFE+.5*GHSERSI-36381  +2.22*T; </Trange>
-    </Parameter>
-    <Parameter id="G(FE2SI,FE:SI;0)"   Low_T="298.15"  Bibref="REF98" > 
-      <Trange High_T="6000" > +.6666667*GHSERFE  +.3333333*GHSERSI-23752-3.54*T; </Trange>
-    </Parameter>
-    <Parameter id="G(FE4N,FE:C;0)"   Low_T="298.15"  Bibref="REF319" > 
-      <Trange High_T="6000" > +15965+4*GHSERFE+GHSERCC; </Trange>
-    </Parameter>
-    <Parameter id="G(FE5SI3,FE:SI;0)"   Low_T="298.15"  Bibref="REF98" > 
-      <Trange High_T="6000" > +.625*GHSERFE+.375*GHSERSI  -30143+.27*T; </Trange>
-    </Parameter>
-    <Parameter id="G(FECN_CHI,FE:C;0)"   Low_T="298.15"  Bibref="REF319" > 
-      <Trange High_T="6000" > -11287.4+1013.78*T  -176.412*T*LN(T)+810869*T**(-1); </Trange>
-    </Parameter>
-    <Parameter id="G(FESI2_H,FE:SI;0)"   Low_T="298.15"  Bibref="REF98" > 
-      <Trange High_T="6000" > +.3*GHSERFE+.7*GHSERSI-19649  -.92*T; </Trange>
-    </Parameter>
-    <Parameter id="G(FESI2_L,FE:SI;0)"   Low_T="298.15"  Bibref="REF98" > 
-      <Trange High_T="6000" > +.333333*GHSERFE  +.666667*GHSERSI-27383+3.48*T; </Trange>
-    </Parameter>
-    <Parameter id="G(HCP_A3,CR:C;0)"   Low_T="298.15"  Bibref="REF322" > 
-      <Trange High_T="6000" > +GHSERCR+.5*GHSERCC-18504  +9.4173*T-2.4997*T*LN(T)+.001386*T**2; </Trange>
-    </Parameter>
-    <Parameter id="G(HCP_A3,FE:C;0)"   Low_T="298.15"  Bibref="REF190" > 
-      <Trange High_T="6000" > +52905-11.9075*T+GFEFCC  +.5*GHSERCC+GPCFCC; </Trange>
-    </Parameter>
-    <Parameter id="G(HCP_A3,MO:C;0)"   Low_T="298.15"  Bibref="REF104" > 
-      <Trange High_T="6000" > -24150-3.625*T-163000*T**(-1)  +GHSERMO+.5*GHSERCC; </Trange>
-    </Parameter>
-    <Parameter id="G(HCP_A3,SI:C;0)"   Low_T="298.15"  Bibref="REF0" > 
-      <Trange High_T="300" > UN_ASS; </Trange>
-    </Parameter>
-    <Parameter id="G(HCP_A3,V:C;0)"   Low_T="298.15"  Bibref="REF256" > 
-      <Trange High_T="6000" > -85473+182.441*T-30.551*T*LN(T)  -.00538998*T**2+229029*T**(-1); </Trange>
-    </Parameter>
-    <Parameter id="G(HCP_A3,CR:C;0)"   Low_T="298.15"  Bibref="REF207" > 
-      <Trange High_T="6000" > 4165; </Trange>
-    </Parameter>
-    <Parameter id="G(HCP_A3,FE:C;0)"   Low_T="298.15"  Bibref="REF319" > 
-      <Trange High_T="6000" > -22126; </Trange>
-    </Parameter>
-    <Parameter id="G(HCP_A3,MO:C;0)"   Low_T="298.15"  Bibref="REF104" > 
-      <Trange High_T="6000" > 4150; </Trange>
-    </Parameter>
-    <Parameter id="G(HCP_A3,V:C;0)"   Low_T="298.15"  Bibref="REF256" > 
-      <Trange High_T="6000" > +12430-3.986*T; </Trange>
-    </Parameter>
-    <Parameter id="G(HCP_A3,CR,FE:VA;0)"   Low_T="298.15"  Bibref="REF126" > 
-      <Trange High_T="6000" > +10833-7.477*T; </Trange>
-    </Parameter>
-    <Parameter id="G(HCP_A3,CR,MO:VA;0)"   Low_T="298.15"  Bibref="REF117" > 
-      <Trange High_T="6000" > +28890-7.962*T; </Trange>
-    </Parameter>
-    <Parameter id="G(HCP_A3,CR,MO:VA;1)"   Low_T="298.15"  Bibref="REF117" > 
-      <Trange High_T="6000" > +5974-2.428*T; </Trange>
-    </Parameter>
-    <Parameter id="G(HCP_A3,CR,V:VA;0)"   Low_T="298.15"  Bibref="REF323" > 
-      <Trange High_T="6000" > -9874-2.6964*T; </Trange>
-    </Parameter>
-    <Parameter id="G(HCP_A3,CR,V:VA;1)"   Low_T="298.15"  Bibref="REF323" > 
-      <Trange High_T="6000" > -1720-2.5237*T; </Trange>
-    </Parameter>
-    <Parameter id="G(HCP_A3,FE,MO:VA;0)"   Low_T="298.15"  Bibref="REF10" > 
-      <Trange High_T="6000" > +28347-17.691*T; </Trange>
-    </Parameter>
-    <Parameter id="G(HCP_A3,FE,SI:VA;0)"   Low_T="298.15"  Bibref="REF42" > 
-      <Trange High_T="6000" > -123468+41.116*T; </Trange>
-    </Parameter>
-    <Parameter id="G(HCP_A3,FE,SI:VA;1)"   Low_T="298.15"  Bibref="REF42" > 
-      <Trange High_T="6000" > -142708; </Trange>
-    </Parameter>
-    <Parameter id="G(HCP_A3,FE,SI:VA;2)"   Low_T="298.15"  Bibref="REF42" > 
-      <Trange High_T="6000" > 89907; </Trange>
-    </Parameter>
-    <Parameter id="G(HCP_A3,FE,V:VA;0)"   Low_T="298.15"  Bibref="REF270" > 
-      <Trange High_T="6000" > -15291-4.138*T; </Trange>
-    </Parameter>
-    <Parameter id="G(KSI_CARBIDE,CR:C;0)"   Low_T="298.15"  Bibref="REF316" > 
-      <Trange High_T="6000" > +3*GHSERCR+GHSERCC+114060  -47.2519*T; </Trange>
-    </Parameter>
-    <Parameter id="G(KSI_CARBIDE,FE:C;0)"   Low_T="298.15"  Bibref="REF113" > 
-      <Trange High_T="6000" > +14540+20*T+3*GHSERFE  +GHSERCC; </Trange>
-    </Parameter>
-    <Parameter id="G(KSI_CARBIDE,MO:C;0)"   Low_T="298.15"  Bibref="REF113" > 
-      <Trange High_T="6000" > +167009-33*T+3*GHSERMO  +GHSERCC; </Trange>
-    </Parameter>
-    <Parameter id="G(LAVES_PHASE,CR:MO;0)"   Low_T="298.15"  Bibref="REF214" > 
-      <Trange High_T="6000" > +2*GCRFCC+GHSERMO-8000  -6*T; </Trange>
-    </Parameter>
-    <Parameter id="G(LAVES_PHASE,FE:MO;0)"   Low_T="298.15"  Bibref="REF10" > 
-      <Trange High_T="6000" > -10798-.132*T+2*GFEFCC  +GHSERMO; </Trange>
-    </Parameter>
-    <Parameter id="G(M23C6,CR:CR:C;0)"   Low_T="298.15"  Bibref="REF102" > 
-      <Trange High_T="6000" > +GCRM23C6; </Trange>
-    </Parameter>
-    <Parameter id="G(M23C6,FE:FE:C;0)"   Low_T="298.15"  Bibref="REF102" > 
-      <Trange High_T="6000" > +GFEM23C6; </Trange>
-    </Parameter>
-    <Parameter id="G(M23C6,V:V:C;0)"   Low_T="298.15"  Bibref="REF323" > 
-      <Trange High_T="6000" > +GVM23C6; </Trange>
-    </Parameter>
-    <Parameter id="G(M3C2,CR:C;0)"   Low_T="298.15"  Bibref="REF322" > 
-      <Trange High_T="6000" > +GCRM3C2; </Trange>
-    </Parameter>
-    <Parameter id="G(M3C2,MO:C;0)"   Low_T="298.15"  Bibref="REF316" > 
-      <Trange High_T="6000" > +3*GHSERMO+2*GHSERCC+27183; </Trange>
-    </Parameter>
-    <Parameter id="G(M3C2,V:C;0)"   Low_T="298.15"  Bibref="REF324" > 
-      <Trange High_T="6000" > -222500+16.6545*T+3*GHSERVV  +2*GHSERCC; </Trange>
-    </Parameter>
-    <Parameter id="G(M3SI,FE:SI;0)"   Low_T="298.15"  Bibref="REF42" > 
-      <Trange High_T="6000" > +3*GHSERFE+GHSERSI-94274-3.56*T; </Trange>
-    </Parameter>
-    <Parameter id="G(M5C2,FE:C;0)"   Low_T="298.15"  Bibref="REF322" > 
-      <Trange High_T="6000" > +5*GHSERFE+2*GHSERCC+54852  -33.7518*T; </Trange>
-    </Parameter>
-    <Parameter id="G(M5C2,V:C;0)"   Low_T="298.15"  Bibref="REF275" > 
-      <Trange High_T="6000" > -307123.3+1059.7*T-175.66*T*LN(T)  +1453274*T**(-1); </Trange>
-    </Parameter>
-    <Parameter id="G(M7C3,CR:C;0)"   Low_T="298.15"  Bibref="REF322" > 
-      <Trange High_T="6000" > +GCRM7C3; </Trange>
-    </Parameter>
-    <Parameter id="G(M7C3,FE:C;0)"   Low_T="298.15"  Bibref="REF322" > 
-      <Trange High_T="6000" > +7*GHSERFE+3*GHSERCC+75000  -48.2168*T; </Trange>
-    </Parameter>
-    <Parameter id="G(M7C3,MO:C;0)"   Low_T="298.15"  Bibref="REF316" > 
-      <Trange High_T="6000" > +7*GHSERMO+3*GHSERCC-140415  +24.24*T; </Trange>
-    </Parameter>
-    <Parameter id="G(M7C3,V:C;0)"   Low_T="298.15"  Bibref="REF324" > 
-      <Trange High_T="6000" > -454245+1518.48*T-250.981*T*LN(T)  +2148691*T**(-1); </Trange>
-    </Parameter>
-    <Parameter id="G(MC_ETA,MO:C;0)"   Low_T="298.15"  Bibref="REF113" > 
-      <Trange High_T="6000" > -9100-5.35*T-750000*T**(-1)  +GHSERMO+GHSERCC; </Trange>
-    </Parameter>
-    <Parameter id="G(MC_ETA,MO:C;0)"   Low_T="298.15"  Bibref="REF104" > 
-      <Trange High_T="6000" > -59500; </Trange>
-    </Parameter>
-    <Parameter id="G(MC_SHP,MO:C;0)"   Low_T="298.15"  Bibref="REF104" > 
-      <Trange High_T="6000" > -32983+2.5*T+GHSERMO+GHSERCC; </Trange>
-    </Parameter>
-    <Parameter id="G(MONI_DELTA,CR:CR:MO;0)"   Low_T="298.15"  Bibref="REF133" > 
-      <Trange High_T="6000" > +24*GCRFCC+20*GHSERCR  +12*GHSERMO+50000; </Trange>
-    </Parameter>
-    <Parameter id="G(MONI_DELTA,FE:FE:MO;0)"   Low_T="298.15"  Bibref="REF132" > 
-      <Trange High_T="6000" > +24*GFEFCC+20*GHSERFE  +12*GHSERMO+100000; </Trange>
-    </Parameter>
-    <Parameter id="G(MONI_DELTA,CR:MO:MO;0)"   Low_T="298.15"  Bibref="REF133" > 
-      <Trange High_T="6000" > +24*GCRFCC+32*GHSERMO  +100000; </Trange>
-    </Parameter>
-    <Parameter id="G(MONI_DELTA,FE:MO:MO;0)"   Low_T="298.15"  Bibref="REF132" > 
-      <Trange High_T="6000" > +24*GFEFCC+32*GHSERMO  +100000; </Trange>
-    </Parameter>
-    <Parameter id="G(MU_PHASE,CR:MO:CR;0)"   Low_T="298.15"  Bibref="REF115" > 
-      <Trange High_T="6000" > +7*GCRFCC+2*GHSERMO  +4*GHSERCR+130000-100*T; </Trange>
-    </Parameter>
-    <Parameter id="G(MU_PHASE,FE:MO:FE;0)"   Low_T="298.15"  Bibref="REF10" > 
-      <Trange High_T="6000" > +39475-6.032*T+7*GFEFCC  +2*GHSERMO+4*GHSERFE+GPMU1; </Trange>
-    </Parameter>
-    <Parameter id="G(MU_PHASE,CR:MO:MO;0)"   Low_T="298.15"  Bibref="REF115" > 
-      <Trange High_T="6000" > +7*GCRFCC+6*GHSERMO  +130000-100*T; </Trange>
-    </Parameter>
-    <Parameter id="G(MU_PHASE,FE:MO:MO;0)"   Low_T="298.15"  Bibref="REF10" > 
-      <Trange High_T="6000" > -46663-5.891*T+7*GFEFCC  +6*GHSERMO+GPMU2; </Trange>
-    </Parameter>
-    <Parameter id="G(P_PHASE,CR:CR:MO;0)"   Low_T="298.15"  Bibref="REF133" > 
-      <Trange High_T="6000" > +24*GCRFCC+20*GHSERCR  +12*GHSERMO+252300-100*T; </Trange>
-    </Parameter>
-    <Parameter id="G(P_PHASE,FE:FE:MO;0)"   Low_T="298.15"  Bibref="REF132" > 
-      <Trange High_T="6000" > +24*GFEFCC+20*GHSERFE  +12*GHSERMO+111361; </Trange>
-    </Parameter>
-    <Parameter id="G(P_PHASE,CR:MO:MO;0)"   Low_T="298.15"  Bibref="REF133" > 
-      <Trange High_T="6000" > +24*GCRFCC+32*GHSERMO  +95573-200*T; </Trange>
-    </Parameter>
-    <Parameter id="G(P_PHASE,FE:MO:MO;0)"   Low_T="298.15"  Bibref="REF132" > 
-      <Trange High_T="6000" > +24*GFEFCC+32*GHSERMO  +362525-332.7*T; </Trange>
-    </Parameter>
-    <Parameter id="G(R_PHASE,CR:MO:CR;0)"   Low_T="298.15"  Bibref="REF115" > 
-      <Trange High_T="6000" > +27*GCRFCC+14*GHSERMO  +12*GHSERCR-20000; </Trange>
-    </Parameter>
-    <Parameter id="G(R_PHASE,FE:MO:FE;0)"   Low_T="298.15"  Bibref="REF10" > 
-      <Trange High_T="6000" > -77487-50.486*T+27*GFEFCC  +14*GHSERMO+12*GHSERFE+GPR1; </Trange>
-    </Parameter>
-    <Parameter id="G(R_PHASE,CR:MO:MO;0)"   Low_T="298.15"  Bibref="REF115" > 
-      <Trange High_T="6000" > +27*GCRFCC+26*GHSERMO  -20000; </Trange>
-    </Parameter>
-    <Parameter id="G(R_PHASE,FE:MO:MO;0)"   Low_T="298.15"  Bibref="REF10" > 
-      <Trange High_T="6000" > +313474-289.472*T  +27*GFEFCC+26*GHSERMO+GPR2; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,C,CR;0)"   Low_T="298.15"  Bibref="REF101" > 
-      <Trange High_T="6000" > -90526-25.9116*T; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,C,CR;1)"   Low_T="298.15"  Bibref="REF101" > 
-      <Trange High_T="6000" > 80000; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,C,CR;2)"   Low_T="298.15"  Bibref="REF101" > 
-      <Trange High_T="6000" > 80000; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,C,FE;0)"   Low_T="298.15"  Bibref="REF190" > 
-      <Trange High_T="6000" > -124320+28.5*T; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,C,FE;1)"   Low_T="298.15"  Bibref="REF190" > 
-      <Trange High_T="6000" > 19300; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,C,FE;2)"   Low_T="298.15"  Bibref="REF190" > 
-      <Trange High_T="6000" > +49260-19*T; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,C,MO;0)"   Low_T="298.15"  Bibref="REF104" > 
-      <Trange High_T="6000" > -217800+38.41*T; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,C,MO;1)"   Low_T="298.15"  Bibref="REF104" > 
-      <Trange High_T="6000" > 30000; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,C,MO;2)"   Low_T="298.15"  Bibref="REF104" > 
-      <Trange High_T="6000" > 47000; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,C,SI;0)"   Low_T="298.15"  Bibref="REF99" > 
-      <Trange High_T="6000" > -133000+30.97*T; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,C,V;0)"   Low_T="298.15"  Bibref="REF256" > 
-      <Trange High_T="6000" > -284196+38.952*T; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,C,V;1)"   Low_T="298.15"  Bibref="REF256" > 
-      <Trange High_T="6000" > +96335-17.775*T; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,C,V;2)"   Low_T="298.15"  Bibref="REF256" > 
-      <Trange High_T="6000" > 102050; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,CR,FE;0)"   Low_T="298.15"  Bibref="REF107" > 
-      <Trange High_T="6000" > -14550+6.65*T; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,CR,MO;0)"   Low_T="298.15"  Bibref="REF123" > 
-      <Trange High_T="6000" > +15810-6.714*T; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,CR,MO;1)"   Low_T="298.15"  Bibref="REF123" > 
-      <Trange High_T="6000" > -6220; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,CR,SI;0)"   Low_T="298.15"  Bibref="REF90" > 
-      <Trange High_T="6000" > -120157.52+16.63891*T; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,CR,SI;1)"   Low_T="298.15"  Bibref="REF90" > 
-      <Trange High_T="6000" > -49502.35+13.76967*T; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,CR,V;0)"   Low_T="298.15"  Bibref="REF323" > 
-      <Trange High_T="6000" > -9874-2.6964*T; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,CR,V;1)"   Low_T="298.15"  Bibref="REF323" > 
-      <Trange High_T="6000" > -1720-2.5237*T; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,FE,MO;0)"   Low_T="298.15"  Bibref="REF10" > 
-      <Trange High_T="6000" > -6973-.37*T; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,FE,MO;1)"   Low_T="298.15"  Bibref="REF10" > 
-      <Trange High_T="6000" > -9424+4.502*T; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,FE,SI;0)"   Low_T="298.15"  Bibref="REF99" > 
-      <Trange High_T="6000" > -164435+41.977*T; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,FE,SI;1)"   Low_T="298.15"  Bibref="REF99" > 
-      <Trange High_T="6000" > -21.523*T; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,FE,SI;2)"   Low_T="298.15"  Bibref="REF99" > 
-      <Trange High_T="6000" > -18821+22.07*T; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,FE,SI;3)"   Low_T="298.15"  Bibref="REF99" > 
-      <Trange High_T="6000" > 9696; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,FE,V;0)"   Low_T="298.15"  Bibref="REF269" > 
-      <Trange High_T="6000" > -34679+1.895*T; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,FE,V;1)"   Low_T="298.15"  Bibref="REF269" > 
-      <Trange High_T="6000" > 10209; </Trange>
-    </Parameter>
-    <Parameter id="G(SIGMA,FE:CR:CR;0)"   Low_T="298.15"  Bibref="REF107" > 
-      <Trange High_T="6000" > +8*GFEFCC+22*GHSERCR+92300  -95.96*T+GPSIG1; </Trange>
-    </Parameter>
-    <Parameter id="G(SIGMA,FE:CR:FE;0)"   Low_T="298.15"  Bibref="REF107" > 
-      <Trange High_T="6000" > +8*GFEFCC+4*GHSERCR  +18*GHSERFE+117300-95.96*T+GPSIG2; </Trange>
-    </Parameter>
-    <Parameter id="G(SIGMA,FE:MO:FE;0)"   Low_T="298.15"  Bibref="REF10" > 
-      <Trange High_T="6000" > -1813-27.272*T+8*GFEFCC  +18*GHSERFE+4*GHSERMO; </Trange>
-    </Parameter>
-    <Parameter id="G(SIGMA,FE:V:FE;0)"   Low_T="298.15"  Bibref="REF269" > 
-      <Trange High_T="6000" > +8*GFEFCC+4*GHSERVV  +18*GHSERFE-157961+60.729*T; </Trange>
-    </Parameter>
-    <Parameter id="G(SIGMA,FE:MO:MO;0)"   Low_T="298.15"  Bibref="REF10" > 
-      <Trange High_T="6000" > +83326-69.618*T+8*GFEFCC  +22*GHSERMO; </Trange>
-    </Parameter>
-    <Parameter id="G(SIGMA,FE:V:V;0)"   Low_T="298.15"  Bibref="REF269" > 
-      <Trange High_T="6000" > +8*GFEFCC+22*GHSERVV-205321  -60.967*T; </Trange>
-    </Parameter>
-    <Parameter id="G(SIGMA,FE:MO:FE;0)"   Low_T="298.15"  Bibref="REF10" > 
-      <Trange High_T="6000" > 222909; </Trange>
-    </Parameter>
-    <Parameter id="G(SIGMA,FE:V:FE;0)"   Low_T="298.15"  Bibref="REF269" > 
-      <Trange High_T="6000" > -305784; </Trange>
-    </Parameter>
-    <Parameter id="G(CBCC_A12,CR:C;0)"   Low_T="298.15"  Bibref="REF0" > 
-      <Trange High_T="300" > UN_ASS; </Trange>
-    </Parameter>
-    <Parameter id="G(CBCC_A12,FE:C;0)"   Low_T="298.15"  Bibref="REF267" > 
-      <Trange High_T="6000" > +80000+GHSERFE+GHSERCC; </Trange>
-    </Parameter>
-    <Parameter id="G(CBCC_A12,SI:C;0)"   Low_T="298.15"  Bibref="REF177" > 
-      <Trange High_T="3000" > +1000000+566.0326*T  -85.955678*T*LN(T)-.007814909*T**2+3.7239E-07*T**3+1688653*T**(-1); </Trange>
-    </Parameter>
-    <Parameter id="G(CBCC_A12,V:C;0)"   Low_T="298.15"  Bibref="REF275" > 
-      <Trange High_T="6000" > +10000+GHSERVV+GHSERCC; </Trange>
-    </Parameter>
-    <Parameter id="G(CBCC_A12,FE:C;0)"   Low_T="298.15"  Bibref="REF267" > 
-      <Trange High_T="6000" > -34671; </Trange>
-    </Parameter>
-    <Parameter id="G(CBCC_A12,FE,SI:VA;0)"   Low_T="298.15"  Bibref="REF42" > 
-      <Trange High_T="6000" > -153141+46.48*T; </Trange>
-    </Parameter>
-    <Parameter id="G(CBCC_A12,FE,SI:VA;1)"   Low_T="298.15"  Bibref="REF42" > 
-      <Trange High_T="6000" > -92352; </Trange>
-    </Parameter>
-    <Parameter id="G(CBCC_A12,FE,SI:VA;2)"   Low_T="298.15"  Bibref="REF42" > 
-      <Trange High_T="6000" > 62240; </Trange>
-    </Parameter>
-    <Parameter id="G(CBCC_A12,FE,V:VA;0)"   Low_T="298.15"  Bibref="REF275" > 
-      <Trange High_T="6000" > -10000; </Trange>
-    </Parameter>
-    <Parameter id="G(V3C2,FE:C;0)"   Low_T="298.15"  Bibref="REF275" > 
-      <Trange High_T="6000" > +7250+741.566*T-125.833*T*LN(T)  +779485*T**(-1); </Trange>
-    </Parameter>
-    <Parameter id="G(V3C2,V:C;0)"   Low_T="298.15"  Bibref="REF256" > 
-      <Trange High_T="6000" > -260341+16.897*T+3*GHSERVV  +2*GHSERCC; </Trange>
-    </Parameter>
+    <Parameter id="G(SIC,SI:C;0)"   Bibref="REF286" > 
+      <Trange High_T="700" Expression="-85572.2636+173.200518*T  -25.856*T*LN(T)-.02106825*T**2+3.2153E-06*T**3+438415*T**(-1);" />
+      <Trange High_T="2100" Expression="  -95145.9018+300.345769*T-45.093*T*LN(T)-.00366815*T**2  +2.19983333E-07*T**3+1341065*T**(-1);" />
+      <Trange High_T="4000" Expression="  -105007.971+360.308813*T-53.073*T*LN(T)-7.4525E-04*T**2  +1.73166667E-08*T**3+3693345*T**(-1);" />
+    </Parameter>
+    <Parameter id="G(BCC_A2,CR:C;0)"   Expression="+GHSERCR+3*GHSERCC+GPCRBCC  +3*GPCGRA+416000;" Bibref="REF101" />
+    <Parameter id="TC(BCC_A2,CR:C;0)"   Expression="-311.5;" Bibref="REF101" />
+    <Parameter id="BMAGN(BCC_A2,CR:C;0)"   Expression="-.008;" Bibref="REF101" />
+    <Parameter id="G(BCC_A2,FE:C;0)"   Expression="+322050+75.667*T+GHSERFE  +GPFEBCC+3*GHSERCC+3*GPCGRA;" Bibref="REF190" />
+    <Parameter id="TC(BCC_A2,FE:C;0)"   Expression="1043;" Bibref="REF190" />
+    <Parameter id="BMAGN(BCC_A2,FE:C;0)"   Expression="2.22;" Bibref="REF190" />
+    <Parameter id="G(BCC_A2,MO:C;0)"   Expression="+331000-75*T+GHSERMO+3*GHSERCC;" Bibref="REF104" />
+    <Parameter id="G(BCC_A2,SI:C;0)"   Expression="+322050-75.667*T+GSIBCC  +3*GHSERCC+3*GPCGRA;" Bibref="REF98" />
+    <Parameter id="G(BCC_A2,V:C;0)"   Expression="+108449+GHSERVV+3*GHSERCC;" Bibref="REF256" />
+    <Parameter id="G(BCC_A2,CR:C;0)"   Expression="-190*T;" Bibref="REF101" />
+    <Parameter id="G(BCC_A2,FE:C;0)"   Expression="-190*T;" Bibref="REF190" />
+    <Parameter id="G(BCC_A2,V:C;0)"   Expression="-297868;" Bibref="REF256" />
+    <Parameter id="G(BCC_A2,CR,FE:VA;0)"   Expression="+20500-9.68*T;" Bibref="REF107" />
+    <Parameter id="TC(BCC_A2,CR,FE:VA;0)"   Expression="1650;" Bibref="REF107" />
+    <Parameter id="TC(BCC_A2,CR,FE:VA;1)"   Expression="550;" Bibref="REF107" />
+    <Parameter id="BMAGN(BCC_A2,CR,FE:VA;0)"   Expression="-.85;" Bibref="REF107" />
+    <Parameter id="G(BCC_A2,CR,MO:VA;0)"   Expression="+28890-7.962*T;" Bibref="REF123" />
+    <Parameter id="G(BCC_A2,CR,MO:VA;1)"   Expression="+5974-2.428*T;" Bibref="REF123" />
+    <Parameter id="G(BCC_A2,CR,SI:VA;0)"   Expression="-102850.19+9.85457*T;" Bibref="REF90" />
+    <Parameter id="G(BCC_A2,CR,SI:VA;1)"   Expression="-49502.35+13.76967*T;" Bibref="REF90" />
+    <Parameter id="G(BCC_A2,CR,V:VA;0)"   Expression="-9875-2.6964*T;" Bibref="REF323" />
+    <Parameter id="G(BCC_A2,CR,V:VA;1)"   Expression="-1720-2.5237*T;" Bibref="REF323" />
+    <Parameter id="G(BCC_A2,FE,MO:VA;0)"   Expression="+36818-9.141*T;" Bibref="REF10" />
+    <Parameter id="G(BCC_A2,FE,MO:VA;1)"   Expression="-362-5.724*T;" Bibref="REF10" />
+    <Parameter id="TC(BCC_A2,FE,MO:VA;0)"   Expression="335;" Bibref="REF10" />
+    <Parameter id="TC(BCC_A2,FE,MO:VA;1)"   Expression="526;" Bibref="REF10" />
+    <Parameter id="G(BCC_A2,FE,SI:VA;0)"   Expression="+4*L0BCC-4*FESIW1;" Bibref="REF98" />
+    <Parameter id="G(BCC_A2,FE,SI:VA;1)"   Expression="+8*L1BCC;" Bibref="REF98" />
+    <Parameter id="G(BCC_A2,FE,SI:VA;2)"   Expression="+16*L2BCC;" Bibref="REF98" />
+    <Parameter id="TC(BCC_A2,FE,SI:VA;1)"   Expression="+8*ETCFESI;" Bibref="REF98" />
+    <Parameter id="G(BCC_A2,FE,V:VA;0)"   Expression="-23674+.465*T;" Bibref="REF269" />
+    <Parameter id="G(BCC_A2,FE,V:VA;1)"   Expression="8283;" Bibref="REF269" />
+    <Parameter id="TC(BCC_A2,FE,V:VA;0)"   Expression="-110;" Bibref="REF111" />
+    <Parameter id="TC(BCC_A2,FE,V:VA;1)"   Expression="3075;" Bibref="REF111" />
+    <Parameter id="TC(BCC_A2,FE,V:VA;2)"   Expression="808;" Bibref="REF111" />
+    <Parameter id="TC(BCC_A2,FE,V:VA;3)"   Expression="-2169;" Bibref="REF111" />
+    <Parameter id="BMAGN(BCC_A2,FE,V:VA;0)"   Expression="-2.26;" Bibref="REF111" />
+    <Parameter id="G(CEMENTITE,CR:C;0)"   Expression="+3*GHSERCR+GHSERCC-48000  -9.2888*T;" Bibref="REF322" />
+    <Parameter id="G(CEMENTITE,FE:C;0)"   Expression="+GFECEM;" Bibref="REF190" />
+    <Parameter id="G(CEMENTITE,MO:C;0)"   Expression="+3*GHSERMO+GHSERCC+77000  -57.4*T;" Bibref="REF104" />
+    <Parameter id="G(CEMENTITE,V:C;0)"   Expression="-156971+601.922*T  -100.438*T*LN(T)+765557*T**(-1);" Bibref="REF275" />
+    <Parameter id="G(CHI_A12,FE:CR:CR;0)"   Expression="+24*GFEFCC+10*GHSERCR  +24*GCRFCC+18300-100*T;" Bibref="REF115" />
+    <Parameter id="G(CHI_A12,CR:MO:CR;0)"   Expression="+24*GCRFCC+10*GHSERMO  +24*GCRFCC-26000;" Bibref="REF213" />
+    <Parameter id="G(CHI_A12,CR:CR:FE;0)"   Expression="+24*GCRFCC+10*GHSERCR  +24*GFEFCC+500000;" Bibref="REF213" />
+    <Parameter id="G(CHI_A12,FE:CR:FE;0)"   Expression="+48*GFEFCC+10*GHSERCR  +57300-100*T;" Bibref="REF115" />
+    <Parameter id="G(CHI_A12,FE:MO:FE;0)"   Expression="+48*GFEFCC+10*GHSERMO  +305210-270*T;" Bibref="REF115" />
+    <Parameter id="G(CHI_A12,CR:CR:MO;0)"   Expression="+24*GCRFCC+10*GHSERCR  +24*GMOFCC+500000;" Bibref="REF213" />
+    <Parameter id="G(CHI_A12,CR:MO:MO;0)"   Expression="+24*GCRFCC+10*GHSERMO  +24*GMOFCC+500000;" Bibref="REF213" />
+    <Parameter id="G(CHI_A12,FE:MO:MO;0)"   Expression="+24*GFEFCC+10*GHSERMO  +24*GMOFCC+97300-100*T;" Bibref="REF115" />
+    <Parameter id="G(CR3SI,SI:CR;0)"   Expression="+167008.8+4*T+GHSERCR  +3*GHSERSI;" Bibref="REF90" />
+    <Parameter id="G(CR3SI,CR:SI;0)"   Expression="-125456.6+4*T+3*GHSERCR  +GHSERSI;" Bibref="REF90" />
+    <Parameter id="G(CR5SI3,CR:SI;0)"   Expression="-318953.76+1067.49776*T  -182.57818*T*LN(T)-.02391968*T**2-2.31728E-06*T**3;" Bibref="REF90" />
+    <Parameter id="G(CR1SI1,CR:SI;0)"   Expression="-79041.68+311.75228*T  -51.62865*T*LN(T)-.00447355*T**2+391330*T**(-1);" Bibref="REF90" />
+    <Parameter id="G(CRSI2,SI:CR;0)"   Expression="+150000-T+2*GHSERCR+GHSERSI;" Bibref="REF90" />
+    <Parameter id="G(CRSI2,CR:SI;0)"   Expression="-96793.65+333.25242*T  -57.85575*T*LN(T)-.01322769*T**2-4.3203E-07*T**3;" Bibref="REF90" />
+    <Parameter id="G(CRSI2,CR:CR;0)"   Expression="-57532.96+11.37201*T;" Bibref="REF90" />
+    <Parameter id="G(CRSI2,SI:CR;0)"   Expression="-57532.96+11.37201*T;" Bibref="REF90" />
+    <Parameter id="G(CUB_A13,CR:C;0)"   Bibref="REF0" > 
+      <Trange High_T="300" Expression="UN_ASS;" />
+    </Parameter>
+    <Parameter id="G(CUB_A13,FE:C;0)"   Expression="+90000+GHSERFE+GHSERCC;" Bibref="REF267" />
+    <Parameter id="G(CUB_A13,SI:C;0)"   Bibref="REF177" > 
+      <Trange High_T="3000" Expression="+1000000+566.0326*T  -85.955678*T*LN(T)-.007814909*T**2+3.7239E-07*T**3+1688653*T**(-1);" />
+    </Parameter>
+    <Parameter id="G(CUB_A13,V:C;0)"   Expression="+10000+GHSERVV+GHSERCC;" Bibref="REF275" />
+    <Parameter id="G(CUB_A13,FE:C;0)"   Expression="-34671;" Bibref="REF267" />
+    <Parameter id="G(CUB_A13,FE,SI:VA;0)"   Expression="-153141+46.48*T;" Bibref="REF42" />
+    <Parameter id="G(CUB_A13,FE,SI:VA;1)"   Expression="-92352;" Bibref="REF42" />
+    <Parameter id="G(CUB_A13,FE,SI:VA;2)"   Expression="62240;" Bibref="REF42" />
+    <Parameter id="G(CUB_A13,FE,V:VA;0)"   Expression="-10000;" Bibref="REF275" />
+    <Parameter id="G(FCC_A1,CR:C;0)"   Expression="+GHSERCR+GHSERCC+1200-1.94*T;" Bibref="REF322" />
+    <Parameter id="G(FCC_A1,FE:C;0)"   Expression="+77207-15.877*T+GFEFCC+GHSERCC  +GPCFCC;" Bibref="REF190" />
+    <Parameter id="TC(FCC_A1,FE:C;0)"   Expression="-201;" Bibref="REF190" />
+    <Parameter id="BMAGN(FCC_A1,FE:C;0)"   Expression="-2.1;" Bibref="REF190" />
+    <Parameter id="G(FCC_A1,MO:C;0)"   Expression="-7500-8.3*T-750000*T**(-1)  +GHSERMO+GHSERCC;" Bibref="REF104" />
+    <Parameter id="G(FCC_A1,SI:C;0)"   Expression="+GHSERSI+GHSERCC-20510+38.7*T;" Bibref="REF98" />
+    <Parameter id="G(FCC_A1,V:C;0)"   Expression="-117302+262.57*T-41.756*T*LN(T)  -.00557101*T**2+590546*T**(-1);" Bibref="REF256" />
+    <Parameter id="G(FCC_A1,CR:C;0)"   Expression="-11977+6.8194*T;" Bibref="REF322" />
+    <Parameter id="G(FCC_A1,FE:C;0)"   Expression="-34671;" Bibref="REF190" />
+    <Parameter id="G(FCC_A1,MO:C;0)"   Expression="-41300;" Bibref="REF104" />
+    <Parameter id="G(FCC_A1,V:C;0)"   Expression="-74811+10.201*T;" Bibref="REF256" />
+    <Parameter id="G(FCC_A1,V:C;1)"   Expression="-30394;" Bibref="REF256" />
+    <Parameter id="G(FCC_A1,CR,FE:VA;0)"   Expression="+10833-7.477*T;" Bibref="REF107" />
+    <Parameter id="G(FCC_A1,CR,FE:VA;1)"   Expression="1410;" Bibref="REF107" />
+    <Parameter id="G(FCC_A1,CR,MO:VA;0)"   Expression="+28890-7.962*T;" Bibref="REF58" />
+    <Parameter id="G(FCC_A1,CR,MO:VA;1)"   Expression="+5974-2.428*T;" Bibref="REF58" />
+    <Parameter id="G(FCC_A1,CR,SI:VA;0)"   Expression="-122850+9.85457*T;" Bibref="REF58" />
+    <Parameter id="G(FCC_A1,CR,SI:VA;1)"   Expression="-49502+13.76967*T;" Bibref="REF58" />
+    <Parameter id="G(FCC_A1,CR,V:VA;0)"   Expression="-9874-2.6964*T;" Bibref="REF323" />
+    <Parameter id="G(FCC_A1,CR,V:VA;1)"   Expression="-1720-2.5237*T;" Bibref="REF323" />
+    <Parameter id="G(FCC_A1,FE,MO:VA;0)"   Expression="+28347-17.691*T;" Bibref="REF10" />
+    <Parameter id="G(FCC_A1,FE,SI:VA;0)"   Expression="-125248+41.116*T;" Bibref="REF98" />
+    <Parameter id="G(FCC_A1,FE,SI:VA;1)"   Expression="-142708;" Bibref="REF98" />
+    <Parameter id="G(FCC_A1,FE,SI:VA;2)"   Expression="89907;" Bibref="REF98" />
+    <Parameter id="G(FCC_A1,FE,V:VA;0)"   Expression="-15291-4.138*T;" Bibref="REF269" />
+    <Parameter id="G(FE1SI1,FE:SI;0)"   Expression="+.5*GHSERFE+.5*GHSERSI-36381  +2.22*T;" Bibref="REF98" />
+    <Parameter id="G(FE2SI,FE:SI;0)"   Expression="+.6666667*GHSERFE  +.3333333*GHSERSI-23752-3.54*T;" Bibref="REF98" />
+    <Parameter id="G(FE4N,FE:C;0)"   Expression="+15965+4*GHSERFE+GHSERCC;" Bibref="REF319" />
+    <Parameter id="G(FE5SI3,FE:SI;0)"   Expression="+.625*GHSERFE+.375*GHSERSI  -30143+.27*T;" Bibref="REF98" />
+    <Parameter id="G(FECN_CHI,FE:C;0)"   Expression="-11287.4+1013.78*T  -176.412*T*LN(T)+810869*T**(-1);" Bibref="REF319" />
+    <Parameter id="G(FESI2_H,FE:SI;0)"   Expression="+.3*GHSERFE+.7*GHSERSI-19649  -.92*T;" Bibref="REF98" />
+    <Parameter id="G(FESI2_L,FE:SI;0)"   Expression="+.333333*GHSERFE  +.666667*GHSERSI-27383+3.48*T;" Bibref="REF98" />
+    <Parameter id="G(HCP_A3,CR:C;0)"   Expression="+GHSERCR+.5*GHSERCC-18504  +9.4173*T-2.4997*T*LN(T)+.001386*T**2;" Bibref="REF322" />
+    <Parameter id="G(HCP_A3,FE:C;0)"   Expression="+52905-11.9075*T+GFEFCC  +.5*GHSERCC+GPCFCC;" Bibref="REF190" />
+    <Parameter id="G(HCP_A3,MO:C;0)"   Expression="-24150-3.625*T-163000*T**(-1)  +GHSERMO+.5*GHSERCC;" Bibref="REF104" />
+    <Parameter id="G(HCP_A3,SI:C;0)"   Bibref="REF0" > 
+      <Trange High_T="300" Expression="UN_ASS;" />
+    </Parameter>
+    <Parameter id="G(HCP_A3,V:C;0)"   Expression="-85473+182.441*T-30.551*T*LN(T)  -.00538998*T**2+229029*T**(-1);" Bibref="REF256" />
+    <Parameter id="G(HCP_A3,CR:C;0)"   Expression="4165;" Bibref="REF207" />
+    <Parameter id="G(HCP_A3,FE:C;0)"   Expression="-22126;" Bibref="REF319" />
+    <Parameter id="G(HCP_A3,MO:C;0)"   Expression="4150;" Bibref="REF104" />
+    <Parameter id="G(HCP_A3,V:C;0)"   Expression="+12430-3.986*T;" Bibref="REF256" />
+    <Parameter id="G(HCP_A3,CR,FE:VA;0)"   Expression="+10833-7.477*T;" Bibref="REF126" />
+    <Parameter id="G(HCP_A3,CR,MO:VA;0)"   Expression="+28890-7.962*T;" Bibref="REF117" />
+    <Parameter id="G(HCP_A3,CR,MO:VA;1)"   Expression="+5974-2.428*T;" Bibref="REF117" />
+    <Parameter id="G(HCP_A3,CR,V:VA;0)"   Expression="-9874-2.6964*T;" Bibref="REF323" />
+    <Parameter id="G(HCP_A3,CR,V:VA;1)"   Expression="-1720-2.5237*T;" Bibref="REF323" />
+    <Parameter id="G(HCP_A3,FE,MO:VA;0)"   Expression="+28347-17.691*T;" Bibref="REF10" />
+    <Parameter id="G(HCP_A3,FE,SI:VA;0)"   Expression="-123468+41.116*T;" Bibref="REF42" />
+    <Parameter id="G(HCP_A3,FE,SI:VA;1)"   Expression="-142708;" Bibref="REF42" />
+    <Parameter id="G(HCP_A3,FE,SI:VA;2)"   Expression="89907;" Bibref="REF42" />
+    <Parameter id="G(HCP_A3,FE,V:VA;0)"   Expression="-15291-4.138*T;" Bibref="REF270" />
+    <Parameter id="G(KSI_CARBIDE,CR:C;0)"   Expression="+3*GHSERCR+GHSERCC+114060  -47.2519*T;" Bibref="REF316" />
+    <Parameter id="G(KSI_CARBIDE,FE:C;0)"   Expression="+14540+20*T+3*GHSERFE  +GHSERCC;" Bibref="REF113" />
+    <Parameter id="G(KSI_CARBIDE,MO:C;0)"   Expression="+167009-33*T+3*GHSERMO  +GHSERCC;" Bibref="REF113" />
+    <Parameter id="G(LAVES_PHASE,CR:MO;0)"   Expression="+2*GCRFCC+GHSERMO-8000  -6*T;" Bibref="REF214" />
+    <Parameter id="G(LAVES_PHASE,FE:MO;0)"   Expression="-10798-.132*T+2*GFEFCC  +GHSERMO;" Bibref="REF10" />
+    <Parameter id="G(M23C6,CR:CR:C;0)"   Expression="+GCRM23C6;" Bibref="REF102" />
+    <Parameter id="G(M23C6,FE:FE:C;0)"   Expression="+GFEM23C6;" Bibref="REF102" />
+    <Parameter id="G(M23C6,V:V:C;0)"   Expression="+GVM23C6;" Bibref="REF323" />
+    <Parameter id="G(M3C2,CR:C;0)"   Expression="+GCRM3C2;" Bibref="REF322" />
+    <Parameter id="G(M3C2,MO:C;0)"   Expression="+3*GHSERMO+2*GHSERCC+27183;" Bibref="REF316" />
+    <Parameter id="G(M3C2,V:C;0)"   Expression="-222500+16.6545*T+3*GHSERVV  +2*GHSERCC;" Bibref="REF324" />
+    <Parameter id="G(M3SI,FE:SI;0)"   Expression="+3*GHSERFE+GHSERSI-94274-3.56*T;" Bibref="REF42" />
+    <Parameter id="G(M5C2,FE:C;0)"   Expression="+5*GHSERFE+2*GHSERCC+54852  -33.7518*T;" Bibref="REF322" />
+    <Parameter id="G(M5C2,V:C;0)"   Expression="-307123.3+1059.7*T-175.66*T*LN(T)  +1453274*T**(-1);" Bibref="REF275" />
+    <Parameter id="G(M7C3,CR:C;0)"   Expression="+GCRM7C3;" Bibref="REF322" />
+    <Parameter id="G(M7C3,FE:C;0)"   Expression="+7*GHSERFE+3*GHSERCC+75000  -48.2168*T;" Bibref="REF322" />
+    <Parameter id="G(M7C3,MO:C;0)"   Expression="+7*GHSERMO+3*GHSERCC-140415  +24.24*T;" Bibref="REF316" />
+    <Parameter id="G(M7C3,V:C;0)"   Expression="-454245+1518.48*T-250.981*T*LN(T)  +2148691*T**(-1);" Bibref="REF324" />
+    <Parameter id="G(MC_ETA,MO:C;0)"   Expression="-9100-5.35*T-750000*T**(-1)  +GHSERMO+GHSERCC;" Bibref="REF113" />
+    <Parameter id="G(MC_ETA,MO:C;0)"   Expression="-59500;" Bibref="REF104" />
+    <Parameter id="G(MC_SHP,MO:C;0)"   Expression="-32983+2.5*T+GHSERMO+GHSERCC;" Bibref="REF104" />
+    <Parameter id="G(MONI_DELTA,CR:CR:MO;0)"   Expression="+24*GCRFCC+20*GHSERCR  +12*GHSERMO+50000;" Bibref="REF133" />
+    <Parameter id="G(MONI_DELTA,FE:FE:MO;0)"   Expression="+24*GFEFCC+20*GHSERFE  +12*GHSERMO+100000;" Bibref="REF132" />
+    <Parameter id="G(MONI_DELTA,CR:MO:MO;0)"   Expression="+24*GCRFCC+32*GHSERMO  +100000;" Bibref="REF133" />
+    <Parameter id="G(MONI_DELTA,FE:MO:MO;0)"   Expression="+24*GFEFCC+32*GHSERMO  +100000;" Bibref="REF132" />
+    <Parameter id="G(MU_PHASE,CR:MO:CR;0)"   Expression="+7*GCRFCC+2*GHSERMO  +4*GHSERCR+130000-100*T;" Bibref="REF115" />
+    <Parameter id="G(MU_PHASE,FE:MO:FE;0)"   Expression="+39475-6.032*T+7*GFEFCC  +2*GHSERMO+4*GHSERFE+GPMU1;" Bibref="REF10" />
+    <Parameter id="G(MU_PHASE,CR:MO:MO;0)"   Expression="+7*GCRFCC+6*GHSERMO  +130000-100*T;" Bibref="REF115" />
+    <Parameter id="G(MU_PHASE,FE:MO:MO;0)"   Expression="-46663-5.891*T+7*GFEFCC  +6*GHSERMO+GPMU2;" Bibref="REF10" />
+    <Parameter id="G(P_PHASE,CR:CR:MO;0)"   Expression="+24*GCRFCC+20*GHSERCR  +12*GHSERMO+252300-100*T;" Bibref="REF133" />
+    <Parameter id="G(P_PHASE,FE:FE:MO;0)"   Expression="+24*GFEFCC+20*GHSERFE  +12*GHSERMO+111361;" Bibref="REF132" />
+    <Parameter id="G(P_PHASE,CR:MO:MO;0)"   Expression="+24*GCRFCC+32*GHSERMO  +95573-200*T;" Bibref="REF133" />
+    <Parameter id="G(P_PHASE,FE:MO:MO;0)"   Expression="+24*GFEFCC+32*GHSERMO  +362525-332.7*T;" Bibref="REF132" />
+    <Parameter id="G(R_PHASE,CR:MO:CR;0)"   Expression="+27*GCRFCC+14*GHSERMO  +12*GHSERCR-20000;" Bibref="REF115" />
+    <Parameter id="G(R_PHASE,FE:MO:FE;0)"   Expression="-77487-50.486*T+27*GFEFCC  +14*GHSERMO+12*GHSERFE+GPR1;" Bibref="REF10" />
+    <Parameter id="G(R_PHASE,CR:MO:MO;0)"   Expression="+27*GCRFCC+26*GHSERMO  -20000;" Bibref="REF115" />
+    <Parameter id="G(R_PHASE,FE:MO:MO;0)"   Expression="+313474-289.472*T  +27*GFEFCC+26*GHSERMO+GPR2;" Bibref="REF10" />
+    <Parameter id="G(LIQUID,C,CR;0)"   Expression="-90526-25.9116*T;" Bibref="REF101" />
+    <Parameter id="G(LIQUID,C,CR;1)"   Expression="80000;" Bibref="REF101" />
+    <Parameter id="G(LIQUID,C,CR;2)"   Expression="80000;" Bibref="REF101" />
+    <Parameter id="G(LIQUID,C,FE;0)"   Expression="-124320+28.5*T;" Bibref="REF190" />
+    <Parameter id="G(LIQUID,C,FE;1)"   Expression="19300;" Bibref="REF190" />
+    <Parameter id="G(LIQUID,C,FE;2)"   Expression="+49260-19*T;" Bibref="REF190" />
+    <Parameter id="G(LIQUID,C,MO;0)"   Expression="-217800+38.41*T;" Bibref="REF104" />
+    <Parameter id="G(LIQUID,C,MO;1)"   Expression="30000;" Bibref="REF104" />
+    <Parameter id="G(LIQUID,C,MO;2)"   Expression="47000;" Bibref="REF104" />
+    <Parameter id="G(LIQUID,C,SI;0)"   Expression="-133000+30.97*T;" Bibref="REF99" />
+    <Parameter id="G(LIQUID,C,V;0)"   Expression="-284196+38.952*T;" Bibref="REF256" />
+    <Parameter id="G(LIQUID,C,V;1)"   Expression="+96335-17.775*T;" Bibref="REF256" />
+    <Parameter id="G(LIQUID,C,V;2)"   Expression="102050;" Bibref="REF256" />
+    <Parameter id="G(LIQUID,CR,FE;0)"   Expression="-14550+6.65*T;" Bibref="REF107" />
+    <Parameter id="G(LIQUID,CR,MO;0)"   Expression="+15810-6.714*T;" Bibref="REF123" />
+    <Parameter id="G(LIQUID,CR,MO;1)"   Expression="-6220;" Bibref="REF123" />
+    <Parameter id="G(LIQUID,CR,SI;0)"   Expression="-120157.52+16.63891*T;" Bibref="REF90" />
+    <Parameter id="G(LIQUID,CR,SI;1)"   Expression="-49502.35+13.76967*T;" Bibref="REF90" />
+    <Parameter id="G(LIQUID,CR,V;0)"   Expression="-9874-2.6964*T;" Bibref="REF323" />
+    <Parameter id="G(LIQUID,CR,V;1)"   Expression="-1720-2.5237*T;" Bibref="REF323" />
+    <Parameter id="G(LIQUID,FE,MO;0)"   Expression="-6973-.37*T;" Bibref="REF10" />
+    <Parameter id="G(LIQUID,FE,MO;1)"   Expression="-9424+4.502*T;" Bibref="REF10" />
+    <Parameter id="G(LIQUID,FE,SI;0)"   Expression="-164435+41.977*T;" Bibref="REF99" />
+    <Parameter id="G(LIQUID,FE,SI;1)"   Expression="-21.523*T;" Bibref="REF99" />
+    <Parameter id="G(LIQUID,FE,SI;2)"   Expression="-18821+22.07*T;" Bibref="REF99" />
+    <Parameter id="G(LIQUID,FE,SI;3)"   Expression="9696;" Bibref="REF99" />
+    <Parameter id="G(LIQUID,FE,V;0)"   Expression="-34679+1.895*T;" Bibref="REF269" />
+    <Parameter id="G(LIQUID,FE,V;1)"   Expression="10209;" Bibref="REF269" />
+    <Parameter id="G(SIGMA,FE:CR:CR;0)"   Expression="+8*GFEFCC+22*GHSERCR+92300  -95.96*T+GPSIG1;" Bibref="REF107" />
+    <Parameter id="G(SIGMA,FE:CR:FE;0)"   Expression="+8*GFEFCC+4*GHSERCR  +18*GHSERFE+117300-95.96*T+GPSIG2;" Bibref="REF107" />
+    <Parameter id="G(SIGMA,FE:MO:FE;0)"   Expression="-1813-27.272*T+8*GFEFCC  +18*GHSERFE+4*GHSERMO;" Bibref="REF10" />
+    <Parameter id="G(SIGMA,FE:V:FE;0)"   Expression="+8*GFEFCC+4*GHSERVV  +18*GHSERFE-157961+60.729*T;" Bibref="REF269" />
+    <Parameter id="G(SIGMA,FE:MO:MO;0)"   Expression="+83326-69.618*T+8*GFEFCC  +22*GHSERMO;" Bibref="REF10" />
+    <Parameter id="G(SIGMA,FE:V:V;0)"   Expression="+8*GFEFCC+22*GHSERVV-205321  -60.967*T;" Bibref="REF269" />
+    <Parameter id="G(SIGMA,FE:MO:FE;0)"   Expression="222909;" Bibref="REF10" />
+    <Parameter id="G(SIGMA,FE:V:FE;0)"   Expression="-305784;" Bibref="REF269" />
+    <Parameter id="G(CBCC_A12,CR:C;0)"   Bibref="REF0" > 
+      <Trange High_T="300" Expression="UN_ASS;" />
+    </Parameter>
+    <Parameter id="G(CBCC_A12,FE:C;0)"   Expression="+80000+GHSERFE+GHSERCC;" Bibref="REF267" />
+    <Parameter id="G(CBCC_A12,SI:C;0)"   Bibref="REF177" > 
+      <Trange High_T="3000" Expression="+1000000+566.0326*T  -85.955678*T*LN(T)-.007814909*T**2+3.7239E-07*T**3+1688653*T**(-1);" />
+    </Parameter>
+    <Parameter id="G(CBCC_A12,V:C;0)"   Expression="+10000+GHSERVV+GHSERCC;" Bibref="REF275" />
+    <Parameter id="G(CBCC_A12,FE:C;0)"   Expression="-34671;" Bibref="REF267" />
+    <Parameter id="G(CBCC_A12,FE,SI:VA;0)"   Expression="-153141+46.48*T;" Bibref="REF42" />
+    <Parameter id="G(CBCC_A12,FE,SI:VA;1)"   Expression="-92352;" Bibref="REF42" />
+    <Parameter id="G(CBCC_A12,FE,SI:VA;2)"   Expression="62240;" Bibref="REF42" />
+    <Parameter id="G(CBCC_A12,FE,V:VA;0)"   Expression="-10000;" Bibref="REF275" />
+    <Parameter id="G(V3C2,FE:C;0)"   Expression="+7250+741.566*T-125.833*T*LN(T)  +779485*T**(-1);" Bibref="REF275" />
+    <Parameter id="G(V3C2,V:C;0)"   Expression="-260341+16.897*T+3*GHSERVV  +2*GHSERCC;" Bibref="REF256" />
   </Binary-parameters>
   <Higher-parameters>
-    <Parameter id="G(BCC_A2,CR,FE:C;0)"   Low_T="298.15"  Bibref="REF322" > 
-      <Trange High_T="6000" > -1250000+667.7*T; </Trange>
-    </Parameter>
-    <Parameter id="TC(BCC_A2,CR,FE:C;0)"   Low_T="298.15"  Bibref="REF102" > 
-      <Trange High_T="6000" > 1650; </Trange>
-    </Parameter>
-    <Parameter id="TC(BCC_A2,CR,FE:C;1)"   Low_T="298.15"  Bibref="REF102" > 
-      <Trange High_T="6000" > 550; </Trange>
-    </Parameter>
-    <Parameter id="BMAGN(BCC_A2,CR,FE:C;0)"   Low_T="298.15"  Bibref="REF102" > 
-      <Trange High_T="6000" > -.85; </Trange>
-    </Parameter>
-    <Parameter id="G(BCC_A2,FE,MO:C;0)"   Low_T="298.15"  Bibref="REF325" > 
-      <Trange High_T="6000" > -1250000+667.7*T; </Trange>
-    </Parameter>
-    <Parameter id="TC(BCC_A2,FE,MO:C;0)"   Low_T="298.15"  Bibref="REF104" > 
-      <Trange High_T="6000" > 335; </Trange>
-    </Parameter>
-    <Parameter id="TC(BCC_A2,FE,MO:C;1)"   Low_T="298.15"  Bibref="REF104" > 
-      <Trange High_T="6000" > 526; </Trange>
-    </Parameter>
-    <Parameter id="G(BCC_A2,FE,SI:C;0)"   Low_T="298.15"  Bibref="REF99" > 
-      <Trange High_T="6000" > 78866; </Trange>
-    </Parameter>
-    <Parameter id="G(BCC_A2,FE,V:C;0)"   Low_T="298.15"  Bibref="REF270" > 
-      <Trange High_T="6000" > -23674+.465*T; </Trange>
-    </Parameter>
-    <Parameter id="G(BCC_A2,FE,V:C;1)"   Low_T="298.15"  Bibref="REF270" > 
-      <Trange High_T="6000" > 8283; </Trange>
-    </Parameter>
-    <Parameter id="G(BCC_A2,CR,FE,V:VA;0)"   Low_T="298.15"  Bibref="REF323" > 
-      <Trange High_T="6000" > 14881; </Trange>
-    </Parameter>
-    <Parameter id="G(BCC_A2,CR,FE,V:VA;1)"   Low_T="298.15"  Bibref="REF323" > 
-      <Trange High_T="6000" > 17968; </Trange>
-    </Parameter>
-    <Parameter id="G(BCC_A2,CR,FE,V:VA;2)"   Low_T="298.15"  Bibref="REF323" > 
-      <Trange High_T="6000" > -7692; </Trange>
-    </Parameter>
-    <Parameter id="G(CEMENTITE,CR,FE:C;0)"   Low_T="298.15"  Bibref="REF322" > 
-      <Trange High_T="6000" > +25278-17.5*T; </Trange>
-    </Parameter>
-    <Parameter id="G(CEMENTITE,CR,MO:C;0)"   Low_T="298.15"  Bibref="REF316" > 
-      <Trange High_T="6000" > 40000; </Trange>
-    </Parameter>
-    <Parameter id="G(CEMENTITE,CR,V:C;0)"   Low_T="298.15"  Bibref="REF324" > 
-      <Trange High_T="6000" > -29622-8.0892*T; </Trange>
-    </Parameter>
-    <Parameter id="G(CEMENTITE,CR,V:C;1)"   Low_T="298.15"  Bibref="REF324" > 
-      <Trange High_T="6000" > -5160-7.5711*T; </Trange>
-    </Parameter>
-    <Parameter id="G(CEMENTITE,FE,V:C;0)"   Low_T="298.15"  Bibref="REF270" > 
-      <Trange High_T="6000" > -45873-12.414*T; </Trange>
-    </Parameter>
-    <Parameter id="G(CHI_A12,FE:MO:CR;0)"   Low_T="298.15"  Bibref="REF213" > 
-      <Trange High_T="6000" > +24*GFEFCC+10*GHSERMO  +24*GCRFCC+32555-385*T; </Trange>
-    </Parameter>
-    <Parameter id="G(CHI_A12,CR:MO:FE;0)"   Low_T="298.15"  Bibref="REF213" > 
-      <Trange High_T="6000" > +24*GCRFCC+10*GHSERMO  +24*GFEFCC+500000; </Trange>
-    </Parameter>
-    <Parameter id="G(CHI_A12,FE:CR:MO;0)"   Low_T="298.15"  Bibref="REF115" > 
-      <Trange High_T="6000" > +24*GFEFCC+10*GHSERCR  +24*GMOFCC+100000; </Trange>
-    </Parameter>
-    <Parameter id="G(CR2VC2,CR:V:C;0)"   Low_T="298.15"  Bibref="REF324" > 
-      <Trange High_T="6000" > -105987-38.2069*T+2*GHSERCR  +GHSERVV+2*GHSERCC; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,CR,FE:C;0)"   Low_T="298.15"  Bibref="REF322" > 
-      <Trange High_T="6000" > -74319+3.2353*T; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,CR,V:C;0)"   Low_T="298.15"  Bibref="REF324" > 
-      <Trange High_T="6000" > +35698-50.0981*T; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,FE,MO:C;0)"   Low_T="298.15"  Bibref="REF113" > 
-      <Trange High_T="6000" > 6000; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,FE,SI:C;0)"   Low_T="298.15"  Bibref="REF99" > 
-      <Trange High_T="6000" > +143220+39.31*T; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,FE,SI:C;1)"   Low_T="298.15"  Bibref="REF99" > 
-      <Trange High_T="6000" > -216321; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,FE,V:C;0)"   Low_T="298.15"  Bibref="REF270" > 
-      <Trange High_T="6000" > -7645.5-2.069*T; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,FE,V:C;1)"   Low_T="298.15"  Bibref="REF270" > 
-      <Trange High_T="6000" > -7645.5-2.069*T; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,FE,V:C;0)"   Low_T="298.15"  Bibref="REF270" > 
-      <Trange High_T="6000" > -40000; </Trange>
-    </Parameter>
-    <Parameter id="G(FCC_A1,MO,V:C;0)"   Low_T="298.15"  Bibref="REF220" > 
-      <Trange High_T="6000" > -18000; </Trange>
-    </Parameter>
-    <Parameter id="G(FE8SI2C,FE:SI:C;0)"   Low_T="298.15"  Bibref="REF99" > 
-      <Trange High_T="6000" > +8*GHSERFE+2*GHSERSI  +GHSERCC-231047+5.566*T; </Trange>
-    </Parameter>
-    <Parameter id="G(HCP_A3,CR,FE,MO:C;0)"   Low_T="298.15"  Bibref="REF316" > 
-      <Trange High_T="6000" > -57062; </Trange>
-    </Parameter>
-    <Parameter id="G(HCP_A3,CR,MO:C;0)"   Low_T="298.15"  Bibref="REF316" > 
-      <Trange High_T="6000" > -3905+18.5304*T; </Trange>
-    </Parameter>
-    <Parameter id="G(HCP_A3,CR,V:C;0)"   Low_T="298.15"  Bibref="REF323" > 
-      <Trange High_T="6000" > +17165-9.9072*T; </Trange>
-    </Parameter>
-    <Parameter id="G(HCP_A3,FE,MO:C;0)"   Low_T="298.15"  Bibref="REF113" > 
-      <Trange High_T="6000" > +13030-33.8*T; </Trange>
-    </Parameter>
-    <Parameter id="G(HCP_A3,FE,V:C;0)"   Low_T="298.15"  Bibref="REF270" > 
-      <Trange High_T="6000" > -15291-4.138*T; </Trange>
-    </Parameter>
-    <Parameter id="G(KSI_CARBIDE,CR,FE:C;0)"   Low_T="298.15"  Bibref="REF316" > 
-      <Trange High_T="6000" > -139900; </Trange>
-    </Parameter>
-    <Parameter id="G(KSI_CARBIDE,CR,MO:C;0)"   Low_T="298.15"  Bibref="REF316" > 
-      <Trange High_T="6000" > -348033; </Trange>
-    </Parameter>
-    <Parameter id="G(KSI_CARBIDE,FE,MO:C;0)"   Low_T="298.15"  Bibref="REF113" > 
-      <Trange High_T="6000" > -380000; </Trange>
-    </Parameter>
-    <Parameter id="G(M23C6,FE:CR:C;0)"   Low_T="298.15"  Bibref="REF102" > 
-      <Trange High_T="6000" > +.1304348*GCRM23C6  +.8695652*GFEM23C6; </Trange>
-    </Parameter>
-    <Parameter id="G(M23C6,V:CR:C;0)"   Low_T="298.15"  Bibref="REF323" > 
-      <Trange High_T="6000" > +.869565*GVM23C6  +.130435*GCRM23C6; </Trange>
-    </Parameter>
-    <Parameter id="G(M23C6,CR:FE:C;0)"   Low_T="298.15"  Bibref="REF102" > 
-      <Trange High_T="6000" > +.8695652*GCRM23C6  +.1304348*GFEM23C6; </Trange>
-    </Parameter>
-    <Parameter id="G(M23C6,V:FE:C;0)"   Low_T="298.15"  Bibref="REF323" > 
-      <Trange High_T="6000" > +.869565*GVM23C6  +.130435*GFEM23C6; </Trange>
-    </Parameter>
-    <Parameter id="G(M23C6,CR:MO:C;0)"   Low_T="298.15"  Bibref="REF316" > 
-      <Trange High_T="6000" > +20*GHSERCR+3*GHSERMO  +6*GHSERCC-439117-50.0535*T; </Trange>
-    </Parameter>
-    <Parameter id="G(M23C6,FE:MO:C;0)"   Low_T="298.15"  Bibref="REF316" > 
-      <Trange High_T="6000" > +20*GHSERFE+3*GHSERMO  +6*GHSERCC-76351-5.095*T; </Trange>
-    </Parameter>
-    <Parameter id="G(M23C6,V:MO:C;0)"   Low_T="298.15"  Bibref="REF0" > 
-      <Trange High_T="300" > UN_ASS; </Trange>
-    </Parameter>
-    <Parameter id="G(M23C6,CR:V:C;0)"   Low_T="298.15"  Bibref="REF323" > 
-      <Trange High_T="6000" > +.869565*GCRM23C6  +.130435*GVM23C6; </Trange>
-    </Parameter>
-    <Parameter id="G(M23C6,FE:V:C;0)"   Low_T="298.15"  Bibref="REF323" > 
-      <Trange High_T="6000" > +.869565*GFEM23C6  +.130435*GVM23C6; </Trange>
-    </Parameter>
-    <Parameter id="G(M23C6,CR,FE:CR:C;0)"   Low_T="298.15"  Bibref="REF322" > 
-      <Trange High_T="6000" > -205342+141.6667*T; </Trange>
-    </Parameter>
-    <Parameter id="G(M23C6,CR,FE,V:CR:C;0)"   Low_T="298.15"  Bibref="REF324" > 
-      <Trange High_T="6000" > -1499585; </Trange>
-    </Parameter>
-    <Parameter id="G(M23C6,CR,V:CR:C;0)"   Low_T="298.15"  Bibref="REF324" > 
-      <Trange High_T="6000" > -385502; </Trange>
-    </Parameter>
-    <Parameter id="G(M23C6,CR,FE:FE:C;0)"   Low_T="298.15"  Bibref="REF322" > 
-      <Trange High_T="6000" > -205342+141.6667*T; </Trange>
-    </Parameter>
-    <Parameter id="G(M23C6,CR,FE,V:FE:C;0)"   Low_T="298.15"  Bibref="REF324" > 
-      <Trange High_T="6000" > -1499585; </Trange>
-    </Parameter>
-    <Parameter id="G(M23C6,CR,V:FE:C;0)"   Low_T="298.15"  Bibref="REF324" > 
-      <Trange High_T="6000" > -385502; </Trange>
-    </Parameter>
-    <Parameter id="G(M23C6,CR,FE:MO:C;0)"   Low_T="298.15"  Bibref="REF316" > 
-      <Trange High_T="6000" > -177850+153.905*T; </Trange>
-    </Parameter>
-    <Parameter id="G(M23C6,CR,FE:V:C;0)"   Low_T="298.15"  Bibref="REF324" > 
-      <Trange High_T="6000" > -205342+141.6667*T; </Trange>
-    </Parameter>
-    <Parameter id="G(M23C6,CR,FE,V:V:C;0)"   Low_T="298.15"  Bibref="REF324" > 
-      <Trange High_T="6000" > -1499585; </Trange>
-    </Parameter>
-    <Parameter id="G(M23C6,CR,V:V:C;0)"   Low_T="298.15"  Bibref="REF324" > 
-      <Trange High_T="6000" > -385502; </Trange>
-    </Parameter>
-    <Parameter id="G(M3C2,CR,MO:C;0)"   Low_T="298.15"  Bibref="REF316" > 
-      <Trange High_T="6000" > 40000; </Trange>
-    </Parameter>
-    <Parameter id="G(M3C2,CR,V:C;0)"   Low_T="298.15"  Bibref="REF324" > 
-      <Trange High_T="6000" > 21072; </Trange>
-    </Parameter>
-    <Parameter id="G(M6C,FE:MO:CR:C;0)"   Low_T="298.15"  Bibref="REF316" > 
-      <Trange High_T="6000" > +2*GHSERFE+2*GHSERCR  +2*GHSERMO+GHSERCC-25298-54.8698*T; </Trange>
-    </Parameter>
-    <Parameter id="G(M6C,FE:MO:FE:C;0)"   Low_T="298.15"  Bibref="REF113" > 
-      <Trange High_T="6000" > +4*GHSERFE+2*GHSERMO  +GHSERCC+77705-101.5*T; </Trange>
-    </Parameter>
-    <Parameter id="G(M6C,FE:MO:MO:C;0)"   Low_T="298.15"  Bibref="REF113" > 
-      <Trange High_T="6000" > +2*GHSERFE+4*GHSERMO  +GHSERCC-122410+30.25*T; </Trange>
-    </Parameter>
-    <Parameter id="G(M6C,FE:MO:V:C;0)"   Low_T="298.15"  Bibref="REF220" > 
-      <Trange High_T="6000" > +2*GHSERFE+2*GHSERMO  +2*GHSERVV+GHSERCC-173000; </Trange>
-    </Parameter>
-    <Parameter id="G(M6C,FE:MO:FE,MO:C;0)"   Low_T="298.15"  Bibref="REF113" > 
-      <Trange High_T="6000" > -37700; </Trange>
-    </Parameter>
-    <Parameter id="G(M7C3,CR,FE:C;0)"   Low_T="298.15"  Bibref="REF322" > 
-      <Trange High_T="6000" > -4520-10*T; </Trange>
-    </Parameter>
-    <Parameter id="G(M7C3,CR,FE,V:C;0)"   Low_T="298.15"  Bibref="REF324" > 
-      <Trange High_T="6000" > -250158; </Trange>
-    </Parameter>
-    <Parameter id="G(M7C3,CR,MO:C;0)"   Low_T="298.15"  Bibref="REF316" > 
-      <Trange High_T="6000" > 165280; </Trange>
-    </Parameter>
-    <Parameter id="G(M7C3,CR,V:C;0)"   Low_T="298.15"  Bibref="REF324" > 
-      <Trange High_T="6000" > -110271; </Trange>
-    </Parameter>
-    <Parameter id="G(MONI_DELTA,FE:CR:MO;0)"   Low_T="298.15"  Bibref="REF0" > 
-      <Trange High_T="300" > UN_ASS; </Trange>
-    </Parameter>
-    <Parameter id="G(MONI_DELTA,CR:FE:MO;0)"   Low_T="298.15"  Bibref="REF0" > 
-      <Trange High_T="300" > UN_ASS; </Trange>
-    </Parameter>
-    <Parameter id="G(MU_PHASE,FE:MO:CR;0)"   Low_T="298.15"  Bibref="REF115" > 
-      <Trange High_T="6000" > +7*GFEFCC+2*GHSERMO  +4*GHSERCR+130000-100*T; </Trange>
-    </Parameter>
-    <Parameter id="G(MU_PHASE,CR:MO:FE;0)"   Low_T="298.15"  Bibref="REF115" > 
-      <Trange High_T="6000" > +7*GCRFCC+2*GHSERMO  +4*GHSERFE+130000-100*T; </Trange>
-    </Parameter>
-    <Parameter id="G(MU_PHASE,CR,FE:MO:MO;0)"   Low_T="298.15"  Bibref="REF115" > 
-      <Trange High_T="6000" > -45000; </Trange>
-    </Parameter>
-    <Parameter id="G(P_PHASE,FE:CR:MO;0)"   Low_T="298.15"  Bibref="REF0" > 
-      <Trange High_T="300" > UN_ASS; </Trange>
-    </Parameter>
-    <Parameter id="G(P_PHASE,CR:FE:MO;0)"   Low_T="298.15"  Bibref="REF0" > 
-      <Trange High_T="300" > UN_ASS; </Trange>
-    </Parameter>
-    <Parameter id="G(R_PHASE,FE:MO:CR;0)"   Low_T="298.15"  Bibref="REF115" > 
-      <Trange High_T="6000" > +27*GFEFCC+14*GHSERMO  +12*GHSERCR+600260-620*T; </Trange>
-    </Parameter>
-    <Parameter id="G(R_PHASE,CR:MO:FE;0)"   Low_T="298.15"  Bibref="REF115" > 
-      <Trange High_T="6000" > +27*GCRFCC+14*GHSERMO  +12*GHSERFE+645260-620*T; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,C,CR,FE;0)"   Low_T="298.15"  Bibref="REF322" > 
-      <Trange High_T="6000" > -496063; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,C,CR,FE;1)"   Low_T="298.15"  Bibref="REF322" > 
-      <Trange High_T="6000" > 57990; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,C,CR,FE;2)"   Low_T="298.15"  Bibref="REF322" > 
-      <Trange High_T="6000" > 61404; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,C,CR,V;0)"   Low_T="298.15"  Bibref="REF324" > 
-      <Trange High_T="6000" > -769497; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,C,CR,V;1)"   Low_T="298.15"  Bibref="REF324" > 
-      <Trange High_T="6000" > 263981; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,C,CR,V;2)"   Low_T="298.15"  Bibref="REF324" > 
-      <Trange High_T="6000" > 3599; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,C,FE,SI;0)"   Low_T="298.15"  Bibref="REF99" > 
-      <Trange High_T="6000" > 445740; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,C,FE,SI;1)"   Low_T="298.15"  Bibref="REF99" > 
-      <Trange High_T="6000" > -6065-35.33*T; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,C,FE,SI;2)"   Low_T="298.15"  Bibref="REF99" > 
-      <Trange High_T="6000" > +2545792-1450.6*T; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,C,FE,V;0)"   Low_T="298.15"  Bibref="REF270" > 
-      <Trange High_T="6000" > -60000; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,C,FE,V;1)"   Low_T="298.15"  Bibref="REF270" > 
-      <Trange High_T="6000" > -60000; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,C,FE,V;2)"   Low_T="298.15"  Bibref="REF270" > 
-      <Trange High_T="6000" > 100000; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,C,FE,MO;0)"   Low_T="298.15"  Bibref="REF113" > 
-      <Trange High_T="6000" > -37800; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,CR,FE,V;0)"   Low_T="298.15"  Bibref="REF323" > 
-      <Trange High_T="6000" > 14881; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,CR,FE,V;1)"   Low_T="298.15"  Bibref="REF323" > 
-      <Trange High_T="6000" > 17968; </Trange>
-    </Parameter>
-    <Parameter id="G(LIQUID,CR,FE,V;2)"   Low_T="298.15"  Bibref="REF323" > 
-      <Trange High_T="6000" > -7692; </Trange>
-    </Parameter>
-    <Parameter id="G(SIGMA,FE:MO:CR;0)"   Low_T="298.15"  Bibref="REF115" > 
-      <Trange High_T="6000" > +8*GFEFCC+4*GHSERMO  +18*GHSERCR+488480-360*T; </Trange>
-    </Parameter>
-    <Parameter id="G(SIGMA,FE:V:CR;0)"   Low_T="298.15"  Bibref="REF323" > 
-      <Trange High_T="6000" > +155735-89.5976*T+8*GFEFCC  +4*GHSERVV+18*GHSERCR; </Trange>
-    </Parameter>
-    <Parameter id="G(SIGMA,FE:CR:MO;0)"   Low_T="298.15"  Bibref="REF115" > 
-      <Trange High_T="6000" > +8*GFEFCC+4*GHSERCR  +18*GHSERMO+312580-260*T; </Trange>
-    </Parameter>
-    <Parameter id="G(SIGMA,FE:V:MO;0)"   Low_T="298.15"  Bibref="REF136" > 
-      <Trange High_T="6000" > +8*GFEFCC+4*GHSERVV  +18*GHSERMO; </Trange>
-    </Parameter>
-    <Parameter id="G(SIGMA,FE:CR:V;0)"   Low_T="298.15"  Bibref="REF323" > 
-      <Trange High_T="6000" > -245761-67.3294*T+8*GFEFCC  +4*GHSERCR+18*GHSERVV; </Trange>
-    </Parameter>
-    <Parameter id="G(SIGMA,FE:MO:V;0)"   Low_T="298.15"  Bibref="REF136" > 
-      <Trange High_T="6000" > +8*GFEFCC+4*GHSERMO  +18*GHSERVV; </Trange>
-    </Parameter>
-    <Parameter id="G(SIGMA,FE:CR:CR;0)"   Low_T="298.15"  Bibref="REF115" > 
-      <Trange High_T="6000" > -148000; </Trange>
-    </Parameter>
-    <Parameter id="G(SIGMA,FE:MO:CR;0)"   Low_T="298.15"  Bibref="REF115" > 
-      <Trange High_T="6000" > 121000; </Trange>
-    </Parameter>
-    <Parameter id="G(SIGMA,FE:CR:FE;0)"   Low_T="298.15"  Bibref="REF115" > 
-      <Trange High_T="6000" > 570000; </Trange>
-    </Parameter>
-    <Parameter id="G(SIGMA,FE:CR:FE;0)"   Low_T="298.15"  Bibref="REF323" > 
-      <Trange High_T="6000" > -235158; </Trange>
-    </Parameter>
+    <Parameter id="G(BCC_A2,CR,FE:C;0)"   Expression="-1250000+667.7*T;" Bibref="REF322" />
+    <Parameter id="TC(BCC_A2,CR,FE:C;0)"   Expression="1650;" Bibref="REF102" />
+    <Parameter id="TC(BCC_A2,CR,FE:C;1)"   Expression="550;" Bibref="REF102" />
+    <Parameter id="BMAGN(BCC_A2,CR,FE:C;0)"   Expression="-.85;" Bibref="REF102" />
+    <Parameter id="G(BCC_A2,FE,MO:C;0)"   Expression="-1250000+667.7*T;" Bibref="REF325" />
+    <Parameter id="TC(BCC_A2,FE,MO:C;0)"   Expression="335;" Bibref="REF104" />
+    <Parameter id="TC(BCC_A2,FE,MO:C;1)"   Expression="526;" Bibref="REF104" />
+    <Parameter id="G(BCC_A2,FE,SI:C;0)"   Expression="78866;" Bibref="REF99" />
+    <Parameter id="G(BCC_A2,FE,V:C;0)"   Expression="-23674+.465*T;" Bibref="REF270" />
+    <Parameter id="G(BCC_A2,FE,V:C;1)"   Expression="8283;" Bibref="REF270" />
+    <Parameter id="G(BCC_A2,CR,FE,V:VA;0)"   Expression="14881;" Bibref="REF323" />
+    <Parameter id="G(BCC_A2,CR,FE,V:VA;1)"   Expression="17968;" Bibref="REF323" />
+    <Parameter id="G(BCC_A2,CR,FE,V:VA;2)"   Expression="-7692;" Bibref="REF323" />
+    <Parameter id="G(CEMENTITE,CR,FE:C;0)"   Expression="+25278-17.5*T;" Bibref="REF322" />
+    <Parameter id="G(CEMENTITE,CR,MO:C;0)"   Expression="40000;" Bibref="REF316" />
+    <Parameter id="G(CEMENTITE,CR,V:C;0)"   Expression="-29622-8.0892*T;" Bibref="REF324" />
+    <Parameter id="G(CEMENTITE,CR,V:C;1)"   Expression="-5160-7.5711*T;" Bibref="REF324" />
+    <Parameter id="G(CEMENTITE,FE,V:C;0)"   Expression="-45873-12.414*T;" Bibref="REF270" />
+    <Parameter id="G(CHI_A12,FE:MO:CR;0)"   Expression="+24*GFEFCC+10*GHSERMO  +24*GCRFCC+32555-385*T;" Bibref="REF213" />
+    <Parameter id="G(CHI_A12,CR:MO:FE;0)"   Expression="+24*GCRFCC+10*GHSERMO  +24*GFEFCC+500000;" Bibref="REF213" />
+    <Parameter id="G(CHI_A12,FE:CR:MO;0)"   Expression="+24*GFEFCC+10*GHSERCR  +24*GMOFCC+100000;" Bibref="REF115" />
+    <Parameter id="G(CR2VC2,CR:V:C;0)"   Expression="-105987-38.2069*T+2*GHSERCR  +GHSERVV+2*GHSERCC;" Bibref="REF324" />
+    <Parameter id="G(FCC_A1,CR,FE:C;0)"   Expression="-74319+3.2353*T;" Bibref="REF322" />
+    <Parameter id="G(FCC_A1,CR,V:C;0)"   Expression="+35698-50.0981*T;" Bibref="REF324" />
+    <Parameter id="G(FCC_A1,FE,MO:C;0)"   Expression="6000;" Bibref="REF113" />
+    <Parameter id="G(FCC_A1,FE,SI:C;0)"   Expression="+143220+39.31*T;" Bibref="REF99" />
+    <Parameter id="G(FCC_A1,FE,SI:C;1)"   Expression="-216321;" Bibref="REF99" />
+    <Parameter id="G(FCC_A1,FE,V:C;0)"   Expression="-7645.5-2.069*T;" Bibref="REF270" />
+    <Parameter id="G(FCC_A1,FE,V:C;1)"   Expression="-7645.5-2.069*T;" Bibref="REF270" />
+    <Parameter id="G(FCC_A1,FE,V:C;0)"   Expression="-40000;" Bibref="REF270" />
+    <Parameter id="G(FCC_A1,MO,V:C;0)"   Expression="-18000;" Bibref="REF220" />
+    <Parameter id="G(FE8SI2C,FE:SI:C;0)"   Expression="+8*GHSERFE+2*GHSERSI  +GHSERCC-231047+5.566*T;" Bibref="REF99" />
+    <Parameter id="G(HCP_A3,CR,FE,MO:C;0)"   Expression="-57062;" Bibref="REF316" />
+    <Parameter id="G(HCP_A3,CR,MO:C;0)"   Expression="-3905+18.5304*T;" Bibref="REF316" />
+    <Parameter id="G(HCP_A3,CR,V:C;0)"   Expression="+17165-9.9072*T;" Bibref="REF323" />
+    <Parameter id="G(HCP_A3,FE,MO:C;0)"   Expression="+13030-33.8*T;" Bibref="REF113" />
+    <Parameter id="G(HCP_A3,FE,V:C;0)"   Expression="-15291-4.138*T;" Bibref="REF270" />
+    <Parameter id="G(KSI_CARBIDE,CR,FE:C;0)"   Expression="-139900;" Bibref="REF316" />
+    <Parameter id="G(KSI_CARBIDE,CR,MO:C;0)"   Expression="-348033;" Bibref="REF316" />
+    <Parameter id="G(KSI_CARBIDE,FE,MO:C;0)"   Expression="-380000;" Bibref="REF113" />
+    <Parameter id="G(M23C6,FE:CR:C;0)"   Expression="+.1304348*GCRM23C6  +.8695652*GFEM23C6;" Bibref="REF102" />
+    <Parameter id="G(M23C6,V:CR:C;0)"   Expression="+.869565*GVM23C6  +.130435*GCRM23C6;" Bibref="REF323" />
+    <Parameter id="G(M23C6,CR:FE:C;0)"   Expression="+.8695652*GCRM23C6  +.1304348*GFEM23C6;" Bibref="REF102" />
+    <Parameter id="G(M23C6,V:FE:C;0)"   Expression="+.869565*GVM23C6  +.130435*GFEM23C6;" Bibref="REF323" />
+    <Parameter id="G(M23C6,CR:MO:C;0)"   Expression="+20*GHSERCR+3*GHSERMO  +6*GHSERCC-439117-50.0535*T;" Bibref="REF316" />
+    <Parameter id="G(M23C6,FE:MO:C;0)"   Expression="+20*GHSERFE+3*GHSERMO  +6*GHSERCC-76351-5.095*T;" Bibref="REF316" />
+    <Parameter id="G(M23C6,V:MO:C;0)"   Bibref="REF0" > 
+      <Trange High_T="300" Expression="UN_ASS;" />
+    </Parameter>
+    <Parameter id="G(M23C6,CR:V:C;0)"   Expression="+.869565*GCRM23C6  +.130435*GVM23C6;" Bibref="REF323" />
+    <Parameter id="G(M23C6,FE:V:C;0)"   Expression="+.869565*GFEM23C6  +.130435*GVM23C6;" Bibref="REF323" />
+    <Parameter id="G(M23C6,CR,FE:CR:C;0)"   Expression="-205342+141.6667*T;" Bibref="REF322" />
+    <Parameter id="G(M23C6,CR,FE,V:CR:C;0)"   Expression="-1499585;" Bibref="REF324" />
+    <Parameter id="G(M23C6,CR,V:CR:C;0)"   Expression="-385502;" Bibref="REF324" />
+    <Parameter id="G(M23C6,CR,FE:FE:C;0)"   Expression="-205342+141.6667*T;" Bibref="REF322" />
+    <Parameter id="G(M23C6,CR,FE,V:FE:C;0)"   Expression="-1499585;" Bibref="REF324" />
+    <Parameter id="G(M23C6,CR,V:FE:C;0)"   Expression="-385502;" Bibref="REF324" />
+    <Parameter id="G(M23C6,CR,FE:MO:C;0)"   Expression="-177850+153.905*T;" Bibref="REF316" />
+    <Parameter id="G(M23C6,CR,FE:V:C;0)"   Expression="-205342+141.6667*T;" Bibref="REF324" />
+    <Parameter id="G(M23C6,CR,FE,V:V:C;0)"   Expression="-1499585;" Bibref="REF324" />
+    <Parameter id="G(M23C6,CR,V:V:C;0)"   Expression="-385502;" Bibref="REF324" />
+    <Parameter id="G(M3C2,CR,MO:C;0)"   Expression="40000;" Bibref="REF316" />
+    <Parameter id="G(M3C2,CR,V:C;0)"   Expression="21072;" Bibref="REF324" />
+    <Parameter id="G(M6C,FE:MO:CR:C;0)"   Expression="+2*GHSERFE+2*GHSERCR  +2*GHSERMO+GHSERCC-25298-54.8698*T;" Bibref="REF316" />
+    <Parameter id="G(M6C,FE:MO:FE:C;0)"   Expression="+4*GHSERFE+2*GHSERMO  +GHSERCC+77705-101.5*T;" Bibref="REF113" />
+    <Parameter id="G(M6C,FE:MO:MO:C;0)"   Expression="+2*GHSERFE+4*GHSERMO  +GHSERCC-122410+30.25*T;" Bibref="REF113" />
+    <Parameter id="G(M6C,FE:MO:V:C;0)"   Expression="+2*GHSERFE+2*GHSERMO  +2*GHSERVV+GHSERCC-173000;" Bibref="REF220" />
+    <Parameter id="G(M6C,FE:MO:FE,MO:C;0)"   Expression="-37700;" Bibref="REF113" />
+    <Parameter id="G(M7C3,CR,FE:C;0)"   Expression="-4520-10*T;" Bibref="REF322" />
+    <Parameter id="G(M7C3,CR,FE,V:C;0)"   Expression="-250158;" Bibref="REF324" />
+    <Parameter id="G(M7C3,CR,MO:C;0)"   Expression="165280;" Bibref="REF316" />
+    <Parameter id="G(M7C3,CR,V:C;0)"   Expression="-110271;" Bibref="REF324" />
+    <Parameter id="G(MONI_DELTA,FE:CR:MO;0)"   Bibref="REF0" > 
+      <Trange High_T="300" Expression="UN_ASS;" />
+    </Parameter>
+    <Parameter id="G(MONI_DELTA,CR:FE:MO;0)"   Bibref="REF0" > 
+      <Trange High_T="300" Expression="UN_ASS;" />
+    </Parameter>
+    <Parameter id="G(MU_PHASE,FE:MO:CR;0)"   Expression="+7*GFEFCC+2*GHSERMO  +4*GHSERCR+130000-100*T;" Bibref="REF115" />
+    <Parameter id="G(MU_PHASE,CR:MO:FE;0)"   Expression="+7*GCRFCC+2*GHSERMO  +4*GHSERFE+130000-100*T;" Bibref="REF115" />
+    <Parameter id="G(MU_PHASE,CR,FE:MO:MO;0)"   Expression="-45000;" Bibref="REF115" />
+    <Parameter id="G(P_PHASE,FE:CR:MO;0)"   Bibref="REF0" > 
+      <Trange High_T="300" Expression="UN_ASS;" />
+    </Parameter>
+    <Parameter id="G(P_PHASE,CR:FE:MO;0)"   Bibref="REF0" > 
+      <Trange High_T="300" Expression="UN_ASS;" />
+    </Parameter>
+    <Parameter id="G(R_PHASE,FE:MO:CR;0)"   Expression="+27*GFEFCC+14*GHSERMO  +12*GHSERCR+600260-620*T;" Bibref="REF115" />
+    <Parameter id="G(R_PHASE,CR:MO:FE;0)"   Expression="+27*GCRFCC+14*GHSERMO  +12*GHSERFE+645260-620*T;" Bibref="REF115" />
+    <Parameter id="G(LIQUID,C,CR,FE;0)"   Expression="-496063;" Bibref="REF322" />
+    <Parameter id="G(LIQUID,C,CR,FE;1)"   Expression="57990;" Bibref="REF322" />
+    <Parameter id="G(LIQUID,C,CR,FE;2)"   Expression="61404;" Bibref="REF322" />
+    <Parameter id="G(LIQUID,C,CR,V;0)"   Expression="-769497;" Bibref="REF324" />
+    <Parameter id="G(LIQUID,C,CR,V;1)"   Expression="263981;" Bibref="REF324" />
+    <Parameter id="G(LIQUID,C,CR,V;2)"   Expression="3599;" Bibref="REF324" />
+    <Parameter id="G(LIQUID,C,FE,SI;0)"   Expression="445740;" Bibref="REF99" />
+    <Parameter id="G(LIQUID,C,FE,SI;1)"   Expression="-6065-35.33*T;" Bibref="REF99" />
+    <Parameter id="G(LIQUID,C,FE,SI;2)"   Expression="+2545792-1450.6*T;" Bibref="REF99" />
+    <Parameter id="G(LIQUID,C,FE,V;0)"   Expression="-60000;" Bibref="REF270" />
+    <Parameter id="G(LIQUID,C,FE,V;1)"   Expression="-60000;" Bibref="REF270" />
+    <Parameter id="G(LIQUID,C,FE,V;2)"   Expression="100000;" Bibref="REF270" />
+    <Parameter id="G(LIQUID,C,FE,MO;0)"   Expression="-37800;" Bibref="REF113" />
+    <Parameter id="G(LIQUID,CR,FE,V;0)"   Expression="14881;" Bibref="REF323" />
+    <Parameter id="G(LIQUID,CR,FE,V;1)"   Expression="17968;" Bibref="REF323" />
+    <Parameter id="G(LIQUID,CR,FE,V;2)"   Expression="-7692;" Bibref="REF323" />
+    <Parameter id="G(SIGMA,FE:MO:CR;0)"   Expression="+8*GFEFCC+4*GHSERMO  +18*GHSERCR+488480-360*T;" Bibref="REF115" />
+    <Parameter id="G(SIGMA,FE:V:CR;0)"   Expression="+155735-89.5976*T+8*GFEFCC  +4*GHSERVV+18*GHSERCR;" Bibref="REF323" />
+    <Parameter id="G(SIGMA,FE:CR:MO;0)"   Expression="+8*GFEFCC+4*GHSERCR  +18*GHSERMO+312580-260*T;" Bibref="REF115" />
+    <Parameter id="G(SIGMA,FE:V:MO;0)"   Expression="+8*GFEFCC+4*GHSERVV  +18*GHSERMO;" Bibref="REF136" />
+    <Parameter id="G(SIGMA,FE:CR:V;0)"   Expression="-245761-67.3294*T+8*GFEFCC  +4*GHSERCR+18*GHSERVV;" Bibref="REF323" />
+    <Parameter id="G(SIGMA,FE:MO:V;0)"   Expression="+8*GFEFCC+4*GHSERMO  +18*GHSERVV;" Bibref="REF136" />
+    <Parameter id="G(SIGMA,FE:CR:CR;0)"   Expression="-148000;" Bibref="REF115" />
+    <Parameter id="G(SIGMA,FE:MO:CR;0)"   Expression="121000;" Bibref="REF115" />
+    <Parameter id="G(SIGMA,FE:CR:FE;0)"   Expression="570000;" Bibref="REF115" />
+    <Parameter id="G(SIGMA,FE:CR:FE;0)"   Expression="-235158;" Bibref="REF323" />
   </Higher-parameters>
   <Bibliography>
     <Bibitem ID="REF283" Text="Alan Dinsdale, SGTE Data for Pure Elements,  Calphad Vol 15(1991) p 317-425,  also in NPL Report DMA(A)195 Rev. August 1990" />
@@ -1936,5 +963,20 @@
     <Bibitem ID="REF126" Text="K. Frisk, Metall. Trans. Vol 21A (1990) p 2477-2488,  TRITA 0409 (1989); CR-FE-N" />
     <Bibitem ID="REF117" Text="J-O Andersson, TRITA-MAC 323 (1986); C-CR-FE-MO" />
     <Bibitem ID="REF111" Text="J-O Andersson, CALPHAD Vol 7, (1983), p 305-315 (parameters  revised  1986 due to new decription of V) TRITA 0201 (1982); FE-V" />
+    <Bibitem ID="60Koh" Text="F. Kohler, Monatsh Chem, Vol 91 (1960) 738--740" />
+    <Bibitem ID="65Toop" Text="G. W. Toop, Trans Metall Soc, AIME  Vol 233 (1965) 850--854" />
+    <Bibitem ID="82Her" Text="S. Hertzman and B. Sundman, A Thermodynamic analysis of the Fe-Cr system, Calphad Vol 6 (1982) 67-80." />
+    <Bibitem ID="12Xiong" Text="W. Xiong, Q. Chen, P. K. Korzhavyi and M. Selleby, An improved magnetic model for thermodynamic modeling, Calphad, Vol 39 (2012) 11-20." />
+    <Bibitem ID="01Qing" Text="Q. Chen and B. Sundman, Modeling of thermodynamic properties for Bcc, Fcc, liquid, and amorphous iron, J. Phase Equilibria. Vol 22 (2001) 631-644." />
+    <Bibitem ID="14Becker" Text="C. A. Becker, J. Agren, M. Baricco, Q. Chen, S. A. Decterov, U. R. Kattner, J. H. Perepezko, G. R. Pottlacher and M. Selleby, Thermodynamic modelling of liquids: CALPHAD approaches and contributions from statistical physics. Phys status solidi. B, Vol 251(1) (2014) 33-52." />
+    <Bibitem ID="05Lu" Text="X-G. Lu, M. Selleby and B. Sundman, Implementation of a new model for pressure dependence of condensed phases in Thermo-Calc, Calphad Vol 29 (2005) 49-55." />
+    <Bibitem ID="09Sun" Text="B. Sundman, I. Ohnuma, N. Dupin, U. R. Kattner, S. G. Fries, An assessment of the entire Al–Fe system including D03 ordering, Acta Mater. Vol 57 (2009) 2896-2908" />
+    <Bibitem ID="09Sun" Text="B. Sundman, I. Ohnuma, N. Dupin, U. R. Kattner, S. G. Fries, An assessment of the entire Al–Fe system including D03 ordering, Acta Mater. Vol 57 (2009) 2896-2908" />
+    <Bibitem ID="20Sun" Text="B. Sundman, U. R. Kattner, M. Hillert, M. Selleby, J. Agren, S. Bigdeli, Q. Chen, A. Dinsdale, B. Hallstedt, A. Khvan, H. Mao and R. OtisA method for handling the estrapolation of solid crystalline phases to temperature above their melting point, Calphad Vol 68 (2020) 101737" />
   </Bibliography>
+  <TDB-comments>
+       0 $ Database file written 2012- 2-11
+       0 $ From database: SSOL2
+       8 $
+  </TDB-comments>
 </Database>

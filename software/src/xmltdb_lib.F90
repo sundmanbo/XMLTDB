@@ -10,6 +10,7 @@ MODULE XMLTDB_LIB
 ! Fortran definition of the XMLelements for use in XMLTDB project
 !
 ! first draft 2023.03.15 Bo Sundman
+! Later draft 2023.05.10 Bo Sundman
 !
   implicit none
 !
@@ -19,7 +20,7 @@ MODULE XMLTDB_LIB
     integer, parameter :: LIQ2STATE=5,VOLOWP=6,DISFS=7,FCCPERM=8
     integer, parameter :: BCCPERM=9
 ! Not yet unstalled
-    integer, parameter :: EEC=10,MQMQA=11,UNIQUAC=1
+    integer, parameter :: EEC=10,MQMQA=11,UNIQUAC=12
 ! NOTE: DISFS require names of ordered and disordered phases and the number
 !        of sublattices to sum in the ordered phase
 !        (this value is either all or all except the last (intersttial))
@@ -40,19 +41,11 @@ MODULE XMLTDB_LIB
         '                                                                ',&
         '                                                                '/
 ! definition of predefined model names and identifying integers
-!  integer,  parameter :: VOLUME_MODEL
-!  integer,  parameter :: EEC_MODEL    ?? For whole database
 !  integer,  parameter :: EBEF         ?? maybe not needed
 !  integer,  parameter :: MQMQMA
 !  integer,  parameter :: UNIQUAC
   integer xmlerr
 !------------------------------------------  
-  TYPE xmltdb_string
-! declaration of a long string divided in parts
-     integer :: len
-     character (len=80), dimension(:), allocatable :: text
-  end type xmltdb_string
-!------------------------------------------    
   TYPE xmltdb_element
 ! specification of the simple XMLelement ELEMENT     
      character (len=2) :: id
@@ -161,7 +154,6 @@ MODULE XMLTDB_LIB
 ! specification of the XMLelement MODEL (excluding constitution)
      character (len=24) :: ID
      character*80 text
-!     type(xmltdb_string), pointer :: string
 ! necessary model parameter identifiers
 !     integer, dimension(:), allocatable :: mpid
   end type xmltdb_xmodel
@@ -197,6 +189,13 @@ MODULE XMLTDB_LIB
      type(xmltdb_typedefs), pointer :: next
   end type xmltdb_typedefs
 !------------------------------------------      
+  TYPE xmltdb_tdbcomment
+! TDB lines with comments or otherwise ignored
+     integer lno
+     character*80 text
+     type(xmltdb_tdbcomment), pointer :: next,prev
+  end type xmltdb_tdbcomment
+!------------------------------------------      
   TYPE xmltdb_ignored
 ! specification of the XMLelement for things ignored
      character id*24
@@ -214,6 +213,8 @@ MODULE XMLTDB_LIB
   type(xmltdb_model), dimension(:), allocatable, target :: mlist
   type(xmltdb_mpid), dimension(:), allocatable :: mpidlist
   type(xmltdb_bibliography), dimension(:), allocatable :: bibliolist
+  type(xmltdb_tdbcomment) :: firstcc
+  type(xmltdb_tdbcomment), pointer :: lastcc
 ! for alphabetical ordering of species and phases
   integer, dimension(:), allocatable :: sporder
   integer, dimension(:), allocatable :: phorder
@@ -229,7 +230,11 @@ MODULE XMLTDB_LIB
        /'Thermo-Calc ','OpenCalphad ','Pandat      ','MatCalc    ',&
         'PyCalphad   ','            ','            ','            '/
 ! this is set to indicate the softtware, tofs=4 means MatCalc, =3 Pandat
-  integer tofs
+  integer tofs,ncc
+  logical mcref
+  double precision, parameter :: default_low_tdef=2.9815D2
+  double precision, parameter :: default_high_tdef=6.0D3
+  double precision :: low_tdef,high_tdef
 !
 !-----------------------------
 ! to check phases are OK (ambiguietty etc)
@@ -266,6 +271,14 @@ CONTAINS
     ignored_list%id='Dummy'
     ignored_list%action='head of list'
     nullify(ignored_list%next)
+! list of saved comments
+    firstcc%lno=-1
+    nullify(firstcc%next)
+    nullify(lastcc)
+    ncc=0
+!    write(*,*)'Initiated firstcc'
+    low_tdef=default_low_tdef
+    high_tdef=default_high_tdef
 ! descriptions of models implemented
     call enter_models
     return
@@ -360,7 +373,7 @@ CONTAINS
     mlist(nomod)%required_mpid(2)='LNTH'
     allocate(mlist(nomod)%model_info(1))
     mlist(nomod)%model_info(1)='Unified model for the liquid and '//&
-         'amorphous state inluding the Einstein low T model'
+         'the amorphous state treated as an Einstein solid'
 !----------------------------------------------
 ! 6. Volume model for low and moderate Pressures (Lu 2003)
     nomod=nomod+1
@@ -374,7 +387,7 @@ CONTAINS
     mlist(nomod)%required_mpid(3)='VB'
     allocate(mlist(nomod)%model_info(1))
     mlist(nomod)%model_info(1)='The volume of a phase is described '//&
-         'as function of T, P and the constitution of the phase.'
+         'as function of T, P and its constitution.'
 !
 !----------------------------------------------
 ! 7. Disordered model for different phases, need to know how many sublattices 
@@ -383,9 +396,12 @@ CONTAINS
 ! Reference AL-Fe assessment or has disordered fraction sets been used before?
     mlist(nomod)%bibref='09Sun'
     mlist(nomod)%numberof_mpid=0
-    allocate(mlist(nomod)%model_info(1))
-    mlist(nomod)%model_info(1)='The disordered fractions are summed'//&
-         ' over the ordered sublattices indicated at the phase.'
+    allocate(mlist(nomod)%model_info(2))
+    mlist(nomod)%model_info(1)='The disordered fractions are summed '//&
+         'over the ordered sublattices indicated at the phase.'
+    mlist(nomod)%model_info(2)='  The Gibbs energy calculated 2 or 3 times '//&
+         'as indicated by the CEF_appendix but the configurational entropy '//&
+         'only once.'
 ! in the phase typedefs record with a link to this record the phase names
 !  are stored and also the number of sublattices to be summed in the
 ! ordered phase.  For FCC, BCC normally 4 (the last sublattice is interstitial)
@@ -418,6 +434,30 @@ CONTAINS
     mlist(nomod)%model_info(1)='Permutations of ordered BCC parameters with '//&
          'the same set of elements are listed only once.'
 !----------------------------------------------
+! 10. EEC
+    nomod=nomod+1
+    mlist(nomod)%id='EEC'
+    mlist(nomod)%bibref='20Sun'
+    mlist(nomod)%model_int=0
+    mlist(nomod)%model_real=0.0D0
+    mlist(nomod)%numberof_mpid=0
+!    allocate(mlist(nomod)%required_mpid(2))
+!    mlist(nomod)%required_mpid(1)=
+    allocate(mlist(nomod)%model_info(1))
+    mlist(nomod)%model_info(1)='Equi-Entropy Criterion means that solid '//&
+         'phases with higher entropy that the liquid phase must not be stable.'
+!----------------------------------------------
+!    nomod=nomod+1
+!    mlist(nomod)%id='TOOPEXCESS'
+!    mlist(nomod)%bibref='65Toop'
+!    mlist(nomod)%model_int=
+!    mlist(nomod)%model_real=
+!    mlist(nomod)%numberof_mpid=0
+!    allocate(mlist(nomod)%required_mpid(2))
+!    mlist(nomod)%required_mpid(1)=
+!    allocate(mlist(nomod)%model_info(2))
+!    mlist(nomod)%model_info(1)=
+!----------------------------------------------
 !    nomod=nomod+1
 !    mlist(nomod)%id=
 !    mlist(nomod)%bibref=
@@ -429,6 +469,7 @@ CONTAINS
 !    allocate(mlist(nomod)%model_info(2))
 !    mlist(nomod)%model_info(1)=
 !----------------------------------------------
+    write(*,*)'Entered all models'
 1000 continue
     return
   end subroutine enter_models
@@ -441,7 +482,9 @@ CONTAINS
     character (len=512) :: line2
 ! this indicate which software generated the TDB file
     character*32 origin
-    logical more,lastkeywasph,mcref
+    logical more,lastkeywasph
+    type(xmltdb_tdbcomment), pointer :: tempcc,linkcc
+    double precision relval
 !
 !    write(*,*)'Reading a TDB file generated by: ',trim(origin)
     nl=0
@@ -455,11 +498,33 @@ CONTAINS
 ! skipping blank lines
        if(eolch(line,ip)) cycle find
 ! skipping lines starting with '$' ... maybe they shoulp be kept!
-       if(line(ip:ip).eq.'$') cycle find
+       if(line(ip:ip).eq.'$') then
+!          write(*,*)'A comment line: "',trim(line),'"',associated(firstcc%next)
+          linkcc=>firstcc%next
+          allocate(firstcc%next)
+! tempcc is a record to save the new comment line
+          tempcc=>firstcc%next
+          tempcc%lno=nline
+          tempcc%text=trim(line)
+!          write(*,*)'Set link to previous comment saved',associated(linkcc)
+          tempcc%next=>linkcc
+          if(.not.associated(lastcc)) then
+! set lastcc to point at the first comment line saved
+             lastcc=>firstcc%next
+             nullify(lastcc%prev)
+          else
+!             write(*,*)'Set link to new comment saved',associated(firstcc%next)
+             linkcc%prev=>tempcc
+!             write(*,*)'Setting link to first comment saved'
+          endif
+          ncc=ncc+1
+!          write(*,*)'Comment saved'
+          cycle find
+       endif
 ! istdbkeyword starts from position 1 and ip is space after key
 ! The keywords are defined inside istdbkeyword
        key=istdbkeyword(line,ip)
-! The first 14 are for Thermo-Calc, OC, MatCalc etc TDB files
+! The first 16 are for Thermo-Calc, OC, MatCalc etc TDB files, 2 last Pandat
 !   character (len=kwl), dimension(nkw), parameter :: keyword=&
 !        ['ELEMENT             ','SPECIES             ',&
 !         'PHASE               ','CONSTITUENT         ',&
@@ -468,9 +533,9 @@ CONTAINS
 !         'ADD_REFERENCES      ','ASSESSED_SYSTEMS    ',&
 !         'DATABASE_INFORMATION','VERSION             ',&
 !         'DEFAULT_COMMAND     ','DEFINE              ']
+!         'TEMPERATURE_LIMITS  ','                    ']
 ! Pandat extra
 !         'PROPERTY            ','VARIABLE            ',&
-!         '                    ','                    ']
 !---------------------------------------------------------------
 !       write(*,103)'Keyword index: ',key,xmlerr,ip,nl,tofs,' "',line(1:20),'"'
 103    format(a,5i5,3a)
@@ -594,8 +659,8 @@ CONTAINS
        select case(key)
 ! somting on the TDB file not understood, save anyway
        case default
-          write(*,110)nl,line(1:40)
-110       format(' *** Ignoring line ',i7,' starting: "',a,'"')
+          write(*,110)nl,key,line(1:30)
+110       format(' *** Ignoring line ',i7,i3,' starting: "',a,'"')
           call getignored(line,ip)
 ! element symbol, refstate, mass, H298_H0, S298
        case(1)
@@ -659,7 +724,7 @@ CONTAINS
 ! database_information
        case(11)
 !          write(*,*)'Keyword index: ',key,xmlerr,ip
-          write(*,110)nl,line(1:40)
+          write(*,110)nl,key,line(1:40)
 ! version
        case(12)
 !          write(*,*)'Keyword index: ',key,xmlerr,ip
@@ -667,23 +732,28 @@ CONTAINS
 ! default_command
        case(13)
 !          write(*,*)'Keyword index: ',key,xmlerr,ip
-          write(*,110)nl,line(1:40)
+          write(*,110)nl,key,line(1:40)
 ! define ?? define_system_default
        case(14)
 !          write(*,*)'Keyword index: ',key,xmlerr,ip
           write(*,*)'Found define'
-! Pandat property or variable
-       case(15,16)
-!          write(*,*)'Keyword index: ',key,xmlerr,ip
-! pandatype=1 for property, =2 for variable
-          pantyp=key-14
-          call getfun(line,ip,pantyp)
-! not used yet
-       case(17)
-          write(*,*)'Keyword index unused: ',key,xmlerr,ip
+! TEMPERATURE_LIMITS
+       case(15)
+!          write(*,*)'Temperature limits: ',trim(line(ip:))
+          call getrel(line,ip,relval)
+          low_tdef=relval
+          call getrel(line,ip,relval)
+          high_tdef=relval
+!          write(*,*)'Temperature limits: ',low_tdef,high_tdef
 ! not used
-       case(18)
+       case(16)
           write(*,*)'Keyword index unused: ',key,xmlerr,ip
+! Pandat property or variable
+       case(17,18)
+!          write(*,*)'Keyword index: ',key,xmlerr,ip
+! pandatype=1 for property, =2 for variable, very messy: 16 is TC commands ...
+          pantyp=key-16
+          call getfun(line,ip,pantyp)
        end select
     enddo find
 1000 continue
@@ -874,6 +944,10 @@ CONTAINS
        write(*,*)'No data after phase name, line',nline
        xmlerr=5000; goto 1000
     endif
+! Make sure a phase with name "LIQUID" has %aggregation=LIQUID
+    if(phlist(noph)%name(1:7).eq.'LIQUID ') then
+       phlist(noph)%aggregation='LIQUID'
+    endif
 ! store phase name in separate array to handle abbreviations
     phasenames(noph)=phlist(noph)%name
     if(xmlerr.ne.0) goto 1000
@@ -881,7 +955,7 @@ CONTAINS
     jp=ip
 ! extract the typedefs and associate them with models or features
     call skip_to_space(line,ip)
-! eventually type_defs will be redundant
+! the type_defs ar messy
     phlist(noph)%type_defs=line(jp:ip-1)
     if(ip-1-jp.gt.10) then
        write(*,*)'Too many type defs on line ',nline
@@ -914,8 +988,18 @@ CONTAINS
                 if(associated(typelink%modelink)) then
 !                   write(*,*)'Added model id: ',trim(typelink%modelink%id)
                    modelink=>typelink%modelink
-! if this is DISFS model save the number of sublattices
-                   typelink%model_int=intval
+! if this is DISFS model we must save the number of sublattices and more
+                   write(*,*)'Decoding type_defs: ',typelink%modelindex
+                   if(typelink%modelindex.eq.DISFS) then
+! this is the old disordered part model: G=G_dis(x)+G_ord(y)-G_ord(y=x)
+                      phlist(noph)%configmodel='CEF_3terms'
+                      typelink%model_int=intval
+                   elseif(typelink%modelindex.eq.-DISFS) then
+! this is what was called the NEVER model G=G_dis(x)+G_ord(y)
+                      phlist(noph)%configmodel='CEF_2terms'
+                      typelink%model_int=intval
+                      typelink%modelindex=DISFS
+                   endif
                 else
                    write(*,105)typedefs2(jp:jp),nline
 105                format('No model for this typedef: "',a,'" line ',i7)
@@ -1140,7 +1224,7 @@ CONTAINS
   subroutine gettype_def(line,ip)
 ! extract line with type definition
 ! sometimes but not always with an association with a phase ....
-    character line*(*),ch1*1,phases*(64)
+    character line*(*),ch1*1,phases*(64),endofname*3
     type(xmltdb_typedefs), pointer :: new_type_def,save_type_def,typelink
     type(xmltdb_model), pointer :: modelink
     integer ip,jp,no,za,zb,zc,zd
@@ -1223,11 +1307,19 @@ CONTAINS
        endif
 ! now should zc be the beginning of disordered phase
 !       write(*,*)'Disordered phase name: "',trim(line(zc:)),zc
-! eliminate trailing characters from disordered phase
-       za=index(line(zc:),' ')
+! eliminate trailing characters from disordered phase, maybe ending with "!"?
+       za=index(line(zc:),' ')-1
+! Maybe first character after phase name is ,
        zd=index(line(zc:),',')-2
-       phases(zb+2:)=line(zc:zc+min(za,zd))
-!       write(*,*)'Ordered and disordered phases: ',trim(phases)
+       if(zd.gt.1 .and. zd.lt.za) za=zd
+! Maybe first character after phase name is !
+       zd=index(line(zc:),'!')-2
+       if(zd.gt.1 .and. zd.lt.za) za=zd
+!       
+!       write(*,*)'Disordered: "',trim(line(zc:)),'"',za,zd
+!       phases(zb+2:)=line(zc:zc+min(za,zd))
+       phases(zb+2:)=line(zc:zc+za)
+       write(*,*)'DISFS Ordered and disordered phases: ',trim(phases)
        typelink%action=phases
 ! if ordered has N, and disordered 1 sum all, if if disordered 2 then sum N-1
 !       write(*,*)'Should create link to model: ',trim(line)
@@ -1239,6 +1331,45 @@ CONTAINS
        goto 900
     endif test1
 !---------------------------------------
+! Check for the NEVER model
+    za=index(line,' NEVER ')
+    if(za.gt.0) then
+!       write(*,*)'The NEVER model same as disordered fraction sets at',nline
+!  TYPE_DEFINITION + GES AMEND_PHASE_DESCRIPTION CHI NEVER DIS_CHI,,,!
+       zb=za
+       call skip_back_to_space(line,zb,phases)
+       zc=len_trim(phases)
+!       write(*,*)' Wow found ordered phase: "',phases(1:zc),'"'
+       za=za+6
+       if(eolch(line,za)) then
+! look for disordered phase after NEVER
+          write(*,*)' *** No disordered phase name '
+          xmlerr=5017; goto 1000
+       endif
+! zb should be the beginning of disordered phase, end will be " ", "," or "!"
+       endofname=' ,!'
+! za is incremented inside this routine until if finds " " or "," or "!'
+       zb=za
+!       write(*,*)'Looking for disordered phase in: "',trim(line(zb:)),'"'
+       call skip_to_first(endofname,zd,line,za)
+! if terminating character is not a space decrement za
+       if(zd.ne.1) za=za-1
+!       write(*,'(3a,3i5)')'Disordered phase: "',trim(line(zb:za)),'"',za,zb,zc
+       if(za.gt.zb) then
+          phases(zc+2:)=line(zb:za)
+!          write(*,*)' Wow found disordered phase: ',trim(phases)
+       else
+          write(*,*)' *** No disordered phase name '
+          xmlerr=5018; goto 1000
+       endif
+       typelink%modelink=>mlist(DISFS)
+! Mark the NEVER phase by a negative value of DISFS
+       typelink%modelindex=-DISFS
+       typelink%action=phases
+!       write(*,*)'NEVER phases: order/disorder: "',trim(phases),'"'
+       goto 900
+    endif
+!----
 ! if we come here if we still have not found the model
 ! there is the Einstein model, the liquid 2-state model and some more
 ! The FCC and BCC permutation models are indicated with :F and :B after
@@ -1506,9 +1637,13 @@ CONTAINS
     if(jp.eq.0) then
        jp=index(line(ip:),' N!')
        if(jp.eq.0) then
-          write(*,510)'N',nline,' Please correct'
-510       format(' *** Parameter without final "',a,'" on line ',i7,a)
-          xmlerr=5077; goto 1000
+          jp=index(line(ip:),',N')
+          if(jp.eq.0) then
+! maybe test also for ',N!' ... puuuh
+             write(*,510)'N',nline,' Please correct'
+510          format(' *** Parameter without final "',a,'" on line ',i7,a)
+             xmlerr=5077; goto 1000
+          endif
        endif
     endif
     kp=index(line(ip:),'!')
@@ -1530,13 +1665,16 @@ CONTAINS
     if(paracom.gt.zp+1) then
 !       write(*,'(3a,3i7)')'Bibref:  "',line(zp:paracom-1),'"',zp,paracom,kp
        palist(nopa)%bibref=line(zp:paracom-1)
+! terminating ! directly after reference
+       if(line(paracom-1:paracom-1).eq.'!') goto 600
 ! check if comment
        if(eolch(line,paracom)) then
-          write(*,*)'PARAMETER on line ',nl,' no final "!", struggling on ...'
+         write(*,*)'PARAMETER on line ',nline,' no final "!", struggling on ...'
           kp=len_trim(line)
        endif
 ! kp is position of ! or end-of-line
-!       write(*,'(3a,3i5)')'Comment? "',line(zp:paracom),'" ',zp,paracom,kp
+       if(paracom.gt.len(line)) paracom=len(line)
+!      write(*,'(3a,4i5)')'Comment? "',line(zp:paracom),'" ',zp,paracom,kp,nline
        if(line(paracom:paracom).ne.'!' .and. paracom.lt.kp) then
 !          write(*,*)'Found comment: "',line(paracom:kp-1),'"'
           palist(nopa)%parcomment=line(paracom:kp-1)
@@ -1544,6 +1682,7 @@ CONTAINS
     else
        palist(nopa)%bibref='NONE'
     endif
+600 continue
 ! remove bibref from function but not N
     line(ip+jp+3:)=' '
 ! to decode the actual expression use getranges
@@ -1628,8 +1767,10 @@ CONTAINS
     ip=ip+1
 !    write(*,*)'Trange high_T: ',line(ip:ip+20),ip
     if(line(ip-1:ip+1).eq.';,,' .or. line(ip-1:ip+1).eq.'; ,') then
-! standard Bengt default upper limit
+! standard default upper limit
        relval=6000.0D0
+!       write(*,*)'End of range: "',trim(line(ip:)),'"',ip
+       ip=ip+1
     else
        call getrel(line,ip,relval)
     endif
@@ -1649,8 +1790,9 @@ CONTAINS
        endif
     enddo hashloop
 !    write(*,'(a,a)')'Without hash: ',prange%expression(1:kp+5)
-! we have to check for ranges ...
+! we have to check for more ranges ...
 ! note the final ";" is still in the expression
+! Some end with ";,,N ", 
 ! There should be a Y or N after the high_T check if more ranges ....
     if(eolch(line,ip)) goto 1000
     if(line(ip:ip).eq.'y' .or. line(ip:ip).eq.'Y') then
@@ -1736,7 +1878,7 @@ CONTAINS
     type(xmltdb_typedefs), pointer :: typedef
     character phase1*24,phase2*24
 !
-    write(*,10)noel,nosp,noph,nopa,notp,notype,nomod,nompid,nobib
+    write(*,10)noel,nosp,noph,nopa,notp,notype,nomod,nompid,nobib,ncc
 10  format(/'Minimal checking xmltdb file with:',&
          /i5,' elements (including maybe /- and Va)',&
          /i5,' species (including elements and maybe Va)'&
@@ -1745,7 +1887,8 @@ CONTAINS
          /i5,' type_defs',&
          /i5,' models',&
          /i5,' model parameter identifiers (mpid)'&
-         /i5,' bibliographic references'/)
+         /i5,' bibliographic references'&
+         /i5,' comment lines')
 ! check alphabetical order of species list 
 !    write(*,20)(trim(splist(ni)%id),ni=1,nosp)
 !    write(*,'("order: ",20i3)')(sporder(ni),ni=1,nosp)
@@ -1769,11 +1912,14 @@ CONTAINS
                    phase1=typedef%action(1:zb)
                    phase2=typedef%action(zb+1:)
                    if(phlist(ni)%name.ne.phase1) then
-                      write(*,*)'wrong ordered phase in disordered set'
+                      write(*,*)'wrong ordered phase in disordered set "',&
+                           trim(phase1),'" "',trim(phase2),'"'
                       xmlerr=5200; goto 1000
                    endif
 ! search for disordered phase
                    do nj=1,noph
+!                      write(*,*)'Find disordered phase: "',trim(phase2),&
+!                           '" and "',trim(phlist(nj)%name),'"',nj
                       if(phlist(nj)%name.eq.phase2) then
 !                         write(*,*)'Disordered sublattices: ',phlist(nj)%sublat
                          if(phlist(nj)%sublat.eq.2) then
@@ -1788,7 +1934,8 @@ CONTAINS
                          exit ff
                       endif
                    enddo
-                   write(*,*)'Failed to find disordered phase',nj
+                   write(*,*)'Failed to find disordered phase "',trim(phase2),&
+                        " ",trim(phase1),'"'
                    xmlerr=5201; goto 1000
                 endif
              endif
@@ -1812,8 +1959,615 @@ CONTAINS
 
 !/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!
 
-  subroutine write_xmltdb(out,tdbfile)
-! writing the stored information on the xml file
+  subroutine write_xmltdb(out,tdbfile,software)
+! writing the stored information on the xml file ----------- VERSION 2
+    integer out,ip,jp,kp,nl,ni,tr,nnw,jsign,ll,nc,tq
+    character (len=512) :: line
+    character (len=800) :: clean
+    character (len=24) :: dummy
+    character (len=20) :: date
+    character (len=10) :: mdate
+    character tdbfile*(*),software*(*)
+    logical more,deflowt,defhight
+    type(xmltdb_trange), target :: trange
+    type(xmltdb_trange), pointer :: prange
+    type(xmltdb_typedefs), pointer :: typedef
+    type(xmltdb_addmodel), pointer :: addmodel
+    type(xmltdb_bibliography), pointer :: bibitem
+    integer parsel,nosel,totsel,xyz,kk
+!
+    nnw=7; jsign=0
+!
+    nl=0
+!
+!------------------------------------------------------
+!    line='first line'
+!    write(*,*)' THIS IS CRAZY '
+!    write(out,'(a)')trim(line)
+    call date_and_time(date)
+    mdate=date(1:4)//'-'//date(5:6)//'-'//date(7:8)
+    write(out,10)trim(tdbfile),trim(software),mdate
+10  format('<?xml version="1.0"?>'/&
+         '<?xml-model href="database.rng" schematypens=',&
+         '"http://relaxng.org/ns/structure/1.0" type="application/xml"?>'/&
+         '<Database version="0.0.1">'/&
+         '  <metadata>'/&
+         '    <writer>xmltdbproject test'/&
+         '       TDBfile="',a,'"'/&
+         '       Software="',a,'"'/&
+         '       Date="',a,'"'/&
+         '    </writer>'/&
+         '  </metadata>')
+!
+    line='  <!-- Statistics elements="'; ip=len_trim(line)+1
+    call wriint(line,ip,noel)
+    line(ip:)='"  species="'; ip=ip+12
+    call wriint(line,ip,nosp)
+    line(ip:)='"  tpfuns="'; ip=ip+11
+    call wriint(line,ip,notp)
+    line(ip:)='"  phases="'; ip=ip+11
+    call wriint(line,ip,noph)
+    line(ip:)='"  parameters="'; ip=ip+15
+    call wriint(line,ip,nopa)
+    line(ip:)='"  bibrefs="'; ip=ip+12
+    call wriint(line,ip,nobib)
+    line(ip:)='"  -->'
+    write(out,'(a)')trim(line)
+    write(out,14)low_tdef,high_tdef
+14  format(2x,'<Defaults low_T="',F7.2,'" high_T="',F8.2,'" />')
+!--------------------------------------------------------------
+! model information 
+    write(out,20)
+20  format(2x,'<Models>')
+    mout: do ni=1,nomod
+! the output of models must be coordinated with subroutine enter_models
+! 1, 2 and 3 magnetic models
+       if(mlist(ni)%id(1:3).eq.'IHJ') then
+          if(mlist(ni)%id(4:5).eq.'QX') goto 77
+! same output (but different data) for the IHJ magnetic models!!
+          write(out,22)trim(mlist(ni)%id),trim(mlist(ni)%required_mpid(1)),&
+               trim(mlist(ni)%required_mpid(2)),mlist(ni)%model_real,&
+               trim(mlist(ni)%model_info(1)),trim(mlist(ni)%model_info(2)),&
+               trim(mlist(ni)%bibref)
+22        format(4x,'<Magnetic-model id="'a,'"  MPID1="',a,'" MPID2="',a,'"',&
+               ' anti-ferromagnetic_factor="',F6.2,'" '/&
+               6x,' f_below_TC="',a,'"'/&
+               6x,' f_above_TC="',a,'" bibref="',a,'" >',&
+               ' in G=f(TAO)*LN(BETA+1) where TAO=T/TC'/4x,'</Magnetic-model>')
+          cycle mout
+! The IHJQX magnetic model has different mpid
+77        continue
+          write(out,23)trim(mlist(ni)%id),trim(mlist(ni)%required_mpid(1)),&
+               trim(mlist(ni)%required_mpid(2)),&
+               trim(mlist(ni)%required_mpid(3)),mlist(ni)%model_real,&
+               trim(mlist(ni)%model_info(1)),trim(mlist(ni)%model_info(2)),&
+               trim(mlist(ni)%bibref)
+23        format(4x,'<Magnetic-model id="'a,'"  MPID1="',a,'" MPID2="',a,'"',&
+               ' MPID3="',a,'" anti-ferromagnetic_factor="',F6.2,'" '/&
+               6x,' f_below_TC="',a,'"'/&
+               6x,' f_above_TC="',a,'" bibref="',a,'" >',&
+               ' in G=f(TAO)*LN(BETA+1) where TAO=T/CT or T/NT'/&
+               4x,'</Magnetic-model>')
+       elseif(mlist(ni)%id(1:9).eq.'GLOWTEIN ') then
+! 4 Einsten model
+          write(out,24)trim(mlist(ni)%id),trim(mlist(ni)%required_mpid(1)),&
+               trim(mlist(ni)%bibref),trim(mlist(ni)%model_info(1))
+24        format(4x,'<Einstein-model id="',a,'" MPID1="',a,'" bibref="',a,&
+               '" > '/7x,a/4x,'</Einstein-model>')
+       elseif(mlist(ni)%id(1:10).eq.'LIQ2STATE ') then
+! 5 liquid 2state
+          write(out,26)trim(mlist(ni)%id),trim(mlist(ni)%required_mpid(1)),&
+               trim(mlist(ni)%required_mpid(2)),trim(mlist(ni)%bibref),&
+               trim(mlist(ni)%model_info(1))
+26        format(4x,'<Liquid-2state-model id="',a,'" MPID1="',a,'" ',&
+               ' MPID2="',a,'" bibref="',a,'" >'/7x,a&
+               /4x,'</Liquid-2state-model>')
+       elseif(mlist(ni)%id(1:6).eq.'VOLOWP ') then
+! 6 Volume model
+          write(out,28)trim(mlist(ni)%id),trim(mlist(ni)%required_mpid(1)),&
+               trim(mlist(ni)%required_mpid(2)),&
+               trim(mlist(ni)%required_mpid(3)),trim(mlist(ni)%bibref),&
+               trim(mlist(ni)%model_info(1))
+28        format(4x,'<Volume-model id="',a,'" MPID1="',a,'" ',&
+               ' MPID2="',a,'" MPID3="',a,'" bibref="',a,'" >'/7x,a&
+               /4x,'</Volume-model>')
+       elseif(mlist(ni)%id(1:6).eq.'DISFS ') then
+! 7 Disordered fraction sets
+          write(out,36)trim(mlist(ni)%id),trim(mlist(ni)%bibref),&
+               trim(mlist(ni)%model_info(1)),trim(mlist(ni)%model_info(2))
+36        format(4x,'<Disordered-fraction-model id="',a,'" bibref="',a,'" >'/&
+               7x,a,a/4x,'</Disordered-fraction-model>')
+       elseif(mlist(ni)%id(1:8).eq.'FCCPERM ') then
+! 8 FCC permutations
+          write(out,38)trim(mlist(ni)%id),trim(mlist(ni)%bibref),&
+               trim(mlist(ni)%model_info(1))
+38        format(4x,'<FCC-permutations id="',a,'" bibref="',a,'" >'/&
+               7x,a/4x,'</FCC-permutations>')
+       elseif(mlist(ni)%id(1:8).eq.'BCCPERM ') then
+! 9 BCC permutations
+          write(out,40)trim(mlist(ni)%id),trim(mlist(ni)%bibref),&
+               trim(mlist(ni)%model_info(1))
+40        format(4x,'<BCC-permutations id="',a,'" bibref="',a,'" >'/&
+               7x,a/4x,'</BCC-permutations>')
+       elseif(mlist(ni)%id(1:4).eq.'EEC ') then
+! 10 EEC
+          write(out,42)trim(mlist(ni)%id),trim(mlist(ni)%bibref),&
+               trim(mlist(ni)%model_info(1))
+42        format(4x,'<EEC id="',a,'" bibref="',a,'" >'/&
+               7x,a/4x,'</EEC>')
+!       else
+! Missing: 11 MQMQA, 12 UNIQUAC, 13 EBEF, 14 TOOP, 15 Kohler
+!          write(out,42)trim(mlist(ni)%id),trim(mlist(ni)%bibref),&
+!               trim(mlist(ni)%model_info(1))
+!42        format(4x,'<EEC id="',a,'" bibref="',a,'" >'/&
+!               6x,a/4x,'</EEC>')
+       else
+          write(*,*)'**** Unknown model "',trim(mlist(ni)%id),'"'
+       endif
+    enddo mout
+    write(out,62)
+62  format('  </Models>')
+!    
+!-------------------------------------------------------------- version 2
+    do ni=1,noel
+! elements
+       write(out,100)ellist(ni)%id,trim(ellist(ni)%reference),&
+            ellist(ni)%mass,ellist(ni)%h298h0,&
+            ellist(ni)%s298
+       nl=nl+1
+! copy on screen
+!       write(*,100)ellist(ni)%id,trim(ellist(ni)%reference),&
+!            ellist(ni)%mass,ellist(ni)%h298h0,&
+!            ellist(ni)%s298
+100    format('  <Element id="',a,'" refstate="',a,&
+            '" mass="',1pe14.6,'" H298="',1pe14.6,&
+            '" S298="',1pe14.6,'" />')
+    enddo
+! species
+    do ni=1,nosp
+! in the furure species may have amendments due to MQMQA or uniquac
+       write(out,200)trim(splist(ni)%id),trim(splist(ni)%stoichiometry)
+200    format('  <Species id="',a,'" stoichiometry="',a,'" />')
+    enddo
+!-------------------------------------------------------------- version 2
+! functions
+! predefined TP function R=8,31451;
+! predefined TP function RT=R*T;
+! predefined TP function GEIN(lntheta) =
+!            1.5*exp(lntheta)+3*R*T*ln(1-exp(exp(lntheta))*T**(-1))
+!
+    tpfunloop: do ni=1,notp
+       ip=1
+!       write(*,*)'Writing tpfun ',ni
+! to have the value nicely within the "..."
+       deflowt=.TRUE.
+       if(abs(tplist(ni)%low_t-low_tdef).gt.1.0D-2) then
+          call wrinum(dummy,ip,nnw,jsign,tplist(ni)%low_t)
+          deflowt=.FALSE.
+       endif
+!       write(*,*)'Default low_T? ',deflowt,tplist(ni)%low_t,low_tdef,tofs
+       if(tofs.ne.3) then
+          if(deflowt) then
+             trange=tplist(ni)%trange
+             if(.not.associated(trange%next) .and. &
+                  abs(trange%high_t-high_tdef).lt.1.0D-2) then
+                write(out,300)trim(tplist(ni)%id),trim(trange%expression)
+300             format('  <TPfun id="',a,'"  Expression="',a,'" />')
+                cycle tpfunloop
+             else
+                write(out,301)trim(tplist(ni)%id)
+301             format('  <TPfun id="',a,'"  >')
+             endif
+          else
+             write(out,302)trim(tplist(ni)%id),dummy(1:ip-1)
+302          format('  <TPfun id="',a,'" Low_T="',a,'" >')
+          endif
+       else
+! this is Pandat specific, does not handle low_T/high_T defaults
+          if(deflowt) then
+             trange=tplist(ni)%trange
+             if(.not.associated(trange%next) .and. &
+                  abs(trange%high_t-high_tdef).lt.1.0D-2) then
+                write(out,300)trim(tplist(ni)%id),trim(trange%expression)
+                cycle tpfunloop
+             else
+                write(out,301)trim(tplist(ni)%id)
+             endif
+          elseif(tplist(ni)%pandatype.eq.0) then
+             write(out,302)trim(tplist(ni)%id),dummy(1:ip-1)
+          elseif(tplist(ni)%pandatype.eq.1) then
+             write(out,305)trim(tplist(ni)%id),dummy(1:ip-1)
+305          format('  <TPfun id="',a,'" Low_T="',a,'"  type="Property" >')
+          elseif(tplist(ni)%pandatype.eq.2) then
+             write(out,306)trim(tplist(ni)%id),dummy(1:ip-1)
+306          format('  <TPfun id="',a,'" Low_T="',a,'"  type="Variable" >')
+          else
+             write(*,*)'Unknown Pandat function type: ',tplist(ni)%pandatype
+             xmlerr=5020; goto 1000
+          endif
+       endif
+! maybe several ranges
+       trange=tplist(ni)%trange
+       ip=1
+!       write(*,*)'Writing tpfun 2',trange%high_t
+       call wrinum(dummy,ip,nnw,jsign,trange%high_t)
+       if(abs(trange%high_t-high_tdef).gt.1.0D-2) then
+          write(out,310)dummy(1:ip-1),trim(trange%expression)
+       else
+          write(out,312)trim(trange%expression)
+       endif
+       prange=>trange%next
+!       write(*,*)'writing tranges 1: ',associated(prange)
+       do while(associated(prange))
+          if(abs(prange%high_t-high_tdef).gt.1.0D-2) then
+             ip=1
+             call wrinum(dummy,ip,nnw,jsign,prange%high_t)
+             write(out,310)dummy(1:ip-1),trim(prange%expression)
+          else
+             write(out,312)trim(prange%expression)
+          endif
+310       format(4x,'<Trange High_T="',a,'" Expression=" ',a,'" />')
+312       format(4x,'<Trange Expression="',a,'" />')
+          prange=>prange%next
+!          write(*,*)'writing tranges 2: ',associated(prange)
+       enddo
+       write(out,390)
+390    format('  </TPfun>')
+    enddo tpfunloop
+!-------------------------------------------------------------- version 2
+! phases and constituents and amend phases
+!   write(*,*)'Writing phases'
+    do ni=1,noph
+       write(out,400)trim(phlist(ni)%name),trim(phlist(ni)%configmodel),&
+            phlist(ni)%aggregation(1:1)
+400    format('  <Phase id="',a,'" Configuration_model="',a,&
+            '" state="',a,'" >')
+       ! sites
+! sites
+       ip=-1
+       line=' '
+       do tr=1,phlist(ni)%sublat
+          ip=ip+2
+          call wrinum(line,ip,nnw,jsign,phlist(ni)%sites(tr))
+       enddo
+       write(out,410)phlist(ni)%sublat,line(1:ip-1)
+410    format(4x,'<Sublattices number_of="',i1,'"  Ratios="',a,'" >')
+! and constituents for each sublattice
+       do tr=1,phlist(ni)%sublat
+          ip=1
+          line=' '
+          do jp=1,phlist(ni)%nconst(tr)
+             line(ip:)=trim(phlist(ni)%constituents(tr,jp))
+             ip=len_trim(line)+2
+          enddo
+          write(out,420)tr,trim(line)
+420       format(6x,'<Constituent sublattice="',i1,'" list="',a,'" />')
+       enddo
+       write(out,422)
+422    format(4x,'</Sublattices>')
+! additional models: magnetism, disordered fraction set etc not implented
+! look at type_definitions
+       tq=1
+       do while(phlist(ni)%type_defs(tq:tq).ne.' ')
+! skip first dummy typedef %
+          typedef=>type_def_list
+          ff: do while(associated(typedef%next))
+             if(typedef%id.eq.phlist(ni)%type_defs(tq:tq)) then
+                xyz=typedef%modelindex
+                if(typedef%action(1:1).eq.' ') then
+                   write(out,438)trim(mlist(xyz)%id)
+438                format(4x,'<Amend-phase model="',a,'" />')
+                elseif(xyz.eq.DISFS) then
+                   write(out,439)trim(mlist(xyz)%id),trim(typedef%action),&
+                        phlist(ni)%disfs_sum
+439                format(4x,'<Amend-phase model="',a,'" info="',a,&
+                        '" sum_sublattices="',i1,'" />')
+                elseif(xyz.gt.0 .and. xyz.le.BCCPERM) then
+                   write(out,440)xyz,trim(typedef%action)
+                else
+                   write(*,*)'Unkown amend-phase ignored for ',&
+                        trim(phlist(ni)%name),xyz
+                endif
+                exit ff
+             else
+                typedef=>typedef%next
+             endif
+          enddo ff
+          tq=tq+1
+       enddo
+! look if any phase has an amendphase link
+       addmodel=>phlist(ni)%amendphase
+       amend: do while(associated(addmodel))
+!          write(*,*)'Found addmodel: "',trim(addmodel%id),'" for phase ',&
+!               phlist(ni)%name
+! this output has to be elaborated for different models
+          write(out,440)trim(addmodel%id),trim(addmodel%model_info)
+440       format(4x,'<Amend-phase model="',a,'" info="',a,'" />')
+          addmodel=>addmodel%next
+       enddo amend
+       write(out,490)
+490    format('  </Phase>')
+    enddo
+!
+! all parameters, they should optionally be separated as unaries etc
+! use sporder to list them in alphabetical order
+! problematic to separate species and elements ...
+!-------------------------------------------------------------- version 2
+    parsel=1
+!    parsel=-300
+    if(parsel.eq.1) then
+! we should also order alphabetically using sporder(1..nosp) (ignoring VA)
+       write(out,501)
+501 format('  <Unary-parameters >')
+    else
+! no separation of unary, binary etc
+       write(out,501)
+502 format('  <All-parameters >')
+    endif
+    totsel=0
+500 continue
+    nosel=0
+    paloop: do ni=1,nopa
+       line=' '
+! if parsel>0 select parameter with parsel=palist(ni)%noofel
+! reconstruct the constituentarray from items
+       if(palist(ni)%noofel.lt.0) cycle paloop
+       if(parsel.gt.0 .and. parsel.ne.palist(ni)%noofel) cycle paloop
+! list a parameter only once
+       palist(ni)%noofel=-palist(ni)%noofel
+       nosel=nosel+1
+!
+       line='   <Parameter id="'; ip=len_trim(line)+1
+       line(ip:)=palist(ni)%mpid; ip=len_trim(line)+1
+       line(ip:)='('//palist(ni)%phase; ip=len_trim(line)+1
+!       if(parsel.lt.0) then
+!          write(*,'(a,a)')'phase: ',trim(line(1:ip))
+!          write(*,'(a,9i3)')'constinsubl: ',palist(ni)%constinsubl
+!          write(*,'(a,i3)')'sublattices: ',phlist(palist(ni)%phidx)%sublat
+!       endif
+       ll=1; nc=0
+! NOT IMPLEMENTED: a neutral in I2SL has just one sublattice in TC format
+       carr: do while(.TRUE.)
+          nc=nc+1
+          if(nc.le.palist(ni)%constinsubl(ll)) then
+             line(ip:)=','//palist(ni)%constarray(nc); ip=len_trim(line)+1
+          elseif(ll.lt.phlist(palist(ni)%phidx)%sublat) then
+! new sublattice
+             ll=ll+1
+             line(ip:)=':'//palist(ni)%constarray(nc); ip=len_trim(line)+1
+          else
+             line(ip:)=';'//char(ichar('0')+palist(ni)%degree)//')" '
+             ip=len_trim(line)+3
+             exit carr
+          endif
+       enddo carr
+!       if(parsel.lt.0) write(*,'(a,a,2i4)')'exit: ',line(1:ip),ll,nc
+       if(abs(palist(ni)%low_t-low_tdef).gt.1.0D-2) then
+          line(ip:)=' Low_T="'; ip=len_trim(line)+1
+          call wrinum(line,ip,nnw,jsign,palist(ni)%low_t)
+          line(ip:)='" '
+          ip=ip+2
+       else
+!       endif
+! version 2, default low_T, check if only one range and defualt high_T
+          trange=palist(ni)%trange
+          if(.not.associated(trange%next) .and.&
+               abs(trange%high_t-high_tdef).lt.1.0D-2) then
+             line(ip:)=' Expression="'//trim(trange%expression)//&
+                  '" Bibref="'//trim(palist(ni)%bibref)//'" />'
+! Hm, one space needed before the <Parameter ...
+             write(out,518)trim(line)
+518          format(1x,a)
+             cycle paloop
+          endif
+       endif
+       line(ip:)=' Bibref="'//trim(palist(ni)%bibref)//'" >'
+       ip=len_trim(line)+1
+       write(out,*)line(1:ip)
+! new parameter expression with ranges
+       trange=palist(ni)%trange
+       ip=1
+       if(abs(trange%high_t-high_tdef).gt.1.0D-2) then
+          call wrinum(dummy,ip,nnw,jsign,trange%high_t)
+          write(out,520)dummy(1:ip-1),trim(trange%expression)
+       else
+          write(out,522)trim(trange%expression)
+       endif
+!       if(parsel.lt.0) write(*,*)'writing Trange'
+       prange=>trange%next
+       do while(associated(prange))
+          ip=1
+          if(abs(trange%high_t-high_tdef).gt.1.0D-2) then
+             call wrinum(dummy,ip,nnw,jsign,prange%high_t)
+             write(out,520)dummy(1:ip-1),trim(prange%expression)
+520          format(6x,'<Trange High_T="',a,'" Expression="',a,'" />')
+          else
+             write(out,522)trim(prange%expression)
+522          format(6x,'<Trange Expression="',a,'" />')
+          endif
+          prange=>prange%next
+       enddo
+! is there any comments for this parameter?
+       if(palist(ni)%parcomment(1:1).ne.' ')then
+          eliminate2: do while(.TRUE.)
+             ip=index(palist(ni)%parcomment,'--')
+             if(ip.eq.0) exit eliminate2
+             palist(ni)%parcomment(ip:ip+1)='=='
+          enddo eliminate2
+!          write(*,*)'XML parameter comment: ',trim(palist(ni)%parcomment)
+          write(out,540)trim(palist(ni)%parcomment)
+540       format('      <!-- ',a,' -->')
+       endif
+       write(out,550)
+550    format('    </Parameter>')
+    enddo paloop
+    parsel=parsel+1
+!----------------------------------------------- version 2
+    totsel=totsel+nosel
+    repeat: if(parsel.eq.2) then
+       write(*,*)'Unary parameters listed:  ',nosel,' out of ',nopa
+       write(out,552)
+552    format('  </Unary-parameters>'/'  <Binary-parameters>')
+       goto 500
+    elseif(parsel.eq.3) then
+       write(*,*)'Binary parameters listed: ',nosel,' out of ',nopa
+       if(totsel.eq.nopa) then
+          write(out,553)
+553       format('  </Binary-parameters>')
+          exit repeat
+       else
+          write(out,554)
+554       format('  </Binary-parameters>'/'  <Higher-parameters>')
+          parsel=-100
+          goto 500
+       endif
+    elseif(parsel.lt.-200.0) then
+       write(*,*)'Listed higher order parameters: ',nosel
+       write(out,556)
+556    format('  </All-parameters>')
+    else
+       write(out,558)
+558    format('  </Higher-parameters>')
+    endif repeat
+590 continue
+!
+! binary parameters ordered by system
+! ternary parameters ordered by system
+! higher order parameters
+!-------------------------------------------------------------- version 2
+! Bibliography
+    if(nobib.eq.0) then
+       write(*,*)'No bibliographic references'
+    else
+!       write(*,*)'The bibliography'
+       write(out,900)
+900    format('  <Bibliography>')
+!----------------------------------------------------------------------
+! We must remove any < and > and some other forbidden characters in %text
+! < to &lt;       must not appear
+! > to &gt;       should not appear
+! & to &amp;      must not appear
+! ' to &apos;     may appear
+! " to &quot;     may appear
+!-------------------------------------------------------------- version 2
+       if(mcref) then
+          write(out,903)
+903       format(4x,'<!-- In MatCalc the number after REF: will normally ',&
+               'refer to the number after - in the bibitem id -->')
+       endif
+       do ni=1,nobib
+!          call remove_xmlspecialchar(bibliolist(ni)%text,clean)
+          call remove_xmlspecialchar2(bibliolist(ni)%text,clean)
+          write(out,910)trim(bibliolist(ni)%id),trim(clean)
+910       format(4x,'<Bibitem ID="',a,'" Text="',a,'" />')
+       enddo
+! Include the model references at the end
+! Kohler
+       write(out,910)'60Koh','F. Kohler, Monatsh Chem, Vol 91 (1960) 738--740' 
+! Toop
+       write(out,910)'65Toop','G. W. Toop, Trans Metall Soc, AIME '//&
+            ' Vol 233 (1965) 850--854'
+       write(out,910)'82Her','S. Hertzman and B. Sundman, '//&
+            'A Thermodynamic analysis of the Fe-Cr system, '//&
+            'Calphad Vol 6 (1982) 67-80.'
+       write(out,910)'12Xiong','W. Xiong, Q. Chen, P. K. Korzhavyi and '//&
+            'M. Selleby, '//&
+            'An improved magnetic model for thermodynamic modeling, '//&
+            'Calphad, Vol 39 (2012) 11-20.'
+       write(out,910)'01Qing','Q. Chen and B. Sundman, '//&
+            'Modeling of thermodynamic properties for Bcc, Fcc, liquid, '//&
+            'and amorphous iron, '//&
+            'J. Phase Equilibria. Vol 22 (2001) 631-644.'
+       write(out,910)'14Becker','C. A. Becker, J. Agren, M. Baricco, '//&
+            'Q. Chen, S. A. Decterov, U. R. Kattner, J. H. Perepezko, '//&
+            'G. R. Pottlacher and M. Selleby, '//&
+            'Thermodynamic modelling of liquids: CALPHAD approaches '//&
+            'and contributions from statistical physics. '//&
+            'Phys status solidi. B, Vol 251(1) (2014) 33-52.'
+       write(out,910)'05Lu','X-G. Lu, M. Selleby and B. Sundman, '//&
+            'Implementation of a new model for pressure dependence '//&
+            'of condensed phases in Thermo-Calc, '//&
+            'Calphad Vol 29 (2005) 49-55.'
+! Disordered Fraction sets, CEF_3terms, (CEF_2terms missing ...)
+       write(out,910)'09Sun','B. Sundman, I. Ohnuma, N. Dupin, '//&
+            'U. R. Kattner, S. G. Fries, '//&
+            'An assessment of the entire Al–Fe system including '//&
+            'D03 ordering, '//&
+            'Acta Mater. Vol 57 (2009) 2896-2908'
+! FCC and BCC permutations
+       write(out,910)'09Sun','B. Sundman, I. Ohnuma, N. Dupin, '//&
+            'U. R. Kattner, S. G. Fries, '//&
+            'An assessment of the entire Al–Fe system including '//&
+            'D03 ordering, '//&
+            'Acta Mater. Vol 57 (2009) 2896-2908'
+! EEC
+       write(out,910)'20Sun','B. Sundman, U. R. Kattner, M. Hillert, '//&
+            'M. Selleby, J. Agren, S. Bigdeli, Q. Chen, A. Dinsdale, '//&
+            'B. Hallstedt, A. Khvan, H. Mao and R. Otis'//&
+            'A method for handling the estrapolation of solid crystalline '//&
+            'phases to temperature above their melting point, '//&
+            'Calphad Vol 68 (2020) 101737'
+       write(out,999)
+999    format('  </Bibliography>')
+    endif
+!----------------------------------------- version 2
+    write(*,*)'Listing saved comment lines'
+    write(out,1100)
+! lastcc has already been set to first comment line (if any)
+    comloop: do while(associated(lastcc))
+! one must remove any < > & and " from text
+       nolt: do while(.true.)
+          kk=index(line,'<')
+          if(kk.gt.0) then
+             line(kk:kk)='!'
+          else
+             exit nolt
+          endif
+       enddo nolt
+       nogt: do while(.true.)
+          kk=index(line,'>')
+          if(kk.gt.0) then
+             line(kk:kk)='!'
+          else
+             exit nogt
+          endif
+       enddo nogt
+       dqt: do while(.true.)
+          kk=index(line,'"')
+          if(kk.gt.0) then
+             line(kk:kk)=''''
+          else
+             exit dqt
+          endif
+       enddo dqt
+       noamp: do while(.true.)
+          kk=index(line,'&')
+          if(kk.gt.0) then
+             line(kk:kk)='!'
+          else
+             exit noamp
+          endif
+       enddo noamp
+       if(lastcc%lno.lt.0) exit comloop
+       write(out,1110)lastcc%lno,trim(lastcc%text)
+       lastcc=>lastcc%prev
+    enddo comloop
+    write(out,1200)
+1100   format(2x,'<TDB-comments>')
+1110   format(4x,i4,1x,a)
+1200   format(2x,'</TDB-comments>')
+!----------------------------------------- version 2
+    write(out,90)
+90  format('</Database>')
+! --------------------------------------------- version 2
+1000 continue
+    return
+  end subroutine write_xmltdb
+
+!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!
+
+  subroutine write_v1_xmltdb(out,tdbfile)
+! writing the stored information on the xml file VERSION 1
     integer out,ip,jp,kp,nl,ni,tr,nnw,jsign,ll,nc,tq
     character (len=512) :: line
     character (len=800) :: clean
@@ -2004,14 +2758,14 @@ CONTAINS
           ip=1
           call wrinum(dummy,ip,nnw,jsign,prange%high_t)
           write(out,310)dummy(1:ip-1),trim(prange%expression)
-310       format('    <Trange High_T="',a,'" > ',a,' </Trange>')
+310       format('    <Trange High_T="',a,'" > ',a,'" />')
           prange=>prange%next
 !          write(*,*)'writing tranges 2: ',associated(prange)
        enddo
        write(out,390)
 390    format('  </TPfun>')
     enddo
-!--------------------------------------------------------------
+!-------------------------------------------------------------- version 1
 ! phases and constituents and amend phases
 !   write(*,*)'Writing phases'
     do ni=1,noph
@@ -2173,12 +2927,12 @@ CONTAINS
     parsel=parsel+1
     totsel=totsel+nosel
     repeat: if(parsel.eq.2) then
-       write(*,*)'Listed unary parameters:  ',nosel,' out of ',nopa
+       write(*,*)'Unary parameters listed:  ',nosel,' out of ',nopa
        write(out,552)
 552    format('  </Unary-parameters>'/'  <Binary-parameters>')
        goto 500
     elseif(parsel.eq.3) then
-       write(*,*)'Listed binary parameters: ',nosel,' out of ',nopa
+       write(*,*)'Binary parameters listed: ',nosel,' out of ',nopa
        if(totsel.eq.nopa) then
           write(out,553)
 553       format('  </Binary-parameters>')
@@ -2218,6 +2972,11 @@ CONTAINS
 ! ' to &apos;     may appear
 ! " to &quot;     may appear
 !----------------------------------------------------------------------
+       if(mcref) then
+          write(out,903)
+903       format(4x,'<!-- In MatCalc the number after REF: will normally ',&
+               'refer to the number after - in the bibitem id -->')
+       endif
        do ni=1,nobib
 !          call remove_xmlspecialchar(bibliolist(ni)%text,clean)
           call remove_xmlspecialchar2(bibliolist(ni)%text,clean)
@@ -2260,7 +3019,7 @@ CONTAINS
 !
 1000 continue
     return
-  end subroutine write_xmltdb
+  end subroutine write_v1_xmltdb
 
 !/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/
 
@@ -2398,7 +3157,7 @@ end subroutine getitem
 !\end{verbatim} %+
 ! only those currently implemented ... rest ignored
    integer, parameter :: kwl=20
-   integer, parameter :: nkw=14, mkw=18
+   integer, parameter :: nkw=16, mkw=18
 ! for TC, MatCalc ...
    character (len=kwl), dimension(nkw), parameter :: keyword=&
         ['ELEMENT             ','SPECIES             ',&
@@ -2407,7 +3166,8 @@ end subroutine getitem
          'TYPE_DEFINITION     ','LIST_OF_REFERENCES  ',&
          'ADD_REFERENCES      ','ASSESSED_SYSTEMS    ',&
          'DATABASE_INFORMATION','VERSION             ',&
-         'DEFAULT_COMMAND     ','DEFINE              ']
+         'DEFAULT_COMMAND     ','DEFINE              ',&
+         'TEMPERATURE_LIMITS  ','                    ']
 ! for Pandat
    character (len=kwl), dimension(mkw), parameter :: keyword2=&
         ['ELEMENT             ','SPECIES             ',&
@@ -2417,8 +3177,8 @@ end subroutine getitem
          'ADD_REFERENCES      ','ASSESSED_SYSTEMS    ',&
          'DATABASE_INFORMATION','VERSION             ',&
          'DEFAULT_COMMAND     ','DEFINE              ',&
-         'PROPERTY            ','VARIABLE            ',&
-         '                    ','                    ']
+         'TEMPERATURE_LIMITS  ','                    ',&
+         'PROPERTY            ','VARIABLE            ']
 !   
    character word*64
    integer j,ks,kt

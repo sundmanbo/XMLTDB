@@ -1,0 +1,554 @@
+
+$ The parameters of this database follows the publication
+$ N. Dupin, I. Ansara, B. Sundman
+$ Thermodynamic Re-Assessment of the Ternary System Al-Cr-Ni,
+$ Calphad, 25 (2), 279-298 (2001).
+$ The L12 and A1 phases are described with a single description using
+$ 4 sublattices with the F option in the BEF
+$ Currently, this file can only be used by the software OpenCalphad
+
+
+ ELEMENT /-   ELECTRON_GAS               .0000E+00   .0000E+00   .0000E+00!
+ ELEMENT VA   VACUUM                     .0000E+00   .0000E+00   .0000E+00!
+ ELEMENT AL   FCC_A1                    2.6982E+01  4.5773E+03  2.8322E+01!
+ ELEMENT CR   BCC_A2                    5.1996E+01  4.0500E+03  2.3560E+01!
+ ELEMENT NI   FCC_A1                    5.8690E+01  4.7870E+03  2.9796E+01!
+
+ SPECIES AL2                         AL2!
+ SPECIES CR2                         CR2!
+ SPECIES NI2                         NI2!
+
+ 
+ FUNCTION UNASS      298.15  0;,,N !
+
+
+ TYPE_DEFINITION % SEQ *!
+ DEFINE_SYSTEM_DEFAULT E 2 !
+ DEFAULT_COMMAND DEF_SYS_ELEMENT VA !
+
+ DATABASE_INFO '''
+ BASE TC-Ni, version 29-09-99'
+
+ '
+ ELEMENTS : Al, Cr, Ni'
+ '
+ ASSESSED SYSTEMS :'
+ '
+ BINARIES'
+        Al-Cr, Al-Ni, Cr-Ni'
+ TERNARIES'
+        Al-Cr-Ni'
+'
+ MODELLING ORDER/DISORDER:'
+'
+ A1 and L12 phases are modelled with a single Gibbs energy curve.'
+ They are FCC_L12#1 (A1) based on (Ni) and FCC_L12#2 (L12) based on'
+ Ni3Al, differing by their site occupation.'
+ The same type of relation exists for the A2 and B2 phases. There are'
+ several possible sets for the phase named BCC_B2. They are either'
+ disordered (A2) and correspond to the solid solution based on Cr,'
+ or ordered based on the B2 compound AlNi.'
+ !
+
+ASSESSED_SYSTEMS
+ AL-CR(;G5 MAJ:BCC_B2/CR:CR:VA ;P3 STP:.75/1200/1)
+ AL-NI(;P3 STP:.75/1200/1)
+ CR-NI(;G5 MAJ:BCC_B2/CR:CR:VA C_S:BCC_B2/NI:NI:VA
+          ;P3 STP:.5/1200/2)
+ AL-CR-NI(;G5 MAJ:BCC_B2/CR:CR:VA C_S:BCC_B2/AL:NI:VA
+          ;P3 STP:.01/.8/2)
+              !
+
+ TYPE_DEFINITION C GES A_P_D BCC_B2 DIS_PART BCC_A2 !
+ TYPE_DEFINITION D GES A_P_D FCC_L12 DIS_PART FCC_A1 !
+
+$Bosse moved all type_defs before they are used
+ TYPE_DEFINITION A GES A_P_D @ MAGNETIC  -3.0 .28 !
+ TYPE_DEFINITION B GES A_P_D @ MAGNETIC  -1.0 .40 !
+
+$Bosse conditional not implemented
+$ TYPE_DEFINITION G GES A_P_D FCC_L12 C_S 2 NI:NI:NI:AL:VA !
+$ TYPE_DEFINITION G IF (AL AND NI) THEN
+$                   GES A_P_D FCC_L12 C_S 2 NI:NI:NI:AL:VA !
+
+$ TYPE_DEFINITION G IF (NI) THEN
+$                   GES A_P_D FCC_L12 MAJ 1 NI:NI:NI:NI:VA !
+
+$Bosse conditional not implemented
+$ TYPE_DEFINITION W GES A_P_D BCC_B2 C_S,, NI:AL:VA !
+$ TYPE_DEFINITION W IF (CR AND AL AND NI) THEN
+$                   GES A_P_D BCC_B2 C_S,, NI:AL:VA !
+
+$ TYPE_DEFINITION W IF (CR) THEN
+$                   GES A_P_D BCC_B2 MAJ 1 CR:CR:VA !
+
+
+ PHASE LIQUID:L %  1  1.0  !
+ CONST LIQUID:L :AL,CR,NI :  !
+
+ PHASE FCC_A1  %A  2 1   1 !
+ CONST FCC_A1  :AL,CR,NI% : VA% :  !
+
+ PHASE BCC_A2  %B  2 1   3 !
+ CONST BCC_A2  :AL,CR%,NI,VA : VA :  !
+
+$ PHASE BCC_B2  %BCW  3 .5 .5    3 !
+ PHASE BCC_B2  %BC  3 .5 .5    3 !
+ CONST BCC_B2  :AL,CR,NI%,VA : AL%,CR,NI,VA : VA: !
+
+$ PHASE FCC_L12:F  %ADG  5 .25 .25 .25  .25   1 !
+ PHASE FCC_L12:F  %AD  5 .25 .25 .25  .25   1 !
+ CONST FCC_L12:F  :AL,CR,NI : AL,CR,NI : AL,CR,NI : AL,CR,NI : VA :  !
+
+
+
+ FUNCTION ZERO       298.15  0;,,N !
+ FUNCTION TROIS 298.15 3;,,N !
+ FUNCTION UNTIER 298.15 TROIS**(-1);,,N !
+
+$****************************************************************************
+$
+$                                                            UNARY PARAMETERS
+$
+$----------------------------------------------------------------------------
+$
+$                                                                          Al
+$
+$                                                                   FUNCTIONS
+$
+ FUNCTION GHSERAL    298.15
+    -7976.15+137.093038*T-24.3671976*T*LN(T)
+    -.001884662*T**2-8.77664E-07*T**3+74092*T**(-1);
+                     700.00  Y
+    -11276.24+223.048446*T-38.5844296*T*LN(T)
+    +.018531982*T**2-5.764227E-06*T**3+74092*T**(-1);
+                     933.60  Y
+    -11278.378+188.684153*T-31.748192*T*LN(T)
+    -1.231E+28*T**(-9);,,  N !
+$
+ FUNCTION GHCPAL     298.15  +5481-1.8*T+GHSERAL;,,N !
+$
+ FUNCTION GBCCAL     298.15  +10083-4.813*T+GHSERAL;,,N !
+$
+ FUNCTION GLIQAL     298.14
+    +11005.029-11.841867*T+7.934E-20*T**7+GHSERAL;
+                     933.59  Y
+    +10482.282-11.253974*T+1.231E+28*T**(-9)+GHSERAL;,,N !
+$
+$                                                                LIQUID PHASE
+$
+ PARA   G(LIQUID,AL;0)   298.13
+      +11005.029-11.841867*T+7.934E-20*T**7+GHSERAL;
+                                933.60  Y
+      +10482.382-11.253974*T+1.231E+28*T**(-9)
+      +GHSERAL;,, N 91DIN !
+$      +GHSERAL;,,N 91DIN ! !!!! software bug (several)
+$
+$                                                                FCC_A1 PHASE
+$
+ PARA G(FCC_A1,AL:VA;0)  298.15  +GHSERAL;,, N 91DIN !
+$
+$                                                                BCC_A2 PHASE
+$
+ PARA G(BCC_A2,AL:VA;0)  298.15  +GBCCAL;,, N 91DIN !
+   FUNC B2ALVA 295.15 10000-T;,, N !
+   FUNC LB2ALVA 298.15 150000;,, N !
+ PARA L(BCC_A2,AL,VA:VA;0)  298.15  B2ALVA+LB2ALVA;,, N 99DUP !
+$
+$                                                                BCC_B2 PHASE
+$
+ PARA G(BCC_B2,AL:VA:VA;0)  298.15  .5*B2ALVA-.5*LB2ALVA;,, N 99DUP !
+ PARA G(BCC_B2,VA:AL:VA;0)  298.15  .5*B2ALVA-.5*LB2ALVA;,, N 99DUP !
+$
+$----------------------------------------------------------------------------
+$
+$                                                                          Cr
+$
+$                                                                   FUNCTIONS
+$
+ FUNCTION GHSERCR    298.14
+    -8856.94+157.48*T-26.908*T*LN(T)
+    +.00189435*T**2-1.47721E-06*T**3+139250*T**(-1);
+                     2180.0  Y
+    -34869.344+344.18*T-50*T*LN(T)-2.88526E+32*T**(-9);,, N !
+$
+ FUNCTION GCRLIQ     298.15
+    +24339.955-11.420225*T+2.37615E-21*T**7+GHSERCR;
+                     2180.0  Y
+    -16459.984+335.616316*T-50*T*LN(T);,, N !
+$
+ FUNCTION GFCCCR     298.15  +7284+.163*T+GHSERCR;,, N !
+$
+ FUNCTION GHCPCR     298.15  +4438+GHSERCR;,, N !
+$
+ FUNCTION ACRBCC     298.15  +1.7E-05*T+9.2E-09*T**2;,, N !
+ FUNCTION BCRBCC     298.15  +1+2.6E-11*P;,, N !
+ FUNCTION CCRBCC     298.15  2.08E-11;,, N !
+ FUNCTION DCRBCC     298.15  +1*LN(BCRBCC);,, N !
+ FUNCTION VCRBCC     298.15  +7.188E-06*EXP(ACRBCC);,, N !
+ FUNCTION ECRBCC     298.15  +1*LN(CCRBCC);,, N !
+ FUNCTION XCRBCC     298.15  +1*EXP(.8*DCRBCC)-1;,, N !
+ FUNCTION YCRBCC     298.15  +VCRBCC*EXP(-ECRBCC);,, N !
+ FUNCTION ZCRBCC     298.15  +1*LN(XCRBCC);,, N !
+ FUNCTION GPCRBCC    298.15  +YCRBCC*EXP(ZCRBCC);,, N !
+$
+ FUNCTION ACRLIQ     298.15  +1.7E-05*T+9.2E-09*T**2;,, N !
+ FUNCTION BCRLIQ     298.15  +1+4.65E-11*P;,, N !
+ FUNCTION CCRLIQ     298.15  3.72E-11;,, N !
+ FUNCTION DCRLIQ     298.15  +1*LN(BCRLIQ);,, N !
+ FUNCTION VCRLIQ     298.15  +7.653E-06*EXP(ACRLIQ);,, N !
+ FUNCTION ECRLIQ     298.15  +1*LN(CCRLIQ);,, N !
+ FUNCTION XCRLIQ     298.15  +1*EXP(.8*DCRLIQ)-1;,, N !
+ FUNCTION YCRLIQ     298.15  +VCRLIQ*EXP(-ECRLIQ);,, N !
+ FUNCTION ZCRLIQ     298.15  +1*LN(XCRLIQ);,, N !
+ FUNCTION GPCRLIQ    298.15  +YCRLIQ*EXP(ZCRLIQ);,, N !
+$
+$                                                                LIQUID PHASE
+$
+ PARA G(LIQUID,CR;0)  298.15  +GCRLIQ+GPCRLIQ;,,  N 91DIN !
+$
+$                                                                FCC_A1 PHASE
+$
+ PARA G(FCC_A1,CR:VA;0)  298.15  +GFCCCR+GPCRBCC;,, N 89DIN !
+ PARA TC(FCC_A1,CR:VA;0)  298.15  -1109;,, N 89DIN !
+ PARA BMAGN(FCC_A1,CR:VA;0)  298.15  -2.46;,, N 89DIN !
+$
+$                                                                BCC_A2 PHASE
+$
+ PARA G(BCC_A2,CR:VA;0)  298.15  +GHSERCR+GPCRBCC;,, N 91DIN !
+ PARA TC(BCC_A2,CR:VA;0)  298.15  -311.5;,, N 89DIN ! 
+ PARA BMAGN(BCC_A2,CR:VA;0)  298.15  -.008;,, N 89DIN !
+ PARA L(BCC_A2,CR,VA:VA;0)  298.15  100000;,, N 01DUP !   
+$
+$                                                                BCC_B2 PHASE
+$
+ PARA G(BCC_B2,CR:VA:VA;0)  298.15  0;,, N 01DUP !
+ PARA G(BCC_B2,VA:CR:VA;0)  298.15  0;,, N 01DUP !
+$
+$----------------------------------------------------------------------------
+$
+$                                                                          Ni
+$
+$                                                                   FUNCTIONS
+$
+ FUNCTION GHSERNI    298.14
+    -5179.159+117.854*T-22.096*T*LN(T)
+    -.0048407*T**2;
+                     1728.0  Y
+    -27840.655+279.135*T-43.1*T*LN(T)+1.12754E+31*T**(-9);,,  N   !
+$
+ FUNCTION GHCPNI     298.15  +1046+1.2552*T+GHSERNI;,, N !
+$
+ FUNCTION GBCCNI     298.15  +8715.084-3.556*T+GHSERNI;,,,   N !
+$
+$                                                                LIQUID PHASE
+$
+ PARA G(LIQUID,NI;0) 298.13
+      +16414.686-9.397*T-3.82318E-21*T**7+GHSERNI;
+                            1728.0  Y
+      +18290.88-10.537*T-1.12754E+31*T**(-9)
+      +GHSERNI;,, N 91DIN !
+$
+$                                                                FCC_A1 PHASE
+$
+ PARA G(FCC_A1,NI:VA;0)  298.15  +GHSERNI;,, N 91DIN !
+ PARA TC(FCC_A1,NI:VA;0)  298.15  633;,, N 89DIN !
+ PARA BMAGN(FCC_A1,NI:VA;0)  298.15  .52;,, N 89DIN !
+$
+$                                                                BCC_A2 PHASE
+$
+ PARA G(BCC_A2,NI:VA;0)  298.15  +GBCCNI;,, N 91DIN !
+ PARA TC(BCC_A2,NI:VA;0)  298.15  575;,, N 89DIN !
+ PARA BMAGN(BCC_A2,NI:VA;0)  298.15  .85;,, N 89DIN !
+   FUNC B2NIVA 295.15 +162397.3-27.40575*T;,, N !
+   FUNC LB2NIVA 298.15 -64024.38+26.49419*T;,, N !
+ PARA L(BCC_A2,NI,VA:VA;0)  298.15  B2NIVA+LB2NIVA;,, N 99DUP !   
+$
+$                                                                BCC_B2 PHASE
+$
+ PARA G(BCC_B2,VA:NI:VA;0)  298.15  .5*B2NIVA-.5*LB2NIVA;,, N 99DUP !
+ PARA G(BCC_B2,NI:VA:VA;0)  298.15  .5*B2NIVA-.5*LB2NIVA;,, N 99DUP !
+$
+$****************************************************************************
+$
+$                                                           BINARY PARAMETERS
+$
+$----------------------------------------------------------------------------
+$
+$                                                                       Al-Cr
+$                             Mainly from Saunders (COST507)
+$                             Metastable B2 and L12 from revision of Al-Cr-Ni
+$
+$                                                                LIQUID PHASE
+$
+ PARA L(LIQUID,AL,CR;0)  298.15  -29000;,, N 91SAU1 !
+ PARA L(LIQUID,AL,CR;1)  298.15  -11000;,, N 91SAU1 !
+$
+$                                                                FCC_A1 PHASE
+$
+ PARA G(FCC_A1,AL,CR:VA;0)  298.15  -45900+6*T;,, N 91SAU1 !
+$
+$                                                                BCC_A2 PHASE
+$
+ PARA G(BCC_A2,AL,CR:VA;0)  298.15  -54900+10*T;,, N 91SAU1 ! 
+$
+$                                                                BCC_B2 PHASE
+$                                                                  metastable
+$ Present work: july 1999, study of Al-Cr-Ni, revision of NDTH. The B2
+$ phase is not stabilized enough to become stable in the Al-Cr. It is
+$ thus not in agreement with "T. Helander, and O. Tolochko, J. of Phase
+$ Eq, 20 (1) 1999, 57-60." Further study on the extension of the B2 phase
+$ towards AlCr in Al-Cr-Ni would be desirable.
+ PARA G(BCC_B2,AL:CR:VA;0)  298.15  -2000;,, N 01DUP  !
+ PARA G(BCC_B2,CR:AL:VA;0)  298.15  -2000;,, N 01DUP !
+$
+$                                                               FCC_L12 PHASE
+$                                                                  metastable
+$ Present work: july 1999, study of Al-Cr-Ni, revision of NDTH.
+ PARA G(FCC_L12,AL:CR:*:*:VA;0)  298.15  -830;,, N  01DUP !
+$
+$                                                               AL11CR2 PHASE
+$
+ PHASE AL11CR2  %  3 10   1   2 !
+ CONST AL11CR2  :AL : AL : CR : !
+ PARA G(AL11CR2,AL:AL:CR;0)  298.15
+     +11*GHSERAL+2*GHSERCR-175500+25.805*T;,, N 91SAU1 !
+$
+$                                                               AL13CR2 PHASE
+$
+ PHASE AL13CR2  %  2 13   2 !
+ CONST AL13CR2  :AL : CR :  !
+ PARA G(AL13CR2,AL:CR;0)  298.15
+     +13*GHSERAL+2*GHSERCR-174405+22.2*T;,, N 91SAU1 !
+$
+$                                                                 AL4CR PHASE
+$
+ PHASE AL4CR  %  2 4   1 !
+ CONST AL4CR  :AL : CR :  !
+ PARA G(AL4CR,AL:CR;0)  298.15
+     +4*GHSERAL+GHSERCR-89025+19.05*T;,, N 91SAU1 !
+$
+$                                                              AL8CR5_H PHASE
+$
+ PHASE AL8CR5_H  %  2 8   5 !
+ CONST AL8CR5_H  :AL : CR :  !
+ PARA G(AL8CR5_H,AL:CR;0)  298.15
+     +8*GHSERAL+5*GHSERCR-147732-58.5*T;,, N 91SAU1 !
+$
+$                                                              AL8CR5_L PHASE
+$
+ PHASE AL8CR5_L  %  2 8   5 !
+ CONST AL8CR5_L  :AL : CR :  !
+ PARA G(AL8CR5_L,AL:CR;0)  298.15
+     +8*GHSERAL+5*GHSERCR-229515;,, N 91SAU1 !
+$
+$                                                              AL9CR4_H PHASE
+$
+ PHASE AL9CR4_H  %  2 9   4 !
+ CONST AL9CR4_H  :AL : CR :  !
+ PARA G(AL9CR4_H,AL:CR;0)  298.15
+     +9*GHSERAL+4*GHSERCR-134433-56.16*T;,, N 91SAU1 !
+$
+$                                                              AL9CR4_L PHASE
+$
+ PHASE AL9CR4_L  %  2 9   4 !
+ CONST AL9CR4_L  :AL : CR :  !
+ PARA G(AL9CR4_L,AL:CR;0)  298.15
+     +9*GHSERAL+4*GHSERCR-230750+16.094*T;,, N 91SAU1 !
+$
+$                                                                 ALCR2 PHASE
+$
+ PHASE ALCR2  %  2 1   2 !
+ CONST ALCR2  :AL : CR :  !
+ PARA G(ALCR2,AL:CR;0)  298.15
+     +GHSERAL+2*GHSERCR-32700-8.79*T;,, N 91SAU1 !
+$
+$----------------------------------------------------------------------------
+$
+$                                                                       Al-Ni
+$                     Mainly from ND thesis,
+$                     slighly revised to get better solvus at low temperature
+$
+$                                                                LIQUID PHASE
+$
+ PARA L(LIQUID,AL,NI;0)  298.15 -207109.28+41.31501*T;,, N 95DUP3 !
+ PARA L(LIQUID,AL,NI;1)  298.15 -10185.79+5.8714*T;,, N 95DUP3 !
+ PARA L(LIQUID,AL,NI;2)  298.15 +81204.81-31.95713*T;,, N 95DUP3 !
+ PARA L(LIQUID,AL,NI;3)  298.15  +4365.35-2.51632*T;,, N 95DUP3 !
+ PARA L(LIQUID,AL,NI;4)  298.15  -22101.64+13.16341*T;,, N 95DUP3 !
+$
+$                                                                FCC_A1 PHASE
+$
+ PARA TC(FCC_A1,AL,NI:VA;0)  298.15  -1112;,, N 95DUP3 !
+ PARA TC(FCC_A1,AL,NI:VA;1)  298.15  1745;,, N 95DUP3 !
+ PARA G(FCC_A1,AL,NI:VA;0)  298.15  -162407.75+16.212965*T;,, N 95DUP3 !
+ PARA G(FCC_A1,AL,NI:VA;1)  298.15  +73417.798-34.914168*T;,, N 95DUP3 !   
+ PARA G(FCC_A1,AL,NI:VA;2)  298.15  +33471.014-9.8373558*T;,, N 95DUP3 !   
+ PARA G(FCC_A1,AL,NI:VA;3)  298.15  -30758.01+10.25267*T;,, N 95DUP3 !
+$
+$                                                                BCC_A2 PHASE
+$                                                                  metastable
+$
+   FUNC B2ALNI 295.15 -152397.3+26.40575*T;,, N !
+   FUNC LB2ALNI 298.15 -52440.88+11.30117*T;,, N !
+$ problem wih ! as part of reference ....
+$ PARA L(BCC_A2,AL,NI:VA;0)  298.15  B2ALNI+LB2ALNI;,, N 99DUP!   
+ PARA L(BCC_A2,AL,NI:VA;0)  298.15  B2ALNI+LB2ALNI;,, N 99DUP !   
+$
+$                                                                BCC_B2 PHASE
+$
+ PARA G(BCC_B2,AL:NI:VA;0)  298.15  .5*B2ALNI-.5*LB2ALNI;,, N 99DUP !
+ PARA G(BCC_B2,NI:AL:VA;0)  298.15  .5*B2ALNI-.5*LB2ALNI;,, N 99DUP !
+$
+$                                                               FCC_L12 PHASE
+$
+     FUN UALNI 298.15 -22212.8931+4.39570389*T;,,,N 01DUP !
+ PARA G(FCC_L12,AL:NI:*:*:VA;0)  298.15
+           2*UNTIER*UALNI;,, N 01DUP !
+ PARA L(FCC_L12,AL,NI:*:*:*:VA;1) 298.15
+           7203.60609-3.74273030*T;,, N 01DUP !
+$
+$                                                                AL3NI1 PHASE
+$
+ PHASE AL3NI1  %  2 .75   .25 !
+ CONST AL3NI1  :AL : NI :  !
+ PARA G(AL3NI1,AL:NI;0)  298.15
+ -48483.73+12.29913*T
+ +.75*GHSERAL+.25*GHSERNI;,, N 95DUP3 !
+$
+$                                                                AL3NI2 PHASE
+$
+ PHASE AL3NI2  %  3 3   2   1 !
+ CONST AL3NI2  :AL : AL,NI% : NI,VA% :  !
+ PARA  G(AL3NI2,AL:AL:NI;0)  298.15  +5*GBCCAL+GBCCNI
+     -39465.978+7.89525*T;,, N 95DUP3 !
+ PARA G(AL3NI2,AL:NI:NI;0)  298.15  +3*GBCCAL+3*GBCCNI
+     -427191.9+79.21725*T;,, N 95DUP3 !
+ PARA  G(AL3NI2,AL:AL:VA;0) 298.15  +5*GBCCAL
+     +30000-3*T;,, N 95DUP3 !
+ PARA  G(AL3NI2,AL:NI:VA;0)  298.15  +3*GBCCAL+2*GBCCNI
+     -357725.92+68.322*T;,, N 95DUP3 !
+ PARA  L(AL3NI2,AL:AL,NI:*;0)  298.15
+     -193484.18+131.79*T;,, N 95DUP3 !
+ PARA  L(AL3NI2,AL:*:NI,VA;0)  298.15
+     -22001.7+7.0332*T;,, N 95DUP3 !
+$
+$                                                                AL3NI5 PHASE
+$
+ PHASE AL3NI5  %  2 .375   .625 !
+ CONST AL3NI5  :AL : NI :  !
+ PARA G(AL3NI5,AL:NI;0)  298.15  +.375*GHSERAL+.625*GHSERNI
+     -55507.7594+7.2648103*T;,, N 95DUP3 !
+$
+$----------------------------------------------------------------------------
+$
+$                                                                       Cr-Ni
+$                             Mainly from SSOL
+$                             Metastable B2 and L12 from revision of Al-Cr-Ni
+$ 
+$                                                                LIQUID PHASE
+$
+ PARA L(LIQUID,CR,NI;0)  298.15  +318-7.3318*T;,, N 91LEE !
+ PARA L(LIQUID,CR,NI;1)  298.15  +16941-6.3696*T;,, N 91LEE !
+$
+$                                                                FCC_A1 PHASE
+$
+ PARA G(FCC_A1,CR,NI:VA;0)  298.15  +8030-12.8801*T;,, N 91LEE !
+ PARA G(FCC_A1,CR,NI:VA;1)  298.15  +33080-16.0362*T;,, N 91LEE !   
+ PARA TC(FCC_A1,CR,NI:VA;0)  298.15  -3605;,, N 86DIN !
+ PARA BMAGN(FCC_A1,CR,NI:VA;0)  298.15  -1.91;,, N 86DIN !
+$
+$                                                                BCC_A2 PHASE
+$
+ PARA G(BCC_A2,CR,NI:VA;0)  298.15  +17170-11.8199*T;,, N 91LEE !
+ PARA G(BCC_A2,CR,NI:VA;1)  298.15  +34418-11.8577*T;,, N 91LEE !
+ PARA TC(BCC_A2,CR,NI:VA;0)  298.15  2373;,, N 86DIN !
+ PARA TC(BCC_A2,CR,NI:VA;1)  298.15  617;,, N 86DIN !
+ PARA BMAGN(BCC_A2,CR,NI:VA;0)  298.15  4;,, N 86DIN !
+$
+$                                                                BCC_B2 PHASE
+$                                                                  metastable
+$
+$ Present work: july 1999, study of Al-Cr-Ni, revision of NDTH.
+ PARA G(BCC_B2,CR:NI:VA;0)  298.15  4000;,, N 01DUP !
+ PARA G(BCC_B2,NI:CR:VA;0)  298.15  4000;,, N 01DUP !
+$
+$                                                               FCC_L12 PHASE
+$                                                                  metastable
+$ Present work: july 1999, study of Al-Cr-Ni, revision of NDTH.
+$ The L12 phase is metastable in the binary Cr-Ni while it was stable in NDTH.
+ PARA G(FCC_L12,CR:NI:*:*:VA;0)  298.15  -1980;,,  N 01DUP !
+$
+$****************************************************************************
+$
+$                                                          TERNARY PARAMETERS
+$
+$----------------------------------------------------------------------------
+$
+$                                                                    Al-Cr-Ni
+$                                    July 1999, ND
+$                                    Revision. Main changes:
+$                                    - description of the A2/B2
+$                                    - new liquidus data taken into account
+$                                    - simpler ternary interaction parameters
+$
+$                                                                LIQUID PHASE
+$
+ PARA L(LIQUID,AL,CR,NI;0)  298.15  16000;,, N 01DUP !
+$
+$                                                                FCC_A1 PHASE
+$
+ PARA G(FCC_A1,AL,CR,NI:VA;0)  298.15  30300;,, N 01DUP !
+$
+$                                                                BCC_A2 PHASE
+$
+ PARA G(BCC_A2,AL,CR,NI:VA;0)  298.15  42500;,, N 01DUP !
+$
+$                                                               FCC_L12 PHASE
+$
+ PARA G(FCC_L12,AL:CR:NI:NI:VA;0) 298.15 6650;,, N 01DUP !
+$
+$****************************************************************************
+
+ LIST_OF_REFERENCES
+ NUMBER  SOURCE
+  86DIN     'A. Dinsdale, T. Chart, MTDS NPL, Unpublished work (1986); CR-NI'
+  89DIN     'Alan Dinsdale, SGTE Data for Pure Elements,
+          NPL Report DMA(A)195 September 1989'
+  91DIN     'Alan Dinsdale, SGTE Data for Pure Elements, NPL Report
+          DMA(A)195 Rev. August 1990'
+  91LEE     'Byeong-Joo Lee, unpublished revision (1991); C-Cr-Fe-Ni'
+  91SAU1    'Nigel Saunders, 1991, based on
+            N. Saunders, V.G. Rivlin
+            Z. metallkde, 78 (11), 795-801 (1987); Al-Cr'
+  91DIN     'Alan Dinsdale, SGTE Data for Pure Elements,
+          Calphad Vol 15(1991) p 317-425, 
+          also in NPL Report DMA(A)195 Rev. August 1990'
+  95DUP3     'N. Dupin, Thesis, LTPCM, France, 1995; 
+          Al-Ni,
+          also in I. Ansara, N. Dupin, H.L. Lukas, B. SUndman
+          J. Alloys Compds, 247 (1-2), 20-30 (1997)'
+  99DUP      'N. Dupin, I. Ansara,
+          Z. metallkd., Vol 90 (1999) p 76-85;
+          Al-Ni'
+  01DUP    ' N. Dupin, I. Ansara, B. Sundman
+          Thermodynamic Re-Assessment of the Ternary System Al-Cr-Ni,
+          Calphad, 25 (2), 279-298 (2001); Al-Cr-Ni'
+   REF184   'AL1<G> CODATA KEY VALUES SGTE ** 
+          ALUMINIUM <GAS> 
+          Cp values similar in Codata Key Values and IVTAN Vol. 3'
+   REF448   'AL2<G> CHATILLON(1992)
+         Enthalpy of formation for Al1<g> taken from Codata Key Values.
+         Enthalpy of form. from TPIS dissociation energy mean Value
+         corrected with new fef from Sunil K.K. and Jordan K.D.
+         (J.Phys. Chem. 92(1988)2774) ab initio calculations.'
+   REF4465  'CR1<G> T.C.R.A.S. Class: 1 
+         CHROMIUM <GAS>'
+   REF4591  'CR2<G> T.C.R.A.S. Class: 6'
+   REF7504  'NI1<G> T.C.R.A.S Class: 1
+         Data provided by T.C.R.A.S. October 1996'
+   REF7553  'NI2<G> T.C.R.A.S Class: 5 
+         Data provided by T.C.R.A.S. October 1996'
+  ! 
+
+

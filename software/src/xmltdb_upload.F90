@@ -42,6 +42,7 @@ program xmlupload
   origin='Thermo-Calc '
   tofs=1
   text='dummy'
+  write(*,*)'Special treatment of MatCalc and Pandat'
 ! the second to last argument is a proposed default answer
   call gparcdx('Software used to generate TDB: ',cline,last,1,text,origin,&
        '?Read TDB')
@@ -104,7 +105,7 @@ program xmlupload
 !  
   write(*,30)
 30 format(/'Writing output on file: XMLTDB-file.XTD')
-  call write_xmltdb(luta,tdbfile)
+  call write_xmltdb(luta,tdbfile,software(tofs))
   if(xmlerr.ne.0) goto 2300
   close(luta)
 !
