@@ -178,7 +178,7 @@ the same phase.
   Element & Attributes & Note & Explanation\\\hline
 
   Phase &$>>>$&& All data belongs to a phase.\\
-       & Id & F & Phase name, see \ref{sec:notes} note F. \\
+       & Id & F & Phase name, For note see \ref{sec:notes}. \\
        & Configuration & G & Model for the configurational entropy.  For note see \ref{sec:notes}.\\
        & State & -- & G for gas phase, L for liquid phase.  Needed if EEC is used.\\\hline
 
@@ -497,8 +497,7 @@ files.
 In the 1990 definition of the TDB file the type of expression allowed
 consists of ``simple terms'' such as:
 
-[signed real number] * [{\bf TPfun Id} ] ** [power] *T** [power] *P**[power]
-
+[signed real number] * [{\bf TPfun Id} ] ** [power] *T** [power] *P**[power]\\
 where [power] is an integer (a negative power must be within
 parenthesis).  No spaces allowed in a simple term.  A ``complex term''
 is a simple term multiplied with a math function of a simple term,
@@ -520,8 +519,8 @@ project:\\ GEIN($\theta$) to calculate
 $1.5R\theta+3RT\ln(1-\exp(-\theta/T));$
 
 It is not allowed to group several terms together using parenthesis.
+A square root of $T$ is entered as two {\bf TPfun}:
 
-A square root of $T$ is entered as two {\bf TPfun}://
 \begin{verbatim}
 <TPfun Id="HALFT" Expr="0.5*LN(T);" />
 <TPfun Id="SQRT"  Expr="EXP(HALFT);" />
@@ -621,19 +620,15 @@ These should eventually be included also.
   constituents are written in the parameter {\bf Id}?  Currently the
   TDB file use alphabetical.
 
-%\item Automatic creation of multiple composition sets when reading the
-%  XTDB file?  For example in Fe-Ti-C there will normally be an MC
-%  carbide with the FCC model parameters.  Could such a composition set
-%  have a different name?  It may be useful to provide handling of
-%  carbides or ordering in application software.
-%
-%  But automatic creation of composition sets will require additional
-%  features, for example how to identify the different sets?  Using a
-%  ``\#digit'' to identify a composition set?  \#1 is the default
-%  (first) composition set.  It also requires a way to specify some
-%  limits of the constitution of the composition set, for example att
-%  the MC carbide have higher fraction of C (or N) than VA.
+\item Some TDB file may contain directives to the software how to
+  handle some complications, for example creating composition sets
+  when there is a FCC carbide or ordered FCC/BCC phase.  These should
+  be moved to some kind of macro/batch feature of the XTDB file not
+  yet defined.
 
+\item The {\bf ToopModel} and {\bf KohlerModel} elements are just
+  proposals and require more discussions.
+  
 \end{enumerate}
 
 \section{Summary}
@@ -837,16 +832,22 @@ models used in an XTDB file should appear in a short form as below.
 }
 
 The {\bf ToopModel} or {\bf KohlerModel} elements can appear anywhere
-in the XTDB file, even within the {\bf Phase} element or, more likely
-together with all the {\bf Parameter} elements from an assessment of
-the ternary C-Fe-Cr system in order to simplify editing a large XTDB
-file.  Either way may be a bit complicated to handle by the
-calculating software reading the XTDB file.
+in the XTDB file, even within the {\bf Phase} element, but more likely
+together with the {\bf Parameter} elements from an assessment of the
+ternary system in order to simplify editing a large XTDB file.  Either
+way may be a bit complicated to handle by the calculating software
+reading the XTDB file.
 
 The {\bf SplitPhase} in example~\ref{sec:phase example} must appear
 within a {\bf Phase} element for the ordered phase.
 
 \newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% appendix B
+\setcounter{equation}{0}
+\renewcommand{\theequation}{B\arabic{equation}}
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{B\arabic{figure}}
+
 \section{Proposal of Id for agreed models.}\label{sec:modelapp}
 
 The agreed models need only to added by their idenfiers to the phases.
@@ -896,12 +897,21 @@ may be different in each software.
 }
 
 \newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% appendix C
+\setcounter{equation}{0}
+\renewcommand{\theequation}{C\arabic{equation}}
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{C\arabic{figure}}
+\setcounter{table}{0}
+\renewcommand{\thetable}{C\arabic{table}}
+
 \section{Proposal of initial set of Model Parameter Identifiers, MPID}\label{sec:mpid2}
 
-The 32 model parameter identifiers, MPID, defined in OC as shown in
-Table~\ref{tab:mpis}.  In OC a parameter for a disordred part of a
-{\bf SplitPhase} use the same phase name but the MPID has a suffix
-``D''.
+The 32 model parameter identifiers, MPID, defined in OC are shown in
+Table~\ref{tab:mpis}.
+
+In OC a parameter for a disordred part of a {\bf SplitPhase} use the
+same phase name but the MPID has a suffix ``D''.
 
 \begin{table}[!h]
   \caption{Current set of model parameter identifiers in OC.  For each
