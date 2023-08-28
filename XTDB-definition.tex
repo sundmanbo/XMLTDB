@@ -1,0 +1,989 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+%\usepackage{geometry}
+%\geometry{margin=0.5in}
+%\usepackage{cite}
+%\usepackage{color}
+
+%\title{XMLTDB01}
+%\author{Bo Sundman et al. }
+%\date{June 2023}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{graphicx,subfigure}              % with figures
+% sometimes needed to have pdf files 
+\pdfsuppresswarningpagegroup=1
+\topmargin -10mm
+\oddsidemargin -1mm
+\evensidemargin -1mm
+\textwidth 170mm
+\textheight 220mm
+\parskip 2mm
+\parindent 3mm
+%\pagestyle{empty}
+\usepackage{xcolor}
+\usepackage[normalem]{ulem}
+
+%footnote using capital letter
+\renewcommand{\thefootnote}{\Alph{footnote}}
+%\renewcommand{\thefootnote}{{\arabic{footnote}}
+
+% For appendices
+\usepackage[titletoc,title,header]{appendix}
+
+\begin{document}
+
+\begin{center}
+
+  {\Large \bf A proposal of an XML format for TDB files}
+
+  Bo Sundman et al. \today
+\end{center}
+
+It seems there is a general agreement that an XML format is beneficial
+for Calphad databases, the discussion is how detailed it should be.
+The proposal here is intended to make it possible to edit an XTDB file
+as easily as the current TDB format while providing better facilities
+to handle new features implemented in the different softwares using
+TDB files.  This may require modifications in the XML format already
+adoped in some software.
+
+I am no expert maintaining documentation and sometimes I am convinced
+my own ideas are the best.  I need help to maintain this and make sure
+it contains what we have decided.  I have added an Appendix D where all
+changes should be noted.
+
+\section{XTDB version 0.0.2  28/8 2023}
+
+The following proposal is for a common definition of an XTDB file
+format based on XML.  It can hopefully become an SGTE standard
+acceptable by all software which develop or use Calphad databases.
+
+As XML is extendable each software may add their own flavour in a
+controlled way and it will be easier to convert an XTDB file from one
+software to another.
+
+The ``note'' for the attributes for an XML element in the tables below
+is ``+'' for a compulsory attribute, ``--'' for an optional one or a
+letter A-Z for special cases explained in section~\ref{sec:notes}.
+
+All values of the {\bf Id} attributes are case insenitive as in the
+TDB file.  Except for phase names they cannot be abbreviated when used
+in attributes.
+
+An XML parser is convenient for reading XML files but to simplify the
+life for the humans reading the XTDB file or software using sequential
+read operations, it is recommended that the attributes to an XML
+element are provided in the order listed for each element below.
+
+The order of XML elements is free but to simplify for a human reading
+and editing the XTDB file a recommended order is {\bf Defaults,
+  DatabaseInfo, SoftSpecific} followed by {\bf Element, Species,
+  Model} and {\bf Phases} and then {\bf TPfun}s and {\bf Parameter}s
+for the pure elements.  After that {\bf TPfun} and {\bf Parameter} for
+binary, ternary and higher order systems, normally arranged for each
+subsystem.
+
+An XML element, sometimes called ``tag'', referenced in the text below
+is written in {\bf bold}.
+
+\subsection{The system XTDB elements}
+
+\bigskip
+\begin{tabular}{|p{0.1\textwidth} p{0.1\textwidth} r p{0.65\textwidth}|}\hline
+  Element/tag & Attributes & Note & Explanation\\\hline
+
+  XTDB    & && Containing XML elements for an XTDB database.\\
+          & Version & + & Version of XTDB for this file.\\
+          &Software & + & Name of software generating the database.\\
+          &Date     & + & Year/month/day the database was written or edited\\
+          &Signature& -- & Name/email of person or organisation generating the database.\\\hline
+  
+  Defaults & && Provides default values of attributes in other XML elements.\\
+           & LowT & -- & Default value of low $T$ limit.\\
+           & HighT & -- & Default value of high $T$ limit.\\
+           & Bibref & -- & Default bibliographic reference. \\
+           & Elements & -- & VA and/or /- (the electron).\\
+           & Model & -- & Any model applicable for the system, for example EEC\\\hline
+
+  DatabaseInfo & && Free text.\\
+  & Date & -- & Last update.\\\hline
+
+  SoftSpecific & && Free text explaining software specific XML
+  elements and attributes used.\\\hline
+  
+\end{tabular}
+
+\subsection{The chemical element and species element}
+
+\bigskip
+\begin{tabular}{|p{0.1\textwidth} p{0.1\textwidth} r p{0.65\textwidth}|}\hline
+  Element/tag & Attributes & Note & Explanation\\\hline
+
+  Element & && Specifies a chemical element in the database.  The vacancy is denoted ``VA'' and the electron ``/-''.\\
+          & Id        & +    & Chemical element symbol, for example FE, H \\
+          & Refstate  & +    & Name of a phase, for example GAS \\
+          & Mass      & +    & Mass in g/mol\\
+          & H298      & --    & Enthalpy difference between 0 and 298.15~K in reference state.\\
+          & S298      & --    & Entropy difference between 0 and 298.15~K in reference state.\\\hline
+
+  Species & && Specifies a molecular like aggregate used as constituent of phases.  The elements, except the electron, are also species.\\
+          & Id        & A & Species name max 24 letters. For note see \ref{sec:notes}.\\
+          & Stoichiometry & B & One or more elements each followed by an unsigned real representing the stoichiometric ratio.  For note see \ref{sec:notes}.  See also appendix~\ref{sec:elementexample}.\\
+          & MQMQA & C & For a constituent in the MQMQA model.  For note see \ref{sec:notes}.\\
+          & UNIQUAC & D & For a constituent in the UNIQUAC model.  For note see \ref{sec:notes}.\\\hline
+
+\end{tabular}
+
+\subsection{The function and temperature range elements}
+
+There is at present no way to handle several pressure ranges.  The
+value of a function, as well as its first and second derivative with
+respect to $T$, must be continuous across a change of $T$ range.
+
+\bigskip
+\begin{tabular}{|p{0.1\textwidth} p{0.1\textwidth} r p{0.65\textwidth}|}\hline
+  Element/tag & Attributes & Note & Explanation\\\hline
+
+  TPfun & && Defines a $T, P$ expression to be used in parameters or other functions.\\
+        & Id & E & Function name, max 16 characters. The name can be used in the ``Expr'' attribute of other functions or parameters.  For note see \ref{sec:notes}.\\
+        & LowT & -- & If the default low $T$ limit applies.\\
+        & Expr & + & Simple mathematical expression terminated by ;.   Use the {\bf Trange} element if several ranges.  See section \ref{sec:expr}\\
+        & HighT & -- & If the default high $T$ limit applies.\\\hline
+
+  Trange & && Only inside a {\bf TPfun} or {\bf Parameter} element for an expression with several $T$ ranges.\\ 
+         & Expr & + & Simple mathematical expression terminated by ;.  See section \ref{sec:expr}.\\
+         & HighT & -- & If the default high $T$ limit applies.\\\hline
+\end{tabular}
+
+\subsection{The phase element}\label{sec:phase}
+
+Normally the software requires information of sublattices,
+constrituents and models for the phase in order to create the
+appropriate datastructures.  The {\bf Parameter} and some models, see
+section~\ref{sec:toop} can appear anywhere in the XTDB file.
+
+The {\bf Splitphase} model (also known as the disordered fraction
+model) combines the Gibbs energies of an ordered and a disordered
+phase where the disordered phase has fewer sublattices than the
+ordered and the constituent fractions on its first sublattice are the
+average of the fractions summed over several sublattices in the
+ordered phase as specified by the attribute {\bf Sum}.  The {\bf
+  SplitPhase} element must appear within the ordered {\bf phase}
+element before any other nested XML elements such as {\bf AmendPhase,
+  Parameter}, {\bf KohlerModel} or {\bf ToopModel} elements.  Tho {\bf
+  Parameter, ToopModel} and {\bf KohlerModel} elements may appear anywhere in
+the XTB file.
+
+Some software may not have a separate disordered phase but arrange all
+{\bf Parameter} elements for the ordered and disordered phase within
+the same phase.
+
+\begin{tabular}{|p{0.1\textwidth} p{0.1\textwidth} r p{0.65\textwidth}|}\hline
+  Element/tag & Attributes & Note & Explanation\\\hline
+
+  Phase & && All data belongs to a phase.\\
+       & Id & F & Phase name, see \ref{sec:notes} note F. \\
+       & Configuration & G & Model for the configurational entropy.  For note see \ref{sec:notes}.\\
+       & State & -- & G for gas phase, L for liquid phase.  Needed if EEC is used.\\\hline
+
+  Sublattices & && Only inside a {\bf Phase} element.\\
+        & NumberOf & + & Number of sublattices, an integer value 1-10 \\
+        & Multiplicities & + & Sites on each sublattice, as many reals as sublattices separated by a space.\\\hline
+
+  Constituents & && Only inside a {\bf Phase} element.\\
+        & Sublattice & + & Indicates the sublattice for the list of species.\\
+        & List & + & Species Id, separated by a space, in the sublattice.\\\hline
+
+  SplitPhase & && Only inside the {\bf Phase} element of the ordered phase.\\
+      & Bibref & + & Where the model is described.\\
+      & Disordered & K & Name of disordered phase, for note see \ref{sec:notes}.\\
+      & Sum & + & Number of sublattices in the ordered phase to be summed for the disordered phase constitution.  All sublattices summed must have the some constituents.\\
+      & Subtract & L & Must have value Y if the Gibbs energy of ordered phase as disordered should be subtracted, for note see \ref{sec:notes}.\\\hline
+
+  AmendPhase & && Only inside a {\bf Phase} element.\\
+  & Model & + & List of models ``Id'', separated by a space, for this phase.  The ``Id'' is specified in a model element below.\\\hline
+\end{tabular}
+
+%\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% page 2
+
+\subsection{The simple parameter element}
+
+All thermodynamic data are defined by the parameter elements.  They
+can be arranged inside a phase element or separately for each binary,
+ternary etc. subsystem.  See also section~\ref{sec:parameter2} and
+  appendix~\ref{sec:parameter examples}.
+
+\bigskip
+\begin{tabular}{|p{0.1\textwidth} p{0.1\textwidth} r p{0.65\textwidth}|}\hline
+  Element/tag & Attributes & Note & Explanation\\\hline
+
+  Parameter & && Specifies the $T, P$ expression of a model parameter for a set of constituents.\\
+      & Id & + & As in TDB file, for example G(LIQUID,A,B:VA;2).  See also the {\bf Parameter2} element.  May include the {\bf Trange} element for parameters with multiple ranges.\\
+      & LowT & -- & If the default low $T$ limit applies.\\
+      & Expr & + & Simple mathematical expression terminated by ;.  If several ranges use a {\bf Trange} element.  See section \ref{sec:expr}.\\
+      & HighT & -- & If the default high $T$ limit applies.\\
+      & Bibref & + & Bibliographic reference.\\\hline
+\end{tabular}
+
+\subsection{The elaborate parameter element}\label{sec:parameter2}
+
+An alternative more elaborated XML element can be used for parameters
+which may be preferred by software.  It is striaghtforward to convert
+from one to another.
+
+\bigskip
+\begin{tabular}{|p{0.1\textwidth} p{0.1\textwidth} r p{0.65\textwidth}|}\hline
+  Element/tag & Attributes & Note & Explanation\\\hline
+
+  Parameter2 & && A more detailed parameter element preferred by software.\\
+      & Id & -- & As in TDB file, for example G(LIQUID,A,B:VA;2).  See also the {\bf Parameter} element. \\
+      & MPID & H & Model parameter identifier, for example G or TC.  For note see \ref{sec:notes}.\\
+      & Phase & -- & Can be omitted inside a phase element, otherwise the phase name.\\
+      & LowT & -- & If the default low $T$ limit applies.\\
+      & Expr & + & Simple mathematical expression terminated by ;.  If several ranges use a {\bf Trange} element.  See section \ref{sec:expr}.\\
+      & HighT & -- & If the default high $T$ limit applies.\\
+      & Bibref & + & Bibliographic reference.\\\hline
+
+  ConstArray & && Only inside a {\bf parameter2} element.\\
+      & Degree & I & Can be omitted if zero, for note see \ref{sec:notes}.\\\hline
+  
+  Constituent & && Only inside a {\bf ConstArray} element.\\
+      & Sublattice & + &  Sublattice of constituent.\\
+      & Species & + & Name of a constituent.\\\hline
+\end{tabular}
+
+\bigskip
+The {\bf Parameter2} element is preferred by software but for manual
+editing {\bf Parameter} is simpler, see the
+appendix~\ref{sec:parameter examples}.  Both elements can be used in
+the XTDB file.  Software can convert a {\bf Parameter} element to a
+{\bf Parameter2} element.  If an ``Id'' is present in a {\bf
+  parameter2} element the software should check that the ``Id'' is
+identical to the long form and report an error if not.
+
+The use of wildcards, ``*'', for species in a parameter must be
+defined, see section~\ref{sec:wildcard}.
+
+
+%\newpage
+
+\subsection{Bibliography for parameters and models.}\label{sec:biblio}
+
+For each parameter there must be a bibliographic reference.  This can
+be the same for all parameters from the same source.  The models also
+have a reference which should indicate a paper where the model is
+explained, see Appendix~\ref{sec:modelex}.
+
+\bigskip
+\begin{tabular}{|p{0.1\textwidth} p{0.1\textwidth} r p{0.65\textwidth}|}\hline
+  Element/tag & Attributes & Note & Explanation\\\hline
+
+  Bibliography & && Contains bibliographic references\\\hline
+
+  Bibitem & && Only inside a {\bf Bibliography} element.\\
+      & Id & + &   Used as Bibref attribute for a parameter or model, normally a paper or a comment by the database manager.\\
+      & Text & + & Reference to a paper or comment\\
+      & Date & -- & Date when the Bibref element was created\\
+      & Sign & -- & Signature of the one adding the reference\\\hline
+
+\end{tabular}
+
+%\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{XTDB model elements}\label{sec:models}
+
+These XML elements for generally accepted models can be on a separate
+file but the model ``Id'' is the important and used in the {\bf
+  AmendPhase} element for each phase which has the model.  Most model
+has one or more model parameter identifiers (MPID) used in the {\bf
+  Parameter} element.  See also appendix~\ref{sec:modelapp}.  Software
+specific models should be explained in this XML element.
+
+\bigskip
+\begin{tabular}{|p{0.1\textwidth} p{0.1\textwidth} r p{0.65\textwidth}|}\hline
+  Element/tag & Attributes & Note & Explanation\\\hline
+
+  Models   & && Contains model descriptions and identifiers used in ``AmendPhase'' elements for phases.  The models usually specify one or more model parameter identifiers needed by the model.\\\hline
+\end{tabular}
+
+The following XML elements should only be used inside a {\bf Model} element
+and are used to specify the model parameter identifiers associated with the
+model.
+
+\subsubsection{XTDB generally accepted model elements}
+
+\bigskip
+\begin{tabular}{|p{0.1\textwidth} p{0.1\textwidth} r p{0.65\textwidth}|}\hline
+  Element/tag & Attributes & Note & Explanation\\\hline
+
+%  Models   & && Contains model descriptions and identifiers used in ``AmendPhase'' elements for phases.  The models usually specify one or more model parameter identifiers needed by the model.\\\hline
+
+  Magnetic & && There are several magnetic models.\\
+      & Id & + & This Id is used in {\bf AmendPhase} element.\\
+      & Bibref & + & Where the model is described.\\
+      & MPID1 & + & Specifies a magnetic model parameter identifier (MPID) for parameters.\\
+      & MPID2 & + & Specifies a magnetic model parameter identifier (MPID) for parameters.\\
+      & MPID3 & + & Specifies a magnetic model parameter identifier (MPID) for parameters.\\\hline
+
+  Volume & && Specifies the model for volume of a phase.\\
+      & Id & + & This Id is used in the {\bf AmendPhase} element.\\
+      & Bibref & + & Where the model is described.\\
+      & MPID1 & + & Specifies volume model parameter identifier (MPID) for parameters.\\
+      & MPID2 & + & Specifies volume model parameter identifier (MPID) for parameters.\\
+      & MPID3 & + & Specifies volume model parameter identifier (MPID) for parameters.\\\hline
+
+  FCC4Perm & & & For the FCC 4 sublattice tetrahedron model identical permutations of a parameter are listed only once.\\
+     & Id & + & This Id is used in {\bf AmendPhase} element.\\
+     & Bibref & + & Where the model is described.\\\hline
+
+  BCC4Perm & & & For the BCC 4 sublattice tetrahedron model identical permutations of a parameter are listed only once.\\
+     & Id & + & This Id is used in {\bf AmendPhase} element.\\
+     & Bibref & + & Where the model is described.\\\hline
+
+\end{tabular}
+
+\subsubsection{New unary models}
+
+There is also a new magentic model.
+
+\bigskip
+\begin{tabular}{|p{0.1\textwidth} p{0.1\textwidth} r p{0.65\textwidth}|}\hline
+  Element/tag & Attributes & Note & Explanation\\\hline
+
+  Einstein & && The low $T$ vibrational model.\\
+      & Id & + & This Id is used in {\bf AmendPhase} element.\\
+      & Bibref & + & Where the model is described.\\
+      & MPID1 & + & Specifies the Einstein model parameter identifier (MPID) for parameters.\\\hline
+
+  Liquid2state & && The liquid 2-state model.\\
+      & Id & + & This Id is used in {\bf AmendPhase} element.\\
+      & Bibref & + & Where the model is described.\\
+      & MPID1 & + & Specifies liquid model parameter identifier (MPID) for parameters.\\
+      & MPID2 & + & Specifies Einstein model parameter identifier (MPID) for parameters.\\\hline
+
+  EEC & && Specifies that the Equi-entropy model applies to current database\\
+      & Bibref & + & Where the model is described.\\\hline
+
+\end{tabular}
+
+\subsubsection{XTDB elements for constituent specific models}\label{sec:toop}
+
+These models are related to specific constituents of a phase and they
+must be specified explicitly and cannot be included in the {\bf
+  AmendPhase} element for the phase because they include additional
+information.  The Toop and Kohler ternary extrapolation models are
+most likely specified together with the parameters for a specific
+ternary.  The Muggianu ternary model is the default extrapolation
+model.
+
+\bigskip
+\begin{tabular}{|p{0.1\textwidth} p{0.1\textwidth} r p{0.65\textwidth}|}\hline
+  Element/tag & Attributes & Note & Explanation\\\hline
+
+  ToopModel & & & Subset of 3 constituents for which the Toop ternary extrapolation model should be used.    By default the Muggianu extrapolation is used.\\
+      & Bibref & + & Where the model is described.\\
+      & Phase & + & Can be omitted if used inside a {\bf Phase} element.  Otherwise the phase for which the model should be used.\\
+      & Constituents & + & Specifies 3 constituents, the Toop constituent first.\\\hline
+
+  KohlerModel & &  & Subset of 3 constituents for which the Kohler ternary extrapolation model should be used.  By default the Muggianu extrapolation is used.\\
+      & Bibref & + & Where the model is described.\\
+      & Phase & + & Can be omitted if used inside a {\bf Phase} element.  Otherwise the phase for which the model should be used.\\
+      & Constituents & + & Specifies 3 constituents in any order.\\\hline
+
+\end{tabular}
+
+\subsection{Notes}\label{sec:notes}
+
+Note that the XML elements and attributes are case sensitive whereas
+the names of elements, species, functions and other text are case
+insensitive.  For example a chemical element written FE, Fe, fe and fE
+is the same element.  Thus CO is Cobalt and C1O is carbonmonoxide.
+
+\begin{description}
+\item{\bf A:}\label{sec:noteA} A species name or {\bf Id} must start
+  with letter A-Z and can contain letters, digits and the special
+  characters ``\_'', ``/'', ``-'' and ``+''.  It must not be
+  abbreviated when used as constituent in a {\bf Phase} or {\bf
+    Parameter} element.
+
+  Should the characters ``-'' and ``\_'' be treated as identical(?)
+
+\item{\bf B:} The species stoichiometry is a sequence of one or more
+  element names (case insensitive) followed by a real number
+  specifying the stoichiometric ratio.  Following the TDB standard an
+  element with a two letter name does not need a stoichiometric ratio
+  equal to unity, for example MGO for MG1O1.  A final stoichiometry
+  unity can also be ignored.  No parenthesis are allowed.  For MQMQA
+  clusters the stoichiometry can be omitted.
+
+\item{\bf C:} The MQMQA attribute should contain two or more element
+  names separated a comma or a sublattice separator ``:'' and
+  followed by equal number of unsigned reals representing the bond
+  fractions, For example:
+
+  CS,LA:F  9.0 6.0 4.0
+
+  See also appendix~\ref{sec:elementexample}.  According to the MQMQA
+  model the cluster stoichometry is calculated as 6.0 divided by the
+  bond fractions.  The cluster is always electrically neutral.  For
+  endmember clusters (with one species in each sublattice) a real
+  representing the SNN/FNN ratio, usually 2.4, must be supplied.
+
+\item{\bf D:} For UNIQUAC species.  Contains two reals representing
+  volume and area of the species in m$^3$ and m$^2$ (?).
+
+\item{\bf E:} A {\bf TPfun} name must start with a letter A-Z and may
+  contain letters, digits and the special character ``\_''.  It must
+  not be longer than 16 characters.  It cannot be abbreviated.
+
+\item{\bf F:} A phase name must start with a letter A-Z and have no
+  more than 24 characters.  It can contain letters, numbers and the
+  special character ``\_''.  In some software``(`` and ``)'' may be
+  used in phase names but they can be converted to ``\_'' in other
+  software.
+
+  A phase name may be abbreviated in parameters and some other cases
+  and thus a phase name must be unique and not an abbreviation of
+  another phase.
+
+\item{\bf G:} The configuration model, for example CEF, I2SL, MQMQA
+  etc.  Maybe also``RKM'' for a Redlich-Kister-Muggianu model with a
+  single lattice and one site?
+
+\item{\bf H:} An initial set of model parameter identifies (MPID) must
+  be defined, see section~\ref{sec:mpid} and appendix~\ref{sec:mpid2}.
+  At present G is the Gibbs energy, TC Curie $T$, BMAGN the Bohr
+  magneton number etc.  The MPID must not be abbreviated.
+
+\item{\bf I:} The degree can be omitted if zero.
+
+\item{\bf K:} The disordered phase within a {\bf SplitPhase} element
+  can be omitted if the parameters for the disordered phase are
+  provided within the ordered phase, using a suffix ``D'' after the
+  MPID name and with the appropriate reduced number of sublattices.
+  
+  For example GD(SIGMA,CR) can be used as {\bf Id} in a {\bf
+    Parameter} element for the lattice stability of Cr in SIGMA if the
+  SIGMA phase is modelled with 3 or more sublattices and has the {\bf
+    SplitPhase} element.  This avoids the need for a meaningless
+  disordered DIS\_SIGMA phase.
+
+\item{\bf L:} A BCC or FCC phase with a disordered fraction set can
+  have the ``ordered'' part ``as disordered'' subtracted in order to
+  allow the modeling of the disordered part separately.  If so the
+  value of the {\bf Subtract} attribute should be ``Y''.
+
+  For phases which never disorder, for example the sigma phase, one
+  can also have a ``disordered'' part with a single sublattice
+  containing the pure elements as endmembers (and possibly some long
+  range interaction parameters).  In Thermo-Calc terminology this is
+  the ``NEVER'' model.  In order not to subtract the ordered part as
+  disordered in XTDB the {\bf Subtract} attribute can be omitted or
+  given any other value than ''Y''.
+
+\end{description}
+%\end{enumerate}
+
+\subsection{The mathematical expression used in Expr}\label{sec:expr}
+
+The mathematical expressions for $T$ and $P$ used in {\bf TPfun,
+  Trange} and {\bf Parameter} are the same as in TDB files.  It is
+very limited because some software must calculate first and and second
+derivatives with respect to $T, P$ (and constitution).  A more
+extended mathematical expression could be allowed for expressions
+which are not used for database parameters.  In OC it is allowed to
+enter more complex expressions for post processing in batch/macro
+files.
+
+In the 1990 definition of the TDB file the type of expression allowed
+consists of ``simple terms'' such as:
+
+[signed real number] * [{\bf TPfun Id} ] ** [power] *T** [power] *P**[power]
+
+where [power] is an integer (a negative power must be within
+parenthesis).  No spaces allowed in a simple term.  A ``complex term''
+is a simple term multiplied with a math function of a simple term,
+such as:
+
+[simple term] *LN( [simple term] )
+
+An {\bf Expr} attribute in {\bf TPfun, Trange} or {\bf Parameter}
+consists one or more terms.  A positive sign of the first term can be
+omitted.
+  
+The following general math functions are allowed in OC:\\ $\exp(),
+\ln(), \log(),$ erf().  Note that $\log()$ and $\ln()$ is the same and
+erf() is the error function.  The number of math functions can be
+extended.
+
+The following math function is needed for the unary
+project:\\ GEIN($\theta$) to calculate
+$1.5R\theta+3RT\ln(1-\exp(-\theta/T));$
+
+It is not allowed to group several terms together using parenthesis.
+
+A square root of $T$ is entered as two {\bf TPfun}://
+\begin{verbatim}
+<TPfun Id="HALFT" Expr="0.5*LN(T);" />
+<TPfun Id="SQRT"  Expr="EXP(HALFT);" />
+\end{verbatim}
+
+\subsection{The use of wildcards for constituents in parameters}\label{sec:wildcard}
+
+In some parameters a wildcard, ``*'', is used to indicate the
+parameter is independent of the constituent in this sublattice.  For
+example:
+\begin{itemize}
+\item A parameter G(sigma,GA:GA:*;0)=100000; means that the Gibbs
+  energy of formation of ``phase'' with GA in first and second
+  sublattice is independent of the constituent in the third.  If one
+  later finds that for example the Gibbs energy for sigma with TA in
+  the third sublattice should be just +70000 then, in OpenCalphad, one
+  must set G(sigma,GA:GA:TA)=-30000; because OC stores the two
+  parameters separately and will add them when calculating.
+
+This may be handled differently in other software and requires attention.
+
+\item The EBEF model, using the same notation for parameters as in
+  CEF, replaces a large number of Gibbs endmembers energies by fewer
+  {\bf Parameter} elements, representing bond energies, using
+  wildcards in one or more sublattices.  The bond energies specify
+  constituents in only 2 or 3 sublattices in phases with 3 or more
+  sublattices.  Using the {\bf SplitPhase} model and provided there
+  two endmember parameters GD(SIGMA,CR) and GD(SIGMA,FE) (or a
+  separate disordered phase with these parameters) a parameter
+  G(SIGMA,CR:FE:*:*:*) represent the bond energy between CR in first
+  and FE in second sublattice, independent on the constituents in the
+  other sublattices (note that G(SIGMA,FE:CR:*:*:*) have another
+  value).
+
+  Using such parameters (fitted for example to DFT calculated
+  endmember energies) the number of parameters can be reduced by more
+  than an order of magnitudes and, in addition, extrapolations can be
+  improved!
+
+  In order to avoid a phase representing the ``disordered part'' in
+  EBEF one can introduce a set of endmember parameters such as
+  G(SIGMA,CR:*:*), G(SIGMA,*:CR:*), G(SIGMA,*:*:CR) and
+  G(SIGMA,FE:*:*), G(SIGMA,*:FE:*) and G(SIGMA,*:*:FE) (the so called
+  ``wild'' model) which is ingenious but likely confusing to students.
+  
+\end{itemize}
+
+\subsubsection{A missing wildcard in the I2SL model parameters}
+
+An I2SL model may exist with only neutrals in the anion sublattice.
+For example the elements C and S can be neutrals in the I2SL model and
+their parameters are in Thermo-Calc are written as G(I2SL,C), omitting
+the cation sublattice.  In OpenCalphad it is written G(I2SL,*:C) which
+may be a bit more consistent as it indicates that the constituent on
+the cation sublattice is irrelevant.  It is suggested that the XTDB
+format adopts the OC way to specify a constituent in each sublattice
+in order to be consistent.  The same for interactions between
+neutrals.
+
+Note that an interaction between neutrals with a single specific
+cation is forbidden in the I2SL model.
+
+\subsection{Model parameter identifiers, MPID}\label{sec:mpid}
+
+An MPID must start with a letter A-Z and contain letters and digits
+and not exceed 8? charactes.  It cannot be abbreviated.  There are
+already some defined but there should be an extensive list of future
+MPIDs to avoid that different software use the same for (slightly)
+different things.  See appendix~\ref{sec:mpid2}.
+  
+The letter ``\&'', frequently used for mobilities, is forbidden in XML
+but it can be replaced by some other character, for example ``@''.
+Using ``\&amp;'' seems unnecessary and quite clumsy.
+
+\subsection{CVM and the cluster site model}
+
+These should eventually be included also.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Maybe as appendice?
+%\newpage
+
+\section{Points of discussions}
+
+\begin{enumerate}
+\item Should mathematical expressions be terminated by a ``;''?  It is
+  not necessary because there is a final double quote of the expression
+  but it may be nice.
+
+\item The GEIN function is used in the {\bf Parameter} for a pure
+  element modeled with several Einstein $\theta$.  Only one of these
+  is selected to vary with composition using the LNTH model parameter
+  identifier (MPID).
+
+\item Should the sign of Redlich-Kister terms depend on the
+  alphabetical order of the constituents or as the order the
+  constituents are written in the parameter {\bf Id}?  Currently the
+  TDB file use alphabetical.
+
+\item Should the sign of Redlich-Kister terms depend on the
+
+\item A number of software specific elements and maybe attributes to
+  general elements should be discussed and defined.  For example the
+  {\bf Splitphase} element will be handed differetly in OC and in the
+  current version of TC
+
+\item Some general handling and notation of composition sets for
+  miscibility gaps and for phases with order/disordered states?
+
+\item The EBEF model notation.
+
+\end{enumerate}
+
+\section{Summary}
+
+There are certainly many more things to take care of but I think it is
+more important to agree on a minimum common XML format which can make
+the thermodynamic databases more useful both for experimentalists,
+assessments, database maintenance and thermodynamic software in
+particular for the development of new models and applications.  We
+have to take one step at a time.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Appendices
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%% Appendix A
+\newpage
+\begin{appendices}
+\setcounter{equation}{0}
+\renewcommand{\theequation}{A\arabic{equation}}
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{A\arabic{figure}}
+
+\section{Examples}\label{sec:examples}
+
+A few examples of the XTDB format.  It may not be completely
+consistent with the definitions above as I have taken them from my
+previous conversion software.
+
+\subsection{Elements and species.}\label{sec:elementexample}
+
+The way to define MQMQA constituents and stoichiometry is tentative.
+
+{\small
+\begin{verbatim}
+  <Element Id="/-" Refstate="ELECTRON_GAS" Mass="  0.000000E+00" />
+  <Element Id="VA" Refstate="VACUUM" Mass="  0.000000E+00" />
+  <Element Id="AL" Refstate="FCC_A1" Mass="  2.698200E+01" H298="  4.577300E+03" S298="  2.832200E+01" />
+  <Element Id="FE" Refstate="BCC_A2" Mass="  5.584700E+01" H298="  4.489000E+03" S298="  2.728000E+01" />
+...
+  <Species Id="VA" Stoichiometry="VA" />
+  <Species Id="AL" Stoichiometry="AL" />
+  <Species Id="FE" Stoichiometry="FE" />
+  <Species Id="ALFE" Stoichiometry="AL0.5FE0.5" />
+  ...
+  <Species Id="LA/F" MQMQA="LA:F 6.0 2.0 2.4" />
+  <Species Id="LACS/F" MQMQA="LA,CS:F 9.0 6.0 4.0" />
+\end{verbatim}
+}
+
+The stoichiometry of the MQMQA species is calculated from the bond
+ratios according to the model.  The {\bf MQMQA} attribute for an
+``endmember'' also include a factor needed in the configurational
+entropy expression.
+
+Note that species cannot be abbreviated as constituents in phases or
+parameters and thus one can have species which are abbreviations of
+another species.  For example ``O'' and ``O2''.
+
+For phases one can abbreviate its name and thus one cannot have a
+phase with a name which is an abbreviation of another phase name.
+Phase names can be abbreviated for each part separated by an
+underscore, ``\_''.  A phase name ``AL\_X'' is thus an abbreviation of
+``AL2\_X''.
+
+\subsection{Defaults, TPfun and Trange}
+
+Using default $T$ limits the function are not much more complex than
+in the TDB file.
+
+{\small
+\begin{verbatim}
+  <Defaults LowT="298.15" HighT="6000" Bibref="U.N.Known" Elements="VA /-" />
+...
+  <TPfun Id="GHSERAL"  >
+    <Trange HighT="700" Expr=" -7976.15+137.093038*T-24.3671976*T*LN(T)-.001884662*T**2-8.77664E-07*T**3+74092*T**(-1);" />
+    <Trange HighT="933.47" Expr=" -11276.24+223.048446*T-38.5844296*T*LN(T)+.018531982*T**2  -5.764227E-06*T**3+74092*T**(-1);" />
+    <Trange HighT="2900" Expr=" -11278.378+188.684153*T-31.748192*T*LN(T)-1.230524E+28*T**(-9);" />
+  </TPfun>
+...
+  <TPfun Id="LFALFE0"  Expr="-104700+30.65*T;" />
+  <TPfun Id="LFALFE1"  Expr="+30000-7*T;" />
+  <TPfun Id="LFALFE2"  Expr="+32200-17*T;" />
+  <TPfun Id="UFALFE"  Expr="-4000+T;" />
+  <TPfun Id="GAL3FE"  Expr="+3*UFALFE+9000;" />
+  <TPfun Id="GAL2FE2"  Expr="+4*UFALFE;" />
+\end{verbatim}
+}
+
+\subsection{Phase}\label{sec:phase example}
+
+Entering phases in the XTDB file is a bit more complex but we have get
+rid of the TYPE\_DEFINITION.  It is not so nice to use CEF for the
+liquid, that is why I think RKM might be a nice option for a liquid
+model without sublattices and maybe {\bf Sublattices} can be omitted?
+
+{\small
+\begin{verbatim}
+ <Phase Id="LIQUID" Configuration="RKM" state="L" >
+    <Sublattices Number_of="1"  Ratios="1" >
+      <Constituents sublattice="1" list="AL C" />
+    </Sublattices>
+    <AmendPhase model="LIQ2STATE" />
+  </Phase>
+...
+  <Phase id="A2_BCC" Configuration="CEF" state="S" >
+    <Sublattices Number_of="2"  Ratios="1  3" >
+      <Constituents sublattice="1" list="AL FE" />
+      <Constituents sublattice="2" list="VA" />
+    </Sublattices>
+    <AmendPhase model="IHJBCC" />
+  </Phase>
+...
+  <Phase id="AL8FE5_D82" Configuration="CEF" state="S" >
+    <Sublattices Number_of="2"  Ratios="8  5" >
+      <Constituents sublattice="1" list="AL FE" />
+      <Constituents sublattice="2" list="AL FE" />
+    </Sublattices>
+  </Phase>
+...
+  <Phase id="BCC_4SL" Configuration="CEF" state="S" >
+    <Sublattices Number_of="5"  Ratios="0.25  0.25  0.25  0.25  3" >
+      <Constituents Sublattice="1" List="AL FE" />
+      <Constituents Sublattice="2" List="AL FE" />
+      <Constituents Sublattice="3" List="AL FE" />
+      <Constituents Sublattice="4" List="AL FE" />
+      <Constituents Sublattice="5" List="VA" />
+    </Sublattices>
+    <SplitPhase Disordered="A2_BCC" Sum="4" Subtract="Y" Bibref="09Sun" />
+    <AmendPhase model="IHJBCC BCC4Perm" />
+  </Phase>
+
+\end{verbatim}
+}
+
+
+\subsection{Parameters}\label{sec:parameter examples}
+
+{\small
+\begin{verbatim}
+    <Parameter Id="G(A2_BCC,FE:VA;0)"   Expr="+GHSERFE;" Bibref="91Din" />
+    <Parameter Id="TC(A2_BCC,FE:VA;0)"   Expr="1043;" Bibref="91Din" />
+    <Parameter Id="BMAGN(A2_BCC,FE:VA;0)"   Expr="2.22;" Bibref="91Din" />
+    <Parameter Id="G(AL8FE5_D82,AL:AL;0)"   Expr="+13*GALBCC;" Bibref="08Sun" />
+...
+    <Parameter Id="G(BCC_4SL,AL:AL:FE:FE:VA;0)"   Expr="+GB2ALFE;" Bibref="08Sun" />
+    <Parameter id="G(BCC_4SL,AL,FE:*:*:*:VA;1)"   Expr="-634+0.68*T;" Bibref="08Sun" />
+\end{verbatim}
+}
+
+In the last parameter above the ``wildcard'' or asterisk, ``*'', is
+used for species in three of the sublattices and it means that the
+parameter is independent of the constituents in these sublattices.
+See the discussion in section~\ref{sec:wildcard} how this is treated.
+
+Using the {\bf Parameter2} element the last two parameters above are:
+
+{\small
+\begin{verbatim}
+    <Parameter2 Id="G(BCC_4SL,AL:AL:FE:FE:VA;0)" Expr="+GB2ALFE;" Bibref="08Sun" MPID="G" Phase="BCC_4SL" >
+       <ConstArray Degree="0">
+           <Constituent Sublattice="1" Species="AL" />
+           <Constituent Sublattice="2" Species="AL" />
+           <Constituent Sublattice="3" Species="FE" />
+           <Constituent Sublattice="4" Species="FE" />
+           <Constituent Sublattice="5" Species="VA" />
+       </ConstArray>
+    /Parameter2>
+...
+    <Parameter2 id="G(BCC_4SL,AL,FE:*:*:*:VA;1)" Expr="-634+0.68*T;" Bibref="08Sun" MPID="G" Phase="BCC_4SL" >
+       <ConstArray Degree="1">
+           <Constituent Sublattice="1" Species="AL" />
+           <Constituent Sublattice="1" Species="FE" />
+           <Constituent Sublattice="2" Species="*" />
+           <Constituent Sublattice="3" Species="*" />
+           <Constituent Sublattice="4" Species="*" />
+           <Constituent Sublattice="5" Species="VA" />
+       </ConstArray>
+    /Parameter2>
+\end{verbatim}
+}
+
+\subsection{Models}\label{sec:modelex}
+
+An extended form of the {\bf Models} should be defined a separate
+global library file with the {\bf Id} and full description but the
+models used in an XTDB file should appear in a short form as below.
+
+{\small
+\begin{verbatim}
+  <Models>
+    <Magnetic Id="IHJBCC"  MPID1="TC" MPID2="BMAGN" Bibref="82Her" />
+    <Magnetic Id="IHJREST"  MPID1="TC" MPID2="BMAGN" Bibref="82Her" />
+    <Einstein Id="GLOWTEIN" MPID1="LNTH" Bibref="01Qing" /> 
+    <Liquid2state Id="LIQ2STATE" MPID1="G2"  MPID2="LNTH" Bibref="14Becker" >
+       Unified model for the liquid and the amorphous state treated as an Einstein solid
+    </Liquid2state>
+    <Volume Id="VOLOWP" MPID1="V0"  MPID2="VA" MPID3="VB" Bibref="05Lu" />
+  ...
+  </Models>
+  ...
+  <ToopModel Phase="Liquid" Constituents="C Fe Cr" />
+\end{verbatim}
+}
+
+The {\bf ToopModel} or {\bf KohlerModel} elements can appear anywhere
+in the XTDB file, even within the {\bf Phase} element or, more likely
+together with all the {\bf Parameter} elements from an assessment of
+the ternary C-Fe-Cr system in order to simplify editing a large XTDB
+file.  Either way may be a bit complicated to handle by the
+calculating software reading the XTDB file.
+
+The {\bf SplitPhase} in example~\ref{sec:phase example} must appear
+within a {\bf Phase} element for the ordered phase.
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%% Appendix B
+\section{Proposal of Id for agreed models.}\label{sec:modelapp}
+
+The agreed models need only to added by their idenfiers to the phases.
+
+For models that are not agreed a full description of the model should
+be provided in the XTDB file.  Note the model parameter identifiers
+may be different in each software.
+
+{\small
+\begin{verbatim}
+  <Models>
+    <Magnetic Id="IHJBCC"  MPID1="TC" MPID2="BMAGN" Aff=" -1.00" Bibref="82Her" 
+       f_below_TC=" +1-0.905299383*TAO**(-1)-0.153008346*TAO**3-.00680037095*TAO**9-.00153008346*TAO**15;"
+       f_above_TC=" -.0641731208*TAO**(-5)-.00203724193*TAO**(-15)-.000427820805*TAO**(-25);" > 
+       in G=f(TAO)*LN(BETA+1) where TAO=T/TC
+    </Magnetic>
+    <Magnetic Id="IHJREST"  MPID1="TC" MPID2="BMAGN" Aff=" -3.00" Bibref="82Her"
+       f_below_TC=" +1-0.860338755*TAO**(-1)-0.17449124*TAO**3-.00775516624*TAO**9-.0017449124*TAO**15;"
+       f_above_TC=" -.0426902268*TAO**(-5)-.0013552453*TAO**(-15)-.000284601512*TAO**(-25);" >
+       in G=f(TAO)*LN(BETA+1) where TAO=T/TC
+    </Magnetic>
+    <Magnetic Id="IHJQX"  MPID1="CT" MPID2="NT" MPID3="BMAGN" Aff=" 0.00"  Bibref="12Xiong"
+       f_below_TC=" +1-0.842849633*TAO**(-1)-0.174242226*TAO**3-.00774409892*TAO**9-.00174242226*TAO**15-.000646538871*TAO**21;"
+       f_above_TC=" -.0261039233*TAO**(-7)-.000870130777*TAO**(-21)-.000184262988*TAO**(-35)-6.65916411E-05*TAO**(-49);" >
+       in G=f(TAO)*LN(BETA+1) where TAO=T/CT or T/NT
+    </Magnetic>
+    <Einstein Id="GLOWTEIN" MPID1="LNTH" Bibref="01Qing" > 
+       Gibbs energy due to the Einstein low T vibrational entropy model, G=1.5*R*THETA+3*R*T*LN(1-EXP(-THETA/T)).
+    </Einstein>
+    <Liquid2state Id="LIQ2STATE" MPID1="G2"  MPID2="LNTH" Bibref="14Becker" >
+       Unified model for the liquid and the amorphous state treated as an Einstein solid
+    </Liquid2state>
+    <Volume Id="VOLOWP" MPID1="V0"  MPID2="VA" MPID3="VB" Bibref="05Lu" >
+       The volume of a phase is described as function of T, P and its constitution.
+    </Volume>
+    <SplitPhase Disordered=" " Sum=" " Subtract=" " Bibref="09Sun" >
+       The disordered fractions are summed over the ordered sublattices indicated by Sum.
+       The Gibbs energy calculated 2 or 3 times as indicated by the CEF_appendix but the Subtract but the configurational entropy only once.
+    </SplitPhase>
+    <FCC-permutations Id="FCC4Perm" Bibref="09Sun" >
+       Permutations of ordered FCC parameters with the same set of elements are listed only once.
+    </FCC-permutations>
+    <BCC-permutations Id="BCC4Perm" Bibref="09Sun" >
+       Permutations of ordered BCC parameters with the same set of elements are listed only once.
+    </BCC-permutations>
+    <EEC Id="EEC" Bibref="20Sun" >
+       Equi-Entropy Criterion means that solid phases with higher entropy that the liquid phase must not be stable.
+    </EEC>
+  </Models>
+\end{verbatim}
+}
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%% Appendix C
+\section{Proposal of initial set of Model Parameter Identifiers, MPID}\label{sec:mpid2}
+
+The 32 model parameter identifiers, MPID, defined in OC as shown in
+Table~\ref{tab:mpis}.  In OC a parameter for a disordred part of a
+{\bf SplitPhase} use the same phase name but the MPID has a suffix
+``D''.
+
+\begin{table}[!h]
+  \caption{Current set of model parameter identifiers in OC.  For each
+    parameter it is indicated if it can depend on $T$, $P$ or have an
+    extra constituent specification.  Most of them have no associated
+    code.}\label{tab:mpis}
+
+{\small
+\begin{verbatim}
+Indx Ident T P Specification                Status Note
+   1 G     T P                                   0 Gibbs Energy
+   2 TC    - P                                   2 Combined Curie/Neel T
+   3 BMAG  - -                                   1 Average Bohr magneton number
+   4 CTA   - P                                   2 Curie temperature
+   5 NTA   - P                                   2 Neel temperature
+   6 IBM   - P &<constituent#sublattice>;       12 Individual Bohr magneton number
+   7 LNTH  - P                                   2 Einstein temperature
+   8 V0    - -                                   1 Volume at T0, P0
+   9 VA    T -                                   4 Thermal expansion
+  10 VB    T P                                   0 Bulk modulus
+  11 VC    T P                                   0 Alternative volume parameter
+  12 VS    T P                                   0 Diffusion volume parameter
+  13 MQ    T P &<constituent#sublattice>;       10 Mobility activation energy
+  14 MF    T P &<constituent#sublattice>;       10 RT*ln(mobility freq.fact.)
+  15 MG    T P &<constituent#sublattice>;       10 Magnetic mobility factor
+  16 G2    T P                                   0 Liquid two state parameter
+  17 THT2  - P                                   2 Smooth step function T
+  18 DCP2  - P                                   2 Smooth step function value
+  19 LPX   T P                                   0 Lattice param X axis
+  20 LPY   T P                                   0 Lattice param Y axis
+  21 LPZ   T P                                   0 Lattice param Z axis
+  22 LPTH  T P                                   0 Lattice angle TH
+  23 EC11  T P                                   0 Elastic const C11
+  24 EC12  T P                                   0 Elastic const C12
+  25 EC44  T P                                   0 Elastic const C44
+  26 UQT   T P &<constituent#sublattice>;       10 UNIQUAC residual parameter (OC)
+  27 RHO   T P                                   0 Electric resistivity
+  28 VISC  T P                                   0 Viscosity
+  29 LAMB  T P                                   0 Thermal conductivity
+  30 HMVA  T P                                   0 Enthalpy of vacancy formation (MatCalc)
+  31 TSCH  - P                                   2 Schottky anomaly T (OC)
+  32 CSCH  - P                                   2 Schottky anomaly Cp/R. (OC)
+  33 NONE  T P                                   0 Unused
+\end{verbatim}
+  }
+\end{table}
+ 
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%% Appendix D
+\section{Changes made}\label{sec:changes}
+
+\begin{enumerate}
+\item  Version 0.0.002: Bo Sundman 28/8 2023
+\begin{enumerate}
+
+\item Attribute ``Ratios'' for {\bf Phases} changed to ``Multiplicities''.
+
+\item All ``Refid'' changed to ``Bibref''
+
+\item All attributes start with capital letter and have no hyphen or
+  underscores.
+  
+\end{enumerate}
+\end{enumerate}
+
+\end{appendices}
+
+\end{document}
+
+

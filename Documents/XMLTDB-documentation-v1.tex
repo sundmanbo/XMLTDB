@@ -1,0 +1,1688 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{graphicx,subfigure}              % with figures
+% sometimes needed to have pdf files 
+\pdfsuppresswarningpagegroup=1
+\topmargin -1mm
+\oddsidemargin -1mm
+\evensidemargin -1mm
+\textwidth 170mm
+\textheight 220mm
+\parskip 2mm
+\parindent 3mm
+\pagestyle{empty}
+\usepackage{xcolor}
+\usepackage[normalem]{ulem}
+
+% For appendices
+\usepackage[titletoc,title,header]{appendix}
+
+%\usepackage[firstpage]{draftwatermark}
+%\SetWatermarkScale{4}
+
+\begin{document}
+
+\begin{center}
+
+  {\Large \bf XMLTDB data format documentation}
+
+  \bigskip
+  Taichi Abe, Qing Chen, Shuanglin Chen, Nathalie Dupin, Bengt
+  Hallstedt, Aurelie Jacob, Ursula R. Kattner, Lina Kjellqvist, Fabio
+  Miani, Richard Otis, Alexander Pisch, Erwin Povoden-Karadeniz, Naraghi
+  Reza, Malin Selleby, Bo Sundman, Axel van de Walle
+
+  DRAFT \today
+
+\end{center}
+
+{\color{magenta} Use dolor to indicate changes!}
+
+\sout{Use sout to overstrike text}
+
+\abstract{This is the draft definition of an XML format for
+  thermmodynamic data for Calphad applications in materials science}
+
+\section{Introduction}
+
+During the work with the 1991 unary database~\cite{91Din} a database
+format called TDB was developed to handle the complex set of model
+parameters used in models for different phases.  Today, almost 40
+years later, it is time to take advantage of the development of
+computer science to revise this format using the XML, a well
+established markup language, explained for example in the web
+site~\cite{XML}.
+
+During its 40 years of use the TDB databases have been extended to
+include other data, for example kinetic and structural, which is
+related to the phases in a system.  The intention is that the XMLTDB
+should also accomodate such data.  It should be simple to introduce
+additional model parameters related to any other property depending on
+the phase constitution, $T$ and $P$.
+
+\bigskip
+The basic structure in the TDB format is:
+
+{\bf keyword data !}\\
+
+\noindent
+where the exclamation mark, ``!'' is the terminator, This makes it
+possible to transform to XML by using a mix of XML elements and
+attributes for the data.  The transfer to XML has been straightforward
+but not painless as a complex set of additional features has been
+introduced during the time TDB files has been used.  Most of the data
+in a TDB file can be tranferred to a tentative XMLTDB format using an
+UPLOAD program~\cite{upload}.  An example is found in
+Appendix~\ref{sc:alfe}.
+
+The XMLTDB format should contain the thermodynamic and related data
+but software specific directives, intended to simplify calculations
+using the data, should be excluded or included in a software specific
+XML element.
+
+\subsection{The Gibbs energy expression}
+
+The Calphad method to calculate phase diagrams based on modeling the
+Gibbs energy of each phase in a system has been described in many
+books and papers~\cite{70Kau,98Sau,08Hil,09Luk, 14Cam,
+  14Kau,19Pel,21Sun}.  The thermodynamic database provides model
+parameters to a thermodynamic software in order to calculate the Gibbs
+energy, $G^{\alpha}_M$ for each phase in a system.  The main objective
+is to calculate equilibrium state of the system by minimizing the
+total Gibbs energy of the system, depending on the set of external
+condition and the model parameters has been fitted to experimental and
+theoritcal data in a separate assessment procedure.  A more
+practically useful application is to provide thermodynamic information
+for simulating phase transformations together with kinetic data.
+
+For each phase the Gibbs energy is expressed as:
+\begin{eqnarray}
+  G^{\alpha}_M &=& ~^{\rm srf}G^{\alpha}_M - T~^{\rm cfg}S^{\alpha}_M + ~^EG^{\alpha}_M + f^{\alpha}_M \cdot ~^{\rm phy}G^{\alpha}_m  \label{eq:generic}
+\end{eqnarray}
+where the term $~^{\rm srf}G^{\alpha}_M$ has parameters for the
+surface of reference of the Gibbs energy and $~^EG^{\alpha}_M$ has
+parameters to describe interaction energies between constituents
+within the phase.  The capital $M$ used as subscript means the Gibbs
+energy is per mole formula unit of the phase, which may vary with the
+phase constitution.  Each phase can have a different model, in
+particular for its configurational entropy, $~^{\rm cfg}S_M$, which
+depend on its structure.  There can be conytribution from several
+physical models, denoted $~^{\rm phy}G_m$, with specific model
+parameters. This term has subscript, ``$m$'', as this is normally
+modeled per mole of atoms and the factor $f^{\alpha}_M$ is the number
+if atoms per formula unit of the phase.
+
+\subsection{Assessment of model parameters}
+
+The model parameters in the database are obtaind by an assessment
+procedure where experimental and theoretical data are recalculated
+from the models using a thermodynamic software.  The model parameters
+are varied using a least square fitting software in order to obtain
+the best description.  Frequently conflicting information must be
+weighted or rejected by the scientist performing the assessment in
+order to obtain a satisfactory result, as discussed in many published
+papers and also in~\cite{09Luk}.
+
+The assessments usually deal with binary and ternary systems where
+there are sufficient reliable experimental data but the main
+applications of the databases are to calculate multicomponent systems
+with up to 10-15 components.  It is thus important to use models which
+give realistic extrapolations and the development of new models is
+still ongoing, inspired by the use of the database.
+
+The assessment procedure is an integrated process involving
+experimental work, theoretical calculations and improved modeling by
+scientists.  The models cannot be too complex because for example a
+simulation of a phase transformations for an alloy with 10-15
+components requires a very large number of equilibrium calculations
+which typically can take weeks to perform on a high speed computer.
+Some model parameters must also be estimated from experience because
+there are no experimental data available.  But the calculations are an
+essential tool replacing many years of experimental trial and error
+work in order to develop new or improved materials.  This technique
+can be complemented, but not replaced, by recent methods inspired
+machine learning~\cite{ML1,ML2}.
+
+\section{Description of the proposed XMLTDB format}
+
+The XMLTDB format is an attempt to make a smooth transition from the
+TDB format to the XML in order to maintain the possibility to edit the
+XMLTDB file manually by scientists without particular experience of
+XML.  The possibility to edit TDB files manually has been a great
+advantage for developing models and assessing experimental data using
+the current TDB format.
+
+\subsection{Short overview}
+
+This summary has the basic set of XML elements for the XMLTDB format.
+A detailed explanation is found in Appendix~\ref{sc:xmltdb}
+
+\begin{enumerate}
+\item {\bf Defaults} specify default values for some attributes in
+  order to avoid listing irrelevant information.
+  
+\item {\bf Models} is an optional part of the XML file with
+  documentation and references for various models used.  A separate
+  XMLTDB model library file with all models and model parameter
+  identifiers (MPID) will be provided.  Each model has an ID which can
+  be used whan adding this model to a phase.  New models will be added
+  when tested and available in the application software.
+  
+\item {\bf Element} specifies an element with its chemical symbol, the
+  name of its reference phase, its molar mass, H298 and S298.
+  
+\item {\bf Species} is an element or a molecular like aggregate of two
+  or more elements with fixed stoichiometric ratios.  A species has a
+  name which is used when it is a constituent of a phase.  A species
+  can have an electric charge.  Some species used for phases with the
+  MQMQA~\cite{01Pel2} or UNIQUAC~\cite{20Li} models will have
+  additional data such as bond fractions or volume and area needed for
+  the configurational entropy of the phase.
+    
+\item {\bf TPfun} has an ID and a mathematical expression in $T$ and
+  $P$ and other TPfuns.  Only very simple expressions are allowed as
+  explained in Appendix~\ref{sc:expression}.
+  
+\item {\bf Trange} is needed if a TPfun or parameter is valid in
+  limited $T$ range or have several ranges.  Each Trange record with
+  the upper $T$ limit and expression.  The value of the expression and
+  its first and second derivative wrt $T$ must be continuous when
+  crossing a range.
+  
+\item {\bf Phase} has a name, a configurational entropy model and all
+  model parameters are associated with a phase.  It can have one or
+  more sublattices with different number of sites and constituents.
+  Additional models can contribute to its Gibbs energy.
+  
+\item {\bf Sublattices} specifies the number of sublattices of a phase
+  and their site ratios.  Optionally more crystallographic information
+  can be provided.
+  
+\item {\bf Constituents} has a sublattice index and a list of species
+  as constituents in the sublattice.
+  
+\item {\bf Amend-phase} specifies an additional model for a phase.  It
+  may have some extra model specifications.
+  
+\item {\bf Parameter} has a model parameter identifier (MPID)
+  specifying the type of property, a phase name and sublattice
+  constituents.  It has also a degree to indicate some additional
+  model feature and a bibliographic reference.  Finally it has a
+  mathematical expression which may depend on $T$ and $P$ and include
+  TPfun identifiers.
+
+\item {\bf Bibliography} contains all the bibliographic information
+  for models and parameters.
+\end{enumerate}
+
+\subsection{Manual editing and efficient parsing}\label{sc:manualedit}
+
+There are special parsers of XML files which work better the more
+detailed the data is separated in elements and attributes.  However,
+very detailed specification of the data makes it inconvenient for
+editing manually which is still an important tool for scientists
+interested in modeling and assessment of model parameters.  For
+example a model parameter can be described as:
+
+\begin{verbatim}
+<Parameter id="G(FCC,W:C,VA;0)" expression=" 50000+10*T;" bibref="90Gus"/>
+\end{verbatim}
+which is similar to the way the parameter is listed in the TDB format
+or in an extended way which is simpler for an XML parser such as:
+
+\begin{verbatim}
+<Parameter mpid="G" phase="FCC" bibref="90Gus">
+  <Constituentarray degree="0">
+    <Site refid="1">
+      <Constituent id="W"/>
+    </Site>
+    <Site refid="2">
+      <Constituent id="C"/>
+      <Constituent id="VA"/>
+   </Site>
+  </Constituentarray>
+  <Trange  expression=" 50000+10*T;" />
+</Parameter>
+\end{verbatim}
+and there is no question which is preferred by a scientist who is
+editing the XML file.
+
+However, there is no reason not to allow both methods in the XMLTDB
+file, a human can without too much effort translate the extended
+parameter attributes to the simpler one in order to edit it and with a
+little effort the software using an XML parser can do the opposite.
+
+\subsection{Extentions and future changes in the XMLTDB format}
+
+The XMLTDB format is open to extensions and changes but they should be
+communicated and agreed by a governing committee, for example
+appointed by SGTE, in order to be universally agreed and circulated to
+all groups which use XMLTDB.
+
+
+\section{Application and software specifics}
+
+The TDB files are used by many different software to calculate
+eqilibria, phase diagrams and various properties of multicomponent
+systems.  The databases are also used for simulations of phase
+transformation together with mobilities and other phase dependent data
+stored in the TDB file.
+
+More things to write about:
+\begin{enumerate}
+\item How to handle duplicate parameters in the XML file?
+\item A wildcard parameter is independent of the constituent in one or
+  more sublattices, how to handle wildcard parameters?  In particular
+  if there is an ``overlapping'' parameter with a specific constituent
+  in the same sublattice as the parameter with a wildcard.
+\item Order of RK constituents, alphabetical or as written?
+\item Should the database specify miscibility gaps for example in
+  Fe-Ti-C to have both an FCC representing austenite and an FCC
+  representing the MC carbide?  Or in Al-Ni to represent the FCC and
+  the L1$_2$ ordered phase.
+\item There is a need for a free software to check consistency of an
+  XMLTDB file.
+\item Is there an interst to develop a software to write the model
+  parameters in an XML file as a nicely formatted a LaTeX file?
+\item For the application software: is the $f^{\alpha}_M$ from
+  eq.~\ref{eq:generic} correctly implemented?
+\item A property such as BMAGN is extensive but as it is inside a
+  physical model I am not sure it should be multiplied with the
+  $f^{\alpha}_M$ defined in eq.~\ref{eq:generic}.
+\item UPLOAD program has not implemented
+
+  - extracting software specific data from TDB.
+
+  - DATA\_INFORMATION and some other TDB keywords.
+{\{color{magenta} 
+item The gas constant $R$ has changed ... should we use the new value?}
+\item more?
+\end{enumerate}
+
+
+\section{Anything else?}
+
+\section{Summary}
+
+The intention is that the XMLTDB format should be used for the same
+applications as the current TDB files and eventually replace them.  It
+is thus important to think of all possible (and future) applications
+when deciding the format.  We have also to consider the scientists who
+frequently explicitly manipulate the databases in order to develop
+models and software based on assessments of experimental and
+theoretical data.
+
+\begin{thebibliography}{91zzz}
+
+\bibitem{91Din} A T D Dinsdale (1991)
+
+\bibitem{XML} https://www.w3schools.com/xml/default.asp
+
+\bibitem{upload} repository sundmanbo/XML at https://github.com
+
+\bibitem{70Kau} L. Kaufman and H. Bernstein {\em Computer calculation
+  of phase diagrams}, (1970) New York, Academic Press.
+
+\bibitem{98Sau} N. Saunders and A. P. Miodownik, {\em CALPHAD
+  Calculation of Phase Diagrams: A Comprehensive Guide}, Pergamon
+  Materials Series. (1998) Elsevier Science Inc, New York
+
+\bibitem{08Hil} M. Hillert, {\em Phase Equilibria, Phase Diagrams and
+  Phase Transformation} 2nd ed. (2007) Cambrige Univ Press, Cambridge
+  
+\bibitem{09Luk} H. L. Lukas, S. G. Fries and B. Sundman {\em
+  Computational Thermodynamics, the Calphad method}, (2009) Cambridge
+  Univ Press, Cambridge
+
+\bibitem{14Kau} L. Kaufman L, J. {\AA}gren, {\em CALPHAD, first and
+  second generation – Birth of the materials genome}, Scr Mater (2014)
+  {\bf 70} 3-–6
+  
+\bibitem{14Cam} C. E. Campbell, U. R. Kattner, Z-K. Liu, {\em File and
+  data repositories for Next Generation Calphad}, Scripta Mat (2014)
+  https://doi.org/10.1016/j.scriptamat.2013.06.013
+
+\bibitem{19Pel} A. D. Pelton, {\em Phase Diagrams and thermodynamic
+  modeling of solutions}, (2019) Elsevier Press
+
+\bibitem{21Sun} B. Sundman, N. Dupin, B. Hallstedt, {\em Algorithms
+  useful for calculating multi-component equilibria, phase diagrams
+  and other kinds of diagrams} Calphad {\bf 75} (2021) 102330
+
+\bibitem{01Pel2} A. D. Pelton, P. Chartrand and G. Eriksson, {\em The
+  Modified Quasi-chemical Model: Part IV. Two-Sublattice Quadruplet
+  Approximation}, Met Mat Trans A, {\bf 32A} (2001) 1409--1416
+
+\bibitem{ML1} L. Himanen, A Geurts, A S Foster and P. Rinke {\em
+  Data-Driven Materials Science: Status, Challenges and Perspectives},
+  Adv Science (2019) https://doi.org/10.1002/advs.201900808
+
+\bibitem{ML2} K. Kaufmann and K. S. Vecchio, {\em Searching for high
+  entropy alloys: A machine learning approach} Acta Mat. (2020)
+  10.1016/j.actamat.2020.07.065
+
+\bibitem{20Li} J. Li, B. Sundman, J. G.M. Winkelman, A. I. Vakis,
+  F. Picchioni, {\em Implementation of the UNIQUAC model in the
+    OpenCalphad software}, Fluid Phase Eq {\bf 507} (2020) 112398
+
+\bibitem{05Lu} X-G. Lu, M. Selleby and B. Sundman, {\em Implementation
+  of a new model for pressure dependence of condensed phases in
+  Thermo-Calc}, Calphad {\bf 29} (2005) 49--55.
+
+\bibitem{20Sun} B. Sundman, U. R. Kattner, M. Hillert, M.  Selleby,
+  J. Ågren, S. Bigdeli, Q. Chen, A. Dinsdale, B. Hallstedt, A. Khvan,
+  H. Mao, R. Otis {\em A method for handling the extrapolation of
+    solid crystalline phases to temperatures far above their melting
+    point} Calphad {\bf 68} (2020) 101737
+
+\bibitem{01Pel} A. D. Pelton, {\em A General ``Geometric''
+  Thermodynamic Model for Multicomponent Solutions}, Calphad {\bf 25}
+  (2001) 319--328
+
+\bibitem{CEF} M. Hillert, {\em The compound energy formalism},
+  J All. and Comp. {\bf 320} (2001) 161--176
+  
+\bibitem{60Koh} F. Kohler, Monatsh Chem, Vol 91 (1960) 738--740
+  
+\bibitem{65Toop}  G. W. Toop, Trans Metall Soc, AIME  Vol 233 (1965) 850--854
+  
+\bibitem{01Chen} Q. Chen, B. Sundman, {\em Modeling of thermodynamic
+  properties for Bcc, Fcc, liquid, and amorphous iron}, J. Phase
+  Equilibria. {\bf 22} (2001) 631–-644.
+
+\bibitem{12Xiong} W. Xiong, Q Chen, P. K. Korzhavyi and M. Selleby,
+  {\em An improved magnetic model for thermodynamic modeling},
+  Calphad, {\bf 39} (2012) 11--20.
+
+\bibitem{14Becker} C. A. Becker, J. Ågren, M. Baricco, Q. Chen,
+  S. A. Decterov, U. R. Kattner, J. H. Perepezko, G. R. Pottlacher,
+  and M. Selleby, {\em Thermodynamic modelling of liquids : CALPHAD
+    approaches and contributions from statistical physics} Physica
+  status solidi. B, Basic research {\bf 251(1)} (2014) 33--52
+
+\bibitem{Kopp-Neumann} H. Kopp and T. Graham, {\em II. Investigations
+  of the specific heat of solid and liquid bodies},
+  Proc. R. Soc. Lond. (1864) 13229–-13239
+  http://doi.org/10.1098/rspl.1863.0054
+
+
+\end{thebibliography}
+
+\newpage
+
+\begin{appendices}
+\setcounter{equation}{0}
+\renewcommand{\theequation}{A\arabic{equation}}
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{A\arabic{figure}}
+\section{The XML elements and attributes for Calphad databases}\label{sc:xmltdb}
+
+This is a complete description of the XML format which will
+(hopefully) replace the current TDB format.
+
+\subsection{Some general features}
+
+In most cases the thermodynamic data in the XMLTDB files will be the
+same as in the TDB files.  A difference with the TDB file is that the
+XML elements and attributes are case sensitive and cannot be
+abbreviated.  The data in the TDB files is case insensitive and
+keywords and phase names can be abbreviated.
+
+
+\begin{enumerate}
+\item All names, identifiers, symbols etc. of elements, species,
+  phases, TPfuns in the XMLTDB file are case insentive.  All names
+  etc.  must start with a letter A-Z and may contain letters, numbers
+  0-9 and the underscore chatacter ``\_''.  Some names, as specified
+  below, can contain additional characters.  In most cases this is the
+  same way names are treated in TDB files.
+
+  \begin{enumerate}
+  \item An element is one or two letters which are case insensitive.
+    Fictitous elements can be used.
+  \item A species name can in addition contain the characters ``+'',
+    ``-'' and ``/''.
+  \item A model parameter identifier can in the TDB file contain an
+    ampersand ``\&'' to specify a constituent.  This is used for
+    mobilites at present but may be extended.  As ``\&'' is reserved
+    in XML files another letter should be used, maybe``@''?
+  \item ?? any more special characters or exceptions?
+  \end{enumerate}
+
+\item Names of elements and species must not be abbreviated but frequently
+  phase names are and it is allowed as long as they do not become
+  ambiguous.  
+
+  Species names must not be abbreviated in the XMLTDB file and thus
+  one may have species names which are abbreviations of other species,
+  for example C1O and C1O2.  A species name is independent of its
+  stoichiometric formula.
+
+  Phase names can be abbreviated and each part of a phase name
+  separated by an underscore, ``\_'', can be abbreviated separately.
+  Interactive entering of a phase name should allow the hyphen, ``-'',
+  to be used instead of the underscore.  For his reason it is not
+  allowed to have phase names that are abbreviations of another phase,
+  for example U3O8\_S and U3O8\_S2.
+
+  Model parameter identifiers (MPID), TPfun names and bibrefs must not
+  be abbreviated.
+
+  A maximum length of names other identifiers should be decided, I
+  propose:
+  \begin{enumerate}
+  \item Elements 2 letters.
+  \item Element reference phase: 24 characters
+  \item Species names: 24 characters.
+  \item Phase names: 24 characters
+  \item TPfun names: 16 characters
+  \item Model parameter identifiers: 8 characters (not including
+    any constituent specifier used for mobilities etc.)
+  \item Model identifier: 16 characters
+  \item Bibrefs: 16 characters
+\end{enumerate}
+
+\item Model parameter identifiers (MPID) are used for model parameters
+  of a phase which depend on the constitution of the phase and
+  frequently also on $T$ and $P$.
+  
+  The model parameter ``G'' for a Gibbs energy parameter.  All other
+  must be associated with a particular model.  They are case
+  insentitive.  The use of ``L'' for excess parameter should be
+  discouraged and be converted to ``G''.
+
+  Some MPID contain a reference to a constituent of the phase, for
+  eample mobility data, and in the TDB file the species in included in
+  the MPID separated by an ampersand ``\&''.  As XML uses this
+  character for other things it is suggested this character is
+  changed, for example to ``@''.
+
+\item The hash character, ``\#'', frequently used in TDB files at the
+  end of a function identifier, is redundant and not allowed.
+
+  The hash character, ``\#'', followed by a digit, is also used in
+  some software to indicate composition sets of a phase.
+
+\item Any other use of special characters?
+
+\end{enumerate}
+  
+\subsection{Detailed explanation of all XMLTDB elements and attributes}
+
+For examples see also Appendix~\ref{sc:alfe}.
+
+\subsubsection{Defaults element}\label{sc:defaults}
+
+Some default values of particular attributes can be set here.
+If an attribute has the default value it can be omitted for the
+element.  If we have for example:
+\begin{verbatim}
+<Defaults low_T="298.15" high_T="6000" />
+\end{verbatim}
+this means that a low $T$ limit for a TPfun element such as:
+\begin{verbatim}
+<TPfun id="GHSERXX" low_T="298.15" >
+<Trange high_T="6000" Expression=" 10000-10*T;" />
+</TPfun>
+\end{verbatim}
+can be simplified to be:
+\begin{verbatim}
+<TPfun id="GHSERXX" Expression=" 10000-10*T;" />
+\end{verbatim}
+  
+\subsubsection{Models element}
+
+All models, except for the configurational entropy, whch are used in a
+XMLTDB file must be taken from a general XMLTDB-models file which can
+optionally be included in the XMLTDB file.  The XMLTDB-models file
+have a short description of each model and specify the model parameter
+identifiers (MPID) which should be provided.  Each model has a unique
+ID which can be needed for adding this model to a phase, sometimes
+with additional dat.  For example:
+
+{\tiny
+\begin{verbatim}
+<Magnetic-model id="IHJBCC"  MPID1="TC" MPID2="BMAGN" anti-ferromagnetic_factor=" -1.00" 
+   f_below_TC=" +1-0.905299383*TAO**(-1)-0.153008346*TAO**3-.00680037095*TAO**9-.00153008346*TAO**15;"
+   f_above_TC=" -.0641731208*TAO**(-5)-.00203724193*TAO**(-15)-.000427820805*TAO**(-25);" bibref="82Her" > in G=f(TAO)*LN(BETA+1) where TAO=T/TC
+</Magnetic-model>
+<Magnetic-model id="IHJREST"  MPID1="TC" MPID2="BMAGN" anti-ferromagnetic_factor=" -3.00" 
+   f_below_TC=" +1-0.860338755*TAO**(-1)-0.17449124*TAO**3-.00775516624*TAO**9-.0017449124*TAO**15;"
+   f_above_TC=" -.0426902268*TAO**(-5)-.0013552453*TAO**(-15)-.000284601512*TAO**(-25);" bibref="82Her" > in G=f(TAO)*LN(BETA+1) where TAO=T/TC
+</Magnetic-model>
+<Magnetic-model id="IHJQX"  MPID1="CT" MPID2="NT" MPID3="BMAGN" anti-ferromagnetic_factor="  0.00" 
+   f_below_TC=" +1-0.842849633*TAO**(-1)-0.174242226*TAO**3-.00774409892*TAO**9-.00174242226*TAO**15-.000646538871*TAO**21;"
+   f_above_TC=" -.0261039233*TAO**(-7)-.000870130777*TAO**(-21)-.000184262988*TAO**(-35)-6.65916411E-05*TAO**(-49);" bibref="12Xiong" > in G=f(TAO)*LN(BETA+1) where TAO=T/CT or T/NT
+</Magnetic-model>
+<Einstein-model id="GLOWTEIN" MPID1="LNTH" bibref="01Qing" > 
+   Gibbs energy due to the Einstein low T vibrational entropy model, G=1.5*R*THETA+3*R*T*LN(1-EXP(-THETA/T)).
+</Einstein-model>
+\end{verbatim}
+}
+
+Each model defined have a unique ID which is used together with the
+phase element which have the model.  The MPIDs specified for the model
+are used for the parameters describing how these parameters depend on
+the phase constitution and possibly $T$ and $P$.
+
+\subsubsection{Element element}
+
+The element is from the periodic chart or can be fictitious.
+
+An element has the attributes:
+\begin{itemize}
+\item a chemical symbol, one or two letters
+\item the name of its reference phase
+\item its mass in gram/mol
+\item H298-H0 in J/mol
+\item S298 in J/mol/K
+\end{itemize}
+
+{\small
+\begin{verbatim}
+<Element id="FE" refstate="BCC_A2" mass="55.847" H298="4489" S298="27.2" />
+\end{verbatim}
+}
+
+Maybe add the English name of the element?  For example that Sb is
+Antimony Sb?  Maybe remove H298-H0 and S298?
+
+The vacancy is treated as an element and be used to occupy a site in a
+sublattice.  When calculating an equilibrium the chemical potential
+must be zero at equilibrium and there is no constraint on the number
+of vacancies.
+
+The electron, denoted ``/-'' can be listed among the elements but
+cannot exist by itself.  If there is a need of a free electron it can
+be associated with a vacancy.  At equilibrium each phases must be
+electrically neutral.
+
+All attributes are mandatory.
+
+\subsubsection{Species element}\label{sc:spel}
+
+A species is an element or a molecular like aggregate of two or more
+elements with fixed stoichiometric ratios.  A species has a name which
+is used when it is a constituent of a phase.  A species can have an
+electric charge.  In the future some species used for phases with the
+MQMQA~\cite{01Pel2} or UNIQUAC~\cite{20Li} models can have additional
+data which is not yet elaborated.
+
+\begin{verbatim}
+<Species id="C1O" stoichiometry="C1O" />
+<Species id="O-2" stoichiometry="O/-2" />
+\end{verbatim}
+
+One should avoid species names that could be interpreted as elements.
+Species are used as constituent of the phases.  The stoichiometry must
+contain element names followed by a real number as the stoichiometric
+dactor.  Grouping using parenthesis is not allowed.  A charge is
+specified using ``/-'' for a negative or ``/+'' for a positive ion.
+
+Mandatory attributes are ``id'' and ``stoichiometry''.
+
+\subsubsection{TPfun element}
+
+Frequently some expressions are used in several model parameters and
+it is convenient to define them separately as functions.  A TPfun has
+an ID and a mathematical expression in $T$ and $P$ which can also
+include other TPfuns.  Only very simple expressions are allowed but
+can include references to other TPfun IDs.  For a simple example
+see section~\ref{sc:defaults}
+
+Thermodynamic data must frequently be extrapolated over a large range
+of $T$ and $P$ and it can be necessary to breakpoint to change the
+expression in different regions.  At such a breakpoint the values of
+the expressions must have idenical values and well as identical first
+and second derivatives (representing continuous entropy and heat
+capacity).
+
+To describe the expression with a limited range in $T$ or several
+ranges the Trange element is used.
+
+Mandatory attributes are ``id'', optional attribute is ``low\_T''
+(which can be ignored if same as the default ``low\_T'') and
+``Expression'' (which can be replaced by one or several ``Trange''
+elements).  For the expression see section~\ref{sc:expression}
+
+\subsubsection{Trange element}
+
+This is part of a TPfun or Parameter element.  If it has a high\_T
+limit different from the default it is specified together with the
+expression, see section~\ref{sc:expression}.  Several ranges require
+require several Trange elements.  The value of the function and its
+first and second derivative wrt $T$ must be continuous when crossing a
+range.  An example used for a TPfun element is:
+{\small
+\begin{verbatim}
+<TPfun id="GHSERAL"  >
+  <Trange High_T="700" Expression="-7976.15+137.093038*T-24.3671976*T*LN(T)-.001884662*T**2-8.77664E-07*T**3+74092*T**(-1);" />
+  <Trange High_T="933.47" Expression="-11276.24+223.048446*T-38.5844296*T*LN(T)+.018531982*T**2-5.764227E-06*T**3+74092*T**(-1);" />
+  <Trange High_T="2900" Expression="-11278.378+188.684153*T-31.748192*T*LN(T)-1.230524E+28*T**(-9);" />
+</TPfun>
+\end{verbatim}
+}
+
+Mandatory attribute is ``expression'' and optional ``high\_T''.
+
+\subsubsection{Phase element}
+
+This is the key element of the XMLTDB file.  All data are refered to a
+specific phase.  A phase has a name, a configurational model depending
+on its sublattices and constituents specified by extra elements.  All
+model parameters belong to a phase. Phases can have additional models
+specified.  For example:
+\begin{verbatim}
+  <Phase id="BCC_4SL" Configuration_model="CEF_3terms" state="S" >
+    <Sublattices number_of="5"  Ratios="0.25  0.25  0.25  0.25  3" >
+      <Constituent sublattice="1" list="AL FE" />
+      <Constituent sublattice="2" list="AL FE" />
+      <Constituent sublattice="3" list="AL FE" />
+      <Constituent sublattice="4" list="AL FE" />
+      <Constituent sublattice="5" list="VA" />
+    </Sublattices>
+    <Amend-phase model="IHJBCC" />
+    <Amend-phase model="DISFS" info="BCC_4SL A2_BCC" sum_sublattices="4" />
+    <Amend-phase model="BCCPERM" info="The parameters have BCC permutations" />
+  </Phase>
+\end{verbatim}
+where the configurational\_model specify the Compound Energy Formalism
+(CEF)~\cite{CEF} and that the Gibbs energy has 3 terms which is
+associated with the disordered fraction model ``DISFS'' specified in
+section~\ref{sc:disfs}.  The state is ``S'' for a solid phase which is
+important if the Equi-Entropy Criterion (EEC) is applied at high $T$,
+see section~\ref{sc:EEC}.
+
+This phase has 5 sublattices where the first 4 represent an unsymetric
+tetrahedron in the BCC lattice, all with AL and FE as constituents.
+The last sublattices is for interstitials such as C or N but in this
+case it is empty, i.e.  occupied only by VA representing the vacancy.
+There are 3 times as many interstitial sites as substitutional in BCC.
+
+One amend-phase element specifies a magnetic model with ``IHJBCC'' and
+another the disordered fraction set model with ``DISFS'' which also
+specify the ordered and disordered parts of the phase.  In OC this
+is done differently but it may be useful to have an option to
+extract just the disordered phase.
+
+The ``BCCPERM'' model specifies that parameters which are identical
+when constituents are permuted on the sublattices for ordering are
+only listed once in the XMLTDB file.
+
+Other configurational models used are I2SL for the partially ionic
+2-sublattice model.  The CEF model include the ideal model without
+sublattices and excess parameters and the single sublattice regular
+model with Redlich-Kister-Muggianu (RKM) excess parameters as special
+cases but ony may allow configurationsl models as ``ideal'' and
+``RKM'' for these.
+
+Models that are less frequent in TDB files, such as the modified
+quasichemical model in the quadruple approximation (MQMQA) or UNIQUAC
+for polymeric liquids, can be used for software which has implemented
+them. However, they require also special species attribures, see
+¨section~\ref{sc:spel}.
+
+I do not think other binary excess models than Redlish-Kister (RK) is
+interesting as one can always convert them to an RK model.  Ternary
+excess models such as Kohler~\cite{60Koh} and Toop~\cite{65Toop} can
+be interesting but one should consider Pelton's proposal that each
+ternary can have a different extrapolation and implement that.  See
+the section~\ref{sc:peltonexcess}.
+
+Maybe there are other configurational models to think about for
+example CVM?  It must be easy to add new models with new features
+without changing the basic XMLTDB structure.
+
+\subsubsection{Sublattices element}
+
+This is part of the Phase element and specifies the number of
+sublattices and the site ratio for each.  The sum of site ratios is
+the formula unit of the phase.  Note that the number of atoms per
+formula units can vary with composition.  Optionally more
+crystallographic information can be provided but it will normally be
+irrelevant for the thermodynamic calculations..
+
+\subsubsection{Constituents element}
+
+This is part of the Phase element and for each sublattice there is a
+list of the constituents in the sublattice.  The order of the
+sublattices must the the same as the order of sites in the ``ratio''
+attribute of the sublattice element.  The order of the sublattices is
+also important for thr parameter element, see~\ref{sc:parameter}.
+
+\subsubsection{Amend-phase element}
+
+This is part of the Phase element and specifies an additional model
+for a phase.  It may have some extra model specifications, for example
+in the ``DISFS'' model the ordered and disordered phases and the
+number of sublattices to be summed are included.
+
+\subsubsection{Parameter element}\label{sc:parameter}
+
+This is the element which provides the actual data for the models of
+the phases.  It has a complex identifier specifying the type of
+property (MPID), the phase and sublattice constituents and a degree to
+indicate some additional use.  Finally a bibliographic reference to
+the paper where the parameter was published or who provided the
+parameter.  The parameter must specify the phase because it may occur
+independently of the phase as a scientist manually editing an XMLTDB
+database may prefer to arrange all parameters for each binary or
+ternary system together.
+
+The complex identifier is the same which has been used in TDB files
+and the phase constituents are in sublattice order, those mixing in
+the same sublattice are separated by a comma, ``,'', and a colon,
+``:'' separates constituents in different sublattices.
+
+The parameter has a mathematical expression which can include TPfun
+element names provided this is valid for the whole default $T$ range.
+If it is valid in a limited $T$ range then one or more Trange elements
+are needed to specify different expressions.  Examples:
+
+{\small
+\begin{verbatim}
+<Parameter id="G(A2_BCC,AL:VA;0)"   Bibref="91Din" > 
+  <Trange High_T="2900" Expression="+GALBCC;" />
+</Parameter>
+
+<Parameter id="G(BCC_4SL,AL:AL:AL:FE:VA;0)"   Expression="+GD03ALFE;" Bibref="08Sun" />
+<Parameter id="TC(BCC_4SL,AL:AL:AL:FE:VA;0)"   Expression="-125;" Bibref="01Ohn" />
+<Parameter id="BMAGN(BCC_4SL,AL:AL:AL:FE:VA;0)"   Expression="BMALFE;" Bibref="08Sun" />
+\end{verbatim}
+}
+
+A parameter such as G(BCC\_4SL,AL:AL:AL:FE:VA;0) has 4 identical
+permutations with the Fe in different sublattices.  As the ``BCCPERM''
+model was indicated for the BCC\_4SL phase this parameter is listed
+only once.  If the software does not have implemented these
+permutations it has to generate them when reading the database.
+
+The reason to use a compliex identifier is explained in
+section~\ref{sc:manualedit} but in order to simplify the use of an XML
+parser in the software one may use the element in
+section~\ref{sc:parserpar}.
+
+
+\subsubsection{Parameter2 element}\label{sc:parserpar}
+
+This element has the same information as the parameter but is split in
+parts in order to simplify the use of an XML parser.
+
+\begin{verbatim}
+<Parameter2 mpid="G" phase="FCC" bibref="90Gus">
+  <Constituentarray degree="0">
+    <Site refid="1">
+      <Constituent id="W"/>
+    </Site>
+    <Site refid="2">
+      <Constituent id="C"/>
+      <Constituent id="VA"/>
+   </Site>
+  </Constituentarray>
+  <Trange  expression=" 50000+10*T;" />
+</Parameter>
+\end{verbatim}
+
+Software reading an XMLTDB file should be able to handle both forms of
+the parameter element.
+
+\subsubsection{Bibliography element}
+
+There can be bibliographic references for each parameter and possibly
+models for phases using bibitem elements.
+
+\subsubsection{Bibitem element}
+
+Inside the biblographic element each bibliographic reference should be
+explicitly defined by this element, see Appendix~\ref{sc:alfe} for an
+example.
+
+\subsection{The mathematical expression}\label{sc:expression}
+
+The mathematical expression used in expressions should be very simple.
+No grouping of terms using parenthesis is allowed and division of
+terms is not allowed.
+\begin{itemize}
+\item A simple term is a signed numeric value possibly multiplied with
+  $T$ and $P$ raised to a power and possibly also multiplied with a
+  TPfun symbol.
+\item A complex term is a simple term multiplied with the natural
+  logarithm, LN, or the exponential, EXP, of a simple term.
+\item The argument of LN or EXP must be a simple term.
+\item Negative powers of $T$ or $P$ must be enclosed in parenthesis.
+\item As part of the Einstein low $T$ model a function GEIN is needed
+  which can take a simple term as argument.  GEIN(X) is
+  eq.~\ref{eq:egein} but the value of X should be the logarithm of the
+  Einstein $\theta$, ln($\theta)$, because that is what is used in the
+  composition dependent LNTH parameter.
+\item In some software there are other functione allowed because they
+  are used for kinetic models, for example ERF.
+\end{itemize}
+
+One reason to keep the expression simple is that some software needs
+to calculate first and second derivatives of the Gibbs energy
+expression with respect to $T$ and $P$ millions of times for each
+equilibrium calculation.  Complex functions can be achived by
+introducing several functions calling each other.  There is normally
+no check of circular calls but such will normally lead to a crash of
+the calculaion.
+
+\subsection{Additional XML elements}
+
+This consists for the moment only of model elements.  Each model has a
+descriptive element with a reference.  Most models also have one or
+more model parameter identifiers (MPID) which are used to describe how
+the contribution to the Gibbs energy of the phase depend on $T, P$ and
+its constitution.
+
+\subsubsection{There are 3 magnetic models}
+
+{\small
+\begin{verbatim}
+<Magnetic-model id="IHJBCC"  MPID1="TC" MPID2="BMAGN" anti-ferromagnetic_factor=" -1.00" 
+  f_below_TC=" +1-0.905299383*TAO**(-1)-0.153008346*TAO**3-.00680037095*TAO**9-.00153008346*TAO**15;"
+  f_above_TC=" -.0641731208*TAO**(-5)-.00203724193*TAO**(-15)-.000427820805*TAO**(-25);" bibref="82Her" > in G=f(TAO)*LN(BETA+1) where TAO=T/TC
+</Magnetic-model>
+<Magnetic-model id="IHJREST"  MPID1="TC" MPID2="BMAGN" anti-ferromagnetic_factor=" -3.00" 
+  f_below_TC=" +1-0.860338755*TAO**(-1)-0.17449124*TAO**3-.00775516624*TAO**9-.0017449124*TAO**15;"
+  f_above_TC=" -.0426902268*TAO**(-5)-.0013552453*TAO**(-15)-.000284601512*TAO**(-25);" bibref="82Her" > in G=f(TAO)*LN(BETA+1) where TAO=T/TC
+</Magnetic-model>
+<Magnetic-model id="IHJQX"  MPID1="CT" MPID2="NT" MPID3="BMAGN" anti-ferromagnetic_factor="  0.00" 
+   f_below_TC=" +1-0.842849633*TAO**(-1)-0.174242226*TAO**3-.00774409892*TAO**9-.00174242226*TAO**15-.000646538871*TAO**21;"
+   f_above_TC=" -.0261039233*TAO**(-7)-.000870130777*TAO**(-21)-.000184262988*TAO**(-35)-6.65916411E-05*TAO**(-49);" bibref="12Xiong" > in G=f(TAO)*LN(BETA+1) where TAO=T/CT or T/NT
+</Magnetic-model>
+\end{verbatim}
+}
+
+The functions is included only for documentation, they must be
+implemeneted in the software to be used.  The MPID are slightly
+different and different software may actually use different names.
+
+There is also a question of the reference state for the magnetism.
+Normally it is taken to be in the paramagentic state at high $T$.
+
+{\em Maybe some extra term needed for the IHJQX model for the
+  reference state?}
+
+\subsubsection{The Einstein model}
+
+This ie the Einstein model which depend on the Einstein $\theta$.  The
+LNTH parameter should be the natural logariith of $\theta$.  This
+adds a Gibbs energy contribution:
+\begin{eqnarray}
+G &=& 1.5R\theta + 3RT\ln( 1 - \exp(- \frac{\theta}{T})) \label{eq:egein}
+\end{eqnarray}
+where $\theta$ is the Einstein $T$.  But to have a better description
+of the composition dependence the logarithm of $\theta$ is used in LNTH.
+
+{\small
+\begin{verbatim}
+<Einstein-model id="GLOWTEIN" MPID1="LNTH" bibref="01Qing" > 
+   Gibbs energy due to the Einstein low T vibrational entropy model, G=1.5*R*THETA+3*R*T*LN(1-EXP(-THETA/T)).
+</Einstein-model>
+\end{verbatim}
+}
+
+\subsubsection{The Liquid 2-state model}
+
+The amorphous phase is an Einstein solid with $\theta$ in the LNTH
+parameter and a G2 parameter determining the $T$ for the transition
+from liquid to amorphous state.  This model removes the breakpoint in
+the 1991 unary database when extrapolating the Gibbs energy of the
+liquid to low $T$.  It does not describe the glas transition.
+
+{\small
+\begin{verbatim}
+<Liquid-2state-model id="LIQ2STATE" MPID1="G2"  MPID2="LNTH" bibref="14Becker" >
+   Unified model for the liquid and the amorphous state treated as an Einstein solid
+</Liquid-2state-model>
+\end{verbatim}
+}
+
+\subsubsection{A simple volume model}
+
+It is also possible to make many parameters dependent on $P$ but the
+result may be surprising.  This model was proposed by Lu et
+al.~\cite{05Lu} for low $P<1$~GPa.  Note that each phase can have a
+different volume model.
+{\small
+\begin{verbatim}
+<Volume-model id="VOLOWP" MPID1="V0"  MPID2="VT" MPID3="VB" bibref="05Lu" >
+   The volume of a phase is described as function of T, P and its constitution.
+</Volume-model>
+\end{verbatim}
+}
+
+The parameter V0 is a constant representing the volume at $T=298.15$
+and $P=1$~bar.  VT is the thermal expansion at $P=1$~bar as function
+of $T$.  VB represent a bulk modulus parameter wich can depend on $T$
+and $P$ and should be fitted to high pressure data.
+
+\subsubsection{The disordered fraction model}\label{sc:disfs}
+
+This model simplifies modeling of phases with ordering and
+order/disorder transitions.  It combines the Gibbs energy of the
+ordered phase with another Gibbs energy without the ordering
+sublattices (excluding any interstitial sublattice).  The interstitial
+sublattice must be the last and, if present, the disordered phase must
+also have an interstitial sublattice.
+
+For a phase $\alpha$ with an ordered part, ($\alpha$,ord) and a
+disordered one, ($\alpha$,dis) the Gibbs energy is calculated as
+\begin{eqnarray}
+G^{\alpha}_M = G^{\alpha,\rm dis}_M(x) -T~^{\rm cfg}S^{\alpha,\rm dis}_M + G^{\alpha,\rm ord}_M(y)
+\end{eqnarray}
+where the mole fractions $x$ are calculated from the ordered fractions
+$y$.  This model is denoted in the configurational\_model attribute as
+CEF\_2terms.  The configurational entropy of the disordered phase is
+ignored.  It is preferred for modeling phases which never disorder
+such as $\sigma, \mu$.
+
+There is an alternative disordered model denoted as CEF\_3terms with
+the expression
+\begin{eqnarray}
+G^{\alpha}_M = G^{\alpha,\rm dis}_M(x) + G^{\alpha,\rm ord}_M(y) - G^{\alpha,\rm ord}_M(y=x)
+\end{eqnarray}
+where the ordered part is calculated twice, the second time with the
+mole fractions on all sublattices.  When the phase is disordered the
+model parameters in $G^{\alpha,\rm ord}_M$ are eliminated.  This model
+has been used for phases for order/disorder transformtions as the
+parameters in the ordered phase does not affect the ordered phase but
+it is now discouraged as the ordered parameters may create strange
+phenomena.  It is denoted as CEF\_3terms.  In this model the disordered
+configurational entropy is eliminated by default.
+
+{\small
+\begin{verbatim}
+<Disordered-fraction-model id="DISFS" bibref="07Hal" >
+   The disordered fractions are summed over the ordered sublattices indicated at the phase.  The Gibbs energy calculated 2 or 3 times as indicated by the CEF_appendix but the configurational entropy only once.
+</Disordered-fraction-model>
+\end{verbatim}
+}
+
+\subsubsection{The permutation models}
+
+These model reduces the number of parameters in the database by
+eliminate all permutations.  It must be implemented in the software.
+BCC and FCC has different symmetry as the tetrahedra are different.
+
+{\small
+\begin{verbatim}
+<FCC-permutations id="FCCPERM" bibref="09Sun" >
+   Permutations of ordered FCC parameters with the same set of elements are listed only once.
+</FCC-permutations>
+\end{verbatim}
+}
+
+This model reduces the size of the database by avoiding storing all 24
+permutations of a parameter such as G(FCC\_4SL,A:B:C:D:VA;0) of an
+ordered FCC phase in the database.
+
+{\small
+\begin{verbatim}
+<BCC-permutations id="BCCPERM" bibref="09Sun" >
+   Permutations of ordered BCC parameters with the same set of elements are listed only once.
+</BCC-permutations>
+\end{verbatim}
+}
+
+The reduction of parameters is slightly less for BCC as the
+tetrahedron is not symmetric.
+
+\subsubsection{The EEC model}\label{sc:EEC}
+
+The Equi-Entropy criteria~\cite{20Sun} means that a solid phase with
+higher entropy than the liquid phase must not be allowed to become
+stable.  At a given $T$ a solid phase can only have higher entropy
+than a liquid (with different composition) if the extrapolation of the
+Gibbs energy of the metastable solid is unphysical.  The aim of this
+model is to remove the breakpoint in the Gibbs energy extrapolation of
+solid phases above their melting $T$ and prevent the reappearence of
+the solid at even higher $T$ due to an extrapolated heat capacity of
+the metastable solid which has no physical meaning.
+
+It must be implemented in the software but the database should
+indicate if it is necessary.
+
+{\small
+\begin{verbatim}
+<EEC id="EEC" bibref="20Sun" >
+   Equi-Entropy Criterion means that solid phases with higher entropy that the liquid phase must not be stable.
+</EEC>
+\end{verbatim}
+}
+
+
+\subsubsection{Ternary excess models}\label{sc:peltonexcess}
+
+Pelton~\cite{01Pel} has proposed a way to define the ternary excess
+model separately for each ternary.  This could be implemented as an
+amend-phase option.  Maybe someting like:
+{\small
+\begin{verbatim}
+<Excess-model id="Kohler" bibref="60Kohler" >
+   A ternary interaction has a Kohler excess model.  The three constituents are specified at the phase in any order.
+</Excess-model>
+<Excess-model id="Toop" bibref="65Toop" >
+   A ternary interaction has a Toop excess model.  The three constituents are specified at the phase with the Toop constituent first.
+</Excess-model>
+\end{verbatim}
+}
+
+A phase with a Toop and Kohler model must for each ternary specify
+{\small
+\begin{verbatim}
+<Amend-phase model="Toop" info="Fe Cr Ni" />
+<Amend-phase model="Kohler" info="Mo Cr Ni" />
+\end{verbatim}
+}
+
+For the Toop model the first of the 3 constituents is the Toop
+constituent whereas for the Kohler model the order does not matter.
+
+This is not implemented in any software as far as I know even if it
+might work in GES5.
+
+
+\setcounter{equation}{0}
+\renewcommand{\theequation}{B\arabic{equation}} \setcounter{figure}{0}
+\renewcommand{\thefigure}{B\arabic{figure}}
+\section{Converting from TDB to XMLTDB format and vice versa}
+
+An UPLOAD program~\cite{upload} has been developed and tested to
+convert various TDB files to the XMLTDB format proposed here.  There
+are still many features to be discussed to obtain the final format.
+
+If it is found that the final XML format is too complex for manual
+editing the TDB format may be kept for manual editing.  But that will
+be a pain for the future.
+
+\setcounter{equation}{0}
+\renewcommand{\theequation}{C\arabic{equation}}
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{C\arabic{figure}}
+\section{Integration of 3rd generation models}
+
+The new unary parameters tries to make the Calphad databases more
+attractive to physicists and remove some of the less nice features of
+the 2nd generation unary, such as the break points in the Gibbs
+energies at the melting $T$ of the elements.
+
+\subsection{The low $T$ heat capacity and entropy}
+
+This concerns the Einstein model for low $T$ vibrational energy which
+will also enforce the heat capacity is zero at $T=0$~K~\cite{01Chen}.
+The Einstein heat capacity integrated to a Gibbs energy is shown in
+eq.~\ref{eq:egein}.
+
+The Einstein model was preferred as one anyway has to add a polynomial
+in $T$ (without any powers of $T$ less or equal to 1 and no $\ln(T)$
+term) in order to fit the deviation from the Dulong-Petit assumption
+that the heat capaity at high $T$ should be $3R$.
+
+The restriction that there should not be any linear term in $T$ is to
+obey the 3rd law, i.e. that the entropy of a perfectly crystalline
+phases must be zero at $T=0$~K.  But there is still a discussion if
+phases with crystalline disorder, for example magnetite which is an
+inverse spinel or the amorphous phase, should have $S=0$ at $T=0$~K.
+
+There is an interesting use of the Einsten model for the lattice
+stabilities (introduced by Larry Kaufman in 1970~\cite{70Kau} and
+considered to be the first generation unary database) which represent
+a Gibbs energy diffence between a stable, $\alpha$, and metastable,
+$\beta$, state of a pure element, and which usually have a linear $T$
+dependence, for example:
+\begin{eqnarray}
+  G^{\beta}_{\rm A} - G^{\alpha}_{\rm A} &=& \Delta H -T\Delta S
+\end{eqnarray}
+where the linear $T$ term can be converted to an Einstein $\theta$
+and this have zero entropy at $T=0$~K.
+
+Many of the lattice stabilities were kept in the 2nd generation
+database and they are important to describe phase diagrams.  But they
+violate the the 3rd law.  However, one can easily convert the $\Delta
+S$ to an Einstein $\theta$ for the metastable phase using:
+\begin{eqnarray}
+  \theta^{\beta} &=& \theta^{\alpha}\exp(-\frac{\Delta S}{3R})
+\end{eqnarray}
+which will result in the same difference in Gibbs energy at finite $T$
+and that metastable phases of the pure elements also has $S=0$ at
+$T=0$~K.
+
+\subsection{The magnetic model}
+
+The second part of the new unary is the magnetic model with a new
+expression and separate Curie and N{\'e}el $T$~\cite{12Xiong}.
+Individual Bohr magneton numbers will most likely not implemented.  If
+the reference state for the magnetic state is selected at the
+paramagnetic state at high $T$ this may give some entropy at $T=0$~K.
+
+Selecting the ferro- or antiferro magnetic state at $T=0$~K creates
+other problems at high $T$.
+
+\subsection{The low $T$ extrapolation of the liquid}
+
+The liquid 2-state model~\cite{14Becker} use an Einstein solid for the
+low $T$ amorphous state and a gradual transition to the stable high
+$T$ liquid.  As already stated the entropy of the metastable amorphous
+state may have nonzero entropy at $T=0$~K.
+
+\subsection{The high $T$ extrapolation of the solid phase}
+
+The extrapolation of the heat capacity of the solid phases of the pure
+elements above their melting $T$ is modeled with a restricted
+polynomial and this may extrapolate at high $T$ to a high heat
+capacity and subsequently a very negative Gibbs energy of the solid.
+This may be so negative that the solid would become more stable than
+the liquid at even higher $T$.  This was avoided in the 1991 unary by
+a breakpoint at the melting $T$ and forcing the solid heat capacity to
+approach that of the liquid phase.  But this breakpoint leads to some
+other problems, for example modeling compounds using the Kopp-Neumann
+rule~\cite{Kopp-Neumann}, and should the breakpoint should be removed.
+
+The Equi-Entropy Criteron (EEC)~\cite{20Sun} was introduced to handle
+this extrapolation problem.  The EEC states that at a given $T$ a
+solid phase cannot be in equilibrium, i.e. be stable, together with a
+liquid if the solid has higher entropy than the liquid phase, even if
+the solid and liquid has different compositions.
+
+The fact that the solid phase has so high entropy is due to an
+unphysical extrapolation of its heat capacity above its melting $T$.
+The high entropy means the solid is ``mechanically unstable'' but to
+find way to model this ``instability'' in multicomponent system has
+turned out to be very complicated whereas the entropy criteria is
+readily available.
+
+\setcounter{equation}{0}
+\renewcommand{\theequation}{D\arabic{equation}}
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{D\arabic{figure}}
+\section{Example of the tentative XMLTDB format}\label{sc:alfe}
+
+A TDB file for the system Al-Fe has been used to generate this XML
+file using the UPLOAD program.
+
+\subsection{Example of the tentative XMLTDB format}
+
+The lines are very long but the essential inoformation is still
+readable.
+
+{\tiny
+\begin{verbatim}
+<?xml version="1.0"?>
+<?xml-model href="database.rng" schematypens="http://relaxng.org/ns/structure/1.0" type="application/xml"?>
+<Database version="0.0.1">
+  <metadata>
+    <writer>xmltdbproject test
+       TDBfile="C:\Users\bosun\Documents\GitHub\XMLTDB\software\examples\AlFe-4SLBF.TDB"
+       Software="Thermo-Calc"
+       Date="2023-05-15"
+    </writer>
+  </metadata>
+  <!-- Statistics elements="4"  species="3"  tpfuns="26"  phases="9"  parameters="54"  bibrefs="6"  -->
+  <Defaults low_T=" 298.15" high_T=" 6000.00" />
+  <Models>
+    <Magnetic-model id="IHJBCC"  MPID1="TC" MPID2="BMAGN" anti-ferromagnetic_factor=" -1.00" 
+       f_below_TC=" +1-0.905299383*TAO**(-1)-0.153008346*TAO**3-.00680037095*TAO**9-.00153008346*TAO**15;"
+       f_above_TC=" -.0641731208*TAO**(-5)-.00203724193*TAO**(-15)-.000427820805*TAO**(-25);" bibref="82Her" > in G=f(TAO)*LN(BETA+1) where TAO=T/TC
+    </Magnetic-model>
+    <Magnetic-model id="IHJREST"  MPID1="TC" MPID2="BMAGN" anti-ferromagnetic_factor=" -3.00" 
+       f_below_TC=" +1-0.860338755*TAO**(-1)-0.17449124*TAO**3-.00775516624*TAO**9-.0017449124*TAO**15;"
+       f_above_TC=" -.0426902268*TAO**(-5)-.0013552453*TAO**(-15)-.000284601512*TAO**(-25);" bibref="82Her" > in G=f(TAO)*LN(BETA+1) where TAO=T/TC
+    </Magnetic-model>
+    <Magnetic-model id="IHJQX"  MPID1="CT" MPID2="NT" MPID3="BMAGN" anti-ferromagnetic_factor="  0.00" 
+       f_below_TC=" +1-0.842849633*TAO**(-1)-0.174242226*TAO**3-.00774409892*TAO**9-.00174242226*TAO**15-.000646538871*TAO**21;"
+       f_above_TC=" -.0261039233*TAO**(-7)-.000870130777*TAO**(-21)-.000184262988*TAO**(-35)-6.65916411E-05*TAO**(-49);" bibref="12Xiong" > in G=f(TAO)*LN(BETA+1) where TAO=T/CT or T/NT
+    </Magnetic-model>
+    <Einstein-model id="GLOWTEIN" MPID1="LNTH" bibref="01Qing" > 
+       Gibbs energy due to the Einstein low T vibrational entropy model, G=1.5*R*THETA+3*R*T*LN(1-EXP(-THETA/T)).
+    </Einstein-model>
+    <Liquid-2state-model id="LIQ2STATE" MPID1="G2"  MPID2="LNTH" bibref="14Becker" >
+       Unified model for the liquid and the amorphous state treated as an Einstein solid
+    </Liquid-2state-model>
+    <Volume-model id="VOLOWP" MPID1="V0"  MPID2="VA" MPID3="VB" bibref="05Lu" >
+       The volume of a phase is described as function of T, P and its constitution.
+    </Volume-model>
+    <Disordered-fraction-model id="DISFS" bibref="07Hal" >
+       The disordered fractions are summed over the ordered sublattices indicated at the phase.  The Gibbs energy calculated 2 or 3 times as indicated by the CEF_appendix but the configurational entropy only once.
+    </Disordered-fraction-model>
+    <FCC-permutations id="FCCPERM" bibref="09Sun" >
+       Permutations of ordered FCC parameters with the same set of elements are listed only once.
+    </FCC-permutations>
+    <BCC-permutations id="BCCPERM" bibref="09Sun" >
+       Permutations of ordered BCC parameters with the same set of elements are listed only once.
+    </BCC-permutations>
+    <EEC id="EEC" bibref="20Sun" >
+       Equi-Entropy Criterion means that solid phases with higher entropy that the liquid phase must not be stable.
+    </EEC>
+  </Models>
+  <Element id="/-" refstate="ELECTRON_GAS" mass="  0.000000E+00" H298="  0.000000E+00" S298="  0.000000E+00" />
+  <Element id="VA" refstate="VACUUM" mass="  0.000000E+00" H298="  0.000000E+00" S298="  0.000000E+00" />
+  <Element id="AL" refstate="FCC_A1" mass="  2.698200E+01" H298="  4.577300E+03" S298="  2.832200E+01" />
+  <Element id="FE" refstate="BCC_A2" mass="  5.584700E+01" H298="  4.489000E+03" S298="  2.728000E+01" />
+  <Species id="VA" stoichiometry="VA" />
+  <Species id="AL" stoichiometry="AL" />
+  <Species id="FE" stoichiometry="FE" />
+  <TPfun id="GHSERAL"  >
+    <Trange High_T="700" Expression=" -7976.15+137.093038*T-24.3671976*T*LN(T)  -.001884662*T**2-8.77664E-07*T**3+74092*T**(-1);" />
+    <Trange High_T="933.47" Expression="   -11276.24+223.048446*T-38.5844296*T*LN(T)+.018531982*T**2  -5.764227E-06*T**3+74092*T**(-1);" />
+    <Trange High_T="2900" Expression="   -11278.378+188.684153*T-31.748192*T*LN(T)-1.230524E+28*T**(-9);" />
+  </TPfun>
+  <TPfun id="GALLIQ"  >
+    <Trange High_T="933.47" Expression=" +11005.029-11.841867*T+7.934E-20*T**7  +GHSERAL;" />
+    <Trange Expression="  +10482.382-11.253974*T+1.231E+28*T**(-9)+GHSERAL;" />
+  </TPfun>
+  <TPfun id="GALBCC"  Expression="+10083-4.813*T+GHSERAL;" />
+  <TPfun id="GHSERFE"  >
+    <Trange High_T="1811" Expression=" +1225.7+124.134*T-23.5143*T*LN(T)  -.00439752*T**2-5.8927E-08*T**3+77359*T**(-1);" />
+    <Trange Expression="  -25383.581+299.31255*T-46*T*LN(T)+2.29603E+31*T**(-9);" />
+  </TPfun>
+  <TPfun id="GFELIQ"  >
+    <Trange High_T="1811" Expression=" +12040.17-6.55843*T-3.6751551E-21*T**7  +GHSERFE;" />
+    <Trange Expression="  -10839.7+291.302*T-46*T*LN(T);" />
+  </TPfun>
+  <TPfun id="GFEFCC"  >
+    <Trange High_T="1811" Expression=" -1462.4+8.282*T-1.15*T*LN(T)+6.4E-04*T**2  +GHSERFE;" />
+    <Trange Expression="  -27097.396+300.25256*T-46*T*LN(T)+2.78854E+31*T**(-9);" />
+  </TPfun>
+  <TPfun id="LFALFE0"  Expression="-104700+30.65*T;" />
+  <TPfun id="LFALFE1"  Expression="+30000-7*T;" />
+  <TPfun id="LFALFE2"  Expression="+32200-17*T;" />
+  <TPfun id="UFALFE"  Expression="-4000+T;" />
+  <TPfun id="GAL3FE"  Expression="+3*UFALFE+9000;" />
+  <TPfun id="GAL2FE2"  Expression="+4*UFALFE;" />
+  <TPfun id="GALFE3"  Expression="+3*UFALFE-3500;" />
+  <TPfun id="SFALFE"  Expression="+UFALFE;" />
+  <TPfun id="UBALFE1"  Expression="-4023-1.14*T;" />
+  <TPfun id="UBALFE2"  Expression="-1973-2*T;" />
+  <TPfun id="GD03ALFE"  Expression="+2*UBALFE1+UBALFE2+3900;" />
+  <TPfun id="GB2ALFE"  Expression="+4*UBALFE1;" />
+  <TPfun id="GB32ALFE"  Expression="+2*UBALFE1+2*UBALFE2;" />
+  <TPfun id="GD03FEAL"  Expression="+2*UBALFE1+UBALFE2-70+0.5*T;" />
+  <TPfun id="BMALFE"  Expression="-1.36;" />
+  <TPfun id="BLALFE0"  Expression="-0.3;" />
+  <TPfun id="BLALFE1"  Expression="-0.8;" />
+  <TPfun id="BLALFE2"  Expression="0.2;" />
+  <TPfun id="ZERO"  Expression="0.0;" />
+  <TPfun id="UN_ASS"  >
+    <Trange High_T="300" Expression=" 0.0 ;" />
+  </TPfun>
+  <Phase id="LIQUID" Configuration_model="CEF" state="L" >
+    <Sublattices number_of="1"  Ratios="1" >
+      <Constituent sublattice="1" list="AL FE" />
+    </Sublattices>
+  </Phase>
+  <Phase id="A1_FCC" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="2"  Ratios="1  1" >
+      <Constituent sublattice="1" list="AL FE" />
+      <Constituent sublattice="2" list="VA" />
+    </Sublattices>
+    <Amend-phase model="IHJREST" />
+  </Phase>
+  <Phase id="A2_BCC" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="2"  Ratios="1  3" >
+      <Constituent sublattice="1" list="AL FE" />
+      <Constituent sublattice="2" list="VA" />
+    </Sublattices>
+    <Amend-phase model="IHJBCC" />
+  </Phase>
+  <Phase id="AL13FE4" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="3"  Ratios="0.6275  0.235  0.1375" >
+      <Constituent sublattice="1" list="AL" />
+      <Constituent sublattice="2" list="FE" />
+      <Constituent sublattice="3" list="AL VA" />
+    </Sublattices>
+  </Phase>
+  <Phase id="AL2FE" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="2"  Ratios="2  1" >
+      <Constituent sublattice="1" list="AL" />
+      <Constituent sublattice="2" list="FE" />
+    </Sublattices>
+  </Phase>
+  <Phase id="AL5FE2" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="2"  Ratios="5  2" >
+      <Constituent sublattice="1" list="AL" />
+      <Constituent sublattice="2" list="FE" />
+    </Sublattices>
+  </Phase>
+  <Phase id="AL8FE5_D82" Configuration_model="CEF" state="S" >
+    <Sublattices number_of="2"  Ratios="8  5" >
+      <Constituent sublattice="1" list="AL FE" />
+      <Constituent sublattice="2" list="AL FE" />
+    </Sublattices>
+  </Phase>
+  <Phase id="BCC_4SL" Configuration_model="CEF_3terms" state="S" >
+    <Sublattices number_of="5"  Ratios="0.25  0.25  0.25  0.25  3" >
+      <Constituent sublattice="1" list="AL FE" />
+      <Constituent sublattice="2" list="AL FE" />
+      <Constituent sublattice="3" list="AL FE" />
+      <Constituent sublattice="4" list="AL FE" />
+      <Constituent sublattice="5" list="VA" />
+    </Sublattices>
+    <Amend-phase model="IHJBCC" />
+    <Amend-phase model="DISFS" info="BCC_4SL A2_BCC" sum_sublattices="4" />
+    <Amend-phase model="BCCPERM" info="The parameters have BCC permutations" />
+  </Phase>
+  <Phase id="FCC_4SL" Configuration_model="CEF_3terms" state="S" >
+    <Sublattices number_of="5"  Ratios="0.25  0.25  0.25  0.25  1" >
+      <Constituent sublattice="1" list="AL FE" />
+      <Constituent sublattice="2" list="AL FE" />
+      <Constituent sublattice="3" list="AL FE" />
+      <Constituent sublattice="4" list="AL FE" />
+      <Constituent sublattice="5" list="VA" />
+    </Sublattices>
+    <Amend-phase model="IHJREST" />
+    <Amend-phase model="DISFS" info="FCC_4SL A1_FCC" sum_sublattices="4" />
+    <Amend-phase model="FCCPERM" info="The parameters have FCC permutations" />
+  </Phase>
+  <Unary-parameters >
+    <Parameter id="G(LIQUID,AL;0)"   Expression="+GALLIQ;" Bibref="91Din" />
+    <Parameter id="G(LIQUID,FE;0)"   Expression="+GFELIQ;" Bibref="91Din" />
+    <Parameter id="G(A1_FCC,AL:VA;0)"   Expression="+GHSERAL;" Bibref="91Din" />
+    <Parameter id="G(A1_FCC,FE:VA;0)"   Expression="+GFEFCC;" Bibref="91Din" />
+    <Parameter id="TC(A1_FCC,FE:VA;0)"   Expression="-201;" Bibref="91Din" />
+    <Parameter id="BMAGN(A1_FCC,FE:VA;0)"   Expression="-2.1;" Bibref="91Din" />
+    <Parameter id="G(A2_BCC,AL:VA;0)"   Bibref="91Din" > 
+      <Trange High_T="2900" Expression="+GALBCC;" />
+    </Parameter>
+    <Parameter id="G(A2_BCC,FE:VA;0)"   Expression="+GHSERFE;" Bibref="91Din" />
+    <Parameter id="TC(A2_BCC,FE:VA;0)"   Expression="1043;" Bibref="91Din" />
+    <Parameter id="BMAGN(A2_BCC,FE:VA;0)"   Expression="2.22;" Bibref="91Din" />
+    <Parameter id="G(AL8FE5_D82,AL:AL;0)"   Expression="+13*GALBCC;" Bibref="08Sun" />
+    <Parameter id="G(AL8FE5_D82,FE:FE;0)"   Expression="+13*GHSERFE+13000;" Bibref="08Sun" />
+    <Parameter id="G(FCC_4SL,AL:AL:AL:AL:VA;0)"   Expression="+ZERO;" Bibref="08Con" />
+    <Parameter id="G(FCC_4SL,FE:FE:FE:FE:VA;0)"   Expression="+ZERO;" Bibref="08Con" />
+  </Unary-parameters>
+  <Binary-parameters>
+    <Parameter id="G(LIQUID,AL,FE;0)"   Expression="-88090+19.8*T;" Bibref="08Sun" />
+    <Parameter id="G(LIQUID,AL,FE;1)"   Expression="-3800+3*T;" Bibref="08Sun" />
+    <Parameter id="G(LIQUID,AL,FE;2)"   Expression="-2000;" Bibref="08Sun" />
+    <Parameter id="G(A1_FCC,AL,FE:VA;0)"   Expression="+LFALFE0;" Bibref="08Sun" />
+    <Parameter id="G(A1_FCC,AL,FE:VA;1)"   Expression="+LFALFE1;" Bibref="08Sun" />
+    <Parameter id="G(A1_FCC,AL,FE:VA;2)"   Expression="+LFALFE2;" Bibref="08Sun" />
+    <Parameter id="G(A2_BCC,AL,FE:VA;0)"   Expression="-122960+32*T;" Bibref="93Sei" />
+    <Parameter id="G(A2_BCC,AL,FE:VA;1)"   Expression="2945.2;" Bibref="93Sei" />
+    <Parameter id="TC(A2_BCC,AL,FE:VA;0)"   Expression="-438;" Bibref="01Ohn" />
+    <Parameter id="TC(A2_BCC,AL,FE:VA;1)"   Expression="-1720;" Bibref="01Ohn" />
+    <Parameter id="G(AL13FE4,AL:FE:AL;0)"   Expression="-30680+7.4*T+.765*GHSERAL  +.235*GHSERFE;" Bibref="08Sun" />
+    <Parameter id="G(AL13FE4,AL:FE:VA;0)"   Expression="-28100+7.4*T+.6275*GHSERAL  +.235*GHSERFE;" Bibref="08Sun" />
+    <Parameter id="G(AL2FE,AL:FE;0)"   Expression="-104000+23*T+2*GHSERAL+GHSERFE;" Bibref="08Sun" />
+    <Parameter id="G(AL5FE2,AL:FE;0)"   Expression="-235600+54*T+5*GHSERAL  +2*GHSERFE;" Bibref="08Sun" />
+    <Parameter id="G(AL8FE5_D82,FE:AL;0)"   Expression="+200000+36*T+5*GALBCC  +8*GHSERFE;" Bibref="08Sun" />
+    <Parameter id="G(AL8FE5_D82,AL:FE;0)"   Expression="-394000+36*T+8*GALBCC  +5*GHSERFE;" Bibref="08Sun" />
+    <Parameter id="G(AL8FE5_D82,AL:AL;0)"   Expression="-100000;" Bibref="08Sun" />
+    <Parameter id="G(AL8FE5_D82,AL,FE:FE;0)"   Expression="-174000;" Bibref="08Sun" />
+    <Parameter id="G(BCC_4SL,AL:AL:AL:FE:VA;0)"   Expression="+GD03ALFE;" Bibref="08Sun" />
+    <Parameter id="TC(BCC_4SL,AL:AL:AL:FE:VA;0)"   Expression="-125;" Bibref="01Ohn" />
+    <Parameter id="BMAGN(BCC_4SL,AL:AL:AL:FE:VA;0)"   Expression="BMALFE;" Bibref="08Sun" />
+    <Parameter id="G(BCC_4SL,AL:AL:FE:FE:VA;0)"   Expression="+GB2ALFE;" Bibref="08Sun" />
+    <Parameter id="TC(BCC_4SL,AL:AL:FE:FE:VA;0)"   Expression="-250;" Bibref="01Ohn" />
+    <Parameter id="BMAGN(BCC_4SL,AL:AL:FE:FE:VA;0)"   Expression="2*BMALFE;" Bibref="08Sun" />
+    <Parameter id="G(BCC_4SL,AL:FE:AL:FE:VA;0)"   Expression="+GB32ALFE;" Bibref="08Sun" />
+    <Parameter id="TC(BCC_4SL,AL:FE:AL:FE:VA;0)"   Expression="-125;" Bibref="01Ohn" />
+    <Parameter id="BMAGN(BCC_4SL,AL:FE:AL:FE:VA;0)"   Expression="BMALFE;" Bibref="08Sun" />
+    <Parameter id="G(BCC_4SL,AL:FE:FE:FE:VA;0)"   Expression="+GD03FEAL;" Bibref="08Sun" />
+    <Parameter id="TC(BCC_4SL,AL:FE:FE:FE:VA;0)"   Expression="-125;" Bibref="01Ohn" />
+    <Parameter id="BMAGN(BCC_4SL,AL:FE:FE:FE:VA;0)"   Expression="BMALFE;" Bibref="08Sun" />
+    <Parameter id="G(BCC_4SL,AL,FE:*:*:*:VA;1)"   Expression="-634+0.68*T;" Bibref="08Sun" />
+    <Parameter id="G(BCC_4SL,AL,FE:*:*:*:VA;2)"   Expression="-190;" Bibref="08Sun" />
+    <Parameter id="TC(BCC_4SL,AL,FE:*:*:*:VA;0)"   Expression="+125;" Bibref="01Ohn" />
+    <Parameter id="BMAGN(BCC_4SL,AL,FE:*:*:*:VA;0)"   Expression="BLALFE0;" Bibref="08Sun" />
+    <Parameter id="BMAGN(BCC_4SL,AL,FE:*:*:*:VA;1)"   Expression="BLALFE1;" Bibref="08Sun" />
+    <Parameter id="BMAGN(BCC_4SL,AL,FE:*:*:*:VA;2)"   Expression="BLALFE2;" Bibref="08Sun" />
+    <Parameter id="G(FCC_4SL,FE:AL:AL:AL:VA;0)"   Expression="+GAL3FE;" Bibref="08Con" />
+    <Parameter id="G(FCC_4SL,FE:FE:AL:AL:VA;0)"   Expression="+GAL2FE2;" Bibref="08Con" />
+    <Parameter id="G(FCC_4SL,FE:FE:FE:AL:VA;0)"   Expression="+GALFE3;" Bibref="08Con" />
+    <Parameter id="G(FCC_4SL,AL,FE:AL,FE:*:*:VA;0)"   Expression="+SFALFE;" Bibref="08Con" />
+  </Binary-parameters>
+  <Bibliography>
+    <Bibitem ID="91Din" Text="A T Dinsdale, Calphad 1991" />
+    <Bibitem ID="93Sei" Text="M Seiersten, unpublished 1993" />
+    <Bibitem ID="01Ohn" Text="I Ohnuma, unpublished 2001" />
+    <Bibitem ID="08Con" Text="D Connetable et al, Calphad 2008; AL-C-Fe" />
+    <Bibitem ID="08Sun" Text="B Sundman, to be published" />
+    <Bibitem ID="08Dup" Text="N Dupin, vacancies in bcc" />
+    <Bibitem ID="60Koh" Text="F. Kohler, Monatsh Chem, Vol 91 (1960) 738--740" />
+    <Bibitem ID="65Toop" Text="G. W. Toop, Trans Metall Soc, AIME  Vol 233 (1965) 850--854" />
+    <Bibitem ID="82Her" Text="S. Hertzman and B. Sundman, A Thermodynamic analysis of the Fe-Cr system, Calphad Vol 6 (1982) 67-80." />
+    <Bibitem ID="12Xiong" Text="W. Xiong, Q. Chen, P. K. Korzhavyi and M. Selleby, An improved magnetic model for thermodynamic modeling, Calphad, Vol 39 (2012) 11-20." />
+    <Bibitem ID="01Qing" Text="Q. Chen and B. Sundman, Modeling of thermodynamic properties for Bcc, Fcc, liquid, and amorphous iron, J. Phase Equilibria. Vol 22 (2001) 631-644." />
+    <Bibitem ID="14Becker" Text="C. A. Becker, J. Agren, M. Baricco, Q. Chen, S. A. Decterov, U. R. Kattner, J. H. Perepezko, G. R. Pottlacher and M. Selleby, Thermodynamic modelling of liquids: CALPHAD approaches and contributions from statistical physics. Phys status solidi. B, Vol 251(1) (2014) 33-52." />
+    <Bibitem ID="05Lu" Text="X-G. Lu, M. Selleby and B. Sundman, Implementation of a new model for pressure dependence of condensed phases in Thermo-Calc, Calphad Vol 29 (2005) 49-55." />
+    <Bibitem ID="07Hal" Text="B. Hallstedt, N. Dupin, M. Hillert, L. Höglund, H. L. Lukas, J. C. Schuster and N. Solak, Thermodynamic models for crystalline phases, composition dependent models vor volume, bulk modulus and thermal expansion, Calphad Vol 31 (2007) 28-37" />
+    <Bibitem ID="09Sun" Text="B. Sundman, I. Ohnuma, N. Dupin, U. R. Kattner, S. G. Fries, An assessment of the entire Al–Fe system including D03 ordering, Acta Mater. Vol 57 (2009) 2896-2908" />
+    <Bibitem ID="20Sun" Text="B. Sundman, U. R. Kattner, M. Hillert, M. Selleby, J. Agren, S. Bigdeli, Q. Chen, A. Dinsdale, B. Hallstedt, A. Khvan, H. Mao and R. OtisA method for handling the estrapolation of solid crystalline phases to temperature above their melting point, Calphad Vol 68 (2020) 101737" />
+  </Bibliography>
+  <TDB-comments>
+       0 $ Database file written 2008- 8-15
+       0 $ From database: User data 2008. 8. 1
+     127 $ THIS PHASE HAS A DISORDERED CONTRIBUTION FROM A2_BCC
+     155 $ THIS PHASE HAS A DISORDERED CONTRIBUTION FROM A1_FCC
+  </TDB-comments>
+</Database>
+\end{verbatim}
+}
+
+\subsection{The original TDB format}
+
+{\small
+\begin{verbatim}
+$ Database file written 2008- 8-15
+$ From database: User data 2008. 8. 1    
+ ELEMENT /-   ELECTRON_GAS              0.0000E+00  0.0000E+00  0.0000E+00!
+ ELEMENT VA   VACUUM                    0.0000E+00  0.0000E+00  0.0000E+00!
+ ELEMENT AL   FCC_A1                    2.6982E+01  4.5773E+03  2.8322E+01!
+ ELEMENT FE   BCC_A2                    5.5847E+01  4.4890E+03  2.7280E+01!
+ 
+ FUNCTION GHSERAL   298.15 -7976.15+137.093038*T-24.3671976*T*LN(T)
+     -.001884662*T**2-8.77664E-07*T**3+74092*T**(-1);  7.00000E+02  Y
+      -11276.24+223.048446*T-38.5844296*T*LN(T)+.018531982*T**2
+     -5.764227E-06*T**3+74092*T**(-1);  9.33470E+02  Y
+      -11278.378+188.684153*T-31.748192*T*LN(T)-1.230524E+28*T**(-9);  
+     2.90000E+03  N !
+ FUNCTION GALLIQ    298.15 +11005.029-11.841867*T+7.934E-20*T**7
+     +GHSERAL#;  9.33470E+02  Y
+      +10482.382-11.253974*T+1.231E+28*T**(-9)+GHSERAL#; 6000  N !
+ FUNCTION GALBCC    298.15 +10083-4.813*T+GHSERAL#;  6000   N      !
+ FUNCTION GHSERFE   298.15 +1225.7+124.134*T-23.5143*T*LN(T)
+     -.00439752*T**2-5.8927E-08*T**3+77359*T**(-1);  1.81100E+03  Y
+      -25383.581+299.31255*T-46*T*LN(T)+2.29603E+31*T**(-9); 6000  N   !
+ FUNCTION GFELIQ    298.15 +12040.17-6.55843*T-3.6751551E-21*T**7
+     +GHSERFE#;  1.81100E+03  Y
+      -10839.7+291.302*T-46*T*LN(T); 6000  N !
+ FUNCTION GFEFCC    298.15 -1462.4+8.282*T-1.15*T*LN(T)+6.4E-04*T**2
+     +GHSERFE#;  1.81100E+03  Y
+      -27097.396+300.25256*T-46*T*LN(T)+2.78854E+31*T**(-9); 6000  N      !
+ FUNCTION LFALFE0   298.15 -104700+30.65*T;  6000   N !
+ FUNCTION LFALFE1   298.15 +30000-7*T;  6000   N !
+ FUNCTION LFALFE2   298.15 +32200-17*T;  6000   N !
+ FUNCTION UFALFE    298.15 -4000+T;  6000   N !
+ FUNCTION GAL3FE    298.15 +3*UFALFE#+9000;  6000   N !
+ FUNCTION GAL2FE2   298.15 +4*UFALFE#;  6000   N !
+ FUNCTION GALFE3    298.15 +3*UFALFE#-3500;  6000   N !
+ FUNCTION SFALFE    298.15 +UFALFE#;  6000   N !
+ FUNCTION UBALFE1   298.15 -4023-1.14*T;  6000   N !
+ FUNCTION UBALFE2   298.15 -1973-2*T;  6000   N !
+ FUNCTION GD03ALFE  298.15 +2*UBALFE1#+UBALFE2#+3900;       6000   N !
+ FUNCTION GB2ALFE   298.15 +4*UBALFE1#;  6000   N !
+ FUNCTION GB32ALFE  298.15 +2*UBALFE1#+2*UBALFE2#;  6000   N !
+ FUNCTION GD03FEAL  298.15 +2*UBALFE1#+UBALFE2#-70+0.5*T; 6000   N !
+ FUNCTION BMALFE    298.15 -1.36; 6000 N !
+ FUNCTION BLALFE0   298.15 -0.3; 6000 N !
+ FUNCTION BLALFE1   298.15 -0.8; 6000 N !
+ FUNCTION BLALFE2   298.15 0.2; 6000 N !
+ FUNCTION ZERO      298.15 0.0; 6000.00  N !
+ FUNCTION UN_ASS    298.15 0.0 ;  3.00000E+02  N !
+ 
+ TYPE_DEFINITION % SEQ *!
+ DEFINE_SYSTEM_DEFAULT ELEMENT 2 !
+ DEFAULT_COMMAND DEF_SYS_ELEMENT VA /- !
+
+ TYPE_DEFINITION X GES AMEND_PHASE_DESCRIPTION BCC_4SL DIS_PART A2_BCC,,,!
+ TYPE_DEFINITION Y GES AMEND_PHASE_DESCRIPTION FCC_4SL DIS_PART A1_FCC,,,!
+
+ PHASE LIQUID:L %  1  1.0  !
+    CONSTITUENT LIQUID:L :AL,FE :  !
+
+   PARAMETER G(LIQUID,AL;0) 298.15 +GALLIQ#;  6000   N 91Din !
+   PARAMETER G(LIQUID,FE;0) 298.15 +GFELIQ#;  6000   N 91Din !
+   PARAMETER G(LIQUID,AL,FE;0) 298.15 -88090+19.8*T;  6000     N 08Sun !
+   PARAMETER G(LIQUID,AL,FE;1) 298.15 -3800+3*T;  6000   N   08Sun !
+   PARAMETER G(LIQUID,AL,FE;2) 298.15 -2000;  6000   N 08Sun !
+
+
+ TYPE_DEFINITION F GES A_P_D @ MAGNETIC  -3.0    2.80000E-01 !
+ PHASE A1_FCC  %F  2 1   1 !
+    CONSTITUENT A1_FCC  :AL,FE : VA :  !
+
+   PARAMETER G(A1_FCC,AL:VA;0) 298.15 +GHSERAL#;  6000   N   91Din !
+   PARAMETER G(A1_FCC,FE:VA;0) 298.15 +GFEFCC#;  6000   N   91Din !
+   PARAMETER TC(A1_FCC,FE:VA;0) 298.15 -201;  6000   N 91Din !
+   PARAMETER BMAGN(A1_FCC,FE:VA;0) 298.15 -2.1;  6000   N   91Din !
+   PARAMETER G(A1_FCC,AL,FE:VA;0) 298.15 +LFALFE0#;  6000   N   08Sun !
+   PARAMETER G(A1_FCC,AL,FE:VA;1) 298.15 +LFALFE1#;  6000   N   08Sun !
+   PARAMETER G(A1_FCC,AL,FE:VA;2) 298.15 +LFALFE2#;  6000   N   08Sun !
+
+
+ TYPE_DEFINITION B GES A_P_D @ MAGNETIC  -1.0    4.00000E-01 !
+ PHASE A2_BCC  %B  2 1   3 !
+    CONSTITUENT A2_BCC  :AL,FE : VA :  !
+
+   PARAMETER G(A2_BCC,AL:VA;0) 298.15 +GALBCC#;  2.90000E+03  N 91Din !
+   PARAMETER G(A2_BCC,FE:VA;0) 298.15 +GHSERFE#;  6000   N   91Din !
+   PARAMETER TC(A2_BCC,FE:VA;0) 298.15 1043;  6000   N 91Din !
+   PARAMETER BMAGN(A2_BCC,FE:VA;0) 298.15 2.22;  6000   N   91Din !
+   PARAMETER G(A2_BCC,AL,FE:VA;0) 298.15 -122960+32*T;  6000     N 93Sei !
+   PARAMETER G(A2_BCC,AL,FE:VA;1) 298.15 2945.2;  6000   N   93Sei !
+   PARAMETER TC(A2_BCC,AL,FE:VA;0) 298.15 -438;  6000   N   01Ohn !
+   PARAMETER TC(A2_BCC,AL,FE:VA;1) 298.15 -1720;  6000   N  01Ohn !
+
+
+
+ PHASE AL13FE4  %  3 .6275   .235   .1375 !
+    CONSTITUENT AL13FE4  :AL : FE : AL,VA :  !
+
+   PARAMETER G(AL13FE4,AL:FE:AL;0) 298.15 -30680+7.4*T+.765*GHSERAL#
+  +.235*GHSERFE#;  6000   N 08Sun !
+   PARAMETER G(AL13FE4,AL:FE:VA;0) 298.15 -28100+7.4*T+.6275*GHSERAL#
+  +.235*GHSERFE#;  6000   N 08Sun !
+
+
+ PHASE AL2FE  %  2 2   1 !
+    CONSTITUENT AL2FE  :AL : FE :  !
+
+   PARAMETER G(AL2FE,AL:FE;0) 298.15 -104000+23*T+2*GHSERAL#+GHSERFE#;
+    6000   N 08Sun !
+
+
+ PHASE AL5FE2  %  2 5   2 !
+    CONSTITUENT AL5FE2  :AL : FE :  !
+
+   PARAMETER G(AL5FE2,AL:FE;0) 298.15 -235600+54*T+5*GHSERAL#
+  +2*GHSERFE#;  6000   N 08Sun !
+
+
+ PHASE AL8FE5_D82  %  2 8   5 !
+    CONSTITUENT AL8FE5_D82  :AL,FE : AL,FE :  !
+
+   PARAMETER G(AL8FE5_D82,AL:AL;0) 298.15 +13*GALBCC#;  6000     N 08Sun !
+   PARAMETER G(AL8FE5_D82,FE:AL;0) 298.15 +200000+36*T+5*GALBCC#
+  +8*GHSERFE#;  6000   N 08Sun !
+   PARAMETER G(AL8FE5_D82,AL:FE;0) 298.15 -394000+36*T+8*GALBCC#
+  +5*GHSERFE#;  6000   N 08Sun !
+   PARAMETER G(AL8FE5_D82,FE:FE;0) 298.15 +13*GHSERFE#+13000; 6000   N 08Sun !
+   PARAMETER G(AL8FE5_D82,AL:AL,FE;0) 298.15 -100000;    6000   N 08Sun !
+   PARAMETER G(AL8FE5_D82,AL,FE:FE;0) 298.15 -174000;    6000   N 08Sun !
+
+
+$ THIS PHASE HAS A DISORDERED CONTRIBUTION FROM A2_BCC                  
+ PHASE BCC_4SL:B %BX  5 .25   .25   .25   .25   3 !
+    CONSTITUENT BCC_4SL:B :AL,FE : AL,FE : AL,FE : AL,FE : VA :  !
+
+   PARAMETER G(BCC_4SL,AL:AL:AL:FE:VA;0) 298.15 +GD03ALFE#;    6000   N 08Sun !
+   PARAMETER TC(BCC_4SL,AL:AL:AL:FE:VA;0) 298.15 -125;  6000     N 01Ohn !
+   PARAMETER BMAGN(BCC_4SL,AL:AL:AL:FE:VA;0) 298.15 BMALFE;  6000    N 08Sun !
+   
+   PARAMETER G(BCC_4SL,AL:AL:FE:FE:VA;0) 298.15 +GB2ALFE#;    6000   N 08Sun !
+   PARAMETER TC(BCC_4SL,AL:AL:FE:FE:VA;0) 298.15 -250;    6000   N 01Ohn !
+   PARAMETER BMAGN(BCC_4SL,AL:AL:FE:FE:VA;0) 298.15 2*BMALFE; 6000 N 08Sun !
+   
+   PARAMETER G(BCC_4SL,AL:FE:AL:FE:VA;0) 298.15 +GB32ALFE#;    6000   N 08Sun !
+   PARAMETER TC(BCC_4SL,AL:FE:AL:FE:VA;0) 298.15 -125;  6000     N 01Ohn !
+   PARAMETER BMAGN(BCC_4SL,AL:FE:AL:FE:VA;0) 298.15 BMALFE;  6000    N 08Sun !
+   
+   PARAMETER G(BCC_4SL,AL:FE:FE:FE:VA;0) 298.15 +GD03FEAL#;   6000   N 08Sun !
+   PARAMETER TC(BCC_4SL,AL:FE:FE:FE:VA;0) 298.15 -125;  6000     N 01Ohn !
+   PARAMETER BMAGN(BCC_4SL,AL:FE:FE:FE:VA;0) 298.15 BMALFE;  6000    N 08Sun !
+   
+   PARAMETER G(BCC_4SL,AL,FE:*:*:*:VA;1) 298.15 -634+0.68*T; 6000   N 08Sun !
+   PARAMETER G(BCC_4SL,AL,FE:*:*:*:VA;2) 298.15 -190;    6000   N 08Sun !
+   PARAMETER TC(BCC_4SL,AL,FE:*:*:*:VA;0) 298.15 +125;  6000     N 01Ohn !
+   PARAMETER BMAGN(BCC_4SL,AL,FE:*:*:*:VA;0) 298.15 BLALFE0; 6000   N 08Sun !
+   PARAMETER BMAGN(BCC_4SL,AL,FE:*:*:*:VA;1) 298.15 BLALFE1; 6000   N 08Sun !
+   PARAMETER BMAGN(BCC_4SL,AL,FE:*:*:*:VA;2) 298.15 BLALFE2; 6000   N 08Sun !
+
+
+
+$ THIS PHASE HAS A DISORDERED CONTRIBUTION FROM A1_FCC                  
+ PHASE FCC_4SL:F %FY  5 .25   .25   .25   .25   1 !
+    CONSTITUENT FCC_4SL:F :AL,FE : AL,FE : AL,FE : AL,FE : VA :  !
+
+   PARAMETER G(FCC_4SL,AL:AL:AL:AL:VA;0) 298.15 +ZERO#;  6000     N 08Con !
+   PARAMETER G(FCC_4SL,FE:AL:AL:AL:VA;0) 298.15 +GAL3FE#;    6000   N 08Con !
+   PARAMETER G(FCC_4SL,FE:FE:AL:AL:VA;0) 298.15 +GAL2FE2#;   6000   N 08Con !
+   PARAMETER G(FCC_4SL,FE:FE:FE:AL:VA;0) 298.15 +GALFE3#;    6000   N 08Con !
+   PARAMETER G(FCC_4SL,FE:FE:FE:FE:VA;0) 298.15 +ZERO#;  6000     N 08Con !
+   PARAMETER G(FCC_4SL,AL,FE:AL,FE:*:*:VA;0) 298.15 +SFALFE#;  6000   N 08Con !
+
+
+ASSESSED_SYSTEM AL-FE(TDB -A2_B2 -A2_VA -BCC_VA -B2_BCC 
+  ;G5 C_S:BCC_4/AL:AL:FE:FE:VA: C_S:BCC_4/AL:FE:FE:FE:VA:
+  ;P3 TMM:300/3000 STP:0.99/1400/-1 STP:0.77/600/1 STP:0.45/500/1 )
+!
+
+ LIST_OF_REFERENCES
+ NUMBER  SOURCE
+ 91Din 'A T Dinsdale, Calphad 1991'
+ 93Sei 'M Seiersten, unpublished 1993'
+ 01Ohn 'I Ohnuma, unpublished 2001'
+ 08Con 'D Connetable et al, Calphad 2008; AL-C-Fe'
+ 08Sun 'B Sundman, to be published'
+ 08Dup 'N Dupin, vacancies in bcc'
+  ! 
+\end{verbatim}
+}
+  
+\end{appendices}
+
+\end{document}
+
+
+\subsubsection{All model parameter identifiers}
+
+A recommended list of model parameter identifiers, the model they
+are used in, if they can depend on $T$ and $P$ and their meaning.
+These are the recommended for use in the XMLTDB files, each software
+can use another their software.
+
+\begin{tabular}{llll}
+  MPID & Model name &  $T$ or $P$ dep & Represent\\\hline
+  G    & -          &  $TP$ & Reference and excess Gibbs energy\\
+  TC   & IHJBCC, IHJREST & $P$ & Curie or N{\'e}el $T$ \\
+  BMAGN & IHJBCC, IHJREST, IHJQX & $P$ & Bohr magneton number \\
+  CT   & IHJQX       & $P$ &Curie $T$ \\
+  NT   & IHJQX       & $P$ & N{\'e}el $T$ \\
+  LNTH & GLOWEIN     & none & Natural logarithm of Einstein $\theta$\\
+  G2   & LIQ2STATE & $TP$  & Energy for amorphour state transition \\
+  V0   & VOLOWP    & none & Volume at $T=298.15$~K and $P=1$~bar \\
+  VA   & VOLOWP    & $T$  & Thermal expansition \\
+  VB   & VOLOWP    & $TP$ & Related to the bulk modulus  \\\hline
+  VS   & -         & ?    & Diffusion volume parameter \\
+  MQ@  & -         & ?    & Mobility activation energy\\
+  MF@  & -         & ?    & Mobility frequency factor\\
+  MG@  & -         & ?    & Magnetic mobility factor\\\hline
+\end{tabular}
+
+}
+

@@ -1,0 +1,295 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{graphicx,subfigure}              % with figures
+% sometimes needed to have pdf files 
+\pdfsuppresswarningpagegroup=1
+\topmargin -1mm
+\oddsidemargin -1mm
+\evensidemargin -1mm
+\textwidth 170mm
+\textheight 220mm
+\parskip 2mm
+\parindent 3mm
+\pagestyle{empty}
+\usepackage{xcolor}
+\usepackage[normalem]{ulem}
+
+% For appendices
+%\usepackage[titletoc,title,header]{appendix}
+
+%\usepackage[firstpage]{draftwatermark}
+%\SetWatermarkScale{4}
+
+\begin{document}
+
+{\Large \bf Agenda for meeting 4-5 May 2023 in Udine}
+
+\bigskip
+
+The 4 May the meeting will begin 13.00 (UTC+1, Tokyo 21.00; New York 07.00)
+
+Maybe Italy has summertime, i.e. UTC+2, one hour earlier in Tokyo and New York.
+
+% UTC+9   UTC+1  UTC-5
+%  +8       0      -6
+% Tokyo   Udine  New York
+% 21.00   13.00  07.00
+%         UTC+2  summer time?
+% 20.00   13.00  06.00
+
+%\bigskip
+
+\begin{enumerate}
+\item 13.00 Welcome and a short presentation by each participant.
+
+\item 13.30 An attempt to summarize the important tasks of a database
+  manager: Participating in assessments, collecting published
+  assessments, testing extrapolations, estimating missing parameters,
+  updating old assessments, incorporate feedback from database users,
+  information useful for future managers.  What can be documented in
+  the database or need additional files/figures?  All are welcome to
+  prepare a few slides!
+
+\item 14.30 Coffee break
+  
+\item 14.50 Details of the XML format and how it can be adapted for
+  TDB files to improve the documentation and consistency.
+
+\item 15.10 Survey of old and new models used in the TDB file and how
+  they can be handled in the XML file.
+
+\item 15.30 A simple independent software to upload a TDB file to a
+  rudimentary XMLTDB format.
+
+\item 16.00 Discussion how we should organize the project with the
+  limited funding.  Tasks for each participant. Next meeting.
+
+\item 17.00 End of the first day.
+\end{enumerate}
+
+Second day 5 May the meeting will start 09.00 (bad time for TEAMS,
+probably only particpants in Europe)
+
+\begin{enumerate}
+\item 09.00 Economy.
+
+\item 09.30 New unary models and parameters.
+
+\item 10.30 Coffee break
+
+\item 10.50 How to handle particular models in the XMLTDB file.
+
+\item 11.10 Structurng model parameter identifiers including
+  non-thermodynamc properties.
+
+\item 11.30 Free discussion
+
+\item 12.00 End of meeting.
+
+\end{enumerate}
+
+\newpage
+
+{\bf \large Some ideas of organizing the database management}
+
+I have (again) summarized some ideas here and feedback from all users
+and developers are important.  You are all welcome to circulate your
+opinon of what to discuss prepare a short presentation of how to
+manage a thermodynamic database for the meeting 4-5 May.
+
+A TDB file consists of data for elements, species and phases.  All
+thermodynamic data is associated with the phases and the models for
+the phases.  The current TDB format have a number of features that can
+be improved, in particular how to describe different model features.
+For example the {\bf TYPE\_DEFINITION} keyword should be replaced by
+an {\bf AMEND} specifying for each phase some particular model
+feature.
+
+I want again stress that the XMLTDB file will normally not be read
+directly by a thermodynamic software, nor by the database manager.
+There will be an ``upload'' and``download'' software to convert an
+XMLTDB file to the software specific TDB file format and vice versa.
+That was the original idea with TDB the format.
+
+Some points (several already stated):
+\begin{enumerate}
+\item An XMLTDB file will normally not be edited directly which means
+  there must be efficient software to upload/download this format to
+  the software specific TDB format. A main objective is that the
+  database managers must be able to add critical information about the
+  models and parameters used in a database.  Such information is very
+  important for the second and later generation of database managers.
+
+  There must be efficient means for ``comments'' in the ``master TDB''
+  file edited by the database manager to be included in the XMLTDB
+  file.  These comments my be supressed on a TDB file provided to a
+  user.
+
+\item Different database managers have different ways of organize
+  their ``master TDB'' file and it should be possible to upload and
+  download the XMLTDB file in their preferred way including all their
+  comments.  For the general user the data are normally ordered by
+  phase but for updating it may be better to have them ordered as
+  unary, binary, ternary and higher order systems.  But it would be
+  interesting to know how each manager handles the database and if
+  there are some useful ideas to share.
+
+\item Some model features have different implementation in various
+  software but the way to handle them in the XMLTDB file should be
+  independent of a particular implementation.  When downloading a TDB
+  file from an XMLTDB file the downloading software should be able to
+  handle such differences.
+  
+\item The ``model parameter identifier'' (MPI) in a parameter
+  associates the parameter with some model for the phase.  A parameter
+  with the MPI {\bf G} is associated with the fundamental Gibbs
+  energy function, {\bf TC} and {\bf BMAG} are associated with
+  different magnetic models.
+
+  Several new MPI have also been added by the new unary models and by
+  different software, also for handling data that are not associated
+  with the thermodynamic data, for example variants of {\bf MQ} for
+  mobility data.  Some of these may be unique for different
+  constituents or components.  We should try to establish an agreed
+  set and format for the MPI.
+
+  A parameter is a function of $T$ and $P$ and has a reference to the
+  phase and the constituents, the fraction of which should be
+  multiplied with the parameter.  This makes it possible for a
+  parameter to appear anywhere in a TDB file (or at least anywhere
+  after the phase and its constituents have been entered).  But each
+  database manager may have his/her own preference.
+  
+\item It should be checked that particular MPI parameters for a phase
+  have the appropriate model associated with the phase when uploading
+  a TDB file.  Also check that a phase with a model requiring a
+  particular MPI have such parameters, unless the model will give zero
+  contribution with no such parameters.  I am not sure if the new
+  magnetic model does that.
+
+\item Originally the TDB file was read once sequentially but new
+  models means that several rewind/read are often needed, in
+  particular to pick up missing functions and ``disordered parts'' of
+  phases.  We should consider this when designing the download
+  software.
+
+\item The ``disordered part'' or ``partitioned'' model is an important
+  simplification to handle parameters for phases with several
+  sublattices.  In the original TC implementation this was achieved by
+  adding two separate phases, in OC there is a single phase with two
+  sets of constituent set of fractions where the disordered fractions
+  are calculated from the ordered set.  This makes it easier for a
+  manager to handle the model parameters.
+
+  In some cases only the disordered part of an FCC phase is needed but
+  it is better to keep the ordered and disordered parts together in
+  the XMLTDB file.  It can be an option when downloading to a TDB file
+  to ignore the constituents and parameters for the ordered part.
+
+  In other cases the disordered part is useful to reduce the number of
+  parameters, for example in a 5 sublattice model of $\sigma$ for a
+  multicomponent system there many parameters G(sigma,A:B:C:D:E) which
+  are not assessed and described by\\
+
+  PARAMETER G(SIGMA,A:B:C:D:E) 298.15 2*GSIGMA\_A+4*GSIGMA\_B\\
+  +8*GSIGMA\_C+8*GSIGMA\_D+8*GSIGMA\_E; 6000 N!
+
+  Such parameters can simply be ignored if there is a disordered
+  fraction set for A, B, C, D, E with the pure element parameters.
+  Only assessed ordered parameters are needed.
+
+\item As proposed by Nathalie we should no longer use the model (for
+  phases with order/disorder transformation) where the ordered part of
+  a partitioned phase is subtracted using the disordered set of
+  fractions in the ordered aublattices, i.e.
+  \begin{eqnarray}
+    G_M &=& G^{\rm disord}_M(x) + (G^{\rm ord}_M(y) - G^{\rm ord}_M(y=x))
+  \end{eqnarray}
+  where $G^{\rm disord}_M(x)$ is the Gibbs energy for the disordered
+  part, $G^{\rm ord}_M(y)$ is that for the ordered part and
+  $G^{\rm~ord}_M(y=x)$ is the ordered part recalculated as disordered.
+  The latter two cancel in the disordered state.  We should simply
+  add the ordered and disordered parts:
+  \begin{eqnarray}
+    G_M &=& G^{\rm disord}_M(x) + G^{\rm ord}_M(y)
+  \end{eqnarray}
+
+  The only advanatage of subtracting the ordered part ``as disordred''
+  is that the disordered part can be assessed independently of the
+  ordered one but there are few systems where that is useful.
+  
+\item The ``parameter permutation'' feature is interesting for phases
+  with order/disorder transformation.  It can reduce significantly the
+  number of parameters as all parameters\\
+  G(FCC\_4SL,A:A:A:B)\\
+  with the B in different sublattices are the same.  Preferably they
+  occur only once in the XMLTDB file and are duplicated when
+  downloaded to a TDB file for a software in which permutations are
+  not implemented.
+
+\item We have several models for the liquid and it might be
+  interesting to have duplicate models of the same phase in the XMLTDB
+  file because the other phases may be the same.  At least a regular
+  solution liquid phase in parallel with the I2SL model which in many
+  cases is identical.  It should be possible when downloading a TDB
+  file to select the model for such a phase.
+
+  As already mentioned an ordered or disordered version of FCC and BCC
+  phases may be selected.  But they would not require duplicate set of
+  parameters in the XMLTDB file.
+
+\item We must consider the models developed by the new unary project
+  such as the low $T$ vibrational entropy, new magnetic reference
+  state, the two-state liquid model, the Equivalent Entropy Criteria
+  (EEC).  This has created new types of MPI.
+
+  It has been decided not to use multiple composition dependent
+  Einstein-$T$ describing the heat capacity of a pure element down to
+  0~K.  I am very much in favour of this but such a feature may be
+  useful for oxides and some other kinds compounds.  Multiple
+  Einstein-$T$ parameters for the unaries would create confusion for
+  assessments.
+  
+\item The elements and species are simple to handle except that
+  species has a problem handling the MQMQA and UNIQAC models.  In
+  these models the species have additional properties needed such as
+  bonds and FNN/SNN ratios or volume and area needed to calculate the
+  configurational entropy.
+
+\item A favourite topic for me has been the names of phases.  But I
+  think we have reached a reasonable agreement using a ``popular''
+  name such as FCC augemnted with a ``Structurbericht'' notation, A1,
+  for austenite.  Although it is a complication that for example TiC
+  is the same phase.
+
+\item An important point is also to convince journals that all
+  published assessments should provide the assessed parameters in an
+  XMLTDB file as supplementary data.
+
+\end{enumerate}
+
+\end{document}
+
+\begin{enumerate}
+\item We should try to establish what we mean with different models.
+  For me I consider
+  \begin{enumerate}
+  \item The IDEAL model with a single set of sites and no excess parameters.
+    Typically the gas phase at high $T$ and low $P$.
+  \item A REGULAR model with a single set of sites and excess parameters.
+  \item A CEF (Compound Energy Formalism) based model has normally two
+    or more sublattices with ideal mixing on each.  Excess parameters
+    for interactions on each sublattices and also.  The ideal and
+    regular models can be considered as  special cases of CEF.
+  \item The MQMQA model as developed by Pelton et al.
+  \item The cell model developed by Guy and 
+  \end{enumerate}
+\end{enumerate}
+
+
+  \begin{eqnarray}
+\end{eqnarray}
+
+\begin{enumerate}
+\end{enumerate}
