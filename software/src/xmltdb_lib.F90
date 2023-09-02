@@ -9,20 +9,21 @@ MODULE XMLTDB_LIB
 !
 ! Fortran definition of the XMLelements for use in XMLTDB project
 !
-! first draft 2023.03.15 Bo Sundman
+! First draft 2023.03.15 Bo Sundman
 ! Later draft 2023.05.10 Bo Sundman
+! Current draft 2023.08.12 Bo Sundman
 !
   implicit none
 !
 !---------------------------
 ! these are amend model indices
     integer, parameter :: IHJBCC=1,IHJREST=2,IHJQX=3,GLOWTEIN=4
-    integer, parameter :: LIQ2STATE=5,VOLOWP=6,DISFS=7,FCCPERM=8
-    integer, parameter :: BCCPERM=9
+    integer, parameter :: LIQ2STATE=5,VOLOWP=6,SPLITPHASE=7,FCC4Perm=8
+    integer, parameter :: BCC4Perm=9
 ! Not yet unstalled
     integer, parameter :: EEC=10,MQMQA=11,UNIQUAC=12
-! NOTE: DISFS require names of ordered and disordered phases and the number
-!        of sublattices to sum in the ordered phase
+! NOTE: SPLITPHASE require names of ordered and disordered phases and if
+! ordered suptracted and the numberof sublattices to sum in the ordered phase
 !        (this value is either all or all except the last (intersttial))
 !----------------------------
 ! error messages
@@ -120,7 +121,7 @@ MODULE XMLTDB_LIB
      character*24 type_defs
 ! list with links to additional models (magnetism, disoredered sets etc)
      type(xmltdb_addmodel), pointer :: amendphase
-     integer disfs_sum
+     integer splitphase_sum
 ! constituents
      integer, dimension(:), allocatable :: nconst
      character*24, dimension(:,:), allocatable :: constituents
@@ -168,7 +169,7 @@ MODULE XMLTDB_LIB
      integer :: numberof_mpid
      character*24, dimension(:), allocatable :: required_mpid
 ! other info needed, functions, phases etc
-     character*128,dimension(:), allocatable :: model_info
+     character*128,dimension(:), allocatable :: model_desc
      double precision, dimension(:), allocatable :: model_numbers
   end type xmltdb_model
 !------------------------------------------      
@@ -184,7 +185,7 @@ MODULE XMLTDB_LIB
      character id*1
      character*128 :: action
      type(xmltdb_model), pointer :: modelink
-! model_int is used for the DISFS model for sublattices to be summed
+! model_int is used for the SPLITPHASE model for sublattices to be summed
      integer :: modelindex,model_int
      type(xmltdb_typedefs), pointer :: next
   end type xmltdb_typedefs
@@ -291,7 +292,8 @@ CONTAINS
     integer ia
 ! NOTE the models should be entered in the order of the constants
 !    integer, parameter :: IHJBCC=1,IHJREST=2,IHJQX=3,GLOWTEIN=4
-!    integer, parameter :: LIQ2STATE=5,DISFS=6,FCCPERM=7,BCCPERM=8
+!    integer, parameter :: LIQ2STATE=5,VOLOWP=6,SPLITPHASE=7,FCC4Perm=8
+!    integer, parameter :: BCC4Perm=9
 !
 ! 1. Inden-Hillert-Jarl magnetic model for BCC
     nomod=nomod+1
@@ -304,10 +306,10 @@ CONTAINS
 ! the anti-ferromagnetic factor
     mlist(nomod)%model_real=-1.0D0
 ! functions above and below TC
-    allocate(mlist(nomod)%model_info(2))
-    mlist(nomod)%model_info(1)=' +1-0.905299383*TAO**(-1)'//&
+    allocate(mlist(nomod)%model_desc(2))
+    mlist(nomod)%model_desc(1)=' +1-0.905299383*TAO**(-1)'//&
          '-0.153008346*TAO**3-.00680037095*TAO**9-.00153008346*TAO**15;'
-    mlist(nomod)%model_info(2)=' -.0641731208*TAO**(-5)-'//&
+    mlist(nomod)%model_desc(2)=' -.0641731208*TAO**(-5)-'//&
          '.00203724193*TAO**(-15)-.000427820805*TAO**(-25);'
     mlist(nomod)%model_int=0
 !------------------------------------------
@@ -321,10 +323,10 @@ CONTAINS
     mlist(nomod)%required_mpid(2)='BMAGN'
 ! the anti-ferromagnetic factor
     mlist(nomod)%model_real=-3.0D0
-    allocate(mlist(nomod)%model_info(2))
-    mlist(nomod)%model_info(1)=' +1-0.860338755*TAO**(-1)'//&
+    allocate(mlist(nomod)%model_desc(2))
+    mlist(nomod)%model_desc(1)=' +1-0.860338755*TAO**(-1)'//&
          '-0.17449124*TAO**3-.00775516624*TAO**9-.0017449124*TAO**15;'
-    mlist(nomod)%model_info(2)=' -.0426902268*TAO**(-5)'//&
+    mlist(nomod)%model_desc(2)=' -.0426902268*TAO**(-5)'//&
          '-.0013552453*TAO**(-15)-.000284601512*TAO**(-25);'
     mlist(nomod)%model_int=0
 !------------------------------------------
@@ -340,10 +342,10 @@ CONTAINS
     mlist(nomod)%required_mpid(3)='BMAGN'
 ! the anti-ferromagnetic factor
     mlist(nomod)%model_real=0.0D0
-    allocate(mlist(nomod)%model_info(2))
-    mlist(nomod)%model_info(1)=' +1-0.842849633*TAO**(-1)-0.174242226*TAO**3'//&
+    allocate(mlist(nomod)%model_desc(2))
+    mlist(nomod)%model_desc(1)=' +1-0.842849633*TAO**(-1)-0.174242226*TAO**3'//&
          '-.00774409892*TAO**9-.00174242226*TAO**15-.000646538871*TAO**21;'
-    mlist(nomod)%model_info(2)=' -.0261039233*TAO**(-7)'//&
+    mlist(nomod)%model_desc(2)=' -.0261039233*TAO**(-7)'//&
          '-.000870130777*TAO**(-21)-.000184262988*TAO**(-35)'//&
          '-6.65916411E-05*TAO**(-49);'
     mlist(nomod)%model_int=0
@@ -357,8 +359,8 @@ CONTAINS
     mlist(nomod)%numberof_mpid=1
     allocate(mlist(nomod)%required_mpid(1))
     mlist(nomod)%required_mpid(1)='LNTH'
-    allocate(mlist(nomod)%model_info(1))
-    mlist(nomod)%model_info(1)='Gibbs energy due to the Einstein low T '//&
+    allocate(mlist(nomod)%model_desc(1))
+    mlist(nomod)%model_desc(1)='Gibbs energy due to the Einstein low T '//&
          'vibrational entropy model, G=1.5*R*THETA+3*R*T*LN(1-EXP(-THETA/T)).'
 !----------------------------------------------
 ! 5. Liquid 2state model
@@ -371,8 +373,8 @@ CONTAINS
     allocate(mlist(nomod)%required_mpid(2))
     mlist(nomod)%required_mpid(1)='G2'
     mlist(nomod)%required_mpid(2)='LNTH'
-    allocate(mlist(nomod)%model_info(1))
-    mlist(nomod)%model_info(1)='Unified model for the liquid and '//&
+    allocate(mlist(nomod)%model_desc(1))
+    mlist(nomod)%model_desc(1)='Unified model for the liquid and '//&
          'the amorphous state treated as an Einstein solid'
 !----------------------------------------------
 ! 6. Volume model for low and moderate Pressures (Lu 2003)
@@ -385,23 +387,31 @@ CONTAINS
     mlist(nomod)%required_mpid(1)='V0'
     mlist(nomod)%required_mpid(2)='VA'
     mlist(nomod)%required_mpid(3)='VB'
-    allocate(mlist(nomod)%model_info(1))
-    mlist(nomod)%model_info(1)='The volume of a phase is described '//&
+    allocate(mlist(nomod)%model_desc(1))
+    mlist(nomod)%model_desc(1)='The volume of a phase is described '//&
          'as function of T, P and its constitution.'
 !
 !----------------------------------------------
 ! 7. Disordered model for different phases, need to know how many sublattices 
     nomod=nomod+1
-    mlist(nomod)%ID='DISFS'
-! Reference AL-Fe assessment or has disordered fraction sets been used before?
-    mlist(nomod)%bibref='09Sun'
+    mlist(nomod)%ID='SPLITPhase'
+! Reference AL-Fe assessment 
+    mlist(nomod)%bibref='07Hal'
     mlist(nomod)%numberof_mpid=0
-    allocate(mlist(nomod)%model_info(2))
-    mlist(nomod)%model_info(1)='The disordered fractions are summed '//&
-         'over the ordered sublattices indicated at the phase.'
-    mlist(nomod)%model_info(2)='  The Gibbs energy calculated 2 or 3 times '//&
-         'as indicated by the CEF_appendix but the configurational entropy '//&
-         'only once.'
+    allocate(mlist(nomod)%model_desc(3))
+! each model_desc line can be 128 characters
+    mlist(nomod)%model_desc(1)='The SplitPhase tag must be specified explicly'&
+         //' and add fractions in the ordered sublattices of the ordered'&
+         //' phase to use in the'
+    mlist(nomod)%model_desc(2)=' disordered phase.  The Gibbs energy is'&
+         //' calculated 2 or 3 times as indicated by the "Subtract"'&
+         //' attribute '
+    mlist(nomod)%model_desc(3)='but the configurational entropy only once.'
+!23456789.123456789.123456789.123456789.12345678
+!
+! do not list any SPLITPHASE info on screen
+!    write(*,*)'SPLITPHASE: ',trim(mlist(nomod)%model_desc(1)),&
+!         trim(mlist(nomod)%model_desc(2)),trim(mlist(nomod)%model_desc(3))
 ! in the phase typedefs record with a link to this record the phase names
 !  are stored and also the number of sublattices to be summed in the
 ! ordered phase.  For FCC, BCC normally 4 (the last sublattice is interstitial)
@@ -410,29 +420,31 @@ CONTAINS
 !----------------------------------------------
 ! 8. Permutation of ordered FCC parameters
     nomod=nomod+1
-    mlist(nomod)%id='FCCPERM'
+    mlist(nomod)%id='FCC4Perm'
     mlist(nomod)%bibref='09Sun'
     mlist(nomod)%model_int=0
     mlist(nomod)%model_real=0.0D0
     mlist(nomod)%numberof_mpid=0
 !    allocate(mlist(nomod)%required_mpid(1))
 !    mlist(nomod)%required_mpid(1)=
-    allocate(mlist(nomod)%model_info(1))
-    mlist(nomod)%model_info(1)='Permutations of ordered FCC parameters with '//&
-         'the same set of elements are listed only once.'
+    allocate(mlist(nomod)%model_desc(1))
+!    mlist(nomod)%model_info(1)=' '
+    mlist(nomod)%model_desc(1)=' Permutations of ordered FCC parameters '//&
+         'with the same set of elements are listed only once.'
 !----------------------------------------------
 ! 9. Permutations of ordered BCC parameters
     nomod=nomod+1
-    mlist(nomod)%id='BCCPERM'
+    mlist(nomod)%id='BCC4Perm'
     mlist(nomod)%bibref='09Sun'
     mlist(nomod)%model_int=0
     mlist(nomod)%model_real=0.0D0
     mlist(nomod)%numberof_mpid=0
 !    allocate(mlist(nomod)%required_mpid(1))
 !    mlist(nomod)%required_mpid(1)=
-    allocate(mlist(nomod)%model_info(1))
-    mlist(nomod)%model_info(1)='Permutations of ordered BCC parameters with '//&
-         'the same set of elements are listed only once.'
+    allocate(mlist(nomod)%model_desc(1))
+!    mlist(nomod)%model_info(1)=' '
+    mlist(nomod)%model_desc(1)=' Permutations of ordered BCC parameters '//&
+         'with the same set of elements are listed only once.'
 !----------------------------------------------
 ! 10. EEC
     nomod=nomod+1
@@ -443,8 +455,8 @@ CONTAINS
     mlist(nomod)%numberof_mpid=0
 !    allocate(mlist(nomod)%required_mpid(2))
 !    mlist(nomod)%required_mpid(1)=
-    allocate(mlist(nomod)%model_info(1))
-    mlist(nomod)%model_info(1)='Equi-Entropy Criterion means that solid '//&
+    allocate(mlist(nomod)%model_desc(1))
+    mlist(nomod)%model_desc(1)='Equi-Entropy Criterion means that solid '//&
          'phases with higher entropy that the liquid phase must not be stable.'
 !----------------------------------------------
 !    nomod=nomod+1
@@ -532,7 +544,7 @@ CONTAINS
 !         'TYPE_DEFINITION     ','LIST_OF_REFERENCES  ',&
 !         'ADD_REFERENCES      ','ASSESSED_SYSTEMS    ',&
 !         'DATABASE_INFORMATION','VERSION             ',&
-!         'DEFAULT_COMMAND     ','DEFINE              ']
+!         'DEFAULT_COMMAND     ','DEFINE              ',&
 !         'TEMPERATURE_LIMITS  ','                    ']
 ! Pandat extra
 !         'PROPERTY            ','VARIABLE            ',&
@@ -751,7 +763,7 @@ CONTAINS
 ! Pandat property or variable
        case(17,18)
 !          write(*,*)'Keyword index: ',key,xmlerr,ip
-! pandatype=1 for property, =2 for variable, very messy: 16 is TC commands ...
+! pandatype=1 for property, =2 for variable, very messy: 16 is 
           pantyp=key-16
           call getfun(line,ip,pantyp)
        end select
@@ -851,19 +863,32 @@ CONTAINS
     jp=index(line,'!')
     if(jp.gt.0) line(jp:jp)=' '
 ! beginning of species name
-    if(eolch(line,ip)) goto 2000
-    jp=ip
+    if(eolch(line,ip)) then
+       write(*,*)'No species name '
+       xmlerr=5001; goto 1000
+    endif
+!    jp=ip
+! Initiate jp to be second letter in species name
+    jp=2
     call skip_to_space(line(ip:),jp)
     splist(nosp)%id=line(ip:ip+jp-1)
+    call checkspname(splist(nosp)%id)
+    if(xmlerr.ne.0) goto 1000
+!    write(*,*)'Found species name: ',splist(nosp)%id,ip,jp
 !
     ip=ip+jp+1
 ! extract stoichiometry
-    if(eolch(line,ip)) goto 2000
+    if(eolch(line,ip)) then
+       write(*,102)nosp,trim(splist(nosp)%id),ip
+102    format('No stoichiometry of species: ',i4,' name: "',a,'" after pos:',i5)
+       xmlerr=5002; goto 1000
+    endif
     jp=ip
     call skip_to_space(line,jp)
 ! we should extract elements and stoichiometry eventually ...
     splist(nosp)%stoichiometry=line(ip:jp-1)
-1000 continue
+    call checkspstoi(splist(nosp)%stoichiometry)
+    if(xmlerr.ne.0) goto 1000
 !    write(*,*)'Species: "',trim(splist(nosp)%id),'"',nosp
 ! sporder is the species in alphabetical order, nosp>1 here as elements added
     if(nosp.eq.1) then
@@ -881,14 +906,14 @@ CONTAINS
              exit loop
           endif
        enddo loop
+! NO CHECK SPECIES CONTAINS VALID ELEMENTS?
 !       write(*,21)'Order: ',(sporder(kp),kp=1,nosp)
 !       write(*,20)'Order: ',(trim(splist(sporder(kp))%id),kp=1,nosp)
 20     format(a,20(1x,a))
 21     format(a,20i3)
     endif
+1000 continue
     return
-2000 xmlerr=5000
-    goto 1000
   end subroutine getspdata
 
 !/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!
@@ -909,7 +934,7 @@ CONTAINS
     phlist(noph)%name=line(jp:ip-1)
 ! links for amend a phase for magnetism etc.
     nullify(phlist(noph)%amendphase)
-    phlist(noph)%disfs_sum=0
+    phlist(noph)%splitphase_sum=0
 ! default configmodel and aggregation
     phlist(noph)%configmodel='CEF'
 ! maybe aggregation 'COMPOUND' or "C" for phases with fixed composition?
@@ -931,11 +956,15 @@ CONTAINS
              phlist(noph)%aggregation='LIQUID'
              phlist(noph)%configmodel='I2SL'
           elseif(ch1.eq.'B') then
-             call amendphase(noph,'BCCPERM',&
-                  'The parameters have BCC permutations')
+! first character a space to not write any info for the phase
+             write(*,*)' **** BCC4Perm amendment'
+             call amendphase(noph,'BCC4Perm',&
+                  ' The parameters have BCC permutations')
           elseif(ch1.eq.'F') then
-             call amendphase(noph,'FCCPERM',&
-                  'The parameters have FCC permutations')
+! first character a space to not write any info for the phase
+             write(*,*)' **** FCC4Perm amendment'
+             call amendphase(noph,'FCC4Perm',&
+                  ' The parameters have FCC permutations')
           endif
           exit fixname
        endif
@@ -988,17 +1017,17 @@ CONTAINS
                 if(associated(typelink%modelink)) then
 !                   write(*,*)'Added model id: ',trim(typelink%modelink%id)
                    modelink=>typelink%modelink
-! if this is DISFS model we must save the number of sublattices and more
+! if this is SPLITPHASE model we must save the number of sublattices and more
                    write(*,*)'Decoding type_defs: ',typelink%modelindex
-                   if(typelink%modelindex.eq.DISFS) then
-! this is the old disordered part model: G=G_dis(x)+G_ord(y)-G_ord(y=x)
+                   if(typelink%modelindex.eq.SPLITPHASE) then
+! this is the 3 part SplitPhase model: G=G_dis(x)+G_ord(y)-G_ord(y=x)
                       phlist(noph)%configmodel='CEF_3terms'
                       typelink%model_int=intval
-                   elseif(typelink%modelindex.eq.-DISFS) then
-! this is what was called the NEVER model G=G_dis(x)+G_ord(y)
+                   elseif(typelink%modelindex.eq.-SPLITPHASE) then
+! this is what TC calls the NEVER model G=G_dis(x)+G_ord(y)
                       phlist(noph)%configmodel='CEF_2terms'
                       typelink%model_int=intval
-                      typelink%modelindex=DISFS
+                      typelink%modelindex=SPLITPHASE
                    endif
                 else
                    write(*,105)typedefs2(jp:jp),nline
@@ -1042,26 +1071,26 @@ CONTAINS
     type(xmltdb_addmodel), pointer :: newadd,saveadd
     type(xmltdb_model), pointer :: mlink
     lm=len_trim(model)
-!    write(*,10)phno,model,trim(text) 
+    write(*,10)phno,model,trim(text) 
 10  format('Phase ',i3,' have model: "',a,'" with info: "',a,'"')
     find: do ia=1,nomod
        if(len(mlist(ia)%id).lt.lm) cycle find
 !       write(*,*)'Comparing "',trim(mlist(ia)%id),'" and "',trim(model),'"'
        if(mlist(ia)%id(1:lm).eq.model(1:lm)) then
-!          write(*,*)'Found model!',ia,associated(phlist(phno)%amendphase)
+          write(*,*)'Found model!',ia,associated(phlist(phno)%amendphase)
 ! if first amendment set it 
           if(.not.associated(phlist(phno)%amendphase)) then
              allocate(phlist(phno)%amendphase)
              phlist(phno)%amendphase%id=model
              phlist(phno)%amendphase%model_info=text
              nullify(phlist(phno)%amendphase%next)
-!             write(*,*)'Allocated first amend'
+             write(*,*)'Allocated first amend: ',model
           else
 ! link a new addmodel record to this phase
              saveadd=>phlist(phno)%amendphase%next
 !             write(*,*)'Trying to allocate next'
              allocate(phlist(phno)%amendphase%next)
-!             write(*,*)'Allocated next'
+             write(*,*)'Allocated next amend',model
              newadd=>phlist(phno)%amendphase%next
              newadd%id=model
              newadd%model_info=text
@@ -1227,17 +1256,19 @@ CONTAINS
     character line*(*),ch1*1,phases*(64),endofname*3
     type(xmltdb_typedefs), pointer :: new_type_def,save_type_def,typelink
     type(xmltdb_model), pointer :: modelink
-    integer ip,jp,no,za,zb,zc,zd
+    integer ip,jp,no,za,zb,zc,zd,jj
 !---------------------------
 ! these are global amend model indices
-!    integer, parameter :: IHJBCC=1,IHJREST=2,DISFS=3,GLOWTEIN=4
-!    integer, parameter :: FCCPERM=5,BCCPERM=6,LIQ2STATE=7
+!    integer, parameter :: IHJBCC=1,IHJREST=2,IHJQX=3,GLOWTEIN=4
+!    integer, parameter :: LIQ2STATE=5,VOLOWP=6,SPLITPHASE=7,FCC4Perm=8
+!    integer, parameter :: BCC4Perm=9    
 !---------------------------
     double precision relval
 !    write(*,*)'In gettype_def: ',ip,' "',trim(line),'"'
     if(eolch(line,ip)) then
        xmlerr=5000; goto 1000
     endif
+    call capson(line)
     save_type_def=>type_def_list%next
     allocate(type_def_list%next)
     new_type_def=>type_def_list%next
@@ -1294,8 +1325,8 @@ CONTAINS
 ! zb set to length of phase name
 !       write(*,*)'Ordered phase: "',phases(1:zb),'"'
 !       write(*,*)'gettype_def associated? ',associated(typelink)
-       typelink%modelink=>mlist(DISFS)
-       typelink%modelindex=DISFS
+       typelink%modelink=>mlist(SPLITPHASE)
+       typelink%modelindex=SPLITPHASE
 ! this will be updated when all phases read
        typelink%model_int=0
 ! find both ordered and disordered phase names around DIS_PARTxxx
@@ -1319,14 +1350,14 @@ CONTAINS
 !       write(*,*)'Disordered: "',trim(line(zc:)),'"',za,zd
 !       phases(zb+2:)=line(zc:zc+min(za,zd))
        phases(zb+2:)=line(zc:zc+za)
-       write(*,*)'DISFS Ordered and disordered phases: ',trim(phases)
+       write(*,*)'SPLITPhase Ordered and disordered phases: ',trim(phases)
        typelink%action=phases
 ! if ordered has N, and disordered 1 sum all, if if disordered 2 then sum N-1
 !       write(*,*)'Should create link to model: ',trim(line)
 ! !!!!!! we must later include how many sublattices to add !!!!!!!!!!!!
 ! at this stage the phases may not be entered
-       typelink%modelindex=DISFS
-!       write(*,10)trim(typelink%action),trim(mlist(DISFS)%id),&
+       typelink%modelindex=SPLITPHASE
+!       write(*,10)trim(typelink%action),trim(mlist(SPLITPHASE)%id),&
 !            typelink%modelindex
        goto 900
     endif test1
@@ -1334,7 +1365,7 @@ CONTAINS
 ! Check for the NEVER model
     za=index(line,' NEVER ')
     if(za.gt.0) then
-!       write(*,*)'The NEVER model same as disordered fraction sets at',nline
+!       write(*,*)'The NEVER model same as SplitPhase model at',nline
 !  TYPE_DEFINITION + GES AMEND_PHASE_DESCRIPTION CHI NEVER DIS_CHI,,,!
        zb=za
        call skip_back_to_space(line,zb,phases)
@@ -1362,10 +1393,12 @@ CONTAINS
           write(*,*)' *** No disordered phase name '
           xmlerr=5018; goto 1000
        endif
-       typelink%modelink=>mlist(DISFS)
-! Mark the NEVER phase by a negative value of DISFS
-       typelink%modelindex=-DISFS
-       typelink%action=phases
+       typelink%modelink=>mlist(SPLITPHASE)
+! Mark the NEVER phase by a negative value of SPLITPHASE
+       typelink%modelindex=-SPLITPHASE
+! Remove name of ordered phase, that is before a space
+       jj=index(phases,' ')
+       typelink%action=phases(jj+1:)
 !       write(*,*)'NEVER phases: order/disorder: "',trim(phases),'"'
        goto 900
     endif
@@ -1498,12 +1531,19 @@ CONTAINS
 !
 ! extract constituent array after position ip+1 (ip is at , or : after previous
     subl: do ll=1,phlist(curph)%sublat
+!       write(*,*)'constituent array: ',trim(line),ll,ip
 ! all constituent sequentially in constarray, tnc(ll) how many in each subl
        eternal: do while(.TRUE.)
+! skip initial spaces within constituent array
+          do while(line(jp:jp).eq.' ')
+             jp=jp+1
+          enddo
+          ip=jp
           call skip_to_first(charray,ix,line,ip)
           select case(ix)
           case default
-             write(*,*)' **** Error "',line(ip:ip),'"',ip,ix,ll,nc
+             write(*,14)line(ip:ip),ip,ix,ll,nc
+14           format(' Constituent separation error "',a,'"',4i6)
              goto 1000
 ! a space cannot termiate a constituent, skip spaces and continue
 ! how to handle things  surrounded by spaces such as " ( FE , NI : Va ; 3 )
@@ -1897,7 +1937,7 @@ CONTAINS
     write(*,30)nompid,(trim(mpidlist(ni)%id),ni=1,nompid)
 30  format(/'Model parameter identifiers (MPID):',i2/a,20(', ',a))
 !
-! We have to check if any phase has a DISFS model it its typedef
+! We have to check if any phase has a SPLITPHASE model it its typedef
     do ni=1,noph
        za=1
 !       write(*,*)'Check typedefs for phase ',ni
@@ -1905,17 +1945,20 @@ CONTAINS
           typedef=>type_def_list%next
           do while(associated(typedef))
              if(typedef%id.eq.phlist(ni)%type_defs(za:za)) then
-                if(typedef%modelindex.eq.DISFS) then
+                if(typedef%modelindex.eq.SPLITPHASE) then
 ! check first phase is this one ....
                    zb=1
                    call skip_to_space(typedef%action,zb)
                    phase1=typedef%action(1:zb)
                    phase2=typedef%action(zb+1:)
                    if(phlist(ni)%name.ne.phase1) then
-                      write(*,*)'wrong ordered phase in disordered set "',&
-                           trim(phase1),'" "',trim(phase2),'"'
+                      write(*,77)trim(phase1),'" "',trim(phase2),'"'
+77                    Format(/'Wrong ordered phase in disordered set "',&
+                           a,'" and "',a,'"')
                       xmlerr=5200; goto 1000
                    endif
+! Remove ordered phase from action!
+                   typedef%action=phase2
 ! search for disordered phase
                    do nj=1,noph
 !                      write(*,*)'Find disordered phase: "',trim(phase2),&
@@ -1924,13 +1967,13 @@ CONTAINS
 !                         write(*,*)'Disordered sublattices: ',phlist(nj)%sublat
                          if(phlist(nj)%sublat.eq.2) then
 ! second sublattice assumed to be interstitial for BCC or FCC
-                            phlist(ni)%disfs_sum=phlist(ni)%sublat-1
+                            phlist(ni)%splitphase_sum=phlist(ni)%sublat-1
                          else
 ! sum over all sublattices as for sigma, mu etc.
-                            phlist(ni)%disfs_sum=phlist(ni)%sublat
+                            phlist(ni)%splitphase_sum=phlist(ni)%sublat
                          endif
 !                         write(*,*)'Found disordered phase ',&
-!                              phlist(ni)%sublat,phlist(ni)%disfs_sum
+!                              phlist(ni)%sublat,phlist(ni)%splitphase_sum
                          exit ff
                       endif
                    enddo
@@ -1960,8 +2003,8 @@ CONTAINS
 !/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!
 
   subroutine write_xmltdb(out,tdbfile,software)
-! writing the stored information on the xml file ----------- VERSION 2
-    integer out,ip,jp,kp,nl,ni,tr,nnw,jsign,ll,nc,tq
+! writing the stored information on the xml file ----------- VERSION 3
+    integer out,ip,jp,kp,nl,ni,tr,nnw,jsign,ll,nc,tq,nmm
     character (len=512) :: line
     character (len=800) :: clean
     character (len=24) :: dummy
@@ -1982,19 +2025,18 @@ CONTAINS
 !
 !------------------------------------------------------
 !    line='first line'
-!    write(*,*)' THIS IS CRAZY '
-!    write(out,'(a)')trim(line)
     call date_and_time(date)
     mdate=date(1:4)//'-'//date(5:6)//'-'//date(7:8)
+!    write(*,10)trim(tdbfile),trim(software),mdate
     write(out,10)trim(tdbfile),trim(software),mdate
 10  format('<?xml version="1.0"?>'/&
          '<?xml-model href="database.rng" schematypens=',&
          '"http://relaxng.org/ns/structure/1.0" type="application/xml"?>'/&
          '<Database version="0.0.1">'/&
          '  <metadata>'/&
-         '    <writer>xmltdbproject test'/&
+         '    <writer>xmltdbproject version 0.0.2'/&
          '       TDBfile="',a,'"'/&
-         '       Software="',a,'"'/&
+         '       TDB software="',a,'"'/&
          '       Date="',a,'"'/&
          '    </writer>'/&
          '  </metadata>')
@@ -2014,7 +2056,8 @@ CONTAINS
     line(ip:)='"  -->'
     write(out,'(a)')trim(line)
     write(out,14)low_tdef,high_tdef
-14  format(2x,'<Defaults low_T="',F7.2,'" high_T="',F8.2,'" />')
+14  format(2x,'<Defaults LowT="',F7.2,'" HighT="',F8.2,&
+         '" Bibref="U.N. Known" />')
 !--------------------------------------------------------------
 ! model information 
     write(out,20)
@@ -2027,79 +2070,81 @@ CONTAINS
 ! same output (but different data) for the IHJ magnetic models!!
           write(out,22)trim(mlist(ni)%id),trim(mlist(ni)%required_mpid(1)),&
                trim(mlist(ni)%required_mpid(2)),mlist(ni)%model_real,&
-               trim(mlist(ni)%model_info(1)),trim(mlist(ni)%model_info(2)),&
+               trim(mlist(ni)%model_desc(1)),trim(mlist(ni)%model_desc(2)),&
                trim(mlist(ni)%bibref)
-22        format(4x,'<Magnetic-model id="'a,'"  MPID1="',a,'" MPID2="',a,'"',&
-               ' anti-ferromagnetic_factor="',F6.2,'" '/&
-               6x,' f_below_TC="',a,'"'/&
-               6x,' f_above_TC="',a,'" bibref="',a,'" >',&
-               ' in G=f(TAO)*LN(BETA+1) where TAO=T/TC'/4x,'</Magnetic-model>')
+22        format(4x,'<Magnetic Id="'a,'"  MPID1="',a,'" MPID2="',a,'"',&
+               ' Aff"',F6.2,'" '/&
+               6x,' FbelowTC="',a,'"'/&
+               6x,' FaboveTC="',a,'" Bibref="',a,'" >',&
+               ' in G=f(TAO)*LN(BETA+1) where TAO=T/TC'/4x,'</Magnetic>')
           cycle mout
 ! The IHJQX magnetic model has different mpid
 77        continue
           write(out,23)trim(mlist(ni)%id),trim(mlist(ni)%required_mpid(1)),&
                trim(mlist(ni)%required_mpid(2)),&
                trim(mlist(ni)%required_mpid(3)),mlist(ni)%model_real,&
-               trim(mlist(ni)%model_info(1)),trim(mlist(ni)%model_info(2)),&
+               trim(mlist(ni)%model_desc(1)),trim(mlist(ni)%model_desc(2)),&
                trim(mlist(ni)%bibref)
-23        format(4x,'<Magnetic-model id="'a,'"  MPID1="',a,'" MPID2="',a,'"',&
-               ' MPID3="',a,'" anti-ferromagnetic_factor="',F6.2,'" '/&
-               6x,' f_below_TC="',a,'"'/&
-               6x,' f_above_TC="',a,'" bibref="',a,'" >',&
+23        format(4x,'<Magnetic Id="'a,'"  MPID1="',a,'" MPID2="',a,'"',&
+               ' MPID3="',a,'" Aff="',F6.2,'" '/&
+               6x,' FbelowTC="',a,'"'/&
+               6x,' FaboveTC="',a,'" Bibref="',a,'" >',&
                ' in G=f(TAO)*LN(BETA+1) where TAO=T/CT or T/NT'/&
-               4x,'</Magnetic-model>')
+               4x,'</Magnetic>')
        elseif(mlist(ni)%id(1:9).eq.'GLOWTEIN ') then
 ! 4 Einsten model
           write(out,24)trim(mlist(ni)%id),trim(mlist(ni)%required_mpid(1)),&
-               trim(mlist(ni)%bibref),trim(mlist(ni)%model_info(1))
-24        format(4x,'<Einstein-model id="',a,'" MPID1="',a,'" bibref="',a,&
-               '" > '/7x,a/4x,'</Einstein-model>')
+               trim(mlist(ni)%bibref),trim(mlist(ni)%model_desc(1))
+24        format(4x,'<Einstein Id="',a,'" MPID1="',a,'" Bibref="',a,&
+               '" > '/7x,a/4x,'</Einstein>')
        elseif(mlist(ni)%id(1:10).eq.'LIQ2STATE ') then
 ! 5 liquid 2state
           write(out,26)trim(mlist(ni)%id),trim(mlist(ni)%required_mpid(1)),&
                trim(mlist(ni)%required_mpid(2)),trim(mlist(ni)%bibref),&
-               trim(mlist(ni)%model_info(1))
-26        format(4x,'<Liquid-2state-model id="',a,'" MPID1="',a,'" ',&
-               ' MPID2="',a,'" bibref="',a,'" >'/7x,a&
-               /4x,'</Liquid-2state-model>')
+               trim(mlist(ni)%model_desc(1))
+26        format(4x,'<Liquid2state Id="',a,'" MPID1="',a,'" ',&
+               ' MPID2="',a,'" Bibref="',a,'" >'/7x,a&
+               /4x,'</Liquid2state>')
        elseif(mlist(ni)%id(1:6).eq.'VOLOWP ') then
 ! 6 Volume model
           write(out,28)trim(mlist(ni)%id),trim(mlist(ni)%required_mpid(1)),&
                trim(mlist(ni)%required_mpid(2)),&
                trim(mlist(ni)%required_mpid(3)),trim(mlist(ni)%bibref),&
-               trim(mlist(ni)%model_info(1))
-28        format(4x,'<Volume-model id="',a,'" MPID1="',a,'" ',&
-               ' MPID2="',a,'" MPID3="',a,'" bibref="',a,'" >'/7x,a&
-               /4x,'</Volume-model>')
-       elseif(mlist(ni)%id(1:6).eq.'DISFS ') then
-! 7 Disordered fraction sets
-          write(out,36)trim(mlist(ni)%id),trim(mlist(ni)%bibref),&
-               trim(mlist(ni)%model_info(1)),trim(mlist(ni)%model_info(2))
-36        format(4x,'<Disordered-fraction-model id="',a,'" bibref="',a,'" >'/&
-               7x,a,a/4x,'</Disordered-fraction-model>')
-       elseif(mlist(ni)%id(1:8).eq.'FCCPERM ') then
+               trim(mlist(ni)%model_desc(1))
+28        format(4x,'<Volume Id="',a,'" MPID1="',a,'" ',&
+               ' MPID2="',a,'" MPID3="',a,'" Bibref="',a,'" >'/7x,a&
+               /4x,'</Volume>')
+       elseif(mlist(ni)%id(1:11).eq.'SPLITPhase ') then
+! 7 SplitPhase with ordered and disordered fraction sets  
+          phlist(noph)%configmodel='CEF_3terms'
+          write(out,36)trim(mlist(ni)%bibref),&
+               trim(mlist(ni)%model_desc(1)),trim(mlist(ni)%model_desc(2)),&
+               trim(mlist(ni)%model_desc(3))
+36        format(4x,'<SplitPhase Ordered="phase" Disordered="phase" Sum="?" Subtract="Y/N" Bibref="',a,'" >'/&
+               7x,a,a,a/4x,'</SplitPhase>')
+       elseif(mlist(ni)%id(1:8).eq.'FCC4Perm ') then
 ! 8 FCC permutations
           write(out,38)trim(mlist(ni)%id),trim(mlist(ni)%bibref),&
-               trim(mlist(ni)%model_info(1))
-38        format(4x,'<FCC-permutations id="',a,'" bibref="',a,'" >'/&
-               7x,a/4x,'</FCC-permutations>')
-       elseif(mlist(ni)%id(1:8).eq.'BCCPERM ') then
+               trim(mlist(ni)%model_desc(1))
+38        format(4x,'<FCC4Perm Id="',a,'" Bibref="',a,'" >'/&
+               7x,a/4x,'</FCC4Perm>')
+       elseif(mlist(ni)%id(1:8).eq.'BCC4Perm ') then
 ! 9 BCC permutations
           write(out,40)trim(mlist(ni)%id),trim(mlist(ni)%bibref),&
-               trim(mlist(ni)%model_info(1))
-40        format(4x,'<BCC-permutations id="',a,'" bibref="',a,'" >'/&
-               7x,a/4x,'</BCC-permutations>')
+               trim(mlist(ni)%model_desc(1))
+40        format(4x,'<BCC4perm Id="',a,'" Bibref="',a,'" >'/&
+               7x,a/4x,'</BCC4perm>')
        elseif(mlist(ni)%id(1:4).eq.'EEC ') then
 ! 10 EEC
           write(out,42)trim(mlist(ni)%id),trim(mlist(ni)%bibref),&
-               trim(mlist(ni)%model_info(1))
-42        format(4x,'<EEC id="',a,'" bibref="',a,'" >'/&
+               trim(mlist(ni)%model_desc(1))
+42        format(4x,'<EEC Id="',a,'" Bibref="',a,'" >'/&
                7x,a/4x,'</EEC>')
 !       else
 ! Missing: 11 MQMQA, 12 UNIQUAC, 13 EBEF, 14 TOOP, 15 Kohler
 !          write(out,42)trim(mlist(ni)%id),trim(mlist(ni)%bibref),&
 !               trim(mlist(ni)%model_info(1))
-!42        format(4x,'<EEC id="',a,'" bibref="',a,'" >'/&
+!42        format(4x,'<EEC Id="',a,'" Bibref="',a,'" >'/&
 !               6x,a/4x,'</EEC>')
        else
           write(*,*)'**** Unknown model "',trim(mlist(ni)%id),'"'
@@ -2112,22 +2157,20 @@ CONTAINS
     do ni=1,noel
 ! elements
        write(out,100)ellist(ni)%id,trim(ellist(ni)%reference),&
-            ellist(ni)%mass,ellist(ni)%h298h0,&
-            ellist(ni)%s298
+            ellist(ni)%mass,ellist(ni)%h298h0,ellist(ni)%s298
        nl=nl+1
 ! copy on screen
 !       write(*,100)ellist(ni)%id,trim(ellist(ni)%reference),&
 !            ellist(ni)%mass,ellist(ni)%h298h0,&
 !            ellist(ni)%s298
-100    format('  <Element id="',a,'" refstate="',a,&
-            '" mass="',1pe14.6,'" H298="',1pe14.6,&
-            '" S298="',1pe14.6,'" />')
+100    format('  <Element Id="',a,'" Refstate="',a,&
+            '" Mass="',1pe14.6,'" H298="',1pe14.6,'" S298="',1pe14.6,'" />')
     enddo
 ! species
     do ni=1,nosp
 ! in the furure species may have amendments due to MQMQA or uniquac
        write(out,200)trim(splist(ni)%id),trim(splist(ni)%stoichiometry)
-200    format('  <Species id="',a,'" stoichiometry="',a,'" />')
+200    format('  <Species Id="',a,'" Stoichiometry="',a,'" />')
     enddo
 !-------------------------------------------------------------- version 2
 ! functions
@@ -2152,15 +2195,15 @@ CONTAINS
              if(.not.associated(trange%next) .and. &
                   abs(trange%high_t-high_tdef).lt.1.0D-2) then
                 write(out,300)trim(tplist(ni)%id),trim(trange%expression)
-300             format('  <TPfun id="',a,'"  Expression="',a,'" />')
+300             format('  <TPfun Id="',a,'"  Expr="',a,'" />')
                 cycle tpfunloop
              else
                 write(out,301)trim(tplist(ni)%id)
-301             format('  <TPfun id="',a,'"  >')
+301             format('  <TPfun Id="',a,'"  >')
              endif
           else
              write(out,302)trim(tplist(ni)%id),dummy(1:ip-1)
-302          format('  <TPfun id="',a,'" Low_T="',a,'" >')
+302          format('  <TPfun Id="',a,'" LowT="',a,'" >')
           endif
        else
 ! this is Pandat specific, does not handle low_T/high_T defaults
@@ -2177,10 +2220,10 @@ CONTAINS
              write(out,302)trim(tplist(ni)%id),dummy(1:ip-1)
           elseif(tplist(ni)%pandatype.eq.1) then
              write(out,305)trim(tplist(ni)%id),dummy(1:ip-1)
-305          format('  <TPfun id="',a,'" Low_T="',a,'"  type="Property" >')
+305          format('  <TPfun Id="',a,'" LowT="',a,'"  type="Property" >')
           elseif(tplist(ni)%pandatype.eq.2) then
              write(out,306)trim(tplist(ni)%id),dummy(1:ip-1)
-306          format('  <TPfun id="',a,'" Low_T="',a,'"  type="Variable" >')
+306          format('  <TPfun Id="',a,'" LowT="',a,'"  type="Variable" >')
           else
              write(*,*)'Unknown Pandat function type: ',tplist(ni)%pandatype
              xmlerr=5020; goto 1000
@@ -2206,8 +2249,8 @@ CONTAINS
           else
              write(out,312)trim(prange%expression)
           endif
-310       format(4x,'<Trange High_T="',a,'" Expression=" ',a,'" />')
-312       format(4x,'<Trange Expression="',a,'" />')
+310       format(4x,'<Trange HighT="',a,'" Expr=" ',a,'" />')
+312       format(4x,'<Trange Expr="',a,'" />')
           prange=>prange%next
 !          write(*,*)'writing tranges 2: ',associated(prange)
        enddo
@@ -2220,8 +2263,8 @@ CONTAINS
     do ni=1,noph
        write(out,400)trim(phlist(ni)%name),trim(phlist(ni)%configmodel),&
             phlist(ni)%aggregation(1:1)
-400    format('  <Phase id="',a,'" Configuration_model="',a,&
-            '" state="',a,'" >')
+400    format('  <Phase Id="',a,'" Configuration="',a,&
+            '" State="',a,'" >')
        ! sites
 ! sites
        ip=-1
@@ -2231,7 +2274,7 @@ CONTAINS
           call wrinum(line,ip,nnw,jsign,phlist(ni)%sites(tr))
        enddo
        write(out,410)phlist(ni)%sublat,line(1:ip-1)
-410    format(4x,'<Sublattices number_of="',i1,'"  Ratios="',a,'" >')
+410    format(4x,'<Sublattices NumberOf="',i1,'"  Multiplicities="',a,'" >')
 ! and constituents for each sublattice
        do tr=1,phlist(ni)%sublat
           ip=1
@@ -2240,49 +2283,72 @@ CONTAINS
              line(ip:)=trim(phlist(ni)%constituents(tr,jp))
              ip=len_trim(line)+2
           enddo
+! if too many constituents then repeat for same sublattice
           write(out,420)tr,trim(line)
-420       format(6x,'<Constituent sublattice="',i1,'" list="',a,'" />')
+420       format(6x,'<Constituents Sublattice="',i1,'" List="',a,'" />')
        enddo
        write(out,422)
 422    format(4x,'</Sublattices>')
-! additional models: magnetism, disordered fraction set etc not implented
+! additional models: magnetism, splitphase, permutations, einstein etc
 ! look at type_definitions
        tq=1
-       do while(phlist(ni)%type_defs(tq:tq).ne.' ')
+! type_defs is a character with typedef letters
+       checktq: do while(phlist(ni)%type_defs(tq:tq).ne.' ')
 ! skip first dummy typedef %
+          if(phlist(ni)%type_defs(tq:tq).eq.'%') tq=tq+1
+! skip loop if no typedef
+          if(phlist(ni)%type_defs(tq:tq).eq.' ') exit checktq
+! loop list of model typedefs
+!          write(*,*)'Typedef "',phlist(ni)%type_defs(tq:tq),&
+!               '" for ',phlist(ni)%name
+          nmm=0
           typedef=>type_def_list
           ff: do while(associated(typedef%next))
+             nmm=nmm+1
+!             write(*,*)'Comparing typedef "',typedef%id,'" with model ',nmm
              if(typedef%id.eq.phlist(ni)%type_defs(tq:tq)) then
                 xyz=typedef%modelindex
                 if(typedef%action(1:1).eq.' ') then
+!                   write(*,*)'Found typedef ',xyz,mlist(xyz)%id
                    write(out,438)trim(mlist(xyz)%id)
-438                format(4x,'<Amend-phase model="',a,'" />')
-                elseif(xyz.eq.DISFS) then
-                   write(out,439)trim(mlist(xyz)%id),trim(typedef%action),&
-                        phlist(ni)%disfs_sum
-439                format(4x,'<Amend-phase model="',a,'" info="',a,&
-                        '" sum_sublattices="',i1,'" />')
-                elseif(xyz.gt.0 .and. xyz.le.BCCPERM) then
-                   write(out,440)xyz,trim(typedef%action)
+438                format(4x,'<AmendPhase Model="',a,'" />')
+                elseif(xyz.eq.SPLITPHASE) then
+!                   write(*,*)'Testing SplitPhase',ni
+! check if ordered should be subtracted as disordered
+                   if(index(phlist(ni)%configmodel,'_3terms').gt.0) then
+!                      write(out,439)trim(mlist(xyz)%id),trim(typedef%action),&
+                      write(out,439)trim(typedef%action),&
+                           phlist(ni)%splitphase_sum
+439                   format(4x,'<SplitPhase Disordered="',a,&
+                           '" Sum="',i1,'" Subtract="Y" />')
+                   else
+!                      write(out,440)trim(mlist(xyz)%id),trim(typedef%action),&
+                      write(out,440)trim(typedef%action),&
+                           phlist(ni)%splitphase_sum
+440                   format(4x,'<SplitPhase Disordered="',a,&
+                           '" Sum="',i1,'" />')
+                   endif
                 else
                    write(*,*)'Unkown amend-phase ignored for ',&
                         trim(phlist(ni)%name),xyz
                 endif
                 exit ff
-             else
-                typedef=>typedef%next
              endif
+             typedef=>typedef%next
           enddo ff
           tq=tq+1
-       enddo
-! look if any phase has an amendphase link
+       enddo checktq
+! look if any phase has an amendphase link (now only FCC4Perm and BCC4Perm)
        addmodel=>phlist(ni)%amendphase
        amend: do while(associated(addmodel))
 !          write(*,*)'Found addmodel: "',trim(addmodel%id),'" for phase ',&
 !               phlist(ni)%name
 ! this output has to be elaborated for different models
-          write(out,440)trim(addmodel%id),trim(addmodel%model_info)
-440       format(4x,'<Amend-phase model="',a,'" info="',a,'" />')
+!          write(out,480)trim(addmodel%id),trim(addmodel%model_info)
+          write(out,481)trim(addmodel%id)
+!          write(*,481)trim(addmodel%id)
+480       format(4x,'<AmendPhase Model="',a,'" Info="',a,'" />')
+481       format(4x,'<AmendPhase Model="',a,'" />')
           addmodel=>addmodel%next
        enddo amend
        write(out,490)
@@ -2298,11 +2364,11 @@ CONTAINS
     if(parsel.eq.1) then
 ! we should also order alphabetically using sporder(1..nosp) (ignoring VA)
        write(out,501)
-501 format('  <Unary-parameters >')
+501 format('  <UnaryParameters >')
     else
 ! no separation of unary, binary etc
        write(out,501)
-502 format('  <All-parameters >')
+502 format('  <AllParameters >')
     endif
     totsel=0
 500 continue
@@ -2317,7 +2383,7 @@ CONTAINS
        palist(ni)%noofel=-palist(ni)%noofel
        nosel=nosel+1
 !
-       line='   <Parameter id="'; ip=len_trim(line)+1
+       line='   <Parameter Id="'; ip=len_trim(line)+1
        line(ip:)=palist(ni)%mpid; ip=len_trim(line)+1
        line(ip:)='('//palist(ni)%phase; ip=len_trim(line)+1
 !       if(parsel.lt.0) then
@@ -2343,7 +2409,7 @@ CONTAINS
        enddo carr
 !       if(parsel.lt.0) write(*,'(a,a,2i4)')'exit: ',line(1:ip),ll,nc
        if(abs(palist(ni)%low_t-low_tdef).gt.1.0D-2) then
-          line(ip:)=' Low_T="'; ip=len_trim(line)+1
+          line(ip:)=' LowT="'; ip=len_trim(line)+1
           call wrinum(line,ip,nnw,jsign,palist(ni)%low_t)
           line(ip:)='" '
           ip=ip+2
@@ -2353,7 +2419,7 @@ CONTAINS
           trange=palist(ni)%trange
           if(.not.associated(trange%next) .and.&
                abs(trange%high_t-high_tdef).lt.1.0D-2) then
-             line(ip:)=' Expression="'//trim(trange%expression)//&
+             line(ip:)=' Expr="'//trim(trange%expression)//&
                   '" Bibref="'//trim(palist(ni)%bibref)//'" />'
 ! Hm, one space needed before the <Parameter ...
              write(out,518)trim(line)
@@ -2380,10 +2446,10 @@ CONTAINS
           if(abs(trange%high_t-high_tdef).gt.1.0D-2) then
              call wrinum(dummy,ip,nnw,jsign,prange%high_t)
              write(out,520)dummy(1:ip-1),trim(prange%expression)
-520          format(6x,'<Trange High_T="',a,'" Expression="',a,'" />')
+520          format(6x,'<Trange HighT="',a,'" Expr="',a,'" />')
           else
              write(out,522)trim(prange%expression)
-522          format(6x,'<Trange Expression="',a,'" />')
+522          format(6x,'<Trange Expr="',a,'" />')
           endif
           prange=>prange%next
        enddo
@@ -2407,27 +2473,27 @@ CONTAINS
     repeat: if(parsel.eq.2) then
        write(*,*)'Unary parameters listed:  ',nosel,' out of ',nopa
        write(out,552)
-552    format('  </Unary-parameters>'/'  <Binary-parameters>')
+552    format('  </UnaryParameters>'/'  <BinaryParameters>')
        goto 500
     elseif(parsel.eq.3) then
        write(*,*)'Binary parameters listed: ',nosel,' out of ',nopa
        if(totsel.eq.nopa) then
           write(out,553)
-553       format('  </Binary-parameters>')
+553       format('  </BinaryParameters>')
           exit repeat
        else
           write(out,554)
-554       format('  </Binary-parameters>'/'  <Higher-parameters>')
+554       format('  </BinaryParameters>'/'  <HigherParameters>')
           parsel=-100
           goto 500
        endif
     elseif(parsel.lt.-200.0) then
        write(*,*)'Listed higher order parameters: ',nosel
        write(out,556)
-556    format('  </All-parameters>')
+556    format('  </AllParameters>')
     else
        write(out,558)
-558    format('  </Higher-parameters>')
+558    format('  </HigherParameters>')
     endif repeat
 590 continue
 !
@@ -2459,7 +2525,7 @@ CONTAINS
 !          call remove_xmlspecialchar(bibliolist(ni)%text,clean)
           call remove_xmlspecialchar2(bibliolist(ni)%text,clean)
           write(out,910)trim(bibliolist(ni)%id),trim(clean)
-910       format(4x,'<Bibitem ID="',a,'" Text="',a,'" />')
+910       format(4x,'<Bibitem Id="',a,'" Text="',a,'" />')
        enddo
 ! Include the model references at the end
 ! Kohler
@@ -2489,11 +2555,11 @@ CONTAINS
             'of condensed phases in Thermo-Calc, '//&
             'Calphad Vol 29 (2005) 49-55.'
 ! Disordered Fraction sets, CEF_3terms, (CEF_2terms missing ...)
-       write(out,910)'09Sun','B. Sundman, I. Ohnuma, N. Dupin, '//&
-            'U. R. Kattner, S. G. Fries, '//&
-            'An assessment of the entire Al–Fe system including '//&
-            'D03 ordering, '//&
-            'Acta Mater. Vol 57 (2009) 2896-2908'
+       write(out,910)'07Hal','B. Hallstedt, N. Dupin, M. Hillert, '//&
+            'L. Höglund, H. L. Lukas, J. C. Schuster and N. Solak, '//&
+            'Thermodynamic models for crystalline phases, composition '//&
+            'dependent models vor volume, bulk modulus and thermal '//&
+            'expansion, Calphad Vol 31 (2007) 28-37'
 ! FCC and BCC permutations
        write(out,910)'09Sun','B. Sundman, I. Ohnuma, N. Dupin, '//&
             'U. R. Kattner, S. G. Fries, '//&
@@ -2511,7 +2577,8 @@ CONTAINS
 999    format('  </Bibliography>')
     endif
 !----------------------------------------- version 2
-    write(*,*)'Listing saved comment lines'
+    write(*,*)'Listing saved comment lines',associated(lastcc)
+    xyz=0
     write(out,1100)
 ! lastcc has already been set to first comment line (if any)
     comloop: do while(associated(lastcc))
@@ -2548,478 +2615,25 @@ CONTAINS
              exit noamp
           endif
        enddo noamp
-       if(lastcc%lno.lt.0) exit comloop
+!       if(lastcc%lno.lt.0) exit comloop
+       if(lastcc%lno.le.0) exit comloop
+       xyz=xyz+1
        write(out,1110)lastcc%lno,trim(lastcc%text)
        lastcc=>lastcc%prev
+       write(*,*)'Comment: ',trim(lastcc%text),associated(lastcc)
     enddo comloop
     write(out,1200)
-1100   format(2x,'<TDB-comments>')
+1100   format(2x,'<TDBComments>')
 1110   format(4x,i4,1x,a)
-1200   format(2x,'</TDB-comments>')
+1200   format(2x,'</TDBComments>')
 !----------------------------------------- version 2
     write(out,90)
 90  format('</Database>')
 ! --------------------------------------------- version 2
 1000 continue
+    write(*,*)'Returning from write_xmltfb',lastcc%lno,xyz
     return
   end subroutine write_xmltdb
-
-!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!
-
-  subroutine write_v1_xmltdb(out,tdbfile)
-! writing the stored information on the xml file VERSION 1
-    integer out,ip,jp,kp,nl,ni,tr,nnw,jsign,ll,nc,tq
-    character (len=512) :: line
-    character (len=800) :: clean
-    character (len=24) :: dummy
-    character tdbfile*(*)
-    logical more
-    type(xmltdb_trange), target :: trange
-    type(xmltdb_trange), pointer :: prange
-    type(xmltdb_typedefs), pointer :: typedef
-    type(xmltdb_addmodel), pointer :: addmodel
-    type(xmltdb_bibliography), pointer :: bibitem
-    integer parsel,nosel,totsel,xyz
-!
-    nnw=7; jsign=0
-!
-    nl=0
-!
-!------------------------------------------------------
-!    line='first line'
-!    write(*,*)' THIS IS CRAZY '
-!    write(out,'(a)')trim(line)
-    write(out,10)trim(tdbfile)
-10  format('<?xml version="1.0"?>'/&
-         '<?xml-model href="database.rng" schematypens=',&
-         '"http://relaxng.org/ns/structure/1.0" type="application/xml"?>'/&
-         '<Database version="0">'/&
-         '  <metadata>'/&
-         '    <writer>xmltdbproject test'/&
-         '       TDBfile="',a,'"'/&
-         '    </writer>'/&
-         '  </metadata>')
-!
-    line='  <Statistics elements="'; ip=len_trim(line)+1
-    call wriint(line,ip,noel)
-    line(ip:)='"  species="'; ip=ip+12
-    call wriint(line,ip,nosp)
-    line(ip:)='"  phases="'; ip=ip+11
-    call wriint(line,ip,noph)
-    line(ip:)='"  parameters="'; ip=ip+15
-    call wriint(line,ip,nopa)
-    line(ip:)='"  bibrefs="'; ip=ip+12
-    call wriint(line,ip,nobib)
-    line(ip:)='"  />'
-    write(out,'(a)')trim(line)
-    line='  <Defaults low_T="298.15" high_T="6000" />'
-    write(out,'(a)')trim(line)
-!--------------------------------------------------------------
-! model information 
-    write(out,20)
-20  format(2x,'<Models>')
-    mout: do ni=1,nomod
-! the output of models must be coordinated with subroutine enter_models
-! 1, 2 and 3 magnetic models
-       if(mlist(ni)%id(1:3).eq.'IHJ') then
-          if(mlist(ni)%id(4:5).eq.'QX') goto 77
-! same output (but different data) for the IHJ magnetic models!!
-          write(out,22)trim(mlist(ni)%id),trim(mlist(ni)%required_mpid(1)),&
-               trim(mlist(ni)%required_mpid(2)),mlist(ni)%model_real,&
-               trim(mlist(ni)%model_info(1)),trim(mlist(ni)%model_info(2)),&
-               trim(mlist(ni)%bibref)
-22        format(4x,'<Magnetic-model id="'a,'"  MPID1="',a,'" MPID2="',a,'"',&
-               ' anti-ferromagnetic_factor="',F6.2,'" '/&
-               6x,' f_below_TC="',a,'"'/&
-               6x,' f_above_TC="',a,'" bibref="',a,'" >',&
-               ' in G=f(TAO)*LN(BETA+1) where TAO=T/TC'/4x,'</Magnetic-model>')
-          cycle mout
-! The IHJQX magnetic model has different mpid
-77        continue
-          write(out,23)trim(mlist(ni)%id),trim(mlist(ni)%required_mpid(1)),&
-               trim(mlist(ni)%required_mpid(2)),&
-               trim(mlist(ni)%required_mpid(3)),mlist(ni)%model_real,&
-               trim(mlist(ni)%model_info(1)),trim(mlist(ni)%model_info(2)),&
-               trim(mlist(ni)%bibref)
-23        format(4x,'<Magnetic-model id="'a,'"  MPID1="',a,'" MPID2="',a,'"',&
-               ' MPID3="',a,'" anti-ferromagnetic_factor="',F6.2,'" '/&
-               6x,' f_below_TC="',a,'"'/&
-               6x,' f_above_TC="',a,'" bibref="',a,'" >',&
-               ' in G=f(TAO)*LN(BETA+1) where TAO=T/CT or T/NT'/&
-               4x,'</Magnetic-model>')
-       elseif(mlist(ni)%id(1:9).eq.'GLOWTEIN ') then
-! 4 Einsten model
-          write(out,24)trim(mlist(ni)%id),trim(mlist(ni)%required_mpid(1)),&
-               trim(mlist(ni)%bibref),trim(mlist(ni)%model_info(1))
-24        format(4x,'<Einstein-model id="',a,'" MPID1="',a,'" bibref="',a,&
-               '" > '/7x,a/4x,'</Einstein-model>')
-       elseif(mlist(ni)%id(1:10).eq.'LIQ2STATE ') then
-! 5 liquid 2state
-          write(out,26)trim(mlist(ni)%id),trim(mlist(ni)%required_mpid(1)),&
-               trim(mlist(ni)%required_mpid(2)),trim(mlist(ni)%bibref),&
-               trim(mlist(ni)%model_info(1))
-26        format(4x,'<Liquid-2state-model id="',a,'" MPID1="',a,'" ',&
-               ' MPID2="',a,'" bibref="',a,'" >'/6x,a&
-               /4x,'</Liquid-2state-model>')
-       elseif(mlist(ni)%id(1:6).eq.'VOLOWP ') then
-! 6 Volume model
-          write(out,28)trim(mlist(ni)%id),trim(mlist(ni)%required_mpid(1)),&
-               trim(mlist(ni)%required_mpid(2)),&
-               trim(mlist(ni)%required_mpid(3)),trim(mlist(ni)%bibref),&
-               trim(mlist(ni)%model_info(1))
-28        format(4x,'<Volume-model id="',a,'" MPID1="',a,'" ',&
-               ' MPID2="',a,'" MPID3="',a,'" bibref="',a,'" >'/6x,a&
-               /4x,'</Volume-model>')
-       elseif(mlist(ni)%id(1:6).eq.'DISFS ') then
-! 7 Disordered fraction sets
-          write(out,36)trim(mlist(ni)%id),trim(mlist(ni)%bibref),&
-               trim(mlist(ni)%model_info(1))
-36        format(4x,'<Disordered-fraction-model id="',a,'" bibref="',a,'" >'/&
-               7x,a/4x,'</Disordered-fraction-model>')
-       elseif(mlist(ni)%id(1:8).eq.'FCCPERM ') then
-! 8 FCC permutations
-          write(out,38)trim(mlist(ni)%id),trim(mlist(ni)%bibref),&
-               trim(mlist(ni)%model_info(1))
-38        format(4x,'<FCC-permutations id="',a,'" bibref="',a,'" >'/&
-               6x,a/4x,'</FCC-permutations>')
-       elseif(mlist(ni)%id(1:8).eq.'BCCPERM ') then
-! 9 BCC permutations
-          write(out,40)trim(mlist(ni)%id),trim(mlist(ni)%bibref),&
-               trim(mlist(ni)%model_info(1))
-40        format(4x,'<BCC-permutations id="',a,'" bibref="',a,'" >'/&
-               6x,a/4x,'</BCC-permutations>')
-       else
-! 10 Missing: 10 EEC, 11 MQMQA, 12 UNIQUAC, 13 EBEF ??
-          write(*,*)'**** Unknown model "',trim(mlist(ni)%id),'"'
-       endif
-    enddo mout
-    write(out,62)
-62  format('  </Models>')
-!    
-!--------------------------------------------------------------
-    do ni=1,noel
-! elements
-       write(out,100)ellist(ni)%id,trim(ellist(ni)%reference),&
-            ellist(ni)%mass,ellist(ni)%h298h0,&
-            ellist(ni)%s298
-       nl=nl+1
-! copy on screen
-!       write(*,100)ellist(ni)%id,trim(ellist(ni)%reference),&
-!            ellist(ni)%mass,ellist(ni)%h298h0,&
-!            ellist(ni)%s298
-100    format('  <Element id="',a,'" refstate="',a,&
-            '" mass="',1pe14.6,'" H298="',1pe14.6,&
-            '" S298="',1pe14.6,'" />')
-    enddo
-! species
-    do ni=1,nosp
-! in the furure species may have amendments due to MQMQA or uniquac
-       write(out,200)trim(splist(ni)%id),trim(splist(ni)%stoichiometry)
-200    format('  <Species id="',a,'" stoichiometry="',a,'" />')
-    enddo
-!--------------------------------------------------------------
-! functions
-! predefined TP function R=8,31451;
-! predefined TP function RT=R*T;
-! predefined TP function GEIN(lntheta) =
-!            1.5*exp(lntheta)+3*R*T*ln(1-exp(exp(lntheta))*T**(-1))
-!
-    do ni=1,notp
-       ip=1
-!       write(*,*)'Writing tpfun ',ni
-! to have the value nicely within the "..."
-       call wrinum(dummy,ip,nnw,jsign,tplist(ni)%low_t)
-       if(tofs.ne.3) then
-          write(out,300)trim(tplist(ni)%id),dummy(1:ip-1)
-300       format('  <TPfun id="',a,'" Low_T="',a,'" >')
-       else
-          if(tplist(ni)%pandatype.eq.0) then
-             write(out,300)trim(tplist(ni)%id),dummy(1:ip-1)
-          elseif(tplist(ni)%pandatype.eq.1) then
-             write(out,305)trim(tplist(ni)%id),dummy(1:ip-1)
-305          format('  <TPfun id="',a,'" Low_T="',a,'"  type="Property" >')
-          elseif(tplist(ni)%pandatype.eq.2) then
-             write(out,306)trim(tplist(ni)%id),dummy(1:ip-1)
-306          format('  <TPfun id="',a,'" Low_T="',a,'"  type="Variable" >')
-          else
-             write(*,*)'Unknown Pandat function type: ',tplist(ni)%pandatype
-             xmlerr=5020; goto 1000
-          endif
-       endif
-! maybe several ranges
-       trange=tplist(ni)%trange
-       ip=1
-!       write(*,*)'Writing tpfun 2',trange%high_t
-       call wrinum(dummy,ip,nnw,jsign,trange%high_t)
-       write(out,310)dummy(1:ip-1),trim(trange%expression)
-       prange=>trange%next
-!       write(*,*)'writing tranges 1: ',associated(prange)
-       do while(associated(prange))
-          ip=1
-          call wrinum(dummy,ip,nnw,jsign,prange%high_t)
-          write(out,310)dummy(1:ip-1),trim(prange%expression)
-310       format('    <Trange High_T="',a,'" > ',a,'" />')
-          prange=>prange%next
-!          write(*,*)'writing tranges 2: ',associated(prange)
-       enddo
-       write(out,390)
-390    format('  </TPfun>')
-    enddo
-!-------------------------------------------------------------- version 1
-! phases and constituents and amend phases
-!   write(*,*)'Writing phases'
-    do ni=1,noph
-       write(out,400)trim(phlist(ni)%name),trim(phlist(ni)%configmodel),&
-            phlist(ni)%aggregation(1:1)
-400    format('  <Phase id="',a,'" Configurational_model="',a,&
-            '" state="',a,'" >')
-! sites
-       ip=-1
-       line=' '
-       do tr=1,phlist(ni)%sublat
-          ip=ip+2
-          call wrinum(line,ip,nnw,jsign,phlist(ni)%sites(tr))
-       enddo
-       write(out,410)phlist(ni)%sublat,line(1:ip-1)
-410    format('    <Sublattices number_of="',i1,'"  Ratios="',a,'" >')
-! constituents, each on a separate line prefixed by sublattice
-       do tr=1,phlist(ni)%sublat
-          do jp=1,phlist(ni)%nconst(tr)
-             write(out,420)tr,trim(phlist(ni)%constituents(tr,jp))
-420          format('      <Constituent sublattice="',i1,'" id="',a,'" />')
-          enddo
-       enddo
-       write(out,422)
-422    format('    </Sublattices>')
-! additional models: magnetism, disordered fraction set etc not implented
-! look at type_definitions
-       tq=1
-       do while(phlist(ni)%type_defs(tq:tq).ne.' ')
-! skip first dummy typedef %
-          typedef=>type_def_list
-          ff: do while(associated(typedef%next))
-             if(typedef%id.eq.phlist(ni)%type_defs(tq:tq)) then
-                xyz=typedef%modelindex
-                if(typedef%action(1:1).eq.' ') then
-                   write(out,438)trim(mlist(xyz)%id)
-438                format(4x,'<Amend-phase model="',a,'" />')
-                elseif(xyz.eq.DISFS) then
-                   write(out,439)trim(mlist(xyz)%id),trim(typedef%action),&
-                        phlist(ni)%disfs_sum
-439                format(4x,'<Amend-phase model="',a,'" info="',a,&
-                        '" sum_sublattices="',i1,'" />')
-                elseif(xyz.gt.0 .and. xyz.le.BCCPERM) then
-                   write(out,440)xyz,trim(typedef%action)
-                else
-                   write(*,*)'Unkown amend-phase ignored for ',&
-                        trim(phlist(ni)%name),xyz
-                endif
-                exit ff
-             else
-                typedef=>typedef%next
-             endif
-          enddo ff
-          tq=tq+1
-       enddo
-! look if any phase has an amendphase link
-       addmodel=>phlist(ni)%amendphase
-       amend: do while(associated(addmodel))
-!          write(*,*)'Found addmodel: "',trim(addmodel%id),'" for phase ',&
-!               phlist(ni)%name
-! this output has to be elaborated for different models
-          write(out,440)trim(addmodel%id),trim(addmodel%model_info)
-440       format(4x,'<Amend-phase model="',a,'" info="',a,'" />')
-          addmodel=>addmodel%next
-       enddo amend
-       write(out,490)
-490    format('  </Phase>')
-    enddo
-!
-! all parameters, they should optionally be separated as unaries etc
-! use sporder to list them in alphabetical order
-! problematic to separate species and elements ...
-!--------------------------------------------------------------
-    parsel=1
-!    parsel=-300
-    if(parsel.eq.1) then
-! we should also order alphabetically using sporder(1..nosp) (ignoring VA)
-       write(out,501)
-501 format('  <Unary-parameters >')
-    else
-! no separation of unary, binary etc
-       write(out,501)
-502 format('  <All-parameters >')
-    endif
-    totsel=0
-500 continue
-    nosel=0
-    paloop: do ni=1,nopa
-       line=' '
-! if parsel>0 select parameter with parsel=palist(ni)%noofel
-! reconstruct the constituentarray from items
-       if(palist(ni)%noofel.lt.0) cycle paloop
-       if(parsel.gt.0 .and. parsel.ne.palist(ni)%noofel) cycle paloop
-! list a parameter only once
-       palist(ni)%noofel=-palist(ni)%noofel
-       nosel=nosel+1
-!
-       line='   <Parameter id="'; ip=len_trim(line)+1
-       line(ip:)=palist(ni)%mpid; ip=len_trim(line)+1
-       line(ip:)='('//palist(ni)%phase; ip=len_trim(line)+1
-!       if(parsel.lt.0) then
-!          write(*,'(a,a)')'phase: ',trim(line(1:ip))
-!          write(*,'(a,9i3)')'constinsubl: ',palist(ni)%constinsubl
-!          write(*,'(a,i3)')'sublattices: ',phlist(palist(ni)%phidx)%sublat
-!       endif
-       ll=1; nc=0
-! NOT IMPLEMENTED: a neutral in I2SL has just one sublattice in TC format
-       carr: do while(.TRUE.)
-          nc=nc+1
-          if(nc.le.palist(ni)%constinsubl(ll)) then
-             line(ip:)=','//palist(ni)%constarray(nc); ip=len_trim(line)+1
-          elseif(ll.lt.phlist(palist(ni)%phidx)%sublat) then
-! new sublattice
-             ll=ll+1
-             line(ip:)=':'//palist(ni)%constarray(nc); ip=len_trim(line)+1
-          else
-             line(ip:)=';'//char(ichar('0')+palist(ni)%degree)//')" '
-             ip=len_trim(line)+3
-             exit carr
-          endif
-!          if(parsel.lt.0) write(*,'(a,a,2i4)')'carr: ',line(1:ip),ll,nc
-       enddo carr
-!       if(parsel.lt.0) write(*,'(a,a,2i4)')'exit: ',line(1:ip),ll,nc
-       line(ip:)=' Low_T="'; ip=len_trim(line)+1
-       call wrinum(line,ip,nnw,jsign,palist(ni)%low_t)
-!       call wrinum(line,ip,nnw,jsign,298.15D0)
-       line(ip:)='"  Bibref="'
-       line(ip+11:)=trim(palist(ni)%bibref)//'" >'; ip=len_trim(line)+1
-!       write(out,*)trim(line(ip:))
-       write(out,*)line(1:ip)
-! new parameter expression with ranges
-       trange=palist(ni)%trange
-       ip=1
-       call wrinum(dummy,ip,nnw,jsign,trange%high_t)
-       write(out,520)dummy(1:ip-1),trim(trange%expression)
-!       if(parsel.lt.0) write(*,*)'writing Trange'
-       prange=>trange%next
-       do while(associated(prange))
-          ip=1
-          call wrinum(dummy,ip,nnw,jsign,prange%high_t)
-          write(out,520)dummy(1:ip-1),trim(prange%expression)
-520       format('      <Trange High_T="',a,'" > ',a,' </Trange>')
-          prange=>prange%next
-       enddo
-! is there any comments for this parameter?
-       if(palist(ni)%parcomment(1:1).ne.' ')then
-          eliminate2: do while(.TRUE.)
-             ip=index(palist(ni)%parcomment,'--')
-             if(ip.eq.0) exit eliminate2
-             palist(ni)%parcomment(ip:ip+1)='=='
-          enddo eliminate2
-!          write(*,*)'XML parameter comment: ',trim(palist(ni)%parcomment)
-          write(out,540)trim(palist(ni)%parcomment)
-540       format('      <!-- ',a,' -->')
-       endif
-       write(out,550)
-550    format('    </Parameter>')
-    enddo paloop
-    parsel=parsel+1
-    totsel=totsel+nosel
-    repeat: if(parsel.eq.2) then
-       write(*,*)'Unary parameters listed:  ',nosel,' out of ',nopa
-       write(out,552)
-552    format('  </Unary-parameters>'/'  <Binary-parameters>')
-       goto 500
-    elseif(parsel.eq.3) then
-       write(*,*)'Binary parameters listed: ',nosel,' out of ',nopa
-       if(totsel.eq.nopa) then
-          write(out,553)
-553       format('  </Binary-parameters>')
-          exit repeat
-       else
-          write(out,554)
-554       format('  </Binary-parameters>'/'  <Higher-parameters>')
-          parsel=-100
-          goto 500
-       endif
-    elseif(parsel.lt.-200.0) then
-       write(*,*)'Listed higher order parameters: ',nosel
-       write(out,556)
-556    format('  </All-parameters>')
-    else
-       write(out,558)
-558    format('  </Higher-parameters>')
-    endif repeat
-590 continue
-!
-! binary parameters ordered by system
-! ternary parameters ordered by system
-! higher order parameters
-!--------------------------------------------------------------
-! Bibliography
-    if(nobib.eq.0) then
-       write(*,*)'No bibliographic references'
-    else
-!       write(*,*)'The bibliography'
-       write(out,900)
-900    format('  <Bibliography>')
-!----------------------------------------------------------------------
-! We must remove any < and > and some other forbidden characters in %text
-! < to &lt;       must not appear
-! > to &gt;       should not appear
-! & to &amp;      must not appear
-! ' to &apos;     may appear
-! " to &quot;     may appear
-!----------------------------------------------------------------------
-       if(mcref) then
-          write(out,903)
-903       format(4x,'<!-- In MatCalc the number after REF: will normally ',&
-               'refer to the number after - in the bibitem id -->')
-       endif
-       do ni=1,nobib
-!          call remove_xmlspecialchar(bibliolist(ni)%text,clean)
-          call remove_xmlspecialchar2(bibliolist(ni)%text,clean)
-          write(out,910)trim(bibliolist(ni)%id),trim(clean)
-910       format('    <Bibitem ID="',a,'" Text="',a,'" />')
-       enddo
-! Include the model references at the end
-       write(out,910)'82Her','S. Hertzman and B. Sundman, '//&
-            'A Thermodynamic analysis of the Fe-Cr system, '//&
-            'Calphad Vol 6 (1982) 67-80.'
-       write(out,910)'12Xiong','W. Xiong, Q. Chen, P. K. Korzhavyi and '//&
-            'M. Selleby, '//&
-            'An improved magnetic model for thermodynamic modeling, '//&
-            'Calphad, Vol 39 (2012) 11-20.'
-       write(out,910)'01Qing','Q. Chen and B. Sundman, '//&
-            'Modeling of thermodynamic properties for Bcc, Fcc, liquid, '//&
-            'and amorphous iron, '//&
-            'J. Phase Equilibria. Vol 22 (2001) 631-644.'
-       write(out,910)'14Becker','C. A. Becker, J. AAgren, M. Baricco, '//&
-            'Q. Chen, S. A. Decterov, U. R. Kattner, J. H. Perepezko, '//&
-            'G. R. Pottlacher and M. Selleby, '//&
-            'Thermodynamic modelling of liquids: CALPHAD approaches '//&
-            'and contributions from statistical physics. '//&
-            'Phys status solidi. B, Vol 251(1) (2014) 33-52.'
-       write(out,910)'05Lu','X-G. Lu, M. Selleby and B. Sundman, '//&
-            'Implementation of a new model for pressure dependence '//&
-            'of condensed phases in Thermo-Calc, '//&
-            'Calphad Vol 29 (2005) 49-55.'
-       write(out,910)'09Sun','B. Sundman, I. Ohnuma, N. Dupin, '//&
-            'U. R. Kattner, S. G. Fries, '//&
-            'An assessment of the entire Al–Fe system including '//&
-            'D03 ordering, '//&
-            'Acta Mater. Vol 57 (2009) 2896-2908'
-!       write(out,910)'
-       write(out,911)
-911    format('  </Bibliography>')
-    endif
-    write(out,90)
-90  format('</Database>')
-!
-1000 continue
-    return
-  end subroutine write_v1_xmltdb
 
 !/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/
 
@@ -3316,6 +2930,63 @@ end subroutine getitem
     ENDDO
   END SUBROUTINE capson2
   
-!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!
+!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/
+
+!\addtotable subroutine capson & Convert character to UPPER case
+!\begin{verbatim}
+  SUBROUTINE checkspname(text)
+    character text*(*)
+! a species names must start with a letter and consist of just letters,
+! digits, underscore, hyphen and slash
+    integer i
+    if(xmlerr.ne.0) goto 1000
+    i=0
+    test: do while(i.lt.len(text))
+       i=i+1
+       if(text(i:i).ge.'A' .and. text(i:i).le.'Z') cycle test
+       if(i.gt.1) then
+          if(text(1:i).ge.'0' .and. text(i:i).le.'9') cycle
+          if(text(i:i).eq.'_' .or. text(i:i).eq.'-' .or. text(i:i).eq.'/') &
+               cycle test
+       endif
+       write(*,*)'Illegal character in species name ",',text(i:i),'"'
+       xmlerr=5003
+       goto 1000
+    enddo test
+1000 continue
+    return
+  end SUBROUTINE checkspname
+  
+!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/
+
+!\addtotable subroutine capson & Convert character to UPPER case
+!\begin{verbatim}
+  SUBROUTINE checkspstoi(text)
+    character text*(*)
+! a species stoichiometry must start with a letter and consist of just letters,
+! digits, minus (hyphen), plus and slash (/)
+    integer i
+    write(*,*)'In checkspstoi ',text
+    if(xmlerr.ne.0) goto 1000
+    i=0
+    test: do while(i.lt.len(text))
+       i=i+1
+       if(text(i:i).ge.'A' .and. text(i:i).le.'Z') cycle test
+       if(i.gt.1) then
+          if(text(1:i).ge.'0' .and. text(i:i).le.'9') cycle test
+          if(text(i:i).eq.'+' .or. text(i:i).eq.'-' .or. text(i:i).eq.'/') &
+               cycle test
+       endif
+       write(*,*)'Illegal character in species stoichiometry ",', &
+            text(i:i),'"'
+       xmlerr=5004
+       goto 1000
+    enddo test
+1000 continue
+    return
+  end SUBROUTINE checkspstoi
+
+  !/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!\!/!
+
 
 end MODULE XMLTDB_LIB

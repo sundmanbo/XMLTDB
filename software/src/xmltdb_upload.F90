@@ -10,7 +10,7 @@ program xmlupload
   integer lina,luta,last,ip,jp,kp
   character (len=256) :: file,tdbfile
   character (len=128) :: cline
-  character text*12,origin*32
+  character text*12,origin*32,outfile*64
   type(xmltdb_typedefs), pointer :: type_def
 !
 ! 8 max for elements, species, phases, parameters, tpfun, models,
@@ -19,7 +19,7 @@ program xmlupload
   maxdim(5)=1000;  maxdim(6)=50; maxdim(7)=50; maxdim(8)=2000
 !
   write(*,5)
-5 format(//25x,'Test XMLTDB upload program'//)
+5 format(//10x,'Program to convert TDB files to XTDB format version 0.0.1'//)
 !  
   xmlerr=0
   call init_xmltdb(maxdim)
@@ -39,10 +39,10 @@ program xmlupload
 ! The last argument is a possible hyperlink to a HTML file for help
   call gparfilex('TDB file name: ',cline,last,1,tdbfile,' ',1,'?Read TDB')
 !
+  write(*,*)'Specify if origin is MatCalc or Pandat'
   origin='Thermo-Calc '
   tofs=1
   text='dummy'
-  write(*,*)'Special treatment of MatCalc and Pandat'
 ! the second to last argument is a proposed default answer
   call gparcdx('Software used to generate TDB: ',cline,last,1,text,origin,&
        '?Read TDB')
@@ -64,6 +64,7 @@ program xmlupload
   endif
 !
   lina=21
+  write(*,*)'Reading TDB file: ',trim(tdbfile)
   open(lina,file=tdbfile,access='sequential',status='old',err=2000)
 !  
   call read_tdbfile(lina,origin)
@@ -99,12 +100,12 @@ program xmlupload
   call check_xmltdb
 ! write the xmltdb file
   luta=21
-!  open(luta,file='XMLTDB-file.XTD',access='sequential',status='new',err=2200)
-  open(luta,file='XMLTDB-file.XTD',access='sequential',&
-       status='unknown',err=2200)
+  outfile='XMLTDB-file.XTDB'
+!  open(luta,file=outfile,access='sequential',status='new',err=2200)
+  open(luta,file=outfile,access='sequential',status='unknown',err=2200)
 !  
-  write(*,30)
-30 format(/'Writing output on file: XMLTDB-file.XTD')
+  write(*,30)trim(outfile)
+30 format(/'Writing output on file: ',a)
   call write_xmltdb(luta,tdbfile,software(tofs))
   if(xmlerr.ne.0) goto 2300
   close(luta)
