@@ -1,0 +1,232 @@
+<?xml version="1.0"?>
+<?xml-model href="database.rng" schematypens="http://relaxng.org/ns/structure/1.0" type="application/xml"?>
+<Database version="0.0.1">
+  <metadata>
+    <writer>xmltdbproject version 0.0.2
+       TDBfile="C:\Users\bosun\Documents\OC\projects\XML\software\up-down-load\examples\MoRe.TDB"
+       TDB software="Thermo-Calc"
+       Date="2023-09-22"
+    </writer>
+  </metadata>
+  <!-- Statistics elements="4"  species="3"  tpfuns="18"  phases="7"  parameters="59"  bibrefs="4"  -->
+  <Defaults LowT=" 298.15" HighT=" 6000.00" Bibref="U.N. Known" />
+  <Models>
+    <Magnetic Id="IHJBCC"  MPID1="TC" MPID2="BMAGN" Aff" -1.00" 
+       FbelowTC=" +1-0.905299383*TAO**(-1)-0.153008346*TAO**3-.00680037095*TAO**9-.00153008346*TAO**15;"
+       FaboveTC=" -.0641731208*TAO**(-5)-.00203724193*TAO**(-15)-.000427820805*TAO**(-25);" Bibref="82Her" > in G=f(TAO)*LN(BETA+1) where TAO=T/TC
+    </Magnetic>
+    <Magnetic Id="IHJREST"  MPID1="TC" MPID2="BMAGN" Aff" -3.00" 
+       FbelowTC=" +1-0.860338755*TAO**(-1)-0.17449124*TAO**3-.00775516624*TAO**9-.0017449124*TAO**15;"
+       FaboveTC=" -.0426902268*TAO**(-5)-.0013552453*TAO**(-15)-.000284601512*TAO**(-25);" Bibref="82Her" > in G=f(TAO)*LN(BETA+1) where TAO=T/TC
+    </Magnetic>
+    <Magnetic Id="IHJQX"  MPID1="CT" MPID2="NT" MPID3="BMAGN" Aff="  0.00" 
+       FbelowTC=" +1-0.842849633*TAO**(-1)-0.174242226*TAO**3-.00774409892*TAO**9-.00174242226*TAO**15-.000646538871*TAO**21;"
+       FaboveTC=" -.0261039233*TAO**(-7)-.000870130777*TAO**(-21)-.000184262988*TAO**(-35)-6.65916411E-05*TAO**(-49);" Bibref="12Xiong" > in G=f(TAO)*LN(BETA+1) where TAO=T/CT or T/NT
+    </Magnetic>
+    <Einstein Id="GLOWTEIN" MPID1="LNTH" Bibref="01Qing" > 
+       Gibbs energy due to the Einstein low T vibrational entropy model, G=1.5*R*THETA+3*R*T*LN(1-EXP(-THETA/T)).
+    </Einstein>
+    <Liquid2state Id="LIQ2STATE" MPID1="G2"  MPID2="LNTH" Bibref="14Becker" >
+       Unified model for the liquid and the amorphous state treated as an Einstein solid
+    </Liquid2state>
+    <Volume Id="VOLOWP" MPID1="V0"  MPID2="VA" MPID3="VB" Bibref="05Lu" >
+       The volume of a phase is described as function of T, P and its constitution.
+    </Volume>
+    <SplitPhase Ordered="phase" Disordered="phase" Sum="?" Subtract="Y/N" Bibref="07Hal" >
+       The SplitPhase tag must be specified explicly and add fractions in the ordered sublattices of the ordered phase to use in the disordered phase.  The Gibbs energy is calculated 2 or 3 times as indicated by the "Subtract" attributebut the configurational entropy only once.
+    </SplitPhase>
+    <FCC4Perm Id="FCC4Perm" Bibref="09Sun" >
+        Permutations of ordered FCC parameters with the same set of elements are listed only once.
+    </FCC4Perm>
+    <BCC4perm Id="BCC4Perm" Bibref="09Sun" >
+        Permutations of ordered BCC parameters with the same set of elements are listed only once.
+    </BCC4perm>
+    <EEC Id="EEC" Bibref="20Sun" >
+       Equi-Entropy Criterion means that solid phases with higher entropy that the liquid phase must not be stable.
+    </EEC>
+  </Models>
+  <Element Id="/-" Refstate="Electron_gas" Mass="  0.000000E+00" H298="  0.000000E+00" S298="  0.000000E+00" />
+  <Element Id="VA" Refstate="Vacuum" Mass="  0.000000E+00" H298="  0.000000E+00" S298="  0.000000E+00" />
+  <Element Id="MO" Refstate="BCC_A2" Mass="  9.594000E+01" H298="  4.589000E+03" S298="  2.856000E+01" />
+  <Element Id="RE" Refstate="HCP_A3" Mass="  1.862100E+02" H298="  5.355500E+03" S298="  3.652600E+01" />
+  <Species Id="VA" Stoichiometry="VA" />
+  <Species Id="MO" Stoichiometry="MO" />
+  <Species Id="RE" Stoichiometry="RE" />
+  <TPfun Id="RTLNP" LowT="10" >
+    <Trange HighT="20000" Expr=" R*T*LN(1.0D-5*P);" />
+  </TPfun>
+  <TPfun Id="GHSERMO"  >
+    <Trange HighT="2896" Expr=" -7746.302+131.9197*T-23.56414*T*LN(+T)  -.003443396*T**2+5.66283E-07*T**3+65812*T**(-1)-1.30927E-10*T**4;" />
+    <Trange HighT="5000" Expr="  -30556.41+283.559746*T-42.63829*T*LN(+T)-4.849315E+33*T**(-9);" />
+  </TPfun>
+  <TPfun Id="EVTOJ"  Expr="+96485.5547;" />
+  <TPfun Id="GCHIMO"  Expr="+G58CHIMO*UNS58;" />
+  <TPfun Id="GCHIRE"  Expr="+G58CHIRE*UNS58;" />
+  <TPfun Id="GSERMO"  Expr="-10.949432*EVTOJ;" />
+  <TPfun Id="GSERRE"  Expr="-12.4224915*EVTOJ;" />
+  <TPfun Id="GHSERRE"  >
+    <Trange HighT="1200" Expr=" -7695.279+128.421589*T-24.348*T*LN(+T)  -.00253505*T**2+1.92818E-07*T**3+32915*T**(-1);" />
+    <Trange HighT="2400" Expr="  -15775.998  +194.667426*T-33.586*T*LN(+T)+.00224565*T**2-2.81835E-07*T**3  +1376270*T**(-1);" />
+    <Trange HighT="3458" Expr="  -70882.739+462.110749*T-67.956*T*LN(+T)  +.01184945*T**2-7.88955E-07*T**3+18075200*T**(-1);" />
+    <Trange HighT="5000" Expr="  +346325.888  -1211.37186*T+140.831655*T*LN(+T)-.033764567*T**2+1.053726E-06*T**3  -134548866*T**(-1);" />
+    <Trange Expr=" -78564.296+346.997842*T-49.519*T*LN(+T);" />
+  </TPfun>
+  <TPfun Id="GSIGMO"  Expr="+G30SIGMO*UNS30;" />
+  <TPfun Id="GSIGRE"  Expr="+G30SIGRE*UNS30;" />
+  <TPfun Id="G58CHIRE"  Expr="-717.557146*EVTOJ;" />
+  <TPfun Id="UNS58"  Expr="+CINQ8**(-1);" />
+  <TPfun Id="G58CHIMO"  Expr="-619.36214*EVTOJ;" />
+  <TPfun Id="G30SIGRE"  Expr="-369.773611*EVTOJ;" />
+  <TPfun Id="UNS30"  Expr="+TRENTE**(-1);" />
+  <TPfun Id="G30SIGMO"  Expr="-323.477558*EVTOJ;" />
+  <TPfun Id="CINQ8"  Expr="+58;" />
+  <TPfun Id="TRENTE"  Expr="+30;" />
+  <Phase Id="LIQUID" Configuration="CEF" State="L" >
+    <Sublattices NumberOf="1"  Multiplicities="1" >
+      <Constituents Sublattice="1" List="MO RE" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="BCC_A2" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="2"  Multiplicities="1  3" >
+      <Constituents Sublattice="1" List="MO RE" />
+      <Constituents Sublattice="2" List="VA" />
+    </Sublattices>
+    <AmendPhase Model="IHJBCC" />
+  </Phase>
+  <Phase Id="CHI" Configuration="CEF_2terms" State="S" >
+    <Sublattices NumberOf="4"  Multiplicities="2  8  24  24" >
+      <Constituents Sublattice="1" List="MO RE" />
+      <Constituents Sublattice="2" List="MO RE" />
+      <Constituents Sublattice="3" List="MO RE" />
+      <Constituents Sublattice="4" List="MO RE" />
+    </Sublattices>
+    <SplitPhase Disordered="DIS_CHI" Sum="4" />
+  </Phase>
+  <Phase Id="DIS_CHI" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="1"  Multiplicities="1" >
+      <Constituents Sublattice="1" List="MO RE" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="HCP_A3" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="2"  Multiplicities="1  0.5" >
+      <Constituents Sublattice="1" List="MO RE" />
+      <Constituents Sublattice="2" List="VA" />
+    </Sublattices>
+    <AmendPhase Model="IHJREST" />
+  </Phase>
+  <Phase Id="SIGMA" Configuration="CEF_2terms" State="S" >
+    <Sublattices NumberOf="5"  Multiplicities="2  4  8  8  8" >
+      <Constituents Sublattice="1" List="MO RE" />
+      <Constituents Sublattice="2" List="MO RE" />
+      <Constituents Sublattice="3" List="MO RE" />
+      <Constituents Sublattice="4" List="MO RE" />
+      <Constituents Sublattice="5" List="MO RE" />
+    </Sublattices>
+    <SplitPhase Disordered="DIS_SIG" Sum="5" />
+  </Phase>
+  <Phase Id="DIS_SIG" Configuration="CEF_3terms" State="S" >
+    <Sublattices NumberOf="1"  Multiplicities="1" >
+      <Constituents Sublattice="1" List="MO RE" />
+    </Sublattices>
+  </Phase>
+  <UnaryParameters >
+    <Parameter Id="G(LIQUID,MO;0)"   Bibref="REF1" > 
+      <Trange HighT="2896" Expr="+34085.045+117.224788*T  -23.56414*T*LN(+T)-.003443396*T**2+5.66283E-07*T**3+65812*T**(-1)  -1.30927E-10*T**4+4.24519E-22*T**7;" />
+      <Trange HighT="5000" Expr=" +3538.963+271.6697*T  -42.63829*T*LN(+T);" />
+    </Parameter>
+    <Parameter Id="G(LIQUID,RE;0)"   Bibref="REF1" > 
+      <Trange HighT="1200" Expr="+16125.604+122.076209*T-24.348*T*LN(+T)  -.00253505*T**2+1.92818E-07*T**3+32915*T**(-1);" />
+      <Trange HighT="2000" Expr=" +8044.885  +188.322047*T-33.586*T*LN(+T)+.00224565*T**2-2.81835E-07*T**3  +1376270*T**(-1);" />
+      <Trange HighT="3458" Expr=" +568842.665-2527.83846*T  +314.178898*T*LN(+T)-.08939817*T**2+3.92854E-06*T**3  -163100987*T**(-1);" />
+      <Trange HighT="6000" Expr=" -39044.888+335.723691*T  -49.519*T*LN(+T);" />
+    </Parameter>
+    <Parameter Id="G(BCC_A2,MO:VA;0)"   Bibref="REF1" > 
+      <Trange HighT="5000" Expr="+GHSERMO;" />
+    </Parameter>
+    <Parameter Id="G(BCC_A2,RE:VA;0)"   Bibref="REF1" > 
+      <Trange HighT="1200" Expr="+9304.721+124.721589*T  -24.348*T*LN(+T)-.00253505*T**2+1.92818E-07*T**3+32915*T**(-1);" />
+      <Trange HighT="2400" Expr=" +1224.002+190.967426*T-33.586*T*LN(+T)+.00224565*T**2  -2.81835E-07*T**3+1376270*T**(-1);" />
+      <Trange HighT="3458" Expr=" -53882.739+458.410749*T  -67.956*T*LN(+T)+.01184945*T**2-7.88955E-07*T**3+18075200*T**(-1);" />
+      <Trange HighT="5000" Expr=" +363325.888-1215.07186*T+140.831655*T*LN(+T)  -.033764567*T**2+1.053726E-06*T**3-134548866*T**(-1);" />
+      <Trange HighT="6000" Expr="  -61564.296+343.297842*T-49.519*T*LN(+T);" />
+    </Parameter>
+    <Parameter Id="G(DIS_CHI,MO;0)"   Expr="+GCHIMO-GSERMO+GHSERMO-0.5596*T;" Bibref="RM2013" />
+    <Parameter Id="G(DIS_CHI,RE;0)"   Expr="+GCHIRE-GSERRE+GHSERRE+.0905*T;" Bibref="RM2013" />
+    <Parameter Id="G(HCP_A3,MO:VA;0)"   Bibref="REF1" > 
+      <Trange HighT="2896" Expr="+3803.698+131.9197*T  -23.56414*T*LN(+T)-.003443396*T**2+5.66283E-07*T**3+65812*T**(-1)  -1.30927E-10*T**4;" />
+      <Trange HighT="5000" Expr=" -19006.41+283.559746*T  -42.63829*T*LN(+T)-4.849315E+33*T**(-9);" />
+    </Parameter>
+    <Parameter Id="G(HCP_A3,RE:VA;0)"   Expr="+GHSERRE;" Bibref="REF1" />
+    <Parameter Id="G(DIS_SIG,MO;0)"   Expr="+GSIGMO-GSERMO+GHSERMO+1.251*T;" Bibref="RM2013" />
+    <Parameter Id="G(DIS_SIG,RE;0)"   Expr="+GSIGRE-GSERRE+GHSERRE-1.205*T;" Bibref="RM2013" />
+  </UnaryParameters>
+  <BinaryParameters>
+    <Parameter Id="G(LIQUID,MO,RE;0)"   Expr="-15025+11.404*T-2610;" Bibref="RM2013" />
+    <Parameter Id="G(LIQUID,MO,RE;1)"   Expr="+8.07*T-7790;" Bibref="RM2013" />
+    <Parameter Id="G(BCC_A2,MO,RE:VA;0)"   Expr="-15025+11.404*T;" Bibref="RM2013" />
+    <Parameter Id="G(BCC_A2,MO,RE:VA;1)"   Expr="+8.07*T;" Bibref="RM2013" />
+    <Parameter Id="G(CHI,MO:MO:MO:RE;0)"   Expr="-667.0576*EVTOJ-2*GCHIMO-8*GCHIMO  -24*GCHIMO-24*GCHIRE;" Bibref="DFTCHI" />
+    <Parameter Id="G(CHI,MO:MO:RE:MO;0)"   Expr="-662.013824*EVTOJ-2*GCHIMO  -8*GCHIMO-24*GCHIRE-24*GCHIMO;" Bibref="DFTCHI" />
+    <Parameter Id="G(CHI,MO:MO:RE:RE;0)"   Expr="-706.53129*EVTOJ-2*GCHIMO  -8*GCHIMO-24*GCHIRE-24*GCHIRE;" Bibref="DFTCHI" />
+    <Parameter Id="G(CHI,MO:RE:MO:MO;0)"   Expr="-630.436204*EVTOJ-2*GCHIMO  -8*GCHIRE-24*GCHIMO-24*GCHIMO;" Bibref="DFTCHI" />
+    <Parameter Id="G(CHI,MO:RE:MO:RE;0)"   Expr="-676.652914*EVTOJ-2*GCHIMO  -8*GCHIRE-24*GCHIMO-24*GCHIRE;" Bibref="DFTCHI" />
+    <Parameter Id="G(CHI,MO:RE:RE:MO;0)"   Expr="-672.07236*EVTOJ-2*GCHIMO  -8*GCHIRE-24*GCHIRE-24*GCHIMO;" Bibref="DFTCHI" />
+    <Parameter Id="G(CHI,MO:RE:RE:RE;0)"   Expr="-715.47601*EVTOJ-2*GCHIMO  -8*GCHIRE-24*GCHIRE-24*GCHIRE;" Bibref="DFTCHI" />
+    <Parameter Id="G(CHI,RE:MO:MO:MO;0)"   Expr="-621.992644*EVTOJ  -2*GCHIRE-8*GCHIMO-24*GCHIMO-24*GCHIMO;" Bibref="DFTCHI" />
+    <Parameter Id="G(CHI,RE:MO:MO:RE;0)"   Expr="-669.426922*EVTOJ  -2*GCHIRE-8*GCHIMO-24*GCHIMO-24*GCHIRE;" Bibref="DFTCHI" />
+    <Parameter Id="G(CHI,RE:MO:RE:MO;0)"   Expr="-664.700708*EVTOJ  -2*GCHIRE-8*GCHIMO-24*GCHIRE-24*GCHIMO;" Bibref="DFTCHI" />
+    <Parameter Id="G(CHI,RE:MO:RE:RE;0)"   Expr="-708.864342*EVTOJ  -2*GCHIRE-8*GCHIMO-24*GCHIRE-24*GCHIRE;" Bibref="DFTCHI" />
+    <Parameter Id="G(CHI,RE:RE:MO:MO;0)"   Expr="-632.902352*EVTOJ  -2*GCHIRE-8*GCHIRE-24*GCHIMO-24*GCHIMO;" Bibref="DFTCHI" />
+    <Parameter Id="G(CHI,RE:RE:MO:RE;0)"   Expr="-678.636738*EVTOJ  -2*GCHIRE-8*GCHIRE-24*GCHIMO-24*GCHIRE;" Bibref="DFTCHI" />
+    <Parameter Id="G(CHI,RE:RE:RE:MO;0)"   Expr="-674.442674*EVTOJ  -2*GCHIRE-8*GCHIRE-24*GCHIRE-24*GCHIMO;" Bibref="DFTCHI" />
+    <Parameter Id="G(HCP_A3,MO,RE:VA;0)"   Expr="+12740+1.95*T;" Bibref="RM2013" />
+    <Parameter Id="G(SIGMA,MO:MO:MO:MO:RE;0)"   Expr="-336.420911*EVTOJ-2*GSIGMO  -4*GSIGMO-8*GSIGMO-8*GSIGMO-8*GSIGRE;" Bibref="DFTSIG" />
+    <Parameter Id="G(SIGMA,MO:MO:MO:RE:MO;0)"   Expr="-338.810302*EVTOJ-2*GSIGMO  -4*GSIGMO-8*GSIGMO-8*GSIGRE-8*GSIGMO;" Bibref="DFTSIG" />
+    <Parameter Id="G(SIGMA,MO:MO:MO:RE:RE;0)"   Expr="-350.940389*EVTOJ-2*GSIGMO  -4*GSIGMO-8*GSIGMO-8*GSIGRE-8*GSIGRE;" Bibref="DFTSIG" />
+    <Parameter Id="G(SIGMA,MO:MO:RE:MO:MO;0)"   Expr="-336.272469*EVTOJ-2*GSIGMO  -4*GSIGMO-8*GSIGRE-8*GSIGMO-8*GSIGMO;" Bibref="DFTSIG" />
+    <Parameter Id="G(SIGMA,MO:MO:RE:MO:RE;0)"   Expr="-348.274113*EVTOJ-2*GSIGMO  -4*GSIGMO-8*GSIGRE-8*GSIGMO-8*GSIGRE;" Bibref="DFTSIG" />
+    <Parameter Id="G(SIGMA,MO:MO:RE:RE:MO;0)"   Expr="-350.877403*EVTOJ-2*GSIGMO  -4*GSIGMO-8*GSIGRE-8*GSIGRE-8*GSIGMO;" Bibref="DFTSIG" />
+    <Parameter Id="G(SIGMA,MO:MO:RE:RE:RE;0)"   Expr="-361.705173*EVTOJ-2*GSIGMO  -4*GSIGMO-8*GSIGRE-8*GSIGRE-8*GSIGRE;" Bibref="DFTSIG" />
+    <Parameter Id="G(SIGMA,MO:RE:MO:MO:MO;0)"   Expr="-329.386161*EVTOJ-2*GSIGMO  -4*GSIGRE-8*GSIGMO-8*GSIGMO-8*GSIGMO;" Bibref="DFTSIG" />
+    <Parameter Id="G(SIGMA,MO:RE:MO:MO:RE;0)"   Expr="-341.899815*EVTOJ-2*GSIGMO  -4*GSIGRE-8*GSIGMO-8*GSIGMO-8*GSIGRE;" Bibref="DFTSIG" />
+    <Parameter Id="G(SIGMA,MO:RE:MO:RE:MO;0)"   Expr="-344.381107*EVTOJ-2*GSIGMO  -4*GSIGRE-8*GSIGMO-8*GSIGRE-8*GSIGMO;" Bibref="DFTSIG" />
+    <Parameter Id="G(SIGMA,MO:RE:MO:RE:RE;0)"   Expr="-355.892909*EVTOJ-2*GSIGMO  -4*GSIGRE-8*GSIGMO-8*GSIGRE-8*GSIGRE;" Bibref="DFTSIG" />
+    <Parameter Id="G(SIGMA,MO:RE:RE:MO:MO;0)"   Expr="-342.25167*EVTOJ-2*GSIGMO  -4*GSIGRE-8*GSIGRE-8*GSIGMO-8*GSIGMO;" Bibref="DFTSIG" />
+    <Parameter Id="G(SIGMA,MO:RE:RE:MO:RE;0)"   Expr="-353.543856*EVTOJ-2*GSIGMO  -4*GSIGRE-8*GSIGRE-8*GSIGMO-8*GSIGRE;" Bibref="DFTSIG" />
+    <Parameter Id="G(SIGMA,MO:RE:RE:RE:MO;0)"   Expr="-356.308695*EVTOJ-2*GSIGMO  -4*GSIGRE-8*GSIGRE-8*GSIGRE-8*GSIGMO;" Bibref="DFTSIG" />
+    <Parameter Id="G(SIGMA,MO:RE:RE:RE:RE;0)"   Expr="-366.47672*EVTOJ-2*GSIGMO  -4*GSIGRE-8*GSIGRE-8*GSIGRE-8*GSIGRE;" Bibref="DFTSIG" />
+    <Parameter Id="G(SIGMA,RE:MO:MO:MO:MO;0)"   Expr="-327.229897*EVTOJ  -2*GSIGRE-4*GSIGMO-8*GSIGMO-8*GSIGMO-8*GSIGMO;" Bibref="DFTSIG" />
+    <Parameter Id="G(SIGMA,RE:MO:MO:MO:RE;0)"   Expr="-340.042158*EVTOJ  -2*GSIGRE-4*GSIGMO-8*GSIGMO-8*GSIGMO-8*GSIGRE;" Bibref="DFTSIG" />
+    <Parameter Id="G(SIGMA,RE:MO:MO:RE:MO;0)"   Expr="-342.644194*EVTOJ  -2*GSIGRE-4*GSIGMO-8*GSIGMO-8*GSIGRE-8*GSIGMO;" Bibref="DFTSIG" />
+    <Parameter Id="G(SIGMA,RE:MO:MO:RE:RE;0)"   Expr="-354.494334*EVTOJ  -2*GSIGRE-4*GSIGMO-8*GSIGMO-8*GSIGRE-8*GSIGRE;" Bibref="DFTSIG" />
+    <Parameter Id="G(SIGMA,RE:MO:RE:MO:MO;0)"   Expr="-340.103152*EVTOJ  -2*GSIGRE-4*GSIGMO-8*GSIGRE-8*GSIGMO-8*GSIGMO;" Bibref="DFTSIG" />
+    <Parameter Id="G(SIGMA,RE:MO:RE:MO:RE;0)"   Expr="-351.792339*EVTOJ  -2*GSIGRE-4*GSIGMO-8*GSIGRE-8*GSIGMO-8*GSIGRE;" Bibref="DFTSIG" />
+    <Parameter Id="G(SIGMA,RE:MO:RE:RE:MO;0)"   Expr="-354.690887*EVTOJ  -2*GSIGRE-4*GSIGMO-8*GSIGRE-8*GSIGRE-8*GSIGMO;" Bibref="DFTSIG" />
+    <Parameter Id="G(SIGMA,RE:MO:RE:RE:RE;0)"   Expr="-365.120645*EVTOJ  -2*GSIGRE-4*GSIGMO-8*GSIGRE-8*GSIGRE-8*GSIGRE;" Bibref="DFTSIG" />
+    <Parameter Id="G(SIGMA,RE:RE:MO:MO:MO;0)"   Expr="-332.95143*EVTOJ  -2*GSIGRE-4*GSIGRE-8*GSIGMO-8*GSIGMO-8*GSIGMO;" Bibref="DFTSIG" />
+    <Parameter Id="G(SIGMA,RE:RE:MO:MO:RE;0)"   Expr="-345.245205*EVTOJ  -2*GSIGRE-4*GSIGRE-8*GSIGMO-8*GSIGMO-8*GSIGRE;" Bibref="DFTSIG" />
+    <Parameter Id="G(SIGMA,RE:RE:MO:RE:MO;0)"   Expr="-347.970121*EVTOJ  -2*GSIGRE-4*GSIGRE-8*GSIGMO-8*GSIGRE-8*GSIGMO;" Bibref="DFTSIG" />
+    <Parameter Id="G(SIGMA,RE:RE:MO:RE:RE;0)"   Expr="-359.220781*EVTOJ  -2*GSIGRE-4*GSIGRE-8*GSIGMO-8*GSIGRE-8*GSIGRE;" Bibref="DFTSIG" />
+    <Parameter Id="G(SIGMA,RE:RE:RE:MO:MO;0)"   Expr="-345.809448*EVTOJ  -2*GSIGRE-4*GSIGRE-8*GSIGRE-8*GSIGMO-8*GSIGMO;" Bibref="DFTSIG" />
+    <Parameter Id="G(SIGMA,RE:RE:RE:MO:RE;0)"   Expr="-356.822818*EVTOJ  -2*GSIGRE-4*GSIGRE-8*GSIGRE-8*GSIGMO-8*GSIGRE;" Bibref="DFTSIG" />
+    <Parameter Id="G(SIGMA,RE:RE:RE:RE:MO;0)"   Expr="-359.887484*EVTOJ  -2*GSIGRE-4*GSIGRE-8*GSIGRE-8*GSIGRE-8*GSIGMO;" Bibref="DFTSIG" />
+  </BinaryParameters>
+  <Bibliography>
+    <Bibitem Id="REF1" Text="PURE4 - SGTE Pure Elements (Unary) Database (Version 4.6),  developed by SGTE (Scientific Group Thermodata Europe), 1991  -2008, and provided by TCSAB (Jan. 2008)." />
+    <Bibitem Id="RM2013" Text="*** Not set by database or user" />
+    <Bibitem Id="DFTCHI" Text="JC Crivello 2012 march, Armide project v1.13 chi phase" />
+    <Bibitem Id="DFTSIG" Text="JC Crivello 2012 march, Armide project v1.9 sigma phase" />
+    <Bibitem Id="60Koh" Text="F. Kohler, Monatsh Chem, Vol 91 (1960) 738--740" />
+    <Bibitem Id="65Toop" Text="G. W. Toop, Trans Metall Soc, AIME  Vol 233 (1965) 850--854" />
+    <Bibitem Id="82Her" Text="S. Hertzman and B. Sundman, A Thermodynamic analysis of the Fe-Cr system, Calphad Vol 6 (1982) 67-80." />
+    <Bibitem Id="12Xiong" Text="W. Xiong, Q. Chen, P. K. Korzhavyi and M. Selleby, An improved magnetic model for thermodynamic modeling, Calphad, Vol 39 (2012) 11-20." />
+    <Bibitem Id="01Qing" Text="Q. Chen and B. Sundman, Modeling of thermodynamic properties for Bcc, Fcc, liquid, and amorphous iron, J. Phase Equilibria. Vol 22 (2001) 631-644." />
+    <Bibitem Id="14Becker" Text="C. A. Becker, J. Agren, M. Baricco, Q. Chen, S. A. Decterov, U. R. Kattner, J. H. Perepezko, G. R. Pottlacher and M. Selleby, Thermodynamic modelling of liquids: CALPHAD approaches and contributions from statistical physics. Phys status solidi. B, Vol 251(1) (2014) 33-52." />
+    <Bibitem Id="05Lu" Text="X-G. Lu, M. Selleby and B. Sundman, Implementation of a new model for pressure dependence of condensed phases in Thermo-Calc, Calphad Vol 29 (2005) 49-55." />
+    <Bibitem Id="07Hal" Text="B. Hallstedt, N. Dupin, M. Hillert, L. Höglund, H. L. Lukas, J. C. Schuster and N. Solak, Thermodynamic models for crystalline phases, composition dependent models vor volume, bulk modulus and thermal expansion, Calphad Vol 31 (2007) 28-37" />
+    <Bibitem Id="09Sun" Text="B. Sundman, I. Ohnuma, N. Dupin, U. R. Kattner, S. G. Fries, An assessment of the entire Al–Fe system including D03 ordering, Acta Mater. Vol 57 (2009) 2896-2908" />
+    <Bibitem Id="20Sun" Text="B. Sundman, U. R. Kattner, M. Hillert, M. Selleby, J. Agren, S. Bigdeli, Q. Chen, A. Dinsdale, B. Hallstedt, A. Khvan, H. Mao and R. OtisA method for handling the estrapolation of solid crystalline phases to temperature above their melting point, Calphad Vol 68 (2020) 101737" />
+  </Bibliography>
+  <TDBComments>
+  </TDBComments>
+</Database>

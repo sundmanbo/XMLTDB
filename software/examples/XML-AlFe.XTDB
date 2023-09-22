@@ -1,0 +1,247 @@
+<?xml version="1.0"?>
+<?xml-model href="database.rng" schematypens="http://relaxng.org/ns/structure/1.0" type="application/xml"?>
+<Database version="0.0.1">
+  <metadata>
+    <writer>xmltdbproject version 0.0.2
+       TDBfile="C:\Users\bosun\Documents\OC\projects\XML\software\up-down-load\examples\AlFe-4SLBF.TDB"
+       TDB software="Thermo-Calc"
+       Date="2023-09-22"
+    </writer>
+  </metadata>
+  <!-- Statistics elements="4"  species="3"  tpfuns="26"  phases="9"  parameters="54"  bibrefs="6"  -->
+  <Defaults LowT=" 298.15" HighT=" 6000.00" Bibref="U.N. Known" />
+  <Models>
+    <Magnetic Id="IHJBCC"  MPID1="TC" MPID2="BMAGN" Aff" -1.00" 
+       FbelowTC=" +1-0.905299383*TAO**(-1)-0.153008346*TAO**3-.00680037095*TAO**9-.00153008346*TAO**15;"
+       FaboveTC=" -.0641731208*TAO**(-5)-.00203724193*TAO**(-15)-.000427820805*TAO**(-25);" Bibref="82Her" > in G=f(TAO)*LN(BETA+1) where TAO=T/TC
+    </Magnetic>
+    <Magnetic Id="IHJREST"  MPID1="TC" MPID2="BMAGN" Aff" -3.00" 
+       FbelowTC=" +1-0.860338755*TAO**(-1)-0.17449124*TAO**3-.00775516624*TAO**9-.0017449124*TAO**15;"
+       FaboveTC=" -.0426902268*TAO**(-5)-.0013552453*TAO**(-15)-.000284601512*TAO**(-25);" Bibref="82Her" > in G=f(TAO)*LN(BETA+1) where TAO=T/TC
+    </Magnetic>
+    <Magnetic Id="IHJQX"  MPID1="CT" MPID2="NT" MPID3="BMAGN" Aff="  0.00" 
+       FbelowTC=" +1-0.842849633*TAO**(-1)-0.174242226*TAO**3-.00774409892*TAO**9-.00174242226*TAO**15-.000646538871*TAO**21;"
+       FaboveTC=" -.0261039233*TAO**(-7)-.000870130777*TAO**(-21)-.000184262988*TAO**(-35)-6.65916411E-05*TAO**(-49);" Bibref="12Xiong" > in G=f(TAO)*LN(BETA+1) where TAO=T/CT or T/NT
+    </Magnetic>
+    <Einstein Id="GLOWTEIN" MPID1="LNTH" Bibref="01Qing" > 
+       Gibbs energy due to the Einstein low T vibrational entropy model, G=1.5*R*THETA+3*R*T*LN(1-EXP(-THETA/T)).
+    </Einstein>
+    <Liquid2state Id="LIQ2STATE" MPID1="G2"  MPID2="LNTH" Bibref="14Becker" >
+       Unified model for the liquid and the amorphous state treated as an Einstein solid
+    </Liquid2state>
+    <Volume Id="VOLOWP" MPID1="V0"  MPID2="VA" MPID3="VB" Bibref="05Lu" >
+       The volume of a phase is described as function of T, P and its constitution.
+    </Volume>
+    <SplitPhase Ordered="phase" Disordered="phase" Sum="?" Subtract="Y/N" Bibref="07Hal" >
+       The SplitPhase tag must be specified explicly and add fractions in the ordered sublattices of the ordered phase to use in the disordered phase.  The Gibbs energy is calculated 2 or 3 times as indicated by the "Subtract" attributebut the configurational entropy only once.
+    </SplitPhase>
+    <FCC4Perm Id="FCC4Perm" Bibref="09Sun" >
+        Permutations of ordered FCC parameters with the same set of elements are listed only once.
+    </FCC4Perm>
+    <BCC4perm Id="BCC4Perm" Bibref="09Sun" >
+        Permutations of ordered BCC parameters with the same set of elements are listed only once.
+    </BCC4perm>
+    <EEC Id="EEC" Bibref="20Sun" >
+       Equi-Entropy Criterion means that solid phases with higher entropy that the liquid phase must not be stable.
+    </EEC>
+  </Models>
+  <Element Id="/-" Refstate="ELECTRON_GAS" Mass="  0.000000E+00" H298="  0.000000E+00" S298="  0.000000E+00" />
+  <Element Id="VA" Refstate="VACUUM" Mass="  0.000000E+00" H298="  0.000000E+00" S298="  0.000000E+00" />
+  <Element Id="AL" Refstate="FCC_A1" Mass="  2.698200E+01" H298="  4.577300E+03" S298="  2.832200E+01" />
+  <Element Id="FE" Refstate="BCC_A2" Mass="  5.584700E+01" H298="  4.489000E+03" S298="  2.728000E+01" />
+  <Species Id="VA" Stoichiometry="VA" />
+  <Species Id="AL" Stoichiometry="AL" />
+  <Species Id="FE" Stoichiometry="FE" />
+  <TPfun Id="GHSERAL"  >
+    <Trange HighT="700" Expr=" -7976.15+137.093038*T-24.3671976*T*LN(T)  -.001884662*T**2-8.77664E-07*T**3+74092*T**(-1);" />
+    <Trange HighT="933.47" Expr="   -11276.24+223.048446*T-38.5844296*T*LN(T)+.018531982*T**2  -5.764227E-06*T**3+74092*T**(-1);" />
+    <Trange HighT="2900" Expr="   -11278.378+188.684153*T-31.748192*T*LN(T)-1.230524E+28*T**(-9);" />
+  </TPfun>
+  <TPfun Id="GALLIQ"  >
+    <Trange HighT="933.47" Expr=" +11005.029-11.841867*T+7.934E-20*T**7  +GHSERAL;" />
+    <Trange Expr="  +10482.382-11.253974*T+1.231E+28*T**(-9)+GHSERAL;" />
+  </TPfun>
+  <TPfun Id="GALBCC"  Expr="+10083-4.813*T+GHSERAL;" />
+  <TPfun Id="GHSERFE"  >
+    <Trange HighT="1811" Expr=" +1225.7+124.134*T-23.5143*T*LN(T)  -.00439752*T**2-5.8927E-08*T**3+77359*T**(-1);" />
+    <Trange Expr="  -25383.581+299.31255*T-46*T*LN(T)+2.29603E+31*T**(-9);" />
+  </TPfun>
+  <TPfun Id="GFELIQ"  >
+    <Trange HighT="1811" Expr=" +12040.17-6.55843*T-3.6751551E-21*T**7  +GHSERFE;" />
+    <Trange Expr="  -10839.7+291.302*T-46*T*LN(T);" />
+  </TPfun>
+  <TPfun Id="GFEFCC"  >
+    <Trange HighT="1811" Expr=" -1462.4+8.282*T-1.15*T*LN(T)+6.4E-04*T**2  +GHSERFE;" />
+    <Trange Expr="  -27097.396+300.25256*T-46*T*LN(T)+2.78854E+31*T**(-9);" />
+  </TPfun>
+  <TPfun Id="LFALFE0"  Expr="-104700+30.65*T;" />
+  <TPfun Id="LFALFE1"  Expr="+30000-7*T;" />
+  <TPfun Id="LFALFE2"  Expr="+32200-17*T;" />
+  <TPfun Id="UFALFE"  Expr="-4000+T;" />
+  <TPfun Id="GAL3FE"  Expr="+3*UFALFE+9000;" />
+  <TPfun Id="GAL2FE2"  Expr="+4*UFALFE;" />
+  <TPfun Id="GALFE3"  Expr="+3*UFALFE-3500;" />
+  <TPfun Id="SFALFE"  Expr="+UFALFE;" />
+  <TPfun Id="UBALFE1"  Expr="-4023-1.14*T;" />
+  <TPfun Id="UBALFE2"  Expr="-1973-2*T;" />
+  <TPfun Id="GD03ALFE"  Expr="+2*UBALFE1+UBALFE2+3900;" />
+  <TPfun Id="GB2ALFE"  Expr="+4*UBALFE1;" />
+  <TPfun Id="GB32ALFE"  Expr="+2*UBALFE1+2*UBALFE2;" />
+  <TPfun Id="GD03FEAL"  Expr="+2*UBALFE1+UBALFE2-70+0.5*T;" />
+  <TPfun Id="BMALFE"  Expr="-1.36;" />
+  <TPfun Id="BLALFE0"  Expr="-0.3;" />
+  <TPfun Id="BLALFE1"  Expr="-0.8;" />
+  <TPfun Id="BLALFE2"  Expr="0.2;" />
+  <TPfun Id="ZERO"  Expr="0.0;" />
+  <TPfun Id="UN_ASS"  >
+    <Trange HighT="300" Expr=" 0.0 ;" />
+  </TPfun>
+  <Phase Id="LIQUID" Configuration="CEF" State="L" >
+    <Sublattices NumberOf="1"  Multiplicities="1" >
+      <Constituents Sublattice="1" List="AL FE" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="A1_FCC" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="2"  Multiplicities="1  1" >
+      <Constituents Sublattice="1" List="AL FE" />
+      <Constituents Sublattice="2" List="VA" />
+    </Sublattices>
+    <AmendPhase Model="IHJREST" />
+  </Phase>
+  <Phase Id="A2_BCC" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="2"  Multiplicities="1  3" >
+      <Constituents Sublattice="1" List="AL FE" />
+      <Constituents Sublattice="2" List="VA" />
+    </Sublattices>
+    <AmendPhase Model="IHJBCC" />
+  </Phase>
+  <Phase Id="AL13FE4" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="3"  Multiplicities="0.6275  0.235  0.1375" >
+      <Constituents Sublattice="1" List="AL" />
+      <Constituents Sublattice="2" List="FE" />
+      <Constituents Sublattice="3" List="AL VA" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="AL2FE" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="2"  Multiplicities="2  1" >
+      <Constituents Sublattice="1" List="AL" />
+      <Constituents Sublattice="2" List="FE" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="AL5FE2" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="2"  Multiplicities="5  2" >
+      <Constituents Sublattice="1" List="AL" />
+      <Constituents Sublattice="2" List="FE" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="AL8FE5_D82" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="2"  Multiplicities="8  5" >
+      <Constituents Sublattice="1" List="AL FE" />
+      <Constituents Sublattice="2" List="AL FE" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="BCC_4SL" Configuration="CEF_3terms" State="S" >
+    <Sublattices NumberOf="5"  Multiplicities="0.25  0.25  0.25  0.25  3" >
+      <Constituents Sublattice="1" List="AL FE" />
+      <Constituents Sublattice="2" List="AL FE" />
+      <Constituents Sublattice="3" List="AL FE" />
+      <Constituents Sublattice="4" List="AL FE" />
+      <Constituents Sublattice="5" List="VA" />
+    </Sublattices>
+    <AmendPhase Model="IHJBCC" />
+    <SplitPhase Ordered="BCC_4SL " Disordered="A2_BCC" Sum="4" Subtract="Y" />
+    <AmendPhase Model="BCC4Perm" />
+  </Phase>
+  <Phase Id="FCC_4SL" Configuration="CEF_3terms" State="S" >
+    <Sublattices NumberOf="5"  Multiplicities="0.25  0.25  0.25  0.25  1" >
+      <Constituents Sublattice="1" List="AL FE" />
+      <Constituents Sublattice="2" List="AL FE" />
+      <Constituents Sublattice="3" List="AL FE" />
+      <Constituents Sublattice="4" List="AL FE" />
+      <Constituents Sublattice="5" List="VA" />
+    </Sublattices>
+    <AmendPhase Model="IHJREST" />
+    <SplitPhase Ordered="FCC_4SL " Disordered="A1_FCC" Sum="4" Subtract="Y" />
+    <AmendPhase Model="FCC4Perm" />
+  </Phase>
+  <UnaryParameters >
+    <Parameter Id="G(LIQUID,AL;0)"   Expr="+GALLIQ;" Bibref="91Din" />
+    <Parameter Id="G(LIQUID,FE;0)"   Expr="+GFELIQ;" Bibref="91Din" />
+    <Parameter Id="G(A1_FCC,AL:VA;0)"   Expr="+GHSERAL;" Bibref="91Din" />
+    <Parameter Id="G(A1_FCC,FE:VA;0)"   Expr="+GFEFCC;" Bibref="91Din" />
+    <Parameter Id="TC(A1_FCC,FE:VA;0)"   Expr="-201;" Bibref="91Din" />
+    <Parameter Id="BMAGN(A1_FCC,FE:VA;0)"   Expr="-2.1;" Bibref="91Din" />
+    <Parameter Id="G(A2_BCC,AL:VA;0)"   Bibref="91Din" > 
+      <Trange HighT="2900" Expr="+GALBCC;" />
+    </Parameter>
+    <Parameter Id="G(A2_BCC,FE:VA;0)"   Expr="+GHSERFE;" Bibref="91Din" />
+    <Parameter Id="TC(A2_BCC,FE:VA;0)"   Expr="1043;" Bibref="91Din" />
+    <Parameter Id="BMAGN(A2_BCC,FE:VA;0)"   Expr="2.22;" Bibref="91Din" />
+    <Parameter Id="G(AL8FE5_D82,AL:AL;0)"   Expr="+13*GALBCC;" Bibref="08Sun" />
+    <Parameter Id="G(AL8FE5_D82,FE:FE;0)"   Expr="+13*GHSERFE+13000;" Bibref="08Sun" />
+    <Parameter Id="G(FCC_4SL,AL:AL:AL:AL:VA;0)"   Expr="+ZERO;" Bibref="08Con" />
+    <Parameter Id="G(FCC_4SL,FE:FE:FE:FE:VA;0)"   Expr="+ZERO;" Bibref="08Con" />
+  </UnaryParameters>
+  <BinaryParameters>
+    <Parameter Id="G(LIQUID,AL,FE;0)"   Expr="-88090+19.8*T;" Bibref="08Sun" />
+    <Parameter Id="G(LIQUID,AL,FE;1)"   Expr="-3800+3*T;" Bibref="08Sun" />
+    <Parameter Id="G(LIQUID,AL,FE;2)"   Expr="-2000;" Bibref="08Sun" />
+    <Parameter Id="G(A1_FCC,AL,FE:VA;0)"   Expr="+LFALFE0;" Bibref="08Sun" />
+    <Parameter Id="G(A1_FCC,AL,FE:VA;1)"   Expr="+LFALFE1;" Bibref="08Sun" />
+    <Parameter Id="G(A1_FCC,AL,FE:VA;2)"   Expr="+LFALFE2;" Bibref="08Sun" />
+    <Parameter Id="G(A2_BCC,AL,FE:VA;0)"   Expr="-122960+32*T;" Bibref="93Sei" />
+    <Parameter Id="G(A2_BCC,AL,FE:VA;1)"   Expr="2945.2;" Bibref="93Sei" />
+    <Parameter Id="TC(A2_BCC,AL,FE:VA;0)"   Expr="-438;" Bibref="01Ohn" />
+    <Parameter Id="TC(A2_BCC,AL,FE:VA;1)"   Expr="-1720;" Bibref="01Ohn" />
+    <Parameter Id="G(AL13FE4,AL:FE:AL;0)"   Expr="-30680+7.4*T+.765*GHSERAL  +.235*GHSERFE;" Bibref="08Sun" />
+    <Parameter Id="G(AL13FE4,AL:FE:VA;0)"   Expr="-28100+7.4*T+.6275*GHSERAL  +.235*GHSERFE;" Bibref="08Sun" />
+    <Parameter Id="G(AL2FE,AL:FE;0)"   Expr="-104000+23*T+2*GHSERAL+GHSERFE;" Bibref="08Sun" />
+    <Parameter Id="G(AL5FE2,AL:FE;0)"   Expr="-235600+54*T+5*GHSERAL  +2*GHSERFE;" Bibref="08Sun" />
+    <Parameter Id="G(AL8FE5_D82,FE:AL;0)"   Expr="+200000+36*T+5*GALBCC  +8*GHSERFE;" Bibref="08Sun" />
+    <Parameter Id="G(AL8FE5_D82,AL:FE;0)"   Expr="-394000+36*T+8*GALBCC  +5*GHSERFE;" Bibref="08Sun" />
+    <Parameter Id="G(AL8FE5_D82,AL:AL;0)"   Expr="-100000;" Bibref="08Sun" />
+    <Parameter Id="G(AL8FE5_D82,AL,FE:FE;0)"   Expr="-174000;" Bibref="08Sun" />
+    <Parameter Id="G(BCC_4SL,AL:AL:AL:FE:VA;0)"   Expr="+GD03ALFE;" Bibref="08Sun" />
+    <Parameter Id="TC(BCC_4SL,AL:AL:AL:FE:VA;0)"   Expr="-125;" Bibref="01Ohn" />
+    <Parameter Id="BMAGN(BCC_4SL,AL:AL:AL:FE:VA;0)"   Expr="BMALFE;" Bibref="08Sun" />
+    <Parameter Id="G(BCC_4SL,AL:AL:FE:FE:VA;0)"   Expr="+GB2ALFE;" Bibref="08Sun" />
+    <Parameter Id="TC(BCC_4SL,AL:AL:FE:FE:VA;0)"   Expr="-250;" Bibref="01Ohn" />
+    <Parameter Id="BMAGN(BCC_4SL,AL:AL:FE:FE:VA;0)"   Expr="2*BMALFE;" Bibref="08Sun" />
+    <Parameter Id="G(BCC_4SL,AL:FE:AL:FE:VA;0)"   Expr="+GB32ALFE;" Bibref="08Sun" />
+    <Parameter Id="TC(BCC_4SL,AL:FE:AL:FE:VA;0)"   Expr="-125;" Bibref="01Ohn" />
+    <Parameter Id="BMAGN(BCC_4SL,AL:FE:AL:FE:VA;0)"   Expr="BMALFE;" Bibref="08Sun" />
+    <Parameter Id="G(BCC_4SL,AL:FE:FE:FE:VA;0)"   Expr="+GD03FEAL;" Bibref="08Sun" />
+    <Parameter Id="TC(BCC_4SL,AL:FE:FE:FE:VA;0)"   Expr="-125;" Bibref="01Ohn" />
+    <Parameter Id="BMAGN(BCC_4SL,AL:FE:FE:FE:VA;0)"   Expr="BMALFE;" Bibref="08Sun" />
+    <Parameter Id="G(BCC_4SL,AL,FE:*:*:*:VA;1)"   Expr="-634+0.68*T;" Bibref="08Sun" />
+    <Parameter Id="G(BCC_4SL,AL,FE:*:*:*:VA;2)"   Expr="-190;" Bibref="08Sun" />
+    <Parameter Id="TC(BCC_4SL,AL,FE:*:*:*:VA;0)"   Expr="+125;" Bibref="01Ohn" />
+    <Parameter Id="BMAGN(BCC_4SL,AL,FE:*:*:*:VA;0)"   Expr="BLALFE0;" Bibref="08Sun" />
+    <Parameter Id="BMAGN(BCC_4SL,AL,FE:*:*:*:VA;1)"   Expr="BLALFE1;" Bibref="08Sun" />
+    <Parameter Id="BMAGN(BCC_4SL,AL,FE:*:*:*:VA;2)"   Expr="BLALFE2;" Bibref="08Sun" />
+    <Parameter Id="G(FCC_4SL,FE:AL:AL:AL:VA;0)"   Expr="+GAL3FE;" Bibref="08Con" />
+    <Parameter Id="G(FCC_4SL,FE:FE:AL:AL:VA;0)"   Expr="+GAL2FE2;" Bibref="08Con" />
+    <Parameter Id="G(FCC_4SL,FE:FE:FE:AL:VA;0)"   Expr="+GALFE3;" Bibref="08Con" />
+    <Parameter Id="G(FCC_4SL,AL,FE:AL,FE:*:*:VA;0)"   Expr="+SFALFE;" Bibref="08Con" />
+  </BinaryParameters>
+  <Bibliography>
+    <Bibitem Id="91Din" Text="A T Dinsdale, Calphad 1991" />
+    <Bibitem Id="93Sei" Text="M Seiersten, unpublished 1993" />
+    <Bibitem Id="01Ohn" Text="I Ohnuma, unpublished 2001" />
+    <Bibitem Id="08Con" Text="D Connetable et al, Calphad 2008; AL-C-Fe" />
+    <Bibitem Id="08Sun" Text="B Sundman, to be published" />
+    <Bibitem Id="08Dup" Text="N Dupin, vacancies in bcc" />
+    <Bibitem Id="60Koh" Text="F. Kohler, Monatsh Chem, Vol 91 (1960) 738--740" />
+    <Bibitem Id="65Toop" Text="G. W. Toop, Trans Metall Soc, AIME  Vol 233 (1965) 850--854" />
+    <Bibitem Id="82Her" Text="S. Hertzman and B. Sundman, A Thermodynamic analysis of the Fe-Cr system, Calphad Vol 6 (1982) 67-80." />
+    <Bibitem Id="12Xiong" Text="W. Xiong, Q. Chen, P. K. Korzhavyi and M. Selleby, An improved magnetic model for thermodynamic modeling, Calphad, Vol 39 (2012) 11-20." />
+    <Bibitem Id="01Qing" Text="Q. Chen and B. Sundman, Modeling of thermodynamic properties for Bcc, Fcc, liquid, and amorphous iron, J. Phase Equilibria. Vol 22 (2001) 631-644." />
+    <Bibitem Id="14Becker" Text="C. A. Becker, J. Agren, M. Baricco, Q. Chen, S. A. Decterov, U. R. Kattner, J. H. Perepezko, G. R. Pottlacher and M. Selleby, Thermodynamic modelling of liquids: CALPHAD approaches and contributions from statistical physics. Phys status solidi. B, Vol 251(1) (2014) 33-52." />
+    <Bibitem Id="05Lu" Text="X-G. Lu, M. Selleby and B. Sundman, Implementation of a new model for pressure dependence of condensed phases in Thermo-Calc, Calphad Vol 29 (2005) 49-55." />
+    <Bibitem Id="07Hal" Text="B. Hallstedt, N. Dupin, M. Hillert, L. Höglund, H. L. Lukas, J. C. Schuster and N. Solak, Thermodynamic models for crystalline phases, composition dependent models vor volume, bulk modulus and thermal expansion, Calphad Vol 31 (2007) 28-37" />
+    <Bibitem Id="09Sun" Text="B. Sundman, I. Ohnuma, N. Dupin, U. R. Kattner, S. G. Fries, An assessment of the entire Al–Fe system including D03 ordering, Acta Mater. Vol 57 (2009) 2896-2908" />
+    <Bibitem Id="20Sun" Text="B. Sundman, U. R. Kattner, M. Hillert, M. Selleby, J. Agren, S. Bigdeli, Q. Chen, A. Dinsdale, B. Hallstedt, A. Khvan, H. Mao and R. OtisA method for handling the estrapolation of solid crystalline phases to temperature above their melting point, Calphad Vol 68 (2020) 101737" />
+  </Bibliography>
+  <TDBComments>
+  </TDBComments>
+</Database>

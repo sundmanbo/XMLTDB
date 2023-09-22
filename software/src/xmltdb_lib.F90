@@ -10,13 +10,16 @@ MODULE XMLTDB_LIB
 ! Fortran definition of the XMLelements for use in XMLTDB project
 !
 ! First draft 2023.03.15 Bo Sundman
-! Later draft 2023.05.10 Bo Sundman
-! Current draft 2023.08.12 Bo Sundman
+! 2nd draft 2023.05.10 Bo Sundman
+! 3rd draft 2023.08.12 Bo Sundman
+! Current draft 2023.09.05 Bo Sundman
 !
   implicit none
+! max number of sublattices in a phase (in OC at present 9)
+  integer, parameter :: maxsub=9
 !
 !---------------------------
-! these are amend model indices
+! these should be made redundat by TYPE declration
     integer, parameter :: IHJBCC=1,IHJREST=2,IHJQX=3,GLOWTEIN=4
     integer, parameter :: LIQ2STATE=5,VOLOWP=6,SPLITPHASE=7,FCC4Perm=8
     integer, parameter :: BCC4Perm=9
@@ -96,7 +99,7 @@ MODULE XMLTDB_LIB
   end type xmltdb_mpid
 !------------------------------------------      
   TYPE xmltdb_addmodel
-! one or more of this record is linked from a phase record
+! zero, one or more of this record is linked from a phase record
 ! It has links to a xmltdb_model record and possible additional data
      character (len=24) :: ID
      integer :: model_int
@@ -136,7 +139,7 @@ MODULE XMLTDB_LIB
 ! MPIDX and PHIDX are indices in mmpidlist and phlist resepectivly
      integer :: mpidx, phidx
 ! this is number of constituent in each sublattice and degree
-     integer constinsubl(9),degree
+     integer constinsubl(maxsub),degree
 ! this is all constituents in a row
      character (len=24), dimension(:), allocatable :: constarray
 ! now how to store the expression
@@ -151,13 +154,13 @@ MODULE XMLTDB_LIB
      integer noofel
   end type xmltdb_parameter
 !------------------------------------------      
-  TYPE xmltdb_xmodel
+!  TYPE xmltdb_xmodel
 ! specification of the XMLelement MODEL (excluding constitution)
-     character (len=24) :: ID
-     character*80 text
+!     character (len=24) :: ID
+!     character*80 text
 ! necessary model parameter identifiers
 !     integer, dimension(:), allocatable :: mpid
-  end type xmltdb_xmodel
+!  end type xmltdb_xmodel
 !------------------------------------------      
   TYPE xmltdb_model
 ! list specification of models such as magnetism, permutations etc
@@ -921,7 +924,7 @@ CONTAINS
   subroutine getphase(line,ip)
 ! extract line with phase data
     character line*(*),ch1*1,typedefs2*10
-    integer ip,jp,kp,intval,za,zb
+    integer ip,jp,kp,intval,za,zb,ips
     double precision relval
     type(xmltdb_typedefs), pointer :: typelink
     type(xmltdb_model), pointer :: modelink
@@ -992,6 +995,11 @@ CONTAINS
     endif
     typedefs2=line(jp:ip-1)
 ! we should decode the type_defs as a model or action
+! but first we read the number of sublattices after position ip
+    ips=ip
+    call getint(line,ip,intval)
+    phlist(noph)%sublat=intval
+!
     typelink=>type_def_list%next
 ! debug: list all type_defs
     kp=0
@@ -1005,7 +1013,7 @@ CONTAINS
 !       typelink=>typelink%next
 !    enddo
 !----------------------------------------------
-    kp=ip-jp
+    kp=ips-jp
 !    write(*,*)'Typedef 1: ',trim(typedefs2),' on line ',nline
     do jp=1,kp
        typelink=>type_def_list
@@ -1018,16 +1026,21 @@ CONTAINS
 !                   write(*,*)'Added model id: ',trim(typelink%modelink%id)
                    modelink=>typelink%modelink
 ! if this is SPLITPHASE model we must save the number of sublattices and more
-                   write(*,*)'Decoding type_defs: ',typelink%modelindex
+!                   write(*,*)'Decoding type_defs: ',typelink%modelindex
                    if(typelink%modelindex.eq.SPLITPHASE) then
 ! this is the 3 part SplitPhase model: G=G_dis(x)+G_ord(y)-G_ord(y=x)
                       phlist(noph)%configmodel='CEF_3terms'
-                      typelink%model_int=intval
+! this is meaningless ...                      typelink%model_int=intval
+! OBS! the %model_int should be subtracted by one if disordered phase
+! has 2 sublattices as the last sublattice is probably interstitials
+!         write(*,*)' *** Check SplitPhase sum for: ',trim(phlist(noph)%name),&
+!---------------------------------------------------------------------------
                    elseif(typelink%modelindex.eq.-SPLITPHASE) then
 ! this is what TC calls the NEVER model G=G_dis(x)+G_ord(y)
                       phlist(noph)%configmodel='CEF_2terms'
-                      typelink%model_int=intval
-                      typelink%modelindex=SPLITPHASE
+! this is meaningless                      typelink%model_int=intval
+!         write(*,*)' *** Check SplitPhase sum for: ',trim(phlist(noph)%name),&
+                       typelink%modelindex=SPLITPHASE
                    endif
                 else
                    write(*,105)typedefs2(jp:jp),nline
@@ -1047,11 +1060,11 @@ CONTAINS
           endif
        endif
     enddo
-! but first we read the number of sublattices
-    call getint(line,ip,intval)
-    phlist(noph)%sublat=intval
+! This moved before decoding type_defs as we may need umber of sublattices
+!    call getint(line,ip,intval)
+!    phlist(noph)%sublat=intval
 !    write(*,*)'Sublattices: ',intval
-! now the sites
+! now the sites, position ip is after the number of sublattices
     allocate(phlist(noph)%sites(1:intval))
     do jp=1,intval
        call getrel(line,ip,relval)
@@ -1480,7 +1493,7 @@ CONTAINS
     double precision relval
 ! temporary storage for constituent array, tnc gives in each sublattice
     character*24, dimension(15) :: constarray
-    integer tnc(9),paracom
+    integer tnc(maxsub),paracom
 ! for storing parameters using Trange
     type(xmltdb_trange), pointer :: prange
     type(xmltdb_trange), target :: trange
@@ -1940,31 +1953,43 @@ CONTAINS
 ! We have to check if any phase has a SPLITPHASE model it its typedef
     do ni=1,noph
        za=1
-!       write(*,*)'Check typedefs for phase ',ni
+!       write(*,*)'Check typedefs for phase ',trim(phlist(ni)%name),ni
        ff: do while(phlist(ni)%type_defs(za:za).ne.' ')
           typedef=>type_def_list%next
           do while(associated(typedef))
              if(typedef%id.eq.phlist(ni)%type_defs(za:za)) then
                 if(typedef%modelindex.eq.SPLITPHASE) then
-! check first phase is this one ....
+!                  write(*,*)'Phase has SplitPhase model ',trim(phlist(ni)%name)
                    zb=1
                    call skip_to_space(typedef%action,zb)
-                   phase1=typedef%action(1:zb)
-                   phase2=typedef%action(zb+1:)
-                   if(phlist(ni)%name.ne.phase1) then
-                      write(*,77)trim(phase1),'" "',trim(phase2),'"'
-77                    Format(/'Wrong ordered phase in disordered set "',&
-                           a,'" and "',a,'"')
-                      xmlerr=5200; goto 1000
+                   if(typedef%action(1:zb-1).eq.trim(phlist(ni)%name)) then
+! SplitPhase with subtract (FCC) has 2 phases in %action, 2nd is disordered
+                      phase2=typedef%action(zb+1:)
+                   else
+! SplitPhase without subtract (NEVER model) has just one phase in %action
+                      phase2=typedef%action
                    endif
+                   write(*,*)'Disordered: ',trim(phase2)
+!                   phase1=typedef%action(1:zb)
+!                   phase2=typedef%action(zb+1:)
+!                   write(*,*)'Action: ',trim(typedef%action)
+!                   if(phlist(ni)%name.ne.phase1) then
+!                      write(*,77)trim(phase1),'" "',trim(phase2),'"'
+!77                    Format(/'Wrong ordered phase in disordered set "',&
+!                           a,'" and "',a,'"')
+!                      xmlerr=5200; goto 1000
+!                   endif
 ! Remove ordered phase from action!
-                   typedef%action=phase2
+!                   typedef%action=phase2
 ! search for disordered phase
+                   write(*,*)'Search for disordered part ',&
+                        trim(phase2),' of phase ',trim(phlist(ni)%name)
                    do nj=1,noph
-!                      write(*,*)'Find disordered phase: "',trim(phase2),&
+!                      write(*,*)'Check disordered phase: "',trim(phase2),&
 !                           '" and "',trim(phlist(nj)%name),'"',nj
                       if(phlist(nj)%name.eq.phase2) then
-!                         write(*,*)'Disordered sublattices: ',phlist(nj)%sublat
+                         write(*,*)'Found disordered part ',trim(phase2),&
+                              ' with ',phlist(nj)%sublat,' sublattices'
                          if(phlist(nj)%sublat.eq.2) then
 ! second sublattice assumed to be interstitial for BCC or FCC
                             phlist(ni)%splitphase_sum=phlist(ni)%sublat-1
@@ -2017,7 +2042,7 @@ CONTAINS
     type(xmltdb_typedefs), pointer :: typedef
     type(xmltdb_addmodel), pointer :: addmodel
     type(xmltdb_bibliography), pointer :: bibitem
-    integer parsel,nosel,totsel,xyz,kk
+    integer parsel,nosel,totsel,xyz,kk,suck
 !
     nnw=7; jsign=0
 !
@@ -2317,9 +2342,14 @@ CONTAINS
 ! check if ordered should be subtracted as disordered
                    if(index(phlist(ni)%configmodel,'_3terms').gt.0) then
 !                      write(out,439)trim(mlist(xyz)%id),trim(typedef%action),&
-                      write(out,439)trim(typedef%action),&
+!                      write(out,439)trim(typedef%action),&
+! The ordered (first) and disordered (2nd) should be separated
+                      suck=1
+                      call skip_to_space(typedef%action,suck)
+                      write(out,439)typedef%action(1:suck-1),&
+                           trim(typedef%action(suck+1:)),&
                            phlist(ni)%splitphase_sum
-439                   format(4x,'<SplitPhase Disordered="',a,&
+439                   format(4x,'<SplitPhase Ordered="',a,'" Disordered="',a,&
                            '" Sum="',i1,'" Subtract="Y" />')
                    else
 !                      write(out,440)trim(mlist(xyz)%id),trim(typedef%action),&
