@@ -1,0 +1,193 @@
+<?xml version="1.0"?>
+<?xml-model href="database.rng" schematypens="http://relaxng.org/ns/structure/1.0" type="application/xml"?>
+<Database version="0.0.3">
+  <metadata>
+    <writer Software="OpenCalphad  6.067" Date="2023-10-13" />
+  </metadata>
+  <Defaults LowT="10" HighT="6000" Bibref="U.N. Known" Elements="VA /-" />
+  <Element Id="AL" Refstate="FCC_A1" Mass="2.698200E+01" H298="4.577300E+03" S298="2.832200E+01" />
+  <Element Id="C" Refstate="GRAPHITE" Mass="1.201100E+01" H298="1.054000E+03" S298="5.742300E+00" />
+  <Species Id="VA" Stoichiometry="VA" />
+  <Species Id="AL" Stoichiometry="AL" />
+  <Species Id="C" Stoichiometry="C" />
+  <TPfun Id="R"     Expr="8.31451;" />
+  <TPfun Id="RTLNP" Expr="R*T*LN(1.0E-5)*P);" />
+  <TPfun Id="G0AL4C3" Expr=" -277339-.005423368*T**2;" /> 
+  <TPfun Id="GTSERAL" Expr=" -.001478307*T**2-7.83339395E-07*T**3;" /> 
+  <TPfun Id="GTSERCC" Expr=" -.00029531332*T**2-3.3998492E-16*T**5;" /> 
+  <TPfun Id="G0BCCAL" Expr=" +G0SERAL+10083;" /> 
+  <TPfun Id="GHHCPAL" Expr=" +G0HCPAL;" /> 
+  <TPfun Id="GHSERAL" Expr=" +G0SERAL;" /> 
+  <TPfun Id="GHSERCC" Expr=" +G0SERCC+GEGRACC;" /> 
+  <TPfun Id="G0DIACC" Expr=" -16275.202-9.1299452E-05*T**2-2.1653414E-16*T**5;" /> 
+  <TPfun Id="GEDIACC" Expr=" +0.2318*GEIN(+6.70196)+.01148*GEIN(+5.84456)-0.236743*GEIN(+7.37838);" /> 
+  <TPfun Id="G0LIQAL" Expr=" -209-3.777*T-.00045*T**2;" /> 
+  <TPfun Id="G0LIQCC" Expr=" +63887-8.2*T-.0004185*T**2;" /> 
+  <TPfun Id="G0SERAL" Expr=" -8160+GTSERAL;" /> 
+  <TPfun Id="G0HCPAL" Expr=" +G0SERAL+5481;" /> 
+  <TPfun Id="G0SERCC" Expr=" -17752.213-.00029531332*T**2-3.3998492E-16*T**5;" /> 
+  <TPfun Id="GEGRACC" Expr=" -0.5159523*GEIN(+7.57725)+0.121519*GEIN(+6.10479)+0.3496843*GEIN(+6.8533)+.0388463*GEIN(+5.26269)+.005840323*GEIN(+4.166667);" /> 
+  <Phase Id="LIQUID" Configuration="CEF" State="L" >
+    <Sites NumberOf="1" Multiplicities="1" >
+      <Constituents List="AL C" />
+    </Sites>
+    <AmendPhase Models="LIQ2STATE" />
+  </Phase>
+  <Phase Id="AL4C3" Configuration="CEF" State="S" >
+    <Sites NumberOf="2" Multiplicities="4 3" >
+      <Constituents Sublattice="1" List="AL" />
+      <Constituents Sublattice="2" List="C" />
+    </Sites>
+  </Phase>
+  <Phase Id="BCC_A2" Configuration="CEF" State="S" >
+    <Sites NumberOf="2" Multiplicities="1 3" >
+      <Constituents Sublattice="1" List="AL" />
+      <Constituents Sublattice="2" List="C VA" />
+    </Sites>
+    <AmendPhase Models="GLOWTEIN" />
+  </Phase>
+  <Phase Id="DIAMOND" Configuration="CEF" State="S" >
+    <Sites NumberOf="1" Multiplicities="1" >
+      <Constituents List="C" />
+    </Sites>
+    <AmendPhase Models="GLOWTEIN" />
+  </Phase>
+  <Phase Id="FCC_A1" Configuration="CEF" State="S" >
+    <Sites NumberOf="2" Multiplicities="1 1" >
+      <Constituents Sublattice="1" List="AL" />
+      <Constituents Sublattice="2" List="C VA" />
+    </Sites>
+    <AmendPhase Models="GLOWTEIN" />
+  </Phase>
+  <Phase Id="GRAPHITE" Configuration="CEF" State="S" >
+    <Sites NumberOf="1" Multiplicities="1" >
+      <Constituents List="C" />
+    </Sites>
+    <AmendPhase Models="GLOWTEIN" />
+  </Phase>
+  <Phase Id="HCP_A3" Configuration="CEF" State="S" >
+    <Sites NumberOf="2" Multiplicities="1 0.5" >
+      <Constituents Sublattice="1" List="AL" />
+      <Constituents Sublattice="2" List="C VA" />
+    </Sites>
+    <AmendPhase Models="GLOWTEIN" />
+  </Phase>
+  <Parameter Id="G(AL4C3,AL:C;0)"  Expr=" +G0AL4C3+3.92*GEIN(+5.994)+3.08*GEIN(+6.98193);"  Bibref="20HE" />
+  <Parameter Id="G(BCC_A2,AL:C;0)"  Expr=" +GTSERAL+3*GTSERCC+1006844;"  Bibref="20HE" />
+  <Parameter Id="LNTH(BCC_A2,AL:C;0)"  Expr=" +6.76041;"  Bibref="20HE" />
+  <Parameter Id="G(BCC_A2,AL:VA;0)"  Expr=" +G0BCCAL;"  Bibref="20HE" />
+  <Parameter Id="LNTH(BCC_A2,AL:VA;0)"  Expr=" +5.45194;"  Bibref="20HE" />
+  <Parameter Id="G(BCC_A2,AL:C,VA;0)"  Expr=" -819896+14*T;"  Bibref="20HE" />
+  <Parameter Id="G(DIAMOND,C;0)"  Expr=" +G0DIACC+GEDIACC;"  Bibref="20HE" />
+  <Parameter Id="LNTH(DIAMOND,C;0)"  Expr=" +7.37838;"  Bibref="20HE" />
+  <Parameter Id="G(FCC_A1,AL:C;0)"  Expr=" +GTSERAL+GTSERCC+57338;"  Bibref="20HE" />
+  <Parameter Id="LNTH(FCC_A1,AL:C;0)"  Expr=" +6.3081;"  Bibref="20HE" />
+  <Parameter Id="G(FCC_A1,AL:VA;0)"  Expr=" +GHSERAL;"  Bibref="20HE" />
+  <Parameter Id="LNTH(FCC_A1,AL:VA;0)"  Expr=" +5.64545;"  Bibref="20HE" />
+  <Parameter Id="G(FCC_A1,AL:C,VA;0)"  Expr=" -70345;"  Bibref="20HE" />
+  <Parameter Id="G(GRAPHITE,C;0)"  Expr=" +GHSERCC;"  Bibref="20HE" />
+  <Parameter Id="LNTH(GRAPHITE,C;0)"  Expr=" +7.57725;"  Bibref="20HE" />
+  <Parameter Id="G(HCP_A3,AL:C;0)"  Expr=" +GTSERAL+0.5*GTSERCC+2176775;"  Bibref="20HE" />
+  <Parameter Id="LNTH(HCP_A3,AL:C;0)"  Expr=" +6.11268;"  Bibref="20HE" />
+  <Parameter Id="G(HCP_A3,AL:VA;0)"  Expr=" +GHHCPAL;"  Bibref="20HE" />
+  <Parameter Id="LNTH(HCP_A3,AL:VA;0)"  Expr=" +5.57215;"  Bibref="20HE" />
+  <Parameter Id="G(HCP_A3,AL:C,VA;0)"  Expr=" 0;"  Bibref="20HE" />
+  <Parameter Id="G(LIQUID,AL;0)"  Expr=" +G0LIQAL;"  Bibref="20HE" />
+  <Parameter Id="LNTH(LIQUID,AL;0)"  Expr=" +5.53733;"  Bibref="20HE" />
+  <Parameter Id="G2(LIQUID,AL;0)"  Expr=" +13398-R*T-0.16597*T*LN(+T);"  Bibref="20HE" />
+  <Parameter Id="G(LIQUID,C;0)"  Expr=" +G0LIQCC;"  Bibref="20HE" />
+  <Parameter Id="LNTH(LIQUID,C;0)"  Expr=" +7.24423;"  Bibref="20HE" />
+  <Parameter Id="G2(LIQUID,C;0)"  Expr=" +59147-49.61*T+2.9806*T*LN(+T);"  Bibref="20HE" />
+  <Parameter Id="G(LIQUID,AL,C;0)"  Expr=" +20994-22*T;"  Bibref="20HE" />
+  <Bibliograpy>
+    <Bibitem Id="20HE" Text="Zhangting He, Bartek Kaplan, Huahai Mao and Malin Selleby, Calphad Vol 72, (2021) 102250" /> 
+    <Bibitem Id="Default" Text="U.N. Known" /> 
+  </Bibliograpy>
+  <Models>
+    This is a short explanation of XTDB model tags (or "elements") and their attributes, the models for the configurational entropy are not included.
+    The AmendPhase tag (nested inside a Phase tag) is used to specify some additional models for the phase
+    by using the attribute "Id" specified for most of the models below.
+    In these model tags there are model parameter identifiers (MPID) describing the dependence on composition, T and P.
+    A DisorderedPart tag must be nested inside the Phase tag as it has additional information.
+    The Toop and Kohler tags will normally appear together with model parameters for the binaries and has thus a phase attribute.
+    The EEC tag is global for the whole database if included.
+    Some model tags and MPIDs are tentative and some attributes of the tags are optional.
+    <Magnetic Id="IHJBCC" MPID1="TC" MPID2="BMAGN" Aff=" -1.00" Bibref="82Her" > 
+      f_below_TC= +1-0.905299383*TAO**(-1)-0.153008346*TAO**3-.00680037095*TAO**9-.00153008346*TAO**15; and
+      f_above_TC= -.0641731208*TAO**(-5)-.00203724193*TAO**(-15)-.000427820805*TAO**(-25); 
+      in G=f(TAO)*LN(BMAGN+1) where TAO=T/TC.  Aff is the antiferromagnetic factor.
+      TC is a combined Curie/Neel T and BMAGN the average Bohr magneton number.
+    </Magnetic>
+    <Magnetic Id="IHJREST"  MPID1="TC" MPID2="BMAGN" Aff=" -3.00" Bibref="82Her" > 
+      f_below_TC= +1-0.860338755*TAO**(-1)-0.17449124*TAO**3-.00775516624*TAO**9-.0017449124*TAO**15; and 
+      f_above_TC= -.0426902268*TAO**(-5)-.0013552453*TAO**(-15)-.000284601512*TAO**(-25); 
+      in G=f(TAO)*LN(BMAGN+1) where TAO=T/TC.  Aff is the antiferromagnetic factor.
+      TC is a combined Curie/Neel T and BMAGN the average Bohr magneton number.
+    </Magnetic>
+    <Magnetic Id="IHJQX" MPID1="CT" MPID2="NT" MPID3="BMAGN" Aff=" 0.00" Bibref="01Che 12Xio" > 
+      f_below_TC= +1-0.842849633*TAO**(-1)-0.174242226*TAO**3-.00774409892*TAO**9-.00174242226*TAO**15-.000646538871*TAO**21;
+      f_above_TC= -.0261039233*TAO**(-7)-.000870130777*TAO**(-21)-.000184262988*TAO**(-35)-6.65916411E-05*TAO**(-49);
+      in G=f(TAO)*LN(BMAGN+1) where TAO=T/CT or T/NT.  Aff is the (redundant) antiferromagnetic factor.
+      CT is the Curie T and NT the Neel T and BMAGN the average Bohr magneton number.
+    </Magnetic>
+    <Einstein Id="GLOWTEIN" MPID1="LNTH" Bibref="01Che" > 
+      The Gibbs energy due to the Einstein low T vibrational model, G=1.5*R*THETA+3*R*T*LN(1-EXP(-THETA/T)).
+      The Einstein THETA is the exponential of the parameter LNTH.
+    </Einstein>
+    <Liquid2state Id="LIQ2STATE" MPID1="G2"  MPID2="LNTH" Bibref="88Agr 13Bec" > 
+      Unified model for the liquid and the amorphous state which is treated as an Einstein solid.
+      The G2 parameter describes the stable liquid and the transition to the amorphous state and
+      LNTH is the logarithm of the Einstein THETA for the amorphous phase.
+    </Liquid2state>
+    <Volume Id="VOLOWP" MPID1="V0"  MPID2="VA" MPID3="VB" Bibref="05Lu" > 
+      The volume of a phase as function of T, moderate P and constitution via the model parameters:
+      V0 is the volume at the reference state, VA is the integrated thermal expansion and VB is the isothermal compressibilty at 1 bar.
+    </Volume>
+    <DisorderedPart Disordered=" " Subtract=" " Sum=" " Bibref="97Ans 07Hal" > 
+      This tag is nested inside the ordered phase tag.  The disordered fractions are averaged over the number of ordered sublattices indicated by Sum.
+      The Gibbs energy is calculated separately for the ordered and disordered model parameters and added 
+      but the configurational Gibbs energy is calculated only for the ordered phase.
+      If Subtract="Y" the Gibbs energy of the ordered phase is calculated a second time using the disordered fractions and subtracted.
+      Some software has no special disordered phase but all parameters are stored in the ordered one and
+      the parameters for the disordered phase has a suffix "D" (and different number of sublattices).
+    </DisorderedPart>
+    <Permutations Id="FCC4Perm" Bibref="09Sun" > 
+      An FCC phase with 4 sublattices for the ordered tetrahedron use this model to indicate that parameters 
+      with permutations of the same set of constituents on identical sublattices are included only once.
+    </Permutations>
+    <Permutations Id="BCC4Perm" Bibref="09Sun" > 
+      A BCC phase with 4 sublattices for the ordered asymmetric tetrahedron use this model to indicate that parameters 
+      with permutations of the same set of constituents on identical sublattices are included only once.
+    </Permutations>
+    <EEC Id="EEC" Bibref="20Sun" > 
+      The Equi-Entropy Criterion means that the software must ensure that solid phases with higher entropy than the liquid phase must not be stable. 
+    </EEC>
+    <KohlerTernary Phase=" " Constituents=" " Bibref="01Pel" > 
+      The symmetric Kohler model can be used for a specified ternary subsystem as described in the paper by Pelton.
+      The 3 constituents, separated by a space, can be in any order.
+    </KohlerTernary>
+    <ToopTernary Phase=" " Constitutents=" " Bibref="01Pel" > 
+      The asymmetric Toop model can be used for a specified ternary subsystem as described in the paper by Pelton.
+      The 3 constituents, separated by a space, must have the Toop constituent as the first one.
+    </ToopTernary>
+    <EBEF Id="EBEF" Bibref="18Dup" > 
+      The Effective Bond Energy Formalism for phases with multiple sublattices using wildcards, "*", in the parameters
+      for sublattices with irrelevant constituents.  The parameters may also use the short form "constituent@sublattice" 
+      in order to specify only the constituents in sublattices without wildcards.  It also requires the DisorderedPart model.
+    </EBEF>
+  </Models>
+  <Bibliography> 
+    <Bibitem Id="82Her" Text="S. Hertzman and B. Sundman, A Thermodynamic analysis of the Fe-Cr system,' Calphad, Vol 6 (1982) pp 67-80" />
+    <Bibitem Id="88Agr" Text="J. Agren, Thermodynmaics of supercooled liquids and their glass transition, Phys Chem Liq, Vol 18 (1988) pp 123-139" />
+    <Bibitem Id="97Ans" Text="I. Ansara, N. Dupin, H. L. Lukas and B. Sundman, Thermodynamic assessment of the Al-Ni system, J All and Comp, Vol 247 (1997) pp 20-30" />
+    <Bibitem Id="01Che" Text="Q. Chen and B. Sundman, Modeling of Thermodynamic Properties for BCC, FCC, Liquid and Amorphous Iron, J Phase Eq, Vol 22 (2001) pp 631-644" />
+    <Bibitem Id="01Pel" Text="A. D. Pelton, A General Geometric Thermodynamic Model for Multicomponent  solutions, Calphad, Vol 25 (2001) pp 319-328" />
+    <Bibitem Id="05Lu" Text="X.-G. Lu, M. Selleby B. Sundman, Implementation of a new model for pressure dependence of condensed phases in Thermo-Calc, Calphad, Vol 29 (2005) pp 49-55" />
+    <Bibitem Id="07Hal" Text="B. Hallstedt, N. Dupin, M. Hillert, L. Hoglund, H. L. Lukas, J. C. Schuster and N. Solak, Calphad, Vol 31 (2007) pp 28-37" />
+    <Bibitem Id="09Sun" Text="B. Sundman, I. Ohnuma, N. Dupin, U. R. Kattner and S. G. Fries, An assessment of the entire Al-Fe system including D03 ordering, Acta Mater, Vol 57 (2009) pp 2896-2908" />
+    <Bibitem Id="12Xio" Text="W. Xiong, Q. Chen, P. A. Korzhavyi and M. Selleby, An improved magnetic model for thermodynamic modeling, Calphad, Vol 39 (2012) pp 11-20" />
+    <Bibitem Id="13Bec" Text="C. A. Becker, J. Agren, M. Baricco, Q Chen, S. A. Decterov, U. R. Kattner, J. H. Perepezko, G. R. Pottlacher and M. Selleby, Thermodynamic modelling of liquids: Calphad approaches and contributions from statistical physics, Phys Stat Sol B (2013) pp 1-20" />
+    <Bibitem Id="18Dup" Text="N. Dupin, U. R. Kattner, B. Sundman, M. Palumbo and S. G. Fries, Implementation of an Effective Bond Energy Formalism in the Multicomponent Calphad Approach, J Res NIST, Vol 123 (2018) 123020" />
+    <Bibitem Id="20Sun" Text="B. Sundman, U. R. Kattner, M. Hillert, M. Selleby, J. Agren, S. Bigdeli, Q. Chen, A. Dinsdale, B. Hallstedt, A. Khvan, H. Mao and R. Otis, A method for handling the extrapolation of solid crystalline phases to temperatures far above their melting point, Calphad, Vol 68 (2020) 101737" />
+  </Bibliography>
+</Database>

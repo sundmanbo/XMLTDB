@@ -1,0 +1,254 @@
+<?xml version="1.0"?>
+<?xml-model href="database.rng" schematypens="http://relaxng.org/ns/structure/1.0" type="application/xml"?>
+<Database version="0.0.1">
+  <XTDB Version="0.0.1" Software="Manual" Date="2023.10.10" Signature="Bengt Hallstedt" />
+  <Defaults LowT="298.15" HighT="6000" Elements="Va" />
+  <DatabaseInfo>
+    Database for Al-Li from B. Hallstedt and O. Kim 2007.
+	B. Hallstedt, O. Kim, Int. J. Mater. Res., 98, 961-69(2007)
+	Including 4-SL ordering models for fcc and bcc.
+	
+    Dataset created 2009.06.07 by Bengt Hallstedt.
+    2016.10.22: Condensed version using option F and B.
+    2020.12.20: Modified for use with GES6.
+    2023.04.11: Corrected number of interstitial sites in BCC_4SL.
+  </DatabaseInfo>
+
+  <Element Id="Va" Refstate="Vacuum" Mass="0.0" H298="0.0" S298="0.0" />
+  <Element Id="Al" Refstate="FCC_A1" Mass="26.98154" H298="4540.00" S298="28.30" />
+  <Element Id="Li" Refstate="BCC_A2" Mass="6.941" H298="4632.00" S298="29.12" />
+
+<!-- Do we really need these? -->
+  <Species Id="Va" Stoichiometry="Va1" />
+  <Species Id="Al" Stoichiometry="Al1" />
+  <Species Id="Li" Stoichiometry="Li1" />
+
+  <TPfun Id="ZERO"      Expr="0.0;" />
+  <TPfun Id="UN_ASS"    Expr="0.0;" />
+  <TPfun Id="R"         Expr="8.31451;" />
+
+  <Phase Id="LIQUID" Configuration="CEF" State="L" >
+    <Sublattices NumberOf="1" Multiplicities="1" >
+      <Constituents Sublattice="1" List="Al Li" />
+    </Sublattices>
+  </Phase>
+
+<!-- I have added crystal structure information with suggested element and attributes -->
+<!-- FCC_A1 does not order -->
+  <Phase Id="FCC_A1" Configuration="CEF" State="S" >
+	<CrystalStructure Prototype="Cu" PearsonSymbol="cF4" SpaceGroup="Fm-3m" />
+	<CrystalStructure Prototype="NaCl" PearsonSymbol="cF8" SpaceGroup="Fm-3m" />
+    <Sublattices NumberOf="2" Multiplicities="1 1" >
+      <Constituents Sublattice="1" List="Al Li" />
+      <Constituents Sublattice="2" List="Va" />
+    </Sublattices>
+    <AmendPhase Models="IHJFCC" />
+  </Phase>
+
+<!-- Disordered part of FCC_4SL, identical to FCC_A1 -->
+  <Phase Id="A1_FCC" Configuration="CEF" State="S" >
+	<CrystalStructure Prototype="Cu" PearsonSymbol="cF4" SpaceGroup="Fm-3m" />
+	<CrystalStructure Prototype="NaCl" PearsonSymbol="cF8" SpaceGroup="Fm-3m" />
+    <Sublattices NumberOf="2" Multiplicities="1 1" >
+      <Constituents Sublattice="1" List="Al Li" />
+      <Constituents Sublattice="2" List="Va" />
+    </Sublattices>
+    <AmendPhase Models="IHJFCC" />
+  </Phase>
+
+  <Phase Id="FCC_4SL" Configuration="CEF" State="S" >
+	<CrystalStructure Prototype="Cu" PearsonSymbol="cF4" SpaceGroup="Fm-3m" />
+	<CrystalStructure Prototype="AuCu" PearsonSymbol="tP4" SpaceGroup="P4/mmm" />
+	<CrystalStructure Prototype="AuCu3" PearsonSymbol="cP4" SpaceGroup="Pm-3m" />
+    <Sublattices NumberOf="5" Multiplicities="0.25 0.25 0.25 0.25 1" >
+      <Constituents Sublattice="1" List="Al Li" />
+      <Constituents Sublattice="2" List="Al Li" />
+      <Constituents Sublattice="3" List="Al Li" />
+      <Constituents Sublattice="4" List="Al Li" />
+      <Constituents Sublattice="5" List="Va" />
+    </Sublattices>
+	<SplitPhase Disordered="A1_FCC" Sum="4" Subtract="Y" />
+    <AmendPhase Models="IHJFCC FCC4PERM" />
+  </Phase>
+
+<!-- BCC_A2 does not order -->
+  <Phase Id="BCC_A2" Configuration="CEF" State="S" >
+	<CrystalStructure Prototype="W" PearsonSymbol="cI2" SpaceGroup="Im-3m" />
+    <Sublattices NumberOf="2" Multiplicities="1 3" >
+      <Constituents Sublattice="1" List="Al Li" />
+      <Constituents Sublattice="2" List="Va" />
+    </Sublattices>
+    <AmendPhase Models="IHJBCC" />
+  </Phase>
+
+<!-- Disordered part of BCC_4SL, identical to BCC_A2 -->
+  <Phase Id="A2_BCC" Configuration="CEF" State="S" >
+	<CrystalStructure Prototype="W" PearsonSymbol="cI2" SpaceGroup="Im-3m" />
+    <Sublattices NumberOf="2" Multiplicities="1 3" >
+      <Constituents Sublattice="1" List="Al Li" />
+      <Constituents Sublattice="2" List="Va" />
+    </Sublattices>
+    <AmendPhase Models="IHJBCC" />
+  </Phase>
+
+  <Phase Id="BCC_4SL" Configuration="CEF" State="S" >
+	<CrystalStructure Prototype="W" PearsonSymbol="cI2" SpaceGroup="Im-3m" />
+	<CrystalStructure Prototype="CsCl" PearsonSymbol="cP2" SpaceGroup="Pm-3m" />
+	<CrystalStructure Prototype="NaTl" PearsonSymbol="cF16" SpaceGroup="Fd-3m" />
+	<CrystalStructure Prototype="AlFe3" PearsonSymbol="cF16" SpaceGroup="Fm-3m" />
+	<CrystalStructure Prototype="AlCu2Mn" PearsonSymbol="cF16" SpaceGroup="Fm-3m" />
+    <Sublattices NumberOf="5" Multiplicities="0.25 0.25 0.25 0.25 3" >
+      <Constituents Sublattice="1" List="Al Li" />
+      <Constituents Sublattice="2" List="Al Li" />
+      <Constituents Sublattice="3" List="Al Li" />
+      <Constituents Sublattice="4" List="Al Li" />
+      <Constituents Sublattice="5" List="Va" />
+    </Sublattices>
+	<SplitPhase Disordered="A2_BCC" Sum="4" Subtract="Y" />
+    <AmendPhase Models="IHJFCC BCC4PERM" />
+  </Phase>
+
+  <Phase Id="HCP_A3" Configuration="CEF" State="S" >
+	<CrystalStructure Prototype="Mg" PearsonSymbol="hP2" SpaceGroup="P6_3/mmc" />
+	<CrystalStructure Prototype="NiAs" PearsonSymbol="hP4" SpaceGroup="P6_3/mmc" />
+    <Sublattices NumberOf="2" Multiplicities="1 0.5" >
+      <Constituents Sublattice="1" List="Al Li" />
+      <Constituents Sublattice="2" List="Va" />
+    </Sublattices>
+    <AmendPhase Models="IHJFCC" />
+  </Phase>
+
+  <Phase Id="AL2LI3" Configuration="CEF" State="S" >
+	<CrystalStructure Prototype="Al2Li3" PearsonSymbol="hR5" SpaceGroup="R-3m" />
+    <Sublattices NumberOf="2" Multiplicities="2 3" >
+      <Constituents Sublattice="1" List="Al" />
+      <Constituents Sublattice="2" List="Li" />
+    </Sublattices>
+  </Phase>
+
+  <Phase Id="AL4LI9" Configuration="CEF" State="S" >
+	<CrystalStructure Prototype="Al4Li9" PearsonSymbol="mC26" SpaceGroup="C2/m" />
+    <Sublattices NumberOf="2" Multiplicities="4 9" >
+      <Constituents Sublattice="1" List="Al" />
+      <Constituents Sublattice="2" List="Li" />
+    </Sublattices>
+  </Phase>
+
+<!-- Unary Al -->
+  <Parameter Id="G(FCC_A1,AL:VA)"  Expr="GHSERAL;" HighT="2900"  Bibref="91Din" />
+  <Parameter Id="G(A1_FCC,AL:VA)"  Expr="GHSERAL;" HighT="2900"  Bibref="91Din" />
+  <Parameter Id="G(BCC_A2,AL:VA)"  Expr="GHSERAL+10083-4.813*T;" HighT="2900"  Bibref="91Din" />
+  <Parameter Id="G(A2_BCC,AL:VA)"  Expr="GHSERAL+10083-4.813*T;" HighT="2900"  Bibref="91Din" />
+  <Parameter Id="G(HCP_A3,AL:VA)"  Expr="GHSERAL+5481-1.8*T;" HighT="2900"  Bibref="91Din" />
+  <Parameter Id="G(LIQUID,AL)"  Expr="GLIQAL;" HighT="2900"  Bibref="91Din" />
+
+  <TPfun Id="GHSERAL" Expr="-7976.15+137.093038*T-24.3671976*T*LN(T)-0.001884662*T**2-8.77664E-07*T**3+74092*T**(-1);" HighT="700" >
+    <Trange Expr="-11276.24+223.048446*T-38.5844296*T*LN(T)+0.018531982*T**2 -5.764227E-06*T**3+74092*T**(-1);" HighT="933.47" /> 
+    <Trange Expr="-11278.361+188.684136*T-31.748192*T*LN(T)-1.230622E+28*T**(-9);" HighT="2900" /> 
+  </TPfun>
+
+  <TPfun Id="GLIQAL" Expr="+11005.045-11.84185*T+GHSERAL+7.9337E-20*T**7;" HighT="933.47" >
+     <Trange Expr="-795.991+177.430209*T-31.748192*T*LN(T);" HighT="2900" /> 
+  </TPfun>
+
+<!-- Unary Li -->
+  <Parameter Id="G(BCC_A2,LI:VA)"  LowT="200" Expr="GHSERLI;" HighT="3000"  Bibref="91Din" />
+  <Parameter Id="G(A2_BCC,LI:VA)"  LowT="200" Expr="GHSERLI;" HighT="3000"  Bibref="91Din" />
+  <Parameter Id="G(FCC_A1,LI:VA)"  LowT="200" Expr="GHSERLI-108+1.3*T;" HighT="3000"  Bibref="91Din" />
+  <Parameter Id="G(A1_FCC,LI:VA)"  LowT="200" Expr="GHSERLI-108+1.3*T;" HighT="3000"  Bibref="91Din" />
+  <Parameter Id="G(HCP_A3,AL:VA)"  LowT="200" Expr="GHSERLI-154+2*T;" HighT="3000"  Bibref="91Din" />
+  <Parameter Id="G(LIQUID,LI)"  LowT="200" Expr="GLIQLI;" HighT="3000"  Bibref="91Din" />
+
+  <TPfun Id="GHSERLI" Expr="-10583.817+217.637482*T-38.940488*T*LN(T)+0.035466931*T**2-1.9869816E-05*T**3+159994*T**(-1);" HighT="453" >
+    <Trange Expr="-559579.123+10547.8799*T-1702.88865*T*LN(T)+2.25832944*T**2-5.71066077E-04*T**3+33885874*T**(-1);" HighT="500" /> 
+    <Trange Expr="-9062.994+179.278285*T-31.2283718*T*LN(T)+0.002633221*T**2-4.38058E-07*T**3-102387*T**(-1);" HighT="3000" /> 
+  </TPfun>
+
+  <TPfun Id="GLIQLI" Expr="+2700.205-5.795621*T+GHSERLI;" HighT="250" >
+    <Trange Expr="+12015.027-362.187078*T+61.6104424*T*LN(T)-0.182426463*T**2+6.3955671E-05*T**3-559968*T**(-1);" HighT="453" /> 
+    <Trange Expr="-6057.31+172.652183*T-31.2283718*T*LN(T)+0.002633221*T**2-4.38058E-07*T**3-102387*T**(-1);" HighT="500" /> 
+    <Trange Expr="+3005.684-6.626102*T+GHSERLI;" HighT="3000" /> 
+  </TPfun>
+
+<!-- Binary Al-Li -->
+  <Parameter Id="G(LIQUID,AL,LI;0)"  Expr="-44200+20.6*T;" Bibref="07Hal" />
+  <Parameter Id="G(LIQUID,AL,LI;1)"  Expr="+13600-5.3*T;" Bibref="07Hal" />
+  <Parameter Id="G(LIQUID,AL,LI;2)"  Expr="+14200;" Bibref="07Hal" />
+  <Parameter Id="G(LIQUID,AL,LI;3)"  Expr="-12100;" Bibref="07Hal" />
+  <Parameter Id="G(LIQUID,AL,LI;4)"  Expr="-7100;" Bibref="07Hal" />
+
+  <Parameter Id="G(FCC_A1,AL,LI:VA;0)"  Expr="+LDF0ALLI;" Bibref="07Hal" />
+  <Parameter Id="G(FCC_A1,AL,LI:VA;1)"  Expr="+LDF1ALLI;" Bibref="07Hal" />
+  <Parameter Id="G(FCC_A1,AL,LI:VA;2)"  Expr="+LDF2ALLI;" Bibref="07Hal" />
+
+  <Parameter Id="G(A1_FCC,AL,LI:VA;0)"  Expr="+LDF0ALLI;" Bibref="07Hal" />
+  <Parameter Id="G(A1_FCC,AL,LI:VA;1)"  Expr="+LDF1ALLI;" Bibref="07Hal" />
+  <Parameter Id="G(A1_FCC,AL,LI:VA;2)"  Expr="+LDF2ALLI;" Bibref="07Hal" />
+
+  <Parameter Id="G(BCC_A2,AL,LI:VA;0)"  Expr="+LDB0ALLI;" Bibref="07Hal" />
+  <Parameter Id="G(BCC_A2,AL,LI:VA;1)"  Expr="+LDB1ALLI;" Bibref="07Hal" />
+  <Parameter Id="G(BCC_A2,AL,LI:VA;2)"  Expr="+LDB2ALLI;" Bibref="07Hal" />
+
+  <Parameter Id="G(A2_BCC,AL,LI:VA;0)"  Expr="+LDB0ALLI;" Bibref="07Hal" />
+  <Parameter Id="G(A2_BCC,AL,LI:VA;1)"  Expr="+LDB1ALLI;" Bibref="07Hal" />
+  <Parameter Id="G(A2_BCC,AL,LI:VA;2)"  Expr="+LDB2ALLI;" Bibref="07Hal" />
+
+  <Parameter Id="G(FCC_4SL,AL:AL:AL:LI:VA)"  Expr="+GFAL3LI;" Bibref="07Hal" />
+  <Parameter Id="G(FCC_4SL,AL:AL:LI:LI:VA)"  Expr="+GFALLI2;" Bibref="07Hal" />
+  <Parameter Id="G(FCC_4SL,AL:LI:LI:LI:VA)"  Expr="+GFALLI3;" Bibref="07Hal" />
+  <Parameter Id="G(FCC_4SL,AL,LI:*:*:*:VA;0)"  Expr="+L0FALLI;" Bibref="07Hal" />
+  <Parameter Id="G(FCC_4SL,AL,LI:*:*:*:VA;1)"  Expr="+L1FALLI;" Bibref="07Hal" />
+  <Parameter Id="G(FCC_4SL,AL,LI:*:*:*:VA;2)"  Expr="+L2FALLI;" Bibref="07Hal" />
+  <Parameter Id="G(FCC_4SL,AL,LI:AL,LI:*:*:VA;0)"  Expr="+SFALLI;" Bibref="07Hal" />
+
+  <Parameter Id="G(BCC_4SL,AL:AL:AL:LI:VA)"  Expr="+GBAL3LI;" Bibref="07Hal" />
+  <Parameter Id="G(BCC_4SL,AL:AL:LI:LI:VA)"  Expr="+GB2ALLI;" Bibref="07Hal" />
+  <Parameter Id="G(BCC_4SL,AL:LI:AL:LI:VA)"  Expr="+GB2ALLI;" Bibref="07Hal" />
+  <Parameter Id="G(BCC_4SL,AL:LI:LI:LI:VA)"  Expr="+GBALLI3;" Bibref="07Hal" />
+  <Parameter Id="G(BCC_4SL,AL,LI:*:*:*:VA;0)"  Expr="+L0BALLI;" Bibref="07Hal" />
+  <Parameter Id="G(BCC_4SL,AL,LI:*:*:*:VA;1)"  Expr="+L1BALLI;" Bibref="07Hal" />
+  <Parameter Id="G(BCC_4SL,AL,LI:*:*:*:VA;2)"  Expr="+L2BALLI;" Bibref="07Hal" />
+  <Parameter Id="G(BCC_4SL,AL,LI:AL,LI:*:*:VA;0)"  Expr="+SB1ALLI;" Bibref="07Hal" />
+  <Parameter Id="G(BCC_4SL,AL,LI:*:AL,LI:*:VA;0)"  Expr="+SB2ALLI;" Bibref="07Hal" 
+  />
+  
+  <Parameter Id="G(AL2LI3,AL:LI)"  Expr="+2*GHSERAL+3*GHSERLI-93990+34.5*T;" Bibref="07Hal" />
+  <Parameter Id="G(AL4LI),AL:LI)"  Expr="+4*GHSERAL+9*GHSERLI-193780+71.7*T;" Bibref="07Hal" />
+
+<!-- metastable -->
+  <Parameter Id="G(HCP_A3,AL,LI:VA;0)"  Expr="-27000+8*T;" Bibref="98Sau2" />
+
+  <TPfun Id="UFALLI" Expr="-3270+1.96*T;" />
+  <TPfun Id="L0FALLI" Expr="+2960-1.56*T;" />
+  <TPfun Id="L2FALLI" Expr="0;" />
+  <TPfun Id="L2FALLI" Expr="0;" />
+  <TPfun Id="GFAL3LI" Expr="+3*UFALLI+1750-4.7*T;" />
+  <TPfun Id="GFAL2LI2" Expr="+4*UFALLI;" />
+  <TPfun Id="GFALLI3" Expr="+3*UFALLI+4900;" />
+  <TPfun Id="SFALLI" Expr="+UFALLI;" />
+  <TPfun Id="LDF0ALLI" Expr="+GFAL3LI+1.5*GFAL2LI2+GFALLI3+1.5*SFALLI+4*L0FALLI;" />
+  <TPfun Id="LDF1ALLI" Expr="+2*GFAL3LI-2*GFALLI3+4*L1FALLI;" />
+  <TPfun Id="LDF2ALLI" Expr="+GFAL3LI-1.5*GFAL2LI2+GFALLI3-1.5*SFALLI+4*L2FALLI;" />
+
+  <TPfun Id="UB1ALLI" Expr="-3360+1.8*T;" />
+  <TPfun Id="UB2ALLI" Expr="-4230+1.86*T;" />
+  <TPfun Id="L0BALLI" Expr="0;" />
+  <TPfun Id="L2BALLI" Expr="0;" />
+  <TPfun Id="L2BALLI" Expr="0;" />
+  <TPfun Id="GBAL3LI" Expr="+2*UB1ALLI+1.5*UB2ALLI+3700;" />
+  <TPfun Id="GB2ALLI" Expr="+4*UB1ALLI;" />
+  <TPfun Id="GB32ALLI" Expr="+2*UB1ALLI+3*UB2ALLI;" />
+  <TPfun Id="GBALLI3" Expr="+2*UB1ALLI+1.5*UB2ALLI+3250;" />
+  <TPfun Id="SB1ALLI" Expr="+15000;" />
+  <TPfun Id="SB2ALLI" Expr="+15000;" />
+  <TPfun Id="LDB0ALLI" Expr="+GBAL3LI+0.5*GB2ALLI+GB32ALLI+GBALLI3+4*L0BALLI;" />
+  <TPfun Id="LDB1ALLI" Expr="+2*GBAL3LI-2*GBALLI3+4*L1BALLI;" />
+  <TPfun Id="LDB2ALLI" Expr="+GBAL3LI-0.5*GB2ALLI-GB32ALLI+GBALLI3+4*L2BALLI;" />
+
+  <Bibliography>
+    <Bibitem Id="91Din" Text="A.T. Dinsdale, Calphad, 15, 317-425(1991)." />
+    <Bibitem Id="98Sau2" Text="N. Saunders, COST 507, Final report round 2, 1998; Al-Li" />
+    <Bibitem Id="07Hal" Text="B. Hallstedt, O. Kim, Int. J. Mater. Res., 98, 961-69(2007); Al-Li" />
+  </Bibliography> 
+
+</Database>
