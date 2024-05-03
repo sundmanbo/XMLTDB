@@ -1,0 +1,217 @@
+<!-- 
+    FT, 05-03-2024 
+    
+    attempt to match with spec doc 0.0.6
+
+    comments: some elements are not yet implemented, and some are not yet
+    fully implemented.
+
+    especially the CrystalStructure part is missing, and models/excess parameters
+    etc.
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    elementFormDefault="qualified">
+
+
+    <xs:complexType name="TrangeType">
+        <xs:attribute name="LowT" type="xs:float" use="optional" />
+        <xs:attribute name="HighT" type="xs:float" use="optional" />
+        <xs:attribute name="Expr" type="xs:string" />
+    </xs:complexType>
+
+    <xs:simpleType name="FunctionIdType">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="16" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="PhaseIdType">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="24" />
+            <!-- starting with A-Z, allowing _ and numbers, but explicitly
+forbid '(' and ')'-->
+            <xs:pattern value="[A-Z]([A-Za-z]|_|[0-9]|^\(|^\))*" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="SpeciesType">
+        <xs:attribute name="Id" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:maxLength value="24" />
+                </xs:restriction>
+            </xs:simpleType>
+
+        </xs:attribute>
+        <xs:attribute name="Stoichiometry" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="([A-Za-z0-9.])+(\/(\+|-)[0-9]+)?" />
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+
+
+    <xs:simpleType name="ElementIdType">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="2" />
+            <xs:minLength value="1" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="ParameterType">
+        <xs:sequence>
+            <xs:element name="Trange" type="TrangeType" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="Id">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="Expr" type="xs:string" />
+        <xs:attribute name="Bibref" type="xs:string" />
+        <xs:attribute name="LowT" type="xs:string" use="optional" />
+        <xs:attribute name="HighT" type="xs:string" use="optional" />
+    </xs:complexType>
+
+
+    <xs:element name="Database">
+        <xs:complexType>
+            <xs:sequence>
+
+                <xs:element name="metadata">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="writer" type="xs:string" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Defaults" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:attribute name="LowT" type="xs:float" use="optional" />
+                        <xs:attribute name="HighT" type="xs:float" use="optional" />
+                        <xs:attribute name="Bibref" type="xs:string" use="optional" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Models" minOccurs="0" maxOccurs="1">
+                </xs:element>
+                <xs:element name="Element" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:attribute name="Id" type="ElementIdType"
+                            use="required" />
+                        <xs:attribute name="Refstate" type="xs:string" use="required" />
+                        <xs:attribute name="Mass" type="xs:string" use="required" />
+                        <xs:attribute name="H298" type="xs:float" use="required" />
+                        <xs:attribute name="S298" type="xs:float" use="required" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Species" type="SpeciesType" minOccurs="0" maxOccurs="unbounded">
+                </xs:element>
+                <xs:element name="TPfun" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <!-- Sadly it's not possible to make it dependent:
+*either* a Expr attribute to TPfun, OR a child node 'Trange' should be used. -->
+                        <xs:sequence>
+                            <xs:element name="Trange" type="TrangeType"
+                                minOccurs="0"
+                                maxOccurs="unbounded" />
+                        </xs:sequence>
+                        <xs:attribute name="Id" type="FunctionIdType"
+                            use="required" />
+                        <xs:attribute name="Reference" type="xs:string" use="optional" />
+                        <xs:attribute name="Expr" type="xs:string"
+                            use="optional" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Phase" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Sublattices" minOccurs="0" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+
+                                        <xs:element name="Constituents" minOccurs="0"
+                                            maxOccurs="unbounded">
+                                            <xs:complexType>
+
+                                                <xs:attribute name="Sublattice"
+                                                    type="xs:int"
+                                                    use="required" />
+                                                <xs:attribute name="List"
+                                                    type="xs:string"
+                                                    use="required" />
+
+                                            </xs:complexType>
+                                        </xs:element>
+
+
+                                    </xs:sequence>
+                                    <xs:attribute name="NumberOf" type="xs:int" use="required" />
+                                    <xs:attribute name="Multiplicities"
+                                        type="xs:string"
+                                        use="required" />
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="AmendPhase" minOccurs="0"
+                                maxOccurs="1">
+                                <xs:complexType>
+
+                                    <xs:attribute name="Model"
+                                        type="xs:string"
+                                        use="required" />
+
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="Id" type="PhaseIdType" use="required" />
+                        <xs:attribute name="Configuration" type="xs:string" use="required" />
+                        <xs:attribute name="State" type="xs:string" use="required" />
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="UnaryParameters" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Parameter" type="ParameterType" minOccurs="0"
+                                maxOccurs="unbounded" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="BinaryParameters" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Parameter" type="ParameterType" minOccurs="0"
+                                maxOccurs="unbounded" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="HigherParameters" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Parameter" type="ParameterType" minOccurs="0"
+                                maxOccurs="unbounded" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Bibliography" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Bibitem" minOccurs="0"
+                                maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:attribute name="Id" type="xs:string" use="required" />
+                                    <xs:attribute name="Text" type="xs:string" use="required" />
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="TDBComments" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+            <xs:attribute name="version" type="xs:string" use="required" />
+
+        </xs:complexType>
+    </xs:element>
+
+
+</xs:schema>

@@ -156,15 +156,15 @@
   <Parameter Id="G(A2_BCC,LI:VA)"  LowT="200" Expr="GHSERLI;" HighT="3000"  Bibref="91Din" />
   <Parameter Id="G(FCC_A1,LI:VA)"  LowT="200" Expr="GHSERLI-108+1.3*T;" HighT="3000"  Bibref="91Din" />
   <Parameter Id="G(A1_FCC,LI:VA)"  LowT="200" Expr="GHSERLI-108+1.3*T;" HighT="3000"  Bibref="91Din" />
-  <Parameter Id="G(HCP_A3,AL:VA)"  LowT="200" Expr="GHSERLI-154+2*T;" HighT="3000"  Bibref="91Din" />
+  <Parameter Id="G(HCP_A3,LI:VA)"  LowT="200" Expr="GHSERLI-154+2*T;" HighT="3000"  Bibref="91Din" />
   <Parameter Id="G(LIQUID,LI)"  LowT="200" Expr="GLIQLI;" HighT="3000"  Bibref="91Din" />
 
-  <TPfun Id="GHSERLI" Expr="-10583.817+217.637482*T-38.940488*T*LN(T)+0.035466931*T**2-1.9869816E-05*T**3+159994*T**(-1);" HighT="453" >
+  <TPfun Id="GHSERLI" Expr="-10583.817+217.637482*T-38.940488*T*LN(T)+0.035466931*T**2-1.9869816E-05*T**3+159994*T**(-1);" LowT="200"   HighT="453" >
     <Trange Expr="-559579.123+10547.8799*T-1702.88865*T*LN(T)+2.25832944*T**2-5.71066077E-04*T**3+33885874*T**(-1);" HighT="500" /> 
     <Trange Expr="-9062.994+179.278285*T-31.2283718*T*LN(T)+0.002633221*T**2-4.38058E-07*T**3-102387*T**(-1);" HighT="3000" /> 
   </TPfun>
 
-  <TPfun Id="GLIQLI" Expr="+2700.205-5.795621*T+GHSERLI;" HighT="250" >
+  <TPfun Id="GLIQLI" Expr="+2700.205-5.795621*T+GHSERLI;" LowT="200"  HighT="250" >
     <Trange Expr="+12015.027-362.187078*T+61.6104424*T*LN(T)-0.182426463*T**2+6.3955671E-05*T**3-559968*T**(-1);" HighT="453" /> 
     <Trange Expr="-6057.31+172.652183*T-31.2283718*T*LN(T)+0.002633221*T**2-4.38058E-07*T**3-102387*T**(-1);" HighT="500" /> 
     <Trange Expr="+3005.684-6.626102*T+GHSERLI;" HighT="3000" /> 
@@ -194,7 +194,7 @@
   <Parameter Id="G(A2_BCC,AL,LI:VA;2)"  Expr="+LDB2ALLI;" Bibref="07Hal" />
 
   <Parameter Id="G(FCC_4SL,AL:AL:AL:LI:VA)"  Expr="+GFAL3LI;" Bibref="07Hal" />
-  <Parameter Id="G(FCC_4SL,AL:AL:LI:LI:VA)"  Expr="+GFALLI2;" Bibref="07Hal" />
+  <Parameter Id="G(FCC_4SL,AL:AL:LI:LI:VA)"  Expr="+GFAL2LI2;" Bibref="07Hal" />
   <Parameter Id="G(FCC_4SL,AL:LI:LI:LI:VA)"  Expr="+GFALLI3;" Bibref="07Hal" />
   <Parameter Id="G(FCC_4SL,AL,LI:*:*:*:VA;0)"  Expr="+L0FALLI;" Bibref="07Hal" />
   <Parameter Id="G(FCC_4SL,AL,LI:*:*:*:VA;1)"  Expr="+L1FALLI;" Bibref="07Hal" />
@@ -213,14 +213,14 @@
   />
   
   <Parameter Id="G(AL2LI3,AL:LI)"  Expr="+2*GHSERAL+3*GHSERLI-93990+34.5*T;" Bibref="07Hal" />
-  <Parameter Id="G(AL4LI),AL:LI)"  Expr="+4*GHSERAL+9*GHSERLI-193780+71.7*T;" Bibref="07Hal" />
+  <Parameter Id="G(AL4LI9,AL:LI)"  Expr="+4*GHSERAL+9*GHSERLI-193780+71.7*T;" Bibref="07Hal" />
 
 <!-- metastable -->
   <Parameter Id="G(HCP_A3,AL,LI:VA;0)"  Expr="-27000+8*T;" Bibref="98Sau2" />
 
   <TPfun Id="UFALLI" Expr="-3270+1.96*T;" />
   <TPfun Id="L0FALLI" Expr="+2960-1.56*T;" />
-  <TPfun Id="L2FALLI" Expr="0;" />
+  <TPfun Id="L1FALLI" Expr="0;" />
   <TPfun Id="L2FALLI" Expr="0;" />
   <TPfun Id="GFAL3LI" Expr="+3*UFALLI+1750-4.7*T;" />
   <TPfun Id="GFAL2LI2" Expr="+4*UFALLI;" />
@@ -233,7 +233,7 @@
   <TPfun Id="UB1ALLI" Expr="-3360+1.8*T;" />
   <TPfun Id="UB2ALLI" Expr="-4230+1.86*T;" />
   <TPfun Id="L0BALLI" Expr="0;" />
-  <TPfun Id="L2BALLI" Expr="0;" />
+  <TPfun Id="L1BALLI" Expr="0;" />
   <TPfun Id="L2BALLI" Expr="0;" />
   <TPfun Id="GBAL3LI" Expr="+2*UB1ALLI+1.5*UB2ALLI+3700;" />
   <TPfun Id="GB2ALLI" Expr="+4*UB1ALLI;" />
