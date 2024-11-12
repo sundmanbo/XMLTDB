@@ -56,10 +56,10 @@ delete text with \sout{deleted text}
 
 \section{Background}
 
-Within the Calphad comminity the databases with model parameters are
+Within the Calphad community the databases with model parameters are
 important and can often be used by several different software as well
 as edited manually.  The most frequent format for such database is
-called TDB and was created by the Scientif Group Thermodata Europe
+called TDB and was created by the Scientific Group Thermodata Europe
 (SGTE) while working on the unary databse for 78 elements which was
 published 1991~\cite{91Din}.  It has been used for more than 40 years
 but it has limitations, in particular when adding new new models and
@@ -68,14 +68,13 @@ features.
 It is high time to change from this format and to adopt an accepted
 Markup Language as XML or JSON.  The XML has been selected for a new
 XTDB format as it has been around for a long time and is slightly more
-explicit.  There are many Markup Languages but as it is easy to
-convert between any of them and thus the choice of XML is not very
-critical except to avoid spending several years to discuss this
-choice.
+explicit.  There are many Markup Languages but it is easy to convert
+between any of them and thus the choice of XML is not very critical
+except to avoid spending several years to discuss the choice.
 
-XML is flexible and extendable each software may add their own flavour
-in a controlled way.  It will be simpler to use an XTDB file by
-different softwares as one can easily indicate what is software
+XML is flexible and extendable and each software may add their own
+flavour in a controlled way.  It will be simpler to use an XTDB file
+by different softwares as one can easily indicate what is software
 specific rather than try to modify or extend the TDB format.
 
 To avoid the confusing use of {\bf element} both for chemical element
