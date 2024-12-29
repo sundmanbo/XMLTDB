@@ -1,0 +1,599 @@
+<XTDB version="0.1.13">
+  <DatabasInfo Software="OpenCalphad  6.079" Date="2024-12-23" />
+  <Defaults LowT="298.15" HighT="6000" Bibref="U.N. Known" Elements="VA /-" />
+  <Element Id="FE" Refstate="BCC_A2" Mass="5.584700E+01" H298="4.489000E+03" S298="2.728000E+01" />
+  <Element Id="O" Refstate="GAS_1/2_MOLE_O2" Mass="1.599900E+01" H298="4.341000E+03" S298="1.025200E+02" />
+  <Element Id="U" Refstate="ORTHORHOMBIC_A20" Mass="2.380300E+02" H298="6.364000E+03" S298="5.020000E+01" />
+  <Species Id="VA" Stoichiometry="VA" />
+  <Species Id="FE" Stoichiometry="FE" />
+  <Species Id="O" Stoichiometry="O" />
+  <Species Id="U" Stoichiometry="U" />
+  <Species Id="FEO" Stoichiometry="FEO" />
+  <Species Id="FEO2" Stoichiometry="FEO2" />
+  <Species Id="FE2" Stoichiometry="FE2" />
+  <Species Id="FE2O3" Stoichiometry="FE2O3" />
+  <Species Id="FE3O4" Stoichiometry="FE3O4" />
+  <Species Id="FE+2" Stoichiometry="FE/+2" />
+  <Species Id="FE+3" Stoichiometry="FE/+3" />
+  <Species Id="FEO3/2" Stoichiometry="FEO1.5" />
+  <Species Id="O2" Stoichiometry="O2" />
+  <Species Id="O3" Stoichiometry="O3" />
+  <Species Id="O-2" Stoichiometry="O/-2" />
+  <Species Id="O2-2" Stoichiometry="O2/-2" />
+  <Species Id="U+3" Stoichiometry="U/+3" />
+  <Species Id="U+4" Stoichiometry="U/+4" />
+  <Species Id="U+5" Stoichiometry="U/+5" />
+  <Species Id="U+6" Stoichiometry="U/+6" />
+  <Species Id="UO" Stoichiometry="O1U" />
+  <Species Id="UO2" Stoichiometry="O2U" />
+  <Species Id="UO3" Stoichiometry="O3U" />
+  <!-- Species Id="UO3A" Stoichiometry="O1U0.33333333" -->
+  <Species Id="UO3B" Stoichiometry="O1U1/3" />
+  <Species Id="UO3C" Stoichiometry="O.5U1/6" />
+  <TPfun Id="R"     Expr="8.31451;" />
+  <TPfun Id="RTLNP" Expr="R*T*LN(1.0E-5)*P);" />
+  <TPfun Id="FEGAS" Expr=" +404205.714+35.7374154*T-32.857*T*LN(+T)+.00911365*T**2-1.35405833E-06*T**3+109770*T**(-1);" HighT="900" >
+    <Trange Expr="+412790.047-53.8374242*T-19.843*T*LN(+T)+6.96E-05*T**2-1.30683333E-07*T**3-976410*T**(-1);" HighT="2400" />
+    <Trange Expr="+409046.151-49.3274624*T-20.125*T*LN(+T)-.00056655*T**2-5.29033333E-08*T**3+887590*T**(-1);" HighT="5500" />
+    <Trange Expr="+511845.843-358.371229*T+16.811*T*LN(+T)-.00616325*T**2+1.00678333E-07*T**3-48193220*T**(-1);" HighT="10000" /> 
+  </TPfun>
+  <TPfun Id="FE2GAS" Expr=" +704549.824+89.2549314*T-50.743*T*LN(+T)+.00803125*T**2-2.18098667E-06*T**3+169270*T**(-1);" HighT="800" >
+    <Trange Expr="+717674.096-87.8134524*T-23.957*T*LN(+T)-.0157846*T**2+1.723485E-06*T**3-1006505*T**(-1);" HighT="1700" />
+    <Trange Expr="+655211.274+352.671353*T-83.82001*T*LN(+T)+.0095931*T**2-2.85336667E-07*T**3+11147285*T**(-1);" HighT="4500" />
+    <Trange Expr="+780963.168-41.3623286*T-36.245*T*LN(+T)+.00155795*T**2-3.05716667E-08*T**3-51729450*T**(-1);" /> 
+  </TPfun>
+  <TPfun Id="OGAS" Expr=" +243206.494-20.8612587*T-21.01555*T*LN(+T)+.00012687055*T**2-1.23131283E-08*T**3-42897.09*T**(-1);" HighT="2950" >
+    <Trange Expr="+252301.423-52.0847285*T-17.21188*T*LN(+T)-.0005413565*T**2+7.64520667E-09*T**3-3973170.5*T**(-1);" /> 
+  </TPfun>
+  <TPfun Id="O2GAS" Expr=" -6960.69252-51.1831473*T-22.25862*T*LN(+T)-.01023867*T**2+1.339947E-06*T**3-76749.55*T**(-1);" HighT="900" >
+    <Trange Expr="-13136.0172+24.743296*T-33.55726*T*LN(+T)-.0012348985*T**2+1.66943333E-08*T**3+539886*T**(-1);" HighT="3700" />
+    <Trange Expr="+14154.6461-51.4854586*T-24.47978*T*LN(+T)-.002634759*T**2+6.01544333E-08*T**3-15120935*T**(-1);" HighT="9600" />
+    <Trange Expr="-314316.628+515.068037*T-87.56143*T*LN(+T)+.0025787245*T**2-1.878765E-08*T**3+290525150*T**(-1);" HighT="18500" />
+    <Trange Expr="-108797.175+288.483019*T-63.737*T*LN(+T)+.0014375*T**2-9E-09*T**3+0.25153895*T**(-1);" HighT="20000" /> 
+  </TPfun>
+  <TPfun Id="O3GAS" Expr=" +130696.944-37.9096651*T-27.58118*T*LN(+T)-.02763076*T**2+4.60539333E-06*T**3+99530.45*T**(-1);" HighT="400" >
+    <Trange Expr="+114760.623+176.626736*T-60.10286*T*LN(+T)+.00206456*T**2-5.17486667E-07*T**3+1572175*T**(-1);" HighT="1300" />
+    <Trange Expr="+49468.3958+710.094819*T-134.3696*T*LN(+T)+.039707355*T**2-4.10457667E-06*T**3+12362250*T**(-1);" HighT="2100" />
+    <Trange Expr="+866367.075-3566.80563*T+421.2001*T*LN(+T)-0.1284109*T**2+5.44768833E-06*T**3-213048350*T**(-1);" HighT="2800" />
+    <Trange Expr="+409416.384-1950.70834*T+223.4437*T*LN(+T)-.0922361*T**2+4.306855E-06*T**3-21589870*T**(-1);" HighT="3500" />
+    <Trange Expr="-1866338.6+6101.13383*T-764.8435*T*LN(+T)+.09852775*T**2-2.59784667E-06*T**3+961085500*T**(-1);" HighT="4900" />
+    <Trange Expr="+97590.0432+890.79836*T-149.9608*T*LN(+T)+.01283575*T**2-3.555105E-07*T**3-216999750*T**(-1);" /> 
+  </TPfun>
+  <TPfun Id="GASU" Expr=" +523164.925+13.603288*T-32.513*T*LN(+T)+.01126565*T**2-2.43328E-06*T**3+151130*T**(-1);" HighT="900" >
+    <Trange Expr="+541065.13-173.693179*T-5.336*T*LN(+T)-.00723615*T**2-4.306E-08*T**3-2072960*T**(-1);" HighT="2100" />
+    <Trange Expr="+605452.662-512.542339*T+38.748*T*LN(+T)-.0208079*T**2+7.5045E-07*T**3-19886375*T**(-1);" HighT="4500" />
+    <Trange Expr="-41328.1657+1300.29089*T-176.856*T*LN(+T)+.0113664*T**2-1.56178333E-07*T**3+346547250*T**(-1);" HighT="9200" />
+    <Trange Expr="+410972.67+537.324611*T-92.012*T*LN(+T)+.0043702*T**2-4.90033333E-08*T**3-99572850*T**(-1);" HighT="12000" /> 
+  </TPfun>
+  <TPfun Id="FEOGAS" Expr=" +247269.947-13.1139445*T-32.67*T*LN(+T)-.0075012*T**2+1.18220167E-06*T**3-34235*T**(-1);" HighT="900" >
+    <Trange Expr="+240957.695+66.2179313*T-44.511*T*LN(+T)+.00209225*T**2-2.42841667E-07*T**3+572515*T**(-1);" HighT="2800" />
+    <Trange Expr="+309524.921-212.054229*T-9.622001*T*LN(+T)-.00601295*T**2+1.2057E-07*T**3-25282085*T**(-1);" HighT="5800" />
+    <Trange Expr="+485837.27-638.31461*T+40.074*T*LN(+T)-.01226245*T**2+2.68271667E-07*T**3-143230850*T**(-1);" /> 
+  </TPfun>
+  <TPfun Id="FEO2GAS" Expr=" +58475.2387-2.12934624*T-37.569*T*LN(+T)-.01894785*T**2+3.36232667E-06*T**3+205940*T**(-1);" HighT="700" >
+    <Trange Expr="+48666.2154+131.021135*T-57.802*T*LN(+T)-7.83E-05*T**2+2.57666667E-09*T**3+1111465*T**(-1);" /> 
+  </TPfun>
+  <TPfun Id="UOGAS" Expr=" +7058.467+16.66929*T-38.48092*T*LN(+T)-.01650935*T**2+6.741983333E-06*T**3-1.22913333E-09*T**4+257767*T**(-1);" HighT="1300" >
+    <Trange Expr="+10617.823+76.40548083*T-50.04939*T*LN(+T)+.0090553*T**2-2.0628666E-06*T**3+1.42865E-10*T**4-1254735*T**(-1);" HighT="4000" /> 
+  </TPfun>
+  <TPfun Id="UO2GAS" Expr=" -477055.31336+30.72281*T-44.35744*T*LN(+T)-.018817925*T**2+3.859271667E-06*T**3-4.58556667E-10*T**4+37425.465*T**(-1);" HighT="1500" >
+    <Trange Expr="-483042.479+128.84581591*T-59.57586*T*LN(+T)-.0026962*T**2-1.57719683E-08*T**3+8.572691667E-12*T**4+315972.55*T**(-1);" HighT="4000" /> 
+  </TPfun>
+  <TPfun Id="UO3GAS" Expr=" -813296.059+27.96369718*T-46.69199*T*LN(+T)-.047347135*T**2+1.58195016667E-05*T**3-2.84654166667E-09*T**4+139692.15*T**(-1);" HighT="900" >
+    <Trange Expr="-827058.82646+248.93278318*T-81.70962*T*LN(+T)-.001004739*T**2+1.8508416667E-07*T**3-1.8022825E-11*T**4+1290177.5*T**(-1);" HighT="4000" /> 
+  </TPfun>
+  <TPfun Id="GHSEROO" Expr=" -3480.87-25.503038*T-11.136*T*LN(+T)-.005098888*T**2+6.61846E-07*T**3-38365*T**(-1);" HighT="1000" >
+    <Trange Expr="-6568.763+12.65988*T-16.8138*T*LN(+T)-.000595798*T**2+6.781E-09*T**3+262905*T**(-1);" HighT="3300" />
+    <Trange Expr="-13986.728+31.259625*T-18.9536*T*LN(+T)-.000425243*T**2+1.0721E-08*T**3+4383200*T**(-1);" /> 
+  </TPfun>
+  <TPfun Id="GFELIQ" Expr=" +12040.17-6.55843*T-3.6751551E-21*T**7+GHSERFE;" HighT="1811" >
+    <Trange Expr="-10839.7+291.302*T-46*T*LN(+T);" /> 
+  </TPfun>
+  <TPfun Id="GFEFCC" Expr=" -1462.4+8.282*T-1.15*T*LN(+T)+.00064*T**2+GHSERFE;" HighT="1811" >
+    <Trange Expr="-27098.266+300.25256*T-46*T*LN(+T)+2.78854E+31*T**(-9);" /> 
+  </TPfun>
+  <TPfun Id="GHSERFE" Expr=" +1225.7+124.134*T-23.5143*T*LN(+T)-.00439752*T**2-5.89269E-08*T**3+77358.5*T**(-1);" HighT="1811" >
+    <Trange Expr="-25383.581+299.31255*T-46*T*LN(+T)+2.2960305E+31*T**(-9);" /> 
+  </TPfun>
+  <TPfun Id="UNASS" Expr=" 0;" /> 
+  <TPfun Id="C15FEFE" Expr=" +GFEFCC+5600;" /> 
+  <TPfun Id="C14FEFE" Expr=" +GFEFCC+5700;" /> 
+  <TPfun Id="C36FEFE" Expr=" +GFEFCC+5700;" /> 
+  <TPfun Id="ZERO" Expr=" 0;" /> 
+  <TPfun Id="GLIQUU" Expr=" +3947.766+120.631251*T-26.9182*T*LN(+T)+.00125156*T**2-4.42605E-06*T**3+38568*T**(-1);" HighT="955" >
+    <Trange Expr="-10166.3+281.797193*T-48.66*T*LN(+T);" HighT="3000" /> 
+  </TPfun>
+  <TPfun Id="GFCCUU" Expr=" -3407.734+130.955151*T-26.9182*T*LN(+T)+.00125156*T**2-4.42605E-06*T**3+38568*T**(-1);" HighT="955" >
+    <Trange Expr="-17521.8+292.121093*T-48.66*T*LN(+T);" HighT="3000" /> 
+  </TPfun>
+  <TPfun Id="GBCCUU" Expr=" -752.767+131.5381*T-27.5152*T*LN(+T)-.00835595*T**2+9.67907E-07*T**3+204611*T**(-1);" HighT="1049" >
+    <Trange Expr="-4698.365+202.685635*T-38.2836*T*LN(+T);" HighT="3000" /> 
+  </TPfun>
+  <TPfun Id="GHCPUU" Expr=" +GBCCUU+5000;" /> 
+  <TPfun Id="GHSERUU" Expr=" -8407.734+130.955151*T-26.9182*T*LN(+T)+.00125156*T**2-4.42605E-06*T**3+38568*T**(-1);" HighT="955" >
+    <Trange Expr="-22521.8+292.121093*T-48.66*T*LN(+T);" HighT="3000" /> 
+  </TPfun>
+  <TPfun Id="GTETUU" Expr=" -5156.136+106.976316*T-22.841*T*LN(+T)-.01084475*T**2+2.7889E-08*T**3+81944*T**(-1);" HighT="941.5" >
+    <Trange Expr="-14327.309+244.16802*T-42.9278*T*LN(+T);" HighT="3000" /> 
+  </TPfun>
+  <TPfun Id="GFEOLIQ" Expr=" -137252+224.641*T-37.1815*T*LN(+T);" /> 
+  <TPfun Id="GOSOL" Expr=" +GHSEROO+65*T;" /> 
+  <TPfun Id="UN_ASS" Expr=" 0;" /> 
+  <TPfun Id="GFE2O3" Expr=" -858683+827.946*T-137.0089*T*LN(+T)+1453810*T**(-1);" /> 
+  <TPfun Id="GWUSTITE" Expr=" -279318+252.848*T-46.12826*T*LN(+T)-.0057402984*T**2;" /> 
+  <TPfun Id="AWUSTITE" Expr=" -55384+27.888*T;" /> 
+  <TPfun Id="G23V" Expr=" +7*GFE3O4;" /> 
+  <TPfun Id="G22V" Expr=" +G23V+BFE3O4;" /> 
+  <TPfun Id="G33V" Expr=" +G23V-BFE3O4;" /> 
+  <TPfun Id="G232" Expr=" +G222-BFE3O4;" /> 
+  <TPfun Id="G222" Expr=" +9*GFE3O4+DFE3O4;" /> 
+  <TPfun Id="G332" Expr=" +G222-2*BFE3O4;" HighT="3000" /> 
+  <TPfun Id="G2V2" Expr=" +G33V+DFE3O4+CFE3O4;" /> 
+  <TPfun Id="BFE3O4" Expr=" +46826-27.266*T;" /> 
+  <TPfun Id="GFE3O4" Expr=" -161731+144.873*T-24.9879*T*LN(+T)-.0011952256*T**2+206520*T**(-1);" /> 
+  <TPfun Id="CFE3O4" Expr=" +120730-20.102*T;" HighT="3000" /> 
+  <TPfun Id="GUO2L" Expr=" +LOWLIQ;" HighT="2600" >
+    <Trange Expr="+O2ULIQ;" /> 
+  </TPfun>
+  <TPfun Id="G3OO" Expr=" +G3OV+GHSEROO;" /> 
+  <TPfun Id="G4OO" Expr=" +G4OV+GHSEROO;" /> 
+  <TPfun Id="G5OO" Expr=" +G5OV+GHSEROO;" /> 
+  <TPfun Id="G3OV" Expr=" +G4OV-G4VV+G3VV;" /> 
+  <TPfun Id="G4OV" Expr=" +GUO2S;" /> 
+  <TPfun Id="G5OV" Expr=" +GUO25-0.5*GHSEROO+0.69315*R*T;" /> 
+  <TPfun Id="G3VV" Expr=" +GUO15-1.5*GHSEROO+1.12467*R*T;" /> 
+  <TPfun Id="G4VV" Expr=" +G4OV-2*GHSEROO+545210.5;" /> 
+  <TPfun Id="G5VV" Expr=" +G5OV-2*GHSEROO+700000;" /> 
+  <TPfun Id="GU3O8" Expr=" -3674804.49+1600.50059*T-276.747749*T*LN(+T)-.0136644165*T**2+2036667.44*T**(-1);" HighT="2000" /> 
+  <TPfun Id="GU4O9S1" Expr=" -4621329.3+1786.83274*T-311.20912*T*LN(+T)-.0311301013*T**2+1741269.49*T**(-1);" HighT="2000" /> 
+  <TPfun Id="GU4O9S3" Expr=" +GU4O9S1+2684.25-7.5602*T;" /> 
+  <TPfun Id="GUO2S" Expr=" -1118940.2+554.00559*T-93.268*T*LN(+T)+.0101704254*T**2-2.03335671E-06*T**3+1091073.7*T**(-1);" /> 
+  <TPfun Id="GUO2POT" Expr=" -359898+56.43*T+0.33333*GHSERUU+0.66667*GHSEROO;" /> 
+  <TPfun Id="DFE3O4" Expr=" +402520-30.529*T;" HighT="3000" /> 
+  <TPfun Id="LOWLIQ" Expr=" +G4OV+79775-25.0114*T-2.62269566E-21*T**7;" HighT="2600" /> 
+  <TPfun Id="O2ULIQ" Expr=" -1590418+3618.8*T-480*T*LN(+T)+.07*T**2-1E-06*T**3;" /> 
+  <TPfun Id="GUO15" Expr=" +GUO2S-0.5*GHSEROO+747127-70.22618*T;" /> 
+  <TPfun Id="GUO25" Expr=" +GUO2S+0.5*GHSEROO-58351.62+39.67611*T;" /> 
+  <Phase Id="GAS" Configuration="IDEAL" State="G" >
+    <Sublattices NumberOf="1" Multiplicities="1" >
+      <Constituents Sublattice="1" List="FE FE2 FEO FEO2 O O2 O3 U UO UO2 UO3" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="LIQUID" Configuration="I2SL" State="L" >
+    <Sublattices NumberOf="2" Multiplicities="1 1" >
+      <Constituents Sublattice="1" List="FE+2 U+4" />
+      <Constituents Sublattice="2" List="O-2 VA FEO3/2 O" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="AL8FE5" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="2" Multiplicities="8 5" >
+      <Constituents Sublattice="1" List="FE" />
+      <Constituents Sublattice="2" List="FE" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="BCC_A2" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="2" Multiplicities="1 3" >
+      <Constituents Sublattice="1" List="FE U VA" />
+      <Constituents Sublattice="2" List="O VA" />
+    </Sublattices>
+    <AmendPhase Models="IHJBCC" />
+  </Phase>
+  <Phase Id="BETA_PU" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="1" Multiplicities="1" >
+      <Constituents Sublattice="1" List="U" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="C14_LAVES" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="2" Multiplicities="2 1" >
+      <Constituents Sublattice="1" List="FE" />
+      <Constituents Sublattice="2" List="FE U" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="C15_LAVES" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="2" Multiplicities="2 1" >
+      <Constituents Sublattice="1" List="FE" />
+      <Constituents Sublattice="2" List="FE U" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="C1_MO2" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="3" Multiplicities="1 2 1" >
+      <Constituents Sublattice="1" List="FE+2 FE+3 U+3 U+4 U+5" />
+      <Constituents Sublattice="2" List="O-2 VA" />
+      <Constituents Sublattice="3" List="O-2 VA" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="C36_LAVES" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="2" Multiplicities="2 1" >
+      <Constituents Sublattice="1" List="FE" />
+      <Constituents Sublattice="2" List="FE" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="CORUNDUM" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="3" Multiplicities="2 1 3" >
+      <Constituents Sublattice="1" List="FE+2 FE+3" />
+      <Constituents Sublattice="2" List="FE+3 VA" />
+      <Constituents Sublattice="3" List="O-2" />
+    </Sublattices>
+    <AmendPhase Models="IHJREST" />
+  </Phase>
+  <Phase Id="DELTA_NPU" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="1" Multiplicities="1" >
+      <Constituents Sublattice="1" List="U" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="DIAMOND_A4" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="1" Multiplicities="1" >
+      <Constituents Sublattice="1" List="O" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="ETA_PHASE" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="1" Multiplicities="1" >
+      <Constituents Sublattice="1" List="U" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="FCC_A1" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="2" Multiplicities="1 1" >
+      <Constituents Sublattice="1" List="FE U" />
+      <Constituents Sublattice="2" List="O VA" />
+    </Sublattices>
+    <AmendPhase Models="IHJREST" />
+  </Phase>
+  <Phase Id="FEM6" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="2" Multiplicities="1 6" >
+      <Constituents Sublattice="1" List="FE" />
+      <Constituents Sublattice="2" List="U" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="HALITE" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="2" Multiplicities="1 1" >
+      <Constituents Sublattice="1" List="FE+2 FE+3 VA" />
+      <Constituents Sublattice="2" List="O-2 VA" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="HCP_A3" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="2" Multiplicities="1 0.5" >
+      <Constituents Sublattice="1" List="FE U" />
+      <Constituents Sublattice="2" List="O VA" />
+    </Sublattices>
+    <AmendPhase Models="IHJREST" />
+  </Phase>
+  <Phase Id="MU_PHASE" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="4" Multiplicities="1 2 6 4" >
+      <Constituents Sublattice="1" List="FE" />
+      <Constituents Sublattice="2" List="FE" />
+      <Constituents Sublattice="3" List="FE" />
+      <Constituents Sublattice="4" List="FE" />
+    </Sublattices>
+    <DisorderedPart Sum="4" />
+  </Phase>
+  <Phase Id="ORTHORHOMBIC_A20" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="1" Multiplicities="1" >
+      <Constituents Sublattice="1" List="U" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="ORTHO_AC" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="1" Multiplicities="1" >
+      <Constituents Sublattice="1" List="U" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="SIGMA" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="3" Multiplicities="10 4 16" >
+      <Constituents Sublattice="1" List="FE" />
+      <Constituents Sublattice="2" List="FE" />
+      <Constituents Sublattice="3" List="FE" />
+    </Sublattices>
+    <DisorderedPart Sum="3" />
+  </Phase>
+  <Phase Id="SPINEL" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="4" Multiplicities="1 2 2 4" >
+      <Constituents Sublattice="1" List="FE+2 FE+3" />
+      <Constituents Sublattice="2" List="FE+2 FE+3 VA" />
+      <Constituents Sublattice="3" List="FE+2 VA" />
+      <Constituents Sublattice="4" List="O-2" />
+    </Sublattices>
+    <AmendPhase Models="IHJREST" />
+  </Phase>
+  <Phase Id="TETRAGONAL_U" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="1" Multiplicities="1" >
+      <Constituents Sublattice="1" List="U" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="TETRAG_AD" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="1" Multiplicities="1" >
+      <Constituents Sublattice="1" List="U" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="U3O8_S1" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="2" Multiplicities="8 3" >
+      <Constituents Sublattice="1" List="O" />
+      <Constituents Sublattice="2" List="U" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="U3O8_S2" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="2" Multiplicities="8 3" >
+      <Constituents Sublattice="1" List="O" />
+      <Constituents Sublattice="2" List="U" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="U3O8_S3" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="2" Multiplicities="8 3" >
+      <Constituents Sublattice="1" List="O" />
+      <Constituents Sublattice="2" List="U" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="U3O8_S4" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="2" Multiplicities="8 3" >
+      <Constituents Sublattice="1" List="O" />
+      <Constituents Sublattice="2" List="U" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="U4O9_S1" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="2" Multiplicities="9 4" >
+      <Constituents Sublattice="1" List="O" />
+      <Constituents Sublattice="2" List="U" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="U4O9_S2" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="2" Multiplicities="9 4" >
+      <Constituents Sublattice="1" List="O" />
+      <Constituents Sublattice="2" List="U" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="U4O9_S3" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="2" Multiplicities="9 4" >
+      <Constituents Sublattice="1" List="O-2" />
+      <Constituents Sublattice="2" List="U+4 U+5" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="UC2_C11A" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="2" Multiplicities="1 2" >
+      <Constituents Sublattice="1" List="U" />
+      <Constituents Sublattice="2" List="O VA" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="UO3" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="2" Multiplicities="3 1" >
+      <Constituents Sublattice="1" List="O" />
+      <Constituents Sublattice="2" List="U" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="UZR_DELTA" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="2" Multiplicities="1 2" >
+      <Constituents Sublattice="1" List="U" />
+      <Constituents Sublattice="2" List="U" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="ZETA_PHASE" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="1" Multiplicities="1" >
+      <Constituents Sublattice="1" List="U" />
+    </Sublattices>
+  </Phase>
+  <Phase Id="ZRO2_TETR" Configuration="CEF" State="S" >
+    <Sublattices NumberOf="2" Multiplicities="1 2" >
+      <Constituents Sublattice="1" List="FE+2 FE+3 U+4" />
+      <Constituents Sublattice="2" List="O-2 VA" />
+    </Sublattices>
+  </Phase>
+  <Parameter Id="G(GAS,FE;0)"  Expr=" +FEGAS+RTLNP;" />
+  <Parameter Id="G(GAS,FE2;0)"  Expr=" +FE2GAS+RTLNP;" />
+  <Parameter Id="G(GAS,FEO;0)"  Expr=" +FEOGAS+RTLNP;" />
+  <Parameter Id="G(GAS,FEO2;0)"  Expr=" +FEO2GAS+RTLNP;" />
+  <Parameter Id="G(GAS,O;0)"  Expr=" +OGAS+RTLNP;" />
+  <Parameter Id="G(GAS,O2;0)"  Expr=" +O2GAS+RTLNP;" />
+  <Parameter Id="G(GAS,O3;0)"  Expr=" +O3GAS+RTLNP;" />
+  <Parameter Id="G(GAS,U;0)"  Expr=" +GASU+RTLNP;" />
+  <Parameter Id="G(GAS,UO;0)"  Expr=" +UOGAS+RTLNP;" />
+  <Parameter Id="G(GAS,UO2;0)"  Expr=" +UO2GAS+RTLNP;" />
+  <Parameter Id="G(GAS,UO3;0)"  Expr=" +UO3GAS+RTLNP;" />
+  <Parameter Id="G(LIQUID,FE+2:O-2;0)"  Expr=" +4*GFEOLIQ;" />
+  <Parameter Id="G(LIQUID,U+4:O-2;0)"  Expr=" +2*GUO2L;" />
+  <Parameter Id="G(LIQUID,FE+2:VA;0)"  Expr=" +GFELIQ;" />
+  <Parameter Id="G(LIQUID,U+4:VA;0)"  Expr=" +GLIQUU;" />
+  <Parameter Id="G(LIQUID,*:FEO3/2;0)"  Expr=" +2.5*GFEOLIQ-89819+39.962*T;" />
+  <Parameter Id="G(LIQUID,*:O;0)"  Expr=" +GHSEROO-2648.9+31.44*T;" />
+  <Parameter Id="G(LIQUID,FE+2,U+4:O-2;0)"  Expr=" -120000;" />
+  <Parameter Id="G(LIQUID,FE+2,U+4:O-2;1)"  Expr=" +80000;" />
+  <Parameter Id="G(LIQUID,FE+2:O-2,VA;0)"  Expr=" +176681-16.368*T;" />
+  <Parameter Id="G(LIQUID,FE+2:O-2,VA;1)"  Expr=" -65655+30.869*T;" />
+  <Parameter Id="G(LIQUID,FE+2:O-2,FEO3/2;0)"  Expr=" -26362;" />
+  <Parameter Id="G(LIQUID,FE+2:O-2,FEO3/2;1)"  Expr=" +13353;" />
+  <Parameter Id="G(LIQUID,U+4:O-2,VA;0)"  Expr=" +1773475.9-516*T;" />
+  <Parameter Id="G(LIQUID,U+4:O-2,VA;1)"  Expr=" +46774.9-120.37888*T;" />
+  <Parameter Id="G(LIQUID,U+4:O-2,VA;2)"  Expr=" -500000;" />
+  <Parameter Id="G(LIQUID,U+4:O-2,O;0)"  Expr=" -370000;" />
+  <Parameter Id="G(LIQUID,FE+2,U+4:VA;0)"  Expr=" -46128-0.13459*T;" />
+  <Parameter Id="G(LIQUID,FE+2,U+4:VA;1)"  Expr=" -11776;" />
+  <Parameter Id="G(LIQUID,FE+2,U+4:VA;2)"  Expr=" +9258.5;" />
+  <Parameter Id="G(LIQUID,FE+2:VA,FEO3/2;0)"  Expr=" +110000;" />
+  <Parameter Id="G(LIQUID,*:FEO3/2,O;0)"  Expr=" +140*T;" />
+  <Parameter Id="G(AL8FE5,FE:FE;0)"  Expr=" +13000+13*GHSERFE;" />
+  <Parameter Id="G(BCC_A2,FE:O;0)"  Expr=" +GHSERFE+3*GOSOL;" />
+  <Parameter Id="G(BCC_A2,FE:VA;0)"  Expr=" +GHSERFE;" />
+  <Parameter Id="TC(BCC_A2,FE:VA;0)"  Expr=" +1043;" />
+  <Parameter Id="BMAG(BCC_A2,FE:VA;0)"  Expr=" +2.22;" />
+  <Parameter Id="G(BCC_A2,U:O;0)"  Expr=" +GBCCUU+3*GHSEROO+200000;" />
+  <Parameter Id="G(BCC_A2,U:VA;0)"  Expr=" +GBCCUU;" Bibref="91DIN" />
+  <Parameter Id="G(BCC_A2,VA:O;0)"  Expr=" +3*GHSEROO+1000000;" />
+  <Parameter Id="G(BCC_A2,VA:VA;0)"  Expr=" +0.1*T;" />
+  <Parameter Id="G(BCC_A2,FE:O,VA;0)"  Expr=" -517549+71.83*T;" />
+  <Parameter Id="G(BCC_A2,FE,VA:VA;0)"  Expr=" +207700;" />
+  <Parameter Id="G(BCC_A2,FE,U:VA;0)"  Expr=" +1204.5;" />
+  <Parameter Id="G(BCC_A2,U,VA:VA;0)"  Expr=" +161700;" />
+  <Parameter Id="G(BETA_PU,U;0)"  Expr=" +GHSERUU+2000;" HighT="4000" />
+  <Parameter Id="G(C14_LAVES,FE:FE;0)"  Expr=" +3*C14FEFE;" />
+  <Parameter Id="G(C14_LAVES,FE:U;0)"  Expr=" +UN_ASS;" />
+  <Parameter Id="G(C15_LAVES,FE:FE;0)"  Expr=" +3*C15FEFE;" />
+  <Parameter Id="G(C15_LAVES,FE:U;0)"  Expr=" -106537+33.251*T+2*GFELIQ+GLIQUU;" />
+  <Parameter Id="G(C15_LAVES,FE:FE,U;0)"  Expr=" +50000;" />
+  <Parameter Id="G(C1_MO2,FE+2:O-2:O-2;0)"  Expr=" +GWUSTITE+2*GHSEROO+45000+11.5263*T;" Bibref="19LK08"/>
+  <Parameter Id="G(C1_MO2,FE+2:O-2:VA;0)"  Expr=" +GWUSTITE+GHSEROO+45000+11.5263*T;" />
+  <Parameter Id="G(C1_MO2,FE+2:VA:O-2;0)"  Expr=" +GWUSTITE+45000+11.5263*T;" />
+  <Parameter Id="G(C1_MO2,FE+2:VA:VA;0)"  Expr=" +GWUSTITE-GHSEROO+45000+11.5263*T;" Bibref="16FAB" />
+  <Parameter Id="G(C1_MO2,FE+3:O-2:O-2;0)"  Expr=" +0.5*GFE2O3+1.5*GHSEROO+82734+7.35*T;" />
+  <Parameter Id="G(C1_MO2,FE+3:O-2:VA;0)"  Expr=" +0.5*GFE2O3+0.5*GHSEROO+82734+7.35*T;" />
+  <Parameter Id="G(C1_MO2,FE+3:VA:O-2;0)"  Expr=" +0.5*GFE2O3-0.5*GHSEROO+150000+9.35*T;" />
+  <Parameter Id="G(C1_MO2,FE+3:VA:VA;0)"  Expr=" +0.5*GFE2O3-1.5*GHSEROO+150000+9.35*T;" />
+  <Parameter Id="G(C1_MO2,U+3:O-2:O-2;0)"  Expr=" +G3OO;" />
+  <Parameter Id="G(C1_MO2,U+3:O-2:VA;0)"  Expr=" +G3OV;" />
+  <Parameter Id="G(C1_MO2,U+3:VA:O-2;0)"  Expr=" +100000;" />
+  <Parameter Id="G(C1_MO2,U+3:VA:VA;0)"  Expr=" +G3VV;" Bibref="11GUE" />
+  <Parameter Id="G(C1_MO2,U+4:O-2:O-2;0)"  Expr=" +G4OO;" />
+  <Parameter Id="G(C1_MO2,U+4:O-2:VA;0)"  Expr=" +G4OV;" />
+  <Parameter Id="G(C1_MO2,U+4:VA:O-2;0)"  Expr=" +100000;" />
+  <Parameter Id="G(C1_MO2,U+4:VA:VA;0)"  Expr=" +G4VV;" />
+  <Parameter Id="G(C1_MO2,U+5:O-2:O-2;0)"  Expr=" +G5OO;" />
+  <Parameter Id="G(C1_MO2,U+5:O-2:VA;0)"  Expr=" +G5OV;" />
+  <Parameter Id="G(C1_MO2,U+5:VA:O-2;0)"  Expr=" +100000;" />
+  <Parameter Id="G(C1_MO2,U+5:VA:VA;0)"  Expr=" +G5VV;" />
+  <Parameter Id="G(C1_MO2,FE+2,U+4:*:*;0)"  Expr=" -300000+20*T;" />
+  <Parameter Id="G(C1_MO2,FE+2,U+4:*:*;1)"  Expr=" +210000;" />
+  <Parameter Id="G(C1_MO2,FE+2,U+4,U+5:*:*;0)"  Expr=" -500000;" />
+  <Parameter Id="G(C1_MO2,U+3,U+4:O-2:VA;0)"  Expr=" +40133.7;" />
+  <Parameter Id="G(C1_MO2,U+3,U+4:O-2:VA;1)"  Expr=" +1076.4;" />
+  <Parameter Id="G(C1_MO2,U+4,U+5:O-2:O-2;0)"  Expr=" -124936.9-21.6838*T;" />
+  <Parameter Id="G(C36_LAVES,FE:FE;0)"  Expr=" +3*C36FEFE;" />
+  <Parameter Id="G(CORUNDUM,FE+2:FE+3:O-2;0)"  Expr=" +GFE2O3+85000;" />
+  <Parameter Id="TC(CORUNDUM,FE+2:FE+3:O-2;0)"  Expr=" -2867;" />
+  <Parameter Id="BMAG(CORUNDUM,FE+2:FE+3:O-2;0)"  Expr=" -25.1;" />
+  <Parameter Id="G(CORUNDUM,FE+2:VA:O-2;0)"  Expr=" +GFE2O3;" />
+  <Parameter Id="TC(CORUNDUM,FE+2:VA:O-2;0)"  Expr=" -2867;" />
+  <Parameter Id="BMAG(CORUNDUM,FE+2:VA:O-2;0)"  Expr=" -25.1;" />
+  <Parameter Id="G(CORUNDUM,FE+3:FE+3:O-2;0)"  Expr=" +GFE2O3+85000;" />
+  <Parameter Id="TC(CORUNDUM,FE+3:FE+3:O-2;0)"  Expr=" -2867;" />
+  <Parameter Id="BMAG(CORUNDUM,FE+3:FE+3:O-2;0)"  Expr=" -25.1;" />
+  <Parameter Id="G(CORUNDUM,FE+3:VA:O-2;0)"  Expr=" +GFE2O3;" />
+  <Parameter Id="TC(CORUNDUM,FE+3:VA:O-2;0)"  Expr=" -2867;" />
+  <Parameter Id="BMAG(CORUNDUM,FE+3:VA:O-2;0)"  Expr=" -25.1;" />
+  <Parameter Id="G(DELTA_NPU,U;0)"  Expr=" +337.8+GHSERUU;" />
+  <Parameter Id="G(DIAMOND_A4,O;0)"  Expr=" +GHSEROO+30000;" />
+  <Parameter Id="G(ETA_PHASE,U;0)"  Expr=" +GTETUU+229.2;" />
+  <Parameter Id="G(FCC_A1,FE:O;0)"  Expr=" +GFEFCC+GOSOL;" />
+  <Parameter Id="G(FCC_A1,FE:VA;0)"  Expr=" +GFEFCC;" />
+  <Parameter Id="TC(FCC_A1,FE:VA;0)"  Expr=" -201;" />
+  <Parameter Id="BMAG(FCC_A1,FE:VA;0)"  Expr=" -2.1;" />
+  <Parameter Id="G(FCC_A1,U:O;0)"  Expr=" -504526+100*T+GHSEROO+GHSERUU;" />
+  <Parameter Id="G(FCC_A1,U:VA;0)"  Expr=" +GFCCUU;" HighT="3000" />
+  <Parameter Id="G(FCC_A1,FE:O,VA;0)"  Expr=" -168758+19.17*T;" />
+  <Parameter Id="G(FCC_A1,FE,U:VA;0)"  Expr=" -3595.3;" />
+  <Parameter Id="G(FEM6,FE:U;0)"  Expr=" -149660+88.27*T+GFELIQ+6*GLIQUU;" />
+  <Parameter Id="G(HALITE,FE+2:O-2;0)"  Expr=" +GWUSTITE;" HighT="3000" />
+  <Parameter Id="G(HALITE,FE+2:VA;0)"  Expr=" +UNASS;" />
+  <Parameter Id="G(HALITE,FE+3:O-2;0)"  Expr=" +1.25*AWUSTITE+1.25*GWUSTITE;" />
+  <Parameter Id="G(HALITE,FE+3:VA;0)"  Expr=" +UNASS;" />
+  <Parameter Id="G(HALITE,VA:O-2;0)"  Expr=" +ZERO;" />
+  <Parameter Id="G(HALITE,VA:VA;0)"  Expr=" 0;" />
+  <Parameter Id="G(HALITE,FE+2,FE+3:O-2;0)"  Expr=" -12324;" />
+  <Parameter Id="G(HALITE,FE+2,FE+3:O-2;1)"  Expr=" +20070;" />
+  <Parameter Id="G(HCP_A3,FE:O;0)"  Expr=" +UN_ASS;" />
+  <Parameter Id="G(HCP_A3,FE:VA;0)"  Expr=" +GHSERFE-3705.78+12.591*T-1.15*T*LN(+T)+.00064*T**2;" HighT="1811" >
+    <Trange Expr="-3957.199+5.24951*T+4.9251E+30*T**(-9)+GHSERFE;" />
+  </Parameter>
+  <Parameter Id="G(HCP_A3,U:O;0)"  Expr=" +GHCPUU+0.5*GHSEROO+100000;" />
+  <Parameter Id="G(HCP_A3,U:VA;0)"  Expr=" +GHCPUU;" />
+<!-- Disordered fraction set factor:    13.0000 Sublattices:   1 -->
+  <Parameter Id="G(MU_PHASE,FE;0)"  Expr=" +15300+GHSERFE;" />
+  <Parameter Id="G(ORTHORHOMBIC_A20,U;0)"  Expr=" +GHSERUU;" HighT="4000" />
+  <Parameter Id="G(ORTHO_AC,U;0)"  Expr=" +2814.7+GHSERUU;" />
+<!-- Disordered fraction set factor:    30.0000 Sublattices:   1 -->
+  <Parameter Id="G(SIGMA,FE;0)"  Expr=" +8800+GHSERFE;" />
+  <Parameter Id="G(SPINEL,FE+2:FE+2:FE+2:O-2;0)"  Expr=" +G222;" />
+  <Parameter Id="TC(SPINEL,FE+2:FE+2:FE+2:O-2;0)"  Expr=" +848;" HighT="3000" />
+  <Parameter Id="BMAG(SPINEL,FE+2:FE+2:FE+2:O-2;0)"  Expr=" +44.54;" HighT="3000" />
+  <Parameter Id="G(SPINEL,FE+2:FE+2:VA:O-2;0)"  Expr=" +G22V;" />
+  <Parameter Id="TC(SPINEL,FE+2:FE+2:VA:O-2;0)"  Expr=" +848;" HighT="3000" />
+  <Parameter Id="BMAG(SPINEL,FE+2:FE+2:VA:O-2;0)"  Expr=" +44.54;" HighT="3000" />
+  <Parameter Id="G(SPINEL,FE+2:FE+3:FE+2:O-2;0)"  Expr=" +G232;" />
+  <Parameter Id="TC(SPINEL,FE+2:FE+3:FE+2:O-2;0)"  Expr=" +848;" HighT="3000" />
+  <Parameter Id="BMAG(SPINEL,FE+2:FE+3:FE+2:O-2;0)"  Expr=" +44.54;" HighT="3000" />
+  <Parameter Id="G(SPINEL,FE+2:FE+3:VA:O-2;0)"  Expr=" +G23V;" HighT="3000" />
+  <Parameter Id="TC(SPINEL,FE+2:FE+3:VA:O-2;0)"  Expr=" +848;" HighT="3000" />
+  <Parameter Id="BMAG(SPINEL,FE+2:FE+3:VA:O-2;0)"  Expr=" +44.54;" HighT="3000" />
+  <Parameter Id="G(SPINEL,FE+2:VA:FE+2:O-2;0)"  Expr=" +G2V2;" />
+  <Parameter Id="TC(SPINEL,FE+2:VA:FE+2:O-2;0)"  Expr=" +848;" HighT="3000" />
+  <Parameter Id="BMAG(SPINEL,FE+2:VA:FE+2:O-2;0)"  Expr=" +44.54;" HighT="3000" />
+  <Parameter Id="G(SPINEL,FE+2:VA:VA:O-2;0)"  Expr=" +5*GFE3O4+CFE3O4;" HighT="3000" />
+  <Parameter Id="TC(SPINEL,FE+2:VA:VA:O-2;0)"  Expr=" +848;" HighT="3000" />
+  <Parameter Id="BMAG(SPINEL,FE+2:VA:VA:O-2;0)"  Expr=" +44.54;" HighT="3000" />
+  <Parameter Id="G(SPINEL,FE+3:FE+2:FE+2:O-2;0)"  Expr=" +G232;" />
+  <Parameter Id="TC(SPINEL,FE+3:FE+2:FE+2:O-2;0)"  Expr=" +848;" HighT="3000" />
+  <Parameter Id="BMAG(SPINEL,FE+3:FE+2:FE+2:O-2;0)"  Expr=" +44.54;" HighT="3000" />
+  <Parameter Id="G(SPINEL,FE+3:FE+2:VA:O-2;0)"  Expr=" +G23V;" HighT="3000" />
+  <Parameter Id="TC(SPINEL,FE+3:FE+2:VA:O-2;0)"  Expr=" +848;" HighT="3000" />
+  <Parameter Id="BMAG(SPINEL,FE+3:FE+2:VA:O-2;0)"  Expr=" +44.54;" HighT="3000" />
+  <Parameter Id="G(SPINEL,FE+3:FE+3:FE+2:O-2;0)"  Expr=" +G332;" />
+  <Parameter Id="TC(SPINEL,FE+3:FE+3:FE+2:O-2;0)"  Expr=" +848;" HighT="3000" />
+  <Parameter Id="BMAG(SPINEL,FE+3:FE+3:FE+2:O-2;0)"  Expr=" +44.54;" HighT="3000" />
+  <Parameter Id="G(SPINEL,FE+3:FE+3:VA:O-2;0)"  Expr=" +G33V;" />
+  <Parameter Id="TC(SPINEL,FE+3:FE+3:VA:O-2;0)"  Expr=" +848;" HighT="3000" />
+  <Parameter Id="BMAG(SPINEL,FE+3:FE+3:VA:O-2;0)"  Expr=" +44.54;" HighT="3000" />
+  <Parameter Id="G(SPINEL,FE+3:VA:FE+2:O-2;0)"  Expr=" +G2V2-BFE3O4;" />
+  <Parameter Id="TC(SPINEL,FE+3:VA:FE+2:O-2;0)"  Expr=" +848;" HighT="3000" />
+  <Parameter Id="BMAG(SPINEL,FE+3:VA:FE+2:O-2;0)"  Expr=" +44.54;" HighT="3000" />
+  <Parameter Id="G(SPINEL,FE+3:VA:VA:O-2;0)"  Expr=" +5*GFE3O4+CFE3O4-BFE3O4;" HighT="3000" />
+  <Parameter Id="TC(SPINEL,FE+3:VA:VA:O-2;0)"  Expr=" +848;" HighT="3000" />
+  <Parameter Id="BMAG(SPINEL,FE+3:VA:VA:O-2;0)"  Expr=" +44.54;" HighT="3000" />
+  <Parameter Id="G(TETRAGONAL_U,U;0)"  Expr=" +GTETUU;" HighT="3000" />
+  <Parameter Id="G(TETRAG_AD,U;0)"  Expr=" +260.4+GTETUU;" />
+  <Parameter Id="G(U3O8_S1,O:U;0)"  Expr=" +GU3O8;" />
+  <Parameter Id="G(U3O8_S2,O:U;0)"  Expr=" +GU3O8+135-0.279503106*T;" />
+  <Parameter Id="G(U3O8_S3,O:U;0)"  Expr=" +GU3O8+283-0.540066486*T;" />
+  <Parameter Id="G(U3O8_S4,O:U;0)"  Expr=" +GU3O8+597-0.918379739*T;" />
+  <Parameter Id="G(U4O9_S1,O:U;0)"  Expr=" +GU4O9S1;" />
+  <Parameter Id="G(U4O9_S2,O:U;0)"  Expr=" +GU4O9S1+2594-7.45402299*T;" />
+  <Parameter Id="G(U4O9_S3,O-2:U+4;0)"  Expr=" +GU4O9S3+23.0527167*T;" />
+  <Parameter Id="G(U4O9_S3,O-2:U+5;0)"  Expr=" +GU4O9S3+23.0527167*T;" />
+  <Parameter Id="G(UC2_C11A,U:O;0)"  Expr=" +3*GUO2POT+100000;" />
+  <Parameter Id="G(UC2_C11A,U:VA;0)"  Expr=" +GFCCUU;" />
+  <Parameter Id="G(UO3,O:U;0)"  Expr=" -1260394.62+616.475675*T-105.7368*T*LN(+T)+.0104274*T**2-3.18099167E-06*T**3+868736*T**(-1);" HighT="3000" />
+  <Parameter Id="G(UZR_DELTA,U:U;0)"  Expr=" +5000+3*GHSERUU;" />
+  <Parameter Id="G(ZETA_PHASE,U;0)"  Expr=" +GBCCUU+322.1;" />
+  <Parameter Id="G(ZRO2_TETR,FE+2:O-2;0)"  Expr=" +GWUSTITE+GHSEROO+60000+11.5263*T;" />
+  <Parameter Id="G(ZRO2_TETR,FE+2:VA;0)"  Expr=" +GWUSTITE-GHSEROO+120000+11.5263*T;" />
+  <Parameter Id="G(ZRO2_TETR,FE+3:O-2;0)"  Expr=" +0.5*GFE2O3+0.5*GHSEROO+150000+9.35*T;" />
+  <Parameter Id="G(ZRO2_TETR,FE+3:VA;0)"  Expr=" +0.5*GFE2O3-1.5*GHSEROO+150000+9.35*T;" />
+  <Parameter Id="G(ZRO2_TETR,U+4:O-2;0)"  Expr=" +G4OV+40000;" />
+  <Parameter Id="G(ZRO2_TETR,U+4:VA;0)"  Expr=" +GUO2S-2*GHSEROO;" />
+  <Bibliography>
+    <Bibitem Id="FEGAS" Text="FE1[G] T.C.R.A.S Class: 1 Data provided by T.C.R.A.S. October 1996" /> 
+    <Bibitem Id="FE2GAS" Text="FE2[G] T.C.R.A.S Class: 5 Data provided by T.C.R.A.S. October 1996" /> 
+    <Bibitem Id="OGAS" Text="O1[G] JANAF 1982; ASSESSMENT DATED 3/77 SGTE OXYGEN [MONATOMIC GAS], from SSUB" /> 
+    <Bibitem Id="O2GAS" Text="O2[G] T.C.R.A.S. Class: 1 OXYGEN [DIATOMIC GAS], from SSUB" /> 
+    <Bibitem Id="O3GAS" Text="O3[G] T.C.R.A.S. Class: 4 OZONE [GAS}, from SSUB" /> 
+    <Bibitem Id="UGAS" Text="U1[G] T.C.R.A.S Class: 4 Data provided by T.C.R.A.S. in 2000, from SSUB" /> 
+    <Bibitem Id="FEOGAS" Text="FE1O1[G] T.C.R.A.S Class: 5 Data provided by T.C.R.A.S. in 2000" /> 
+    <Bibitem Id="FEO2GAS" Text="FE1O2[G] T.C.R.A.S Class: 6 Data provided by TCRAS. October 1996. Error in version 1997. S298 corrected to 1bar" /> 
+    <Bibitem Id="UOGAS" Text="O1U1[G] T.C.R.A.S Class: 6 Data provided by T.C.R.A.S. in 2000, from SSUB, different of Tbase" /> 
+    <Bibitem Id="UO2GAS" Text="O2U1[G] T.C.R.A.S. Class: 6 URANIUM DIOXIDE [GAS], from SSUB, slightly different of Tbase" /> 
+    <Bibitem Id="UO3GAS" Text="O3U1[G] T.C.R.A.S Class: 6 Data provided by T.C.R.A.S. in 2000, from SSUB, different of Tbase" /> 
+    <Bibitem Id="20LK11" Text="L. Kjellqvist, TAFID project (2020), tentative vacancy fraction in pure BCC metals." /> 
+    <Bibitem Id="91DIN" Text="A T Dinsdale, SGTE Data for Pure Elements, Calphad 15(1991)4 p 317-425; also in NPL Report DMA(A)195 Rev. August 1990" /> 
+    <Bibitem Id="UNASS" Text="Unassessed PARAM" /> 
+    <Bibitem Id="13SLU" Text="M.H.F. Sluiter, unpublished research (2013); More endmember values" /> 
+    <Bibitem Id="06SLU" Text="M.H.F. Sluiter, Calphad, 30, 357-66(2006); Endmember values" /> 
+    <Bibitem Id="92HAL1" Text="B. Hallstedt, Calphad, 16 (1992), 53-61; Si-O" /> 
+    <Bibitem Id="91SUN" Text="B Sundman, J Phase Eq. 12 (1991), 127-140; Fe-O" /> 
+    <Bibitem Id="PURE4" Text="SGTE unary database version 4.4" /> 
+    <Bibitem Id="99KUR" Text="M. Kurata, Calphad, 23 (3-4), 305-337 1999" /> 
+    <Bibitem Id="11GUE" Text="C. Gueneau, N. Dupin, B. Sundman, C. Martial, J.-C. Dumas, S. Gosse, S. Chatain, F. De Bruycker, D. Manara, R.J.M. Konings, J. Nucl. Mat. 419 (1-3), 145-167 (2011); C-O-Pu-U" /> 
+    <Bibitem Id="KUR10B" Text="M. Kurata, Am, Np, Fe systems, to be published, e-mail to ND 2010 feb 21" /> 
+    <Bibitem Id="09SUN" Text="B. Sundman, I. Ohnuma, N. Dupin, U. Kattner, S. Fries, Acta Materialia, 57 (2009) 2896-2908; Al-Fe" /> 
+    <Bibitem Id="11SUN" Text="B. Sundman, interaction needed when adding neutral O in ionic liquid." /> 
+    <Bibitem Id="95KOW" Text="M. Kowalski and P.J. Spencer, Calphad 19 (1995) 229-243; Cr-O, Fe -O and Ni-O" /> 
+    <Bibitem Id="08KJE" Text="L. Kjellqvist, M. Selleby and B. Sundman, Calphad, 32 (2008) 577-592; Cr-Fe-Ni-O" /> 
+    <Bibitem Id="16FAB" Text="O. Fabrichnaya, D. Pavlyuchkov, Metall. Mater. Trans. A, 47A (2016) 152-159; Fe-Zr-O" /> 
+    <Bibitem Id="19LK08" Text="L. Kjellqvist, TAFID project (2019), modified the C1_MO2 Fe-O description to remove a miscitbility gap in the Fe-U-O system; Fe-O" /> 
+    <Bibitem Id="19QUA" Text="Quaini PhD (2015) + Quaini & Gueneau, unpublished assessment (2019); Fe-Zr-O, Fe-U-O" /> 
+    <Bibitem Id="10KURB" Text="M. Kurata, IOP Conf. Series: Materials Science and Engineering, 9, 012023 (2010)" /> 
+    <Bibitem Id="NDFIX" Text="N. Dupin, PARAMs introduced to keep description unchanged" /> 
+    <Bibitem Id="REFQUA" Text="A. Quaini et al., J. Nucl. Mater. 501 (2018) 104-131; U-Zr-O" /> 
+    <Bibitem Id="06ND" Text="fixing some PARAMs of low importance" /> 
+    <Bibitem Id="UO3S" Text="O3U1 T.C.R.A.S. Class: 7 URANIUM TRIOXIDE, from SSUB" /> 
+    <Bibitem Id="U3O8HT" Text="SSUB 3-URANIUM 8-OXIDE : M.H.Rand March 1994, taken from Cordfunke. In the fuelbase, the expression relative to the alpha form has been kept identical to SSUB for the higher temperatures forms but the alpha form expression has been modified in 11GUE" /> 
+    <Bibitem Id="U4O9HT" Text="SSUB 4-URANIUM 9-OXIDE : M.H.Rand March 1994, taken from Cordfunke. In the fuelbase, the expression relative to the alpha form has been kept identical to SSUB for beta and to 08GUE for gamma but the alpha form expression has been modified in 11GUE" /> 
+    <Bibitem Id="13QUA" Text="A. Quaini, C. Gueneau, 2013, provisional; Fe-O-U-Zr" /> 
+    <Bibitem Id="NDOX13" Text="N. Dupin, modification of L. Kjellqvist CaO-ZrO2 due to different ZrO2 description" /> 
+    <Bibitem Id="COU" Text="C. Gueneau, CEA Saclay; C-O-U" /> 
+    <Bibitem Id="NDFE" Text="Some Fe systems, N. Dupin, 2006" /> 
+    <Bibitem Id="Default" Text="U.N. Known" /> 
+  </Bibliography>
+</XTDB>

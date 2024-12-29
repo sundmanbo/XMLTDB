@@ -1,0 +1,201 @@
+<Models>
+  <!-- This is a tag with short explanation of XTDB model tags and their attributes.
+    The Configuration attribute in the Phase tag specify configurational entropy.
+
+    The Model tag should be included in the XTDB file or appear in an AppendXTDB tag in an XTDB file.
+
+    The list of Model tags here is mainly descriptive.  Some of them should be included in a Defaults tag and
+    thus apply to the whole database, some inside a phase tag.  Several Model tags define one or more 
+    Model Parameter IDentifiers (MPID) used for parameters in the models to describe a composition dependent
+    contributions to the Gibbs energy of a phase, for example from magnetism.
+    An MPID can describe how a property, for example the Curie T, varies with the composition and
+    sometimes T or P.  If a software reading an XTDB file finds a parameter with an MPID for a known model
+    it will know how to handle this.  
+       
+    The software reading the database should check if the models used in the database are implemented and
+    check that the MPID for the models the database correspont to its internal set of MPID.
+    There may be more models specified here than actually used in the database.  But if the software
+    finds a model not implemented or an unkown MPID when extracting data for a phase
+    it should issue an error or warning.
+
+    The AmendPhase tag is nested inside a Phase tag and is Models attribute can specify several Model Id 
+    which define additional models with MPID for the phase.
+
+    A DisorderedPart tag must be nested separately inside the Phase tag
+    as it has additional phase dependent information.
+
+    A TenaryXpol tag must be used for each ternary which does not have the default ternary extrapolation,
+    together with the model parameters for the binaries together with the phase attribute.
+
+    Phases with many sublattices may have a wildcard, denoted as "*" as constituent in some sublattices.
+    A wildcard means the parameter is independent of the constituent in the sublattices with wildcards.
+    Such parameters should not be merged with parameters with explicit constituents on the sublattices.
+
+    The EEC tag is global for the whole database if included in the Defaults tag.
+
+    Some model tags, attributes and MPIDs below are tentative and open for discussion and new can be added.  
+    Some attributes of the tags are optional.
+
+    More model tags with references to papers describing the model can be added when needed.
+    These should be communicated with other software developers.
+  -->
+
+  <Magnetic Id="IHJBCC" MPID1="TC" MPID2="BMAGN" Bibref="82Her" > 
+    <!-- Add a magnetic Gibbs energy according to Inden-Hillert-Jarl to a BCC phase as 
+      G=f(TAO)*LN(BMAGN+1) where TAO=T/TC.  
+      TC is a combined Curie/Neel T and BMAGN the average Bohr magneton number, both depend on composition
+      Negative TC is divided by -1, the anti-ferromagnetic factor.
+      f_below_TC= +1 -0.905299383*TAO**(-1) -0.153008346*TAO**3-.00680037095*TAO**9
+                  -0.00153008346*TAO**15; and
+      f_above_TC= -0.0641731208*TAO**(-5) -0.00203724193*TAO**(-15)
+                  -0.000427820805*TAO**(-25); 
+    -->
+  </Magnetic>
+
+  <Magnetic Id="IHJREST"  MPID1="TC" MPID2="BMAGN" Bibref="82Her" > 
+    <!-- Add a magnetic Gibbs energy according to Inden-Hillert-Jarl to an FCC or other non-BCC phases as 
+      G=f(TAO)*LN(BMAGN+1) where TAO=T/TC.  
+      TC is a combined Curie/Neel T and BMAGN the average Bohr magneton number, both depend on composition.
+      Negative TC is divided by -3, the antiferromagnetic factor.
+      f_below_TC= +1-0.860338755*TAO**(-1) -0.17449124*TAO**3 -0.00775516624*TAO**9
+                  -0.0017449124*TAO**15; and 
+      f_above_TC= -0.0426902268*TAO**(-5) -.0013552453*TAO**(-15)
+                  -0.000284601512*TAO**(-25); 
+    -->
+  </Magnetic>
+
+  <Magnetic Id="IHJQX" MPID1="CT" MPID2="NT" MPID3="BMAGN" Bibref="01Che 12Xio" > 
+    <!-- Add a magnetic Gibbs energy to a any phase as
+      G=f(TAO)*LN(BMAGN+1) where the positive value of TAO=T/CT or T/NT.
+      CT is the Curie T, NT is the Neel T and BMAGN the effective Bohr magneton number.
+      There is no antiferromagnetic factor and only positive CT ot NT values should be used.
+      f_below_TC= +1-0.842849633*TAO**(-1) -0.174242226*TAO**3 -0.00774409892*TAO**9
+                  -0.00174242226*TAO**15 -0.000646538871*TAO**21; and
+      f_above_TC= -0.0261039233*TAO**(-7)c-0.000870130777*TAO**(-21)
+                  -0.000184262988*TAO**(-35)c-6.65916411E-05*TAO**(-49);
+    -->
+  </Magnetic>
+
+  <Einstein Id="GEIN" MPID1="LNTH" Bibref="01Che" > 
+    <!-- Add a Gibbs energy due to the Einstein low T vibrational model, 
+      G=1.5*R*exp(LNTH)+3*R*T*LN(1-exp(-exp(LNTH)/T)).
+      LNTH is the logarith of a fitted Einstein T in Kelvin, with the value LN(THETA).
+      The heat capacity of an element or compound can be fitted with several THETA values
+      but only one of these can be composition dependent.  The others are used in GEIN function
+      in the Gibbs energy model parameter.  The reason to use the logarithm of THETA is that
+      it is physically more reasonable to vary the logarithm with the composition.
+    -->
+  </Einstein>
+
+  <Liquid Id="Liquid2State" MPID1="G2"  MPID2="LNTH" Bibref="88Agr 13Bec" > 
+    <!-- Unified model for the liquid and the metastable low T amorphous state treated as an Einstein solid.
+      The G2 parameter describes the stable liquid and the transition to the amorphous state and
+      LNTH is the logarithm of the Einstein THETA for the amorphous phase. 
+      See the reference for details.
+    -->
+  </Liquid>
+
+  <Volume Id="VlowP1" MPID1="V0"  MPID2="VA" MPID3="VB" Bibref="05Lu" > 
+    <!-- The volume of a phase as function of T and moderate P and constitution via the model parameters:
+      V0 is the volume at the reference T and P, VA is the integrated thermal expansion at 1 bar 
+      and VB is the isothermal compressibilty at 1 bar.
+
+      There can be several volume models in the database and software as for magnetism.
+    -->
+  </Volume>
+
+  <DisorderedPart Disordered="x" Sum="y" Subtract="z" Bibref="97Ans 07Hal" >
+    <!-- This tag must appear explicitly inside the ordered phase tag as the attributes depend on the phase.
+      It is often used for phases with many sublattices that does not disorder.
+      If the parameters for the disordred part are in a separate phase that phase Id "x" must be specified
+      in the Disordered attribute.
+      The Disordered attribute is not needed if model parameters for the disordered part use the same phase Id
+      as the ordered phase but with a single sublattice for the ordered sublattices.
+      The Sum attribute "y" is the number of ordering sublattices with identical constituents 
+      to be added together to calculate the average disordered composition.
+      The Gibbs energy is calculated separately for the ordered and disordered model
+      parameters and added together.
+      If the Subtract attribute is provided the Gibbs energy for the ordered part is calculated
+      twice, the second time with disordered fractions, and subtracted.
+      The configurational Gibbs energy is calculated only for the ordered phase.
+    -->
+  </DisorderedPart>
+
+  <Permutations Id="FCC4Perm" Bibref="09Sun" > 
+    <!-- An FCC phase with 4 sublattices for the ordered tetrahedron can use the Id of this model
+      in the AmendPhase tag to indicate that parameters with permutations of the same set of constituents
+      on identical sublattices are included only once in the database and must be permuted by software.
+      With only nearest neighbour parameters it can be used also for HCP.
+    -->
+  </Permutations>
+
+  <Permutations Id="BCC4Perm" Bibref="09Sun" > 
+    <!-- A BCC phase with 4 sublattices for the ordered asymmetric tetrahedron use the Id of this model
+      in the AmendPhase tag to indicate that parameters with permutations of the same set of constituents
+      on identical sublattices are included only once in the database and must be permuted by software.
+    -->
+  </Permutations>
+
+  <EEC Id="EEC" Bibref="20Sun" > 
+    <!-- The Equi-Entropy Criterion (EEC) means that the software must ensure any solid phases
+       with higher entropy than the liquid phase must not be stable. It must be used in the Defaults
+       as it applies to the whole system and the liquid phase must have an "L" as the State attribute.
+    -->
+  </EEC>
+
+  <TernaryXpol Phase="x" Constituents="A B C" Xmode="ijk"  Bibref="01Pel" > 
+    <!-- This is a tag that must be used explitly for each ternary extrapolation of the binary parameters
+      which does not have the default ternary extrapolation method. There can be 3 different methods
+      for each ternary.
+      The Constituent tag must specify 3 constituents, A B C, separated by one or more spaces.
+      The Xmode attribute specifies the ternary extraplation of the 3 binaries, A-B, A-C and B-C.
+      If M the Muggianu extrapolation, if K the Kohler extrapolation and if T the Toop extrapolation.
+      For the Toop one must also specify which of the binary constituents is the Toop element.
+      For example Xmode="KT3T3" means the binary A-B extrapolate as Kohler, 
+      A-C and B-C extrapolate as Toop with the third constituent as Toop element .
+    -->
+  </TernaryXpol>
+
+  <EBEF Id="EBEF" Bibref="18Dup" > 
+    <!-- The Effective Bond Energy Formalism for phases with multiple sublattices using wildcards, "*",
+      in the endmember parameters indicating sublattices with irrelevant constituents.
+      The phase must also use the Disordered_2Part model for the reference state of the elements.
+
+      There is a proposal that the parameters may also use a short form "constituent@sublattice"
+      in order to specify only the constituents in sublattices without wildcards.  
+    -->
+  </EBEF>
+
+  <Bibliography> 
+    <!-- This is the bibliography for the models -->
+    <Bibitem Id="82Her" Text="S. Hertzman and B. Sundman, A Thermodynamic analysis of the Fe-Cr system,'
+      Calphad, Vol 6 (1982) pp 67-80" />
+    <Bibitem Id="88Agr" Text="J. Agren, Thermodynmaics of supercooled liquids and their glass transition,
+      Phys Chem Liq, Vol 18 (1988) pp 123-139" />
+    <Bibitem Id="97Ans" Text="I. Ansara, N. Dupin, H. L. Lukas and B. Sundman, Thermodynamic assessment
+      of the Al-Ni system, J All and Comp, Vol 247 (1997) pp 20-30" />
+    <Bibitem Id="01Che" Text="Q. Chen and B. Sundman, Modeling of Thermodynamic Properties for BCC, FCC,
+      Liquid and Amorphous Iron, J Phase Eq, Vol 22 (2001) pp 631-644" />
+    <Bibitem Id="01Pel" Text="A. D. Pelton, A General Geometric Thermodynamic Model for Multicomponent
+      solutions, Calphad, Vol 25 (2001) pp 319-328" />
+    <Bibitem Id="05Lu" Text="X.-G. Lu, M. Selleby B. Sundman, Implementation of a new model for pressure
+      dependence of condensed phases in Thermo-Calc, Calphad, Vol 29 (2005) pp 49-55" />
+    <Bibitem Id="07Hal" Text="B. Hallstedt, N. Dupin, M. Hillert, L. Hoglund, H. L. Lukas, J. C. Schuster
+      and N. Solak, Calphad, Vol 31 (2007) pp 28-37" />
+    <Bibitem Id="09Sun" Text="B. Sundman, I. Ohnuma, N. Dupin, U. R. Kattner and S. G. Fries, An assessment
+      of the entire Al-Fe system including D03 ordering, Acta Mater, Vol 57 (2009) pp 2896-2908" />
+    <Bibitem Id="12Xio" Text="W. Xiong, Q. Chen, P. A. Korzhavyi and M. Selleby, An improved magnetic
+      model for thermodynamic modeling, Calphad, Vol 39 (2012) pp 11-20" />
+    <Bibitem Id="13Bec" Text="C. A. Becker, J. Agren, M. Baricco, Q Chen, S. A. Decterov, U. R. Kattner,
+      J. H. Perepezko, G. R. Pottlacher and M. Selleby, Thermodynamic modelling of liquids:
+      Calphad approaches and contributions from statistical physics, Phys Stat Sol B (2013) pp 1-20" />
+    <Bibitem Id="18Dup" Text="N. Dupin, U. R. Kattner, B. Sundman, M. Palumbo and S. G. Fries,
+      Implementation of an Effective Bond Energy Formalism in the Multicomponent Calphad Approach,
+      J Res NIST, Vol 123 (2018) 123020" />
+    <Bibitem Id="20Sun" Text="B. Sundman, U. R. Kattner, M. Hillert, M. Selleby, J. Agren, S. Bigdeli,
+      Q. Chen, A. Dinsdale, B. Hallstedt, A. Khvan, H. Mao and R. Otis, A method for handling the
+      extrapolation of solid crystalline phases to temperatures far above their melting point,
+      Calphad, Vol 68 (2020) 101737" />
+  </Bibliography>
+</Models>
+

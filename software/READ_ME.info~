@@ -24,16 +24,17 @@ The compiled program is xtdbread
 2. Functionality
 
 xtdbread asks for an xtdb file and extracts the elements from this.
-The user can specify all or a subset of them to read the data from the
-xtdb file.
+The user can specify all or a subset of them to read from the xtdb file.
 
 It is a debug version so quite a lot of information is written while
 it is extracting data.  When it has finished it writes all data found
 on the screen.  Please send me XTDB files which creates problems.
 
-The data read from the XTDB file is stored in an internal structure
-and for use in a specific software one has to add routines to extract
-this data for use in calculations by the software.
+xtdbread can read an XTDB file and extract elements, species, phases, model
+parameters, TPfun and bibliographic data from an XTDB file.
+
+For use in a specific software one has to add routines to store this
+data as required by the specific software.
 
 
 3.  The XTDB files
@@ -58,18 +59,16 @@ each software and simplify the use of a database with different
 software.  This file is read at the start and can be used to adapt the
 database to the specific software.
 
-3.3.2 mpea5par.XTDB should contain most of the model parameters for
-the phases.  This is read once after the master file has been read and
-the parameters for the selected elements and phases are extracted.
-The parameters are independent and depend only on the phase and the
-constituents of the phase.  But they may depend of TPfuns.
+3.3.2 mpea5par.XTDB with most of the model parameters for the phases.
+This is read once after the master file read and the parameters
+for the selected elements and phases are extracted.
 
 3.3.3 mpea5tp,XTDB should only contan TPfuns and nested Trange tags.
-It will be read after the parameter file and maybe rewinded several
-times as a TPfun may depend on other TPfun.
+It will be read after the parameter file and maybe several times and a
+TPfun may need another TPfun.
 
 3.3.4 mpea5bib.XTDB should only contain bibligraphic information and
-the bibitems referenced from the parameters will be extracted.
+those bibitems referenced from the parameters will be extracted.
 
 
 4. Applications
@@ -77,10 +76,10 @@ the bibitems referenced from the parameters will be extracted.
 The program has two main subroutines, xtdbread which reads the whole
 file and calls appropriate subroutines for checking and storing data
 and xtdbtag which extracts a tag together with appropriate nested tags
-from the file.  All the information selected by the user is stored by
-xtdbread and can be retrieved by appropriate routines from the
-applications software.  The storage in xtdbread is not adoped for
-calculations, that has to be provided by the application software.
+from the file.  All the information selected by the user is stored
+inside xtdbread and can be retrieved by appropriate routines from the
+applications software.  The storage is not adoped for calculations,
+that has to be provided by the application software.
 
 
 5. XML compatibility

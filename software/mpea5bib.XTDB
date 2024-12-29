@@ -1,0 +1,149 @@
+<Appendix>
+  <Bibliography>
+    <Bibitem Id="91DIN" Text="A.T. Dinsdale, Calphad, 15, 317-425(1991)." /> 
+    <Bibitem Id="99DUP1" Text="N. Dupin, I. Ansara, Z. Metallkd., 90, 76-85(1999); Al-Ni" /> 
+    <Bibitem Id="20NOO" Text="M. Noori, B. Hallstedt, Calphad, 71, 101793(2020); Al-Co, Al-Co-Mn" /> 
+    <Bibitem Id="17WAN2" Text="S. Wang, Z. Li, Z. Qin, S. Wang, X. Lu, C. Li, TMS 2017 Proc., 443-54(2017); Al-Cr, Al-Cr-Fe" /> 
+    <Bibitem Id="16WAN2" Text="Y. Wang, G. Cacciamani, J. Alloys Compd., 688, 422-35(2016); Al-Cr, Al-Ni, Al-Cr-Ni" /> 
+    <Bibitem Id="97ANS" Text="I. Ansara, N. Dupin, H.L. Lukas, B. Sundman, J. Alloys Compd., 247, 20-30(1997); Al-Ni" /> 
+    <Bibitem Id="18BER" Text="A. Berche, P. Junod, Comput. Mater. Sci., 149, 28-36(2018); Al-V" /> 
+    <Bibitem Id="09SUN" Text="B. Sundman, I. Ohnuma, N. Dupin, U.R. Kattner, S.G. Fries, Acta Mater., 57, 2896-2908(2009); Al-Fe" /> 
+    <Bibitem Id="18TAN1" Text="F. Tang, D. Bogdanovski, I. Bajenova, A.V. Khvan, R. Dronskowski, B. Hallstedt, Calphad, 60, 231-39(2018); Mn-C, Al-Mn-C" /> 
+    <Bibitem Id="20HAL11" Text="B. Hallstedt, reduced stability of bcc-C, 2020" /> 
+    <Bibitem Id="99DUP2" Text="N. Dupin, unpublished revision, 1999; Al-Co" /> 
+    <Bibitem Id="18ZHE3" Text="W. Zheng, S. He, J. Wang, H. Mao, J. Phase Equiib. Diffus., 39, 538-48(2018); Al-Co-C" /> 
+    <Bibitem Id="20WAN" Text="P. Wang, T. Hammerschmidt, U.R. Kattner, G.B. Olson, Calphad, 68, 101729(2020); Co-V" /> 
+    <Bibitem Id="17CUI2" Text="S. Cui, I.-H. Jung, Metall. Mater. Trans. A, 48A, 1383-1401(2017); Al-Mn, Al-Cr-Mn" /> 
+    <Bibitem Id="18TAN2" Text="F. Tang, PhD Thesis, 2018; Al-Fe-C, Al-Fe-Mn-C" /> 
+    <Bibitem Id="07DU" Text="Y. Du, J. Wang, J. Zhao, J.C. Schuster, F. Weitzer, R. Schmid-Fetzer, M. Ohno, H. Xu, Z.-K. Liu, S. Shang, W. Zhang, Int. J. Mater. Res., 98, 855-71(2007); Al-Mn" /> 
+    <Bibitem Id="18ZHE2" Text="W. Zheng, H. Mao, X.-G. Lu, Y. He, L. Li, M. Selleby, J. Agren, J. Alloys Compd., 742, 1046-57(2018); Al-Mn, Al-Fe-Mn" /> 
+    <Bibitem Id="20HAL6" Text="B. Hallstedt, various modifications, 2020; Al-Cr-Ni" /> 
+    <Bibitem Id="19NOO" Text="M. Noori, B. Hallstedt, Calphad, 65, 273-81(2019); Ni-V" /> 
+    <Bibitem Id="10LIU" Text="S.H. Liu, PhD Thesis, CSU, 2010; Mn-Ni" /> 
+    <Bibitem Id="06SLU" Text="M.H.F. Sluiter, Calphad, 30, 357-66(2006); Endmember values" /> 
+    <Bibitem Id="14DIN" Text="A.T. Dinsdale, A.V. Khvan, A. Watson, Mater. Sci. Technol., 30, 1715-18(2014); Va" /> 
+    <Bibitem Id="95GRO" Text="J. Groebner, H.L. Lukas, F. Aldinger, J. Alloys Compd., 220, 8-14(1995); Al-C" /> 
+    <Bibitem Id="08CON" Text="D. Connetable, J. Lacaze, P. Maugis, B. Sundman, Calphad, 32, 361-70(2008); Al-Fe, Al-Fe-C" /> 
+    <Bibitem Id="20HAL2" Text="B. Hallstedt, various modifications, 2020; Al-Fe-C" /> 
+    <Bibitem Id="06HAL1" Text="B. Hallstedt, D. Music, Z. Sun, Int. J. Mater. Res., 97, 539-42(2006); Al-Cr-C" /> 
+    <Bibitem Id="17WAN1" Text="P. Wang, W. Xiong, U.R. Kattner, C.E. Campbell, E.A. Lass, O.Y. Kontsevoi, G.B. Olson, Calphad, 59, 112-30(2017); Al-Co" /> 
+    <Bibitem Id="13STE" Text="F. Stein, C. He, N. Dupin, Intermetallics, 39, 58-68(2013); Al-Co" /> 
+    <Bibitem Id="16LIU" Text="X.L. Liu, G. Lindwall, T. Gheno, Z.-K. Liu, Calphad, 52, 125-142(2016); Al-Co, Al-Co-Cr, Al-Co-Ni, Co-Cr-Ni Al-Co-Cr-Ni" /> 
+    <Bibitem Id="21NOO" Text="M. Noori, B. Hallstedt, Calphad, 74, 102288(2021); Al-Co-Fe" /> 
+    <Bibitem Id="19OST" Text="M. Ostrowska, G. Cacciamani, J. Alloys Compd., 794, 553-568(2019); Al-Co, Al-Co-Fe" /> 
+    <Bibitem Id="18WAN" Text="Y. Wang, G. Cacciamani, Calphad, 61, 198-210(2018); Al-Co, Al-Co-Ni" /> 
+    <Bibitem Id="20HAL4" Text="B. Hallstedt, various adjustments, 2020; Al-Co-Ni" /> 
+    <Bibitem Id="20HAL5" Text="B. Hallstedt, various modifications, 2020; Al-Cr, Al-Cr-Mn" /> 
+    <Bibitem Id="01DUP" Text="N. Dupin, I. Ansara, B. Sundman, Calphad, 25, 279-98(2001); Al-Cr-Ni" /> 
+    <Bibitem Id="08LIA" Text="Y. Liang, C. Guo, C. Li, Z. Du, J. Alloys Compd., 460, 314-19(2008); Al-Cr" /> 
+    <Bibitem Id="SAME" Text="Same or similar interaction as in the corresponding stable phase" /> 
+    <Bibitem Id="LIN" Text="Linear combination of lattice stabilities" /> 
+    <Bibitem Id="17ZHE" Text="W. Zheng, S. He, M. Selleby, Y. He, L. Li, X.-G. Lu, J. Agren, Calphad, 58, 34-49(2017); Al-Fe" /> 
+    <Bibitem Id="93SEI" Text="M. Seiersten, COST 507, Final report round 2, 1998; Al-Fe" /> 
+    <Bibitem Id="13LIN" Text="B.B. Lindahl, M. Selleby, Calphad, 43, 86-93(2013); Al-Fe-Mn" /> 
+    <Bibitem Id="20HAL9" Text="B. Hallstedt, various modifications, 2020; Al-Cr-Fe" /> 
+    <Bibitem Id="97JAN" Text="A. Jansson, PhD Thesis, Stockholm 1997; Al-Fe-Mn" /> 
+    <Bibitem Id="09ZHA2" Text="L. Zhang, J. Wang, Y. Du, R. Hu, P. Nash, X.-G. Lu, C. Jiang, Acta Mater., 57, 5324-41(2009); Al-Fe-Ni" /> 
+    <Bibitem Id="12DJU" Text="D. Djurovic, fcc and bcc ordering, modified Al11Mn4-ht, 2012; Al-Mn" /> 
+    <Bibitem Id="20HAL8" Text="B. Hallstedt, various modifications, 2020; Al-Mn-Ni" /> 
+    <Bibitem Id="19WAL1" Text="A. Walnsch, M.J. Kriegel, M. Rudolph, M. Motylenko, O. Fabrichnaya, A. Leineweber, Calphad, 64, 78-89(2019); Al-Mn-Ni" /> 
+    <Bibitem Id="19WAN" Text="W. Wang, H.-L. Chen, H. Larsson, H. Mao, Calphad, 65, 346-69(2019); Al-Ni" /> 
+    <Bibitem Id="95DUP" Text="N. Dupin, Thesis, LTPCM, France, 1995; Al-Cr-Ni, Al-Ni-Ti" /> 
+    <Bibitem Id="17HAL1" Text="B. Hallstedt, estimated kappa parameter, 2017; Al-Ni-C" /> 
+    <Bibitem Id="15LIN" Text="B. Lindahl, X.L. Liu, Z.-K. Liu, M. Selleby, Calphad, 51, 75-88(2015); Al-V" /> 
+    <Bibitem Id="21HAL1" Text="B. Hallstedt, modified Al8V5, 2021; Al-V" /> 
+    <Bibitem Id="87FER1" Text="A. Fernandez Guillermet, Z. Metallkd., 78, 700-709(1987); Co-C" /> 
+    <Bibitem Id="89FER1" Text="A. Fernandez Guillermet, Metall. Trans. A, 20A, 935-56(1989); Co-W-C" /> 
+    <Bibitem Id="88FER1" Text="A. Fernandez Guillermet, Z. Metallkd., 79, 317-29(1988); Co-Fe-C" /> 
+    <Bibitem Id="97KUS" Text="A. Kusoffsky, B. Jansson, Calphad, 21, 321-33(1997); Co-Cr, Co-Cr-C" /> 
+    <Bibitem Id="06MAR" Text="A. Markstrom, S. Norgren, K. Frisk, B. Jansson, T. Sterneland, Int. J. Mater. Res., 97, 1243-50(2006); Co-Cr-C" /> 
+    <Bibitem Id="14KAP" Text="B. Kaplan, A. Markstrom, A. Blomqvist, S. Norgren, M. Selleby, Calphad, 46, 226-36(2014); Co-Cr-C" /> 
+    <Bibitem Id="00WES" Text="S. Westman, unpublished, 2000; Co-Cr, Cr-Fe, Fe-V, Mn-V" /> 
+    <Bibitem Id="LIN+" Text="Linear combination of lattice stabilities + 5 kJ/mol-atoms" /> 
+    <Bibitem Id="19CHO" Text="W.-M. Choi, Y.H. Jo, D.G. Kim, S.S. Sohn, S. Lee, B.-J. Lee, Calphad, 66, 101624(2019); Co-Cr-Fe, Co-Cr-V, Co-Fe-V, Co-Ni-V" /> 
+    <Bibitem Id="02OHN" Text="I. Ohnuma, H. Enoki, O. Ikeda, R. Kainuma, H. Ohtani, B. Sundman, K. Ishida, Acta Mater., 50, 379-93(2002); Co-Fe" /> 
+    <Bibitem Id="87FER2" Text="A. Fernandez Guillermet, High Temp. High Press., 19, 477-99(1987); Co-Fe" /> 
+    <Bibitem Id="90HUA4" Text="W. Huang, Calphad, 14, 11-22(1990); Co-Fe-Mn" /> 
+    <Bibitem Id="89HUA1" Text="W. Huang, Calphad, 13, 231-42(1989); Co-Mn" /> 
+    <Bibitem Id="87FER3" Text="A. Fernandez Guillermet, Z. Metallkd., 78, 639-47(1987); Co-Ni" /> 
+    <Bibitem Id="89FER2" Text="A. Fernandez Guillermet, Calphad, 13, 1-22(1989); Co-Fe-Ni" /> 
+    <Bibitem Id="21HAL2" Text="B. Hallstedt, modified sigma | added B2, 2021; Co-V" /> 
+    <Bibitem Id="12KHV1" Text="A.V. Khvan, B. Hallstedt, K. Chang, Calphad, 39, 54-61(2012); Cr-C" /> 
+    <Bibitem Id="87AND2" Text="J.-O. Andersson, Calphad, 11, 271-76(1987); Cr-C" /> 
+    <Bibitem Id="90KAJ" Text="M. Kajihara, M. Hillert, Metall. Trans. A, 21A, 2777-87(1990); Cr-C" /> 
+    <Bibitem Id="92LEE1" Text="B.-J. Lee, Calphad, 16, 121-49(1992); Cr-C, Ni-C, Cr-Fe-C, Cr-Ni-C" /> 
+    <Bibitem Id="92FER" Text="A. Fernandez-Guillermet, G. Grimvall, J. Phys. Chem. Solids, 53, 105-25(1992); Cr-C, Ni-C" /> 
+    <Bibitem Id="88GUS5" Text="P. Gustafson, Metall. Trans. A, 19A, 2547-54(1988); Cr-Fe-W-C" /> 
+    <Bibitem Id="93LEE2" Text="B.-J. Lee, Metall. Trans. A, 24A, 1017-25 (1993); Cr-Mn-C, Cr-Fe-Mn-C" /> 
+    <Bibitem Id="93LEE1" Text="B.-J. Lee, Calphad, 17, 251-68(1993); Cr-Fe, Fe-Ni" /> 
+    <Bibitem Id="87AND1" Text="J.-O. Andersson, B. Sundman, Calphad, 11, 83-92(1987); Cr-Fe" /> 
+    <Bibitem Id="90FRI1" Text="K. Frisk, Metall. Trans. A, 21A, 2477-88(1990); Cr-Fe-N" /> 
+    <Bibitem Id="93LEE3" Text="B.-J. Lee, Metall. Trans. A, 24, 1919-33(1993); Cr-Mn" /> 
+    <Bibitem Id="16HAL6" Text="B. Hallstedt, refitted sigma parameters, 2016; Cr-Mn, Cr-Fe-Mn" /> 
+    <Bibitem Id="93FRI" Text="K. Frisk, Calphad, 17, 335-49(1993); Cr-Mn-N" /> 
+    <Bibitem Id="16TAN" Text="F. Tang, B. Hallstedt, Calphad, 55, 260-69(2016); Cr-Ni" /> 
+    <Bibitem Id="86DIN" Text="A.T. Dinsdale, T.G. Chart, NPL, unpublished, 1986; Cr-Ni" /> 
+    <Bibitem Id="16HAL4" Text="B. Hallstedt, Cr-Ni sigma phase parameter adjusted, 2016; Cr-Fe-Ni" /> 
+    <Bibitem Id="88GUS6" Text="P. Gustafson, Calphad, 11, 277-92(1987); Cr-Ni-W" /> 
+    <Bibitem Id="92LEE3" Text="B.-J. Lee, Z. Metallkd., 83, 292-99(1992); Cr-V, Cr-Fe-V" /> 
+    <Bibitem Id="92LEE2" Text="B.-J. Lee, J. Phase Equilib., 13, 349-64(1992); Cr-V-C, Cr-Fe-V-C" /> 
+    <Bibitem Id="21HAL6" Text="B. Hallstedt, unpublished, 2021; Cr-Ni-V" /> 
+    <Bibitem Id="85GUS" Text="P. Gustafson, Scand. J. Metall., 14, 259-67(1985); Fe-C" /> 
+    <Bibitem Id="12HAL" Text="B. Hallstedt, adjusted magnetic parameters, 2012; Fe-Mn, Fe-Mn-C" /> 
+    <Bibitem Id="10HAL" Text="B. Hallstedt, D. Djurovic, J. von Appen, R. Dronskowski, A. Dick, F. Koermann, T. Hickel, J. Neugebauer, Calphad, 34, 129-33(2010); Fe-C" /> 
+    <Bibitem Id="88AND2" Text="J.-O. Andersson, Calphad, 12, 9-23(1988); Fe-Mo-C" /> 
+    <Bibitem Id="90HUA2" Text="W. Huang, Metall. Trans. A, 21A, 2115-23(1990); Fe-Mn-C" /> 
+    <Bibitem Id="11DJU" Text="D. Djurovic, B. Hallstedt, J. von Appen, R. Dronskowski, Calphad, 35, 479-91(2011); Fe-Mn, Fe-Mn-C" /> 
+    <Bibitem Id="91HUA4" Text="W. Huang, Metall. Trans. A, 22A, 1911-20(1991); Fe-Mn-V-C" /> 
+    <Bibitem Id="89HUA2" Text="W. Huang, Calphad, 13, 243-52(1989); Fe-Mn" /> 
+    <Bibitem Id="08HAL" Text="B. Hallstedt, fcc ordering parameters, 2008; Fe-Mn" /> 
+    <Bibitem Id="10CAC" Text="G. Cacciamani, A. Dinsdale, M. Palumbo, A. Pasturel, Intermetallics, 18, 1148-62(2010); Fe-Ni" /> 
+    <Bibitem Id="09ZHA1" Text="L. Zhang, Y. Du, H. Xu, S. Liu, Y. Liu, F. Zheng, N. Dupin, H. Zhou, C. Tang, Int. J. Mater. Res., 100, 160-75(2009); Fe-Mn-Ni" /> 
+    <Bibitem Id="91HUA2" Text="W. Huang, Z. Metallkd., 82, 391-401(1991); Fe-V, Fe-V-C" /> 
+    <Bibitem Id="83AND" Text="J.-O. Andersson, Calphad, 7, 305-15(1983); Fe-V" /> 
+    <Bibitem Id="02SUN" Text="B. Sundman, modified sigma parameters, 2002; Fe-V, Mn-V" /> 
+    <Bibitem Id="91HUA3" Text="W. Huang, Calphad, 15, 195-208(1991); Mn-V, Fe-Mn-V" /> 
+    <Bibitem Id="10DJU" Text="D. Djurovic, B. Hallstedt, J. von Appen, R. Dronskowski, Calphad, 34, 279-85(2010); Mn-C" /> 
+    <Bibitem Id="90HUA1" Text="W. Huang, Scand. J. Metall., 19, 26-32(1990); Mn-C," /> 
+    <Bibitem Id="91FER2" Text="A. Fernandez Guillermet, W. Huang, Int. J. Thermophys., 12, 1077-1102(1991); Mn-V-C" /> 
+    <Bibitem Id="05GUO" Text="C. Guo, Z. Du, Intermetallics, 13, 525-34(2005); Mn-Ni" /> 
+    <Bibitem Id="06HAL2" Text="B. Hallstedt, unpublished, 2006; Ni-C" /> 
+    <Bibitem Id="87GAB" Text="A. Gabriel, P. Gustafson, I. Ansara, Calphad, 11, 203-18(1987); Ni-C, Fe-Ni-C" /> 
+    <Bibitem Id="88FER2" Text="A. Fernandez Guillermet, Z. Metallkd., 79, 524-36(1988); Co-Ni-C, Co-Fe-Ni-C" /> 
+    <Bibitem Id="06HAL3" Text="B. Hallstedt, unpublished, 2006; Cr-Ni-C" /> 
+    <Bibitem Id="20HUA" Text="L. Huang, Y. Pan, J. Zhang, Y. Du, F. Luo, P. Zhou, S. Zhang, Calphad, 71, 102199(2020); V-C" /> 
+    <Bibitem Id="91HUA1" Text="W. Huang, Z. Metallkd., 82, 174-81(1991); V-C" /> 
+    <Bibitem Id="23HAL3" Text="B. Hallstedt, modified bcc interaction, 2023; Al-Co-C" /> 
+    <Bibitem Id="15LIU" Text="X.L. Liu, T. Gheno, B.B. Lindahl, G. Lindwall, B. Gleeson, Z.-K. Liu, PLoS ONE, 10, e0121386(2015); Al-Co, Al-Co-Cr" /> 
+    <Bibitem Id="16WAN1" Text="Y. Wang, P. Zhou, Y. Peng, Y. Du, B. Sundman, J. Long, T. Xu, Z. Zhang, J. Alloys Compd., 687, 855-66(2016); Al-Co-Ni" /> 
+    <Bibitem Id="23HAL4" Text="B. Hallstedt, modified G(Cr2AlC), 2023; Al-Cr-C" /> 
+    <Bibitem Id="10CHI" Text="K.-G. Chin, H.-J. Lee, J.-H. Kwak, J.-Y. Kang, B.-J. Lee, J. Alloys Compd., 505, 217-23(2010); Al-Mn-C, Al-Fe-Mn-C" /> 
+    <Bibitem Id="20HAL12" Text="B. Hallstedt, adjusted M_Al13M4 interaction, 2020; Al-Fe-Mn" /> 
+    <Bibitem Id="20HAL7" Text="B. Hallstedt, various modifications, 2020; Al-Fe-Ni" /> 
+    <Bibitem Id="14WAN" Text="Y. Wang, C. Chen, Z. Zhang, J. Long, T. Xu, X. Liu, L. Zhang, Y. Peng, P. Zhou, Y. Du, Int. J. Refract. Met. Hard Mater., 46, 43-51(2014); Al-Ni-C" /> 
+    <Bibitem Id="20ZHE" Text="W. Zheng, Y. He, X. Liu, J. Iron Steel Res. Int., 27, 1190-99(2020); Al-Cr-C, Al-Ni-C" /> 
+    <Bibitem Id="04OHT" Text="H. Ohtani, M. Yamano, M. Hasebe, Calphad, 28, 177-90(2004); Al-Ni-C" /> 
+    <Bibitem Id="13HAL" Text="B. Hallstedt, Calphad, 41, 156-59(2013); Al-V-C" /> 
+    <Bibitem Id="17HAL3" Text="B. Hallstedt, destabilising cementite in Co-Cr-C, 2017" /> 
+    <Bibitem Id="20HAL1" Text="B. Hallstedt, modified sigma parameters, 2020; Co-Cr-Fe, Co-Cr-Mn" /> 
+    <Bibitem Id="22DO" Text="H.-S. Do, W.-M. Choi, B.-J. Lee, J. Mater. Sci, 57, 1373-89(2022); Co-Cr-Mn, Cr-Mn-Ni" /> 
+    <Bibitem Id="23HAL1" Text="B. Hallstedt, modified sigma parameters, 2023; Co-Cr-Mn" /> 
+    <Bibitem Id="16HAL8" Text="B. Hallstedt, Co-Cr-Ni sigma and hcp interactions, 2016; Co-Cr-Ni" /> 
+    <Bibitem Id="21HAL3" Text="B. Hallstedt, unpublished, 2021; Co-Cr-V" /> 
+    <Bibitem Id="21HAL4" Text="B. Hallstedt, unpublished, 2021; Co-Fe-V" /> 
+    <Bibitem Id="20HAL10" Text="B. Hallstedt, fcc order parameter, 2020; Co-Mn-Ni, Cr-Mn-Ni, Fe-Mn-Ni" /> 
+    <Bibitem Id="21HAL5" Text="B. Hallstedt, unpublished, 2021; Co-Ni-V" /> 
+    <Bibitem Id="14KHV" Text="A.V. Khvan, B. Hallstedt, C. Broeckmann, Calphad, 46, 24-33(2014); Cr-Fe-C" /> 
+    <Bibitem Id="88AND3" Text="J.-O. Andersson, Metall. Trans A, 19A, 627-36(1988); Cr-Fe-C" /> 
+    <Bibitem Id="23HAL2" Text="B. Hallstedt, sigma and cub-A13 parameters, 2023; Cr-Fe-Mn" /> 
+    <Bibitem Id="93QIU" Text="C. Qiu, Metall. Trans. A, 24A, 2393-2409(1993); Cr-Fe-Mn-N" /> 
+    <Bibitem Id="21HAL8" Text="B. Hallstedt, added ternary sigma interaction, 2021; Cr-Fe-Ni" /> 
+    <Bibitem Id="NULL" Text="Unknown source" /> 
+    <Bibitem Id="18CHO" Text="W.-M. Choi, Y.H. Jo, D.G. Kim, S.S. Sohn, S. Lee, B.-J. Lee, J. Phase Equilib. Diffus., 39, 694-701(2018); Cr-Ni-V, Fe-Ni-V" /> 
+    <Bibitem Id="17HAL14" Text="B. Hallstedt, modified liquid interaction, 2017; Cr-V-C" /> 
+    <Bibitem Id="91LEE" Text="B.-J. Lee, unpublished, 1991; Cr-Fe-Ni-C" /> 
+    <Bibitem Id="21HAL7" Text="B. Hallstedt, unpublished, 2021; Fe-Ni-V" /> 
+    <Bibitem Id="23HAL5" Text="B. Hallstedt, Ni4V2C added, 2023; Ni-V-C" /> 
+    <Bibitem Id="Default" Text="U.N. Known" /> 
+  </Bibliography>
+</Appendix>
