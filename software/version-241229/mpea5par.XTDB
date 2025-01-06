@@ -1,876 +1,4 @@
-<?xml version="1.0"?>
-<?xml-model href="database.rng" schematypens="http://relaxng.org/ns/structure/1.0" type="application/xml"?>
-<XTDB version="0.0.3">
-  <DatabaseInfo Software="OpenCalphad  6.067" Date="2023-10-10" />
-  <Defaults LowT="298.15" HighT="6000" Bibref="U.N. Known" Elements="VA /-" />
-  <AppendXTDB Models="ModelAppendXTDB.XTDB" Bibliography="mpea5bib.XTDB" />
-  <Element Id="AL" Refstate="FCC_A1" Mass="2.698154E+01" H298="4.540000E+03" S298="2.830000E+01" />
-  <Element Id="C" Refstate="GRAPHITE" Mass="1.201100E+01" H298="1.054000E+03" S298="5.742300E+00" />
-  <Element Id="CO" Refstate="HCP_A3" Mass="5.893320E+01" H298="4.765567E+03" S298="3.004000E+01" />
-  <Element Id="CR" Refstate="BCC_A2" Mass="5.199600E+01" H298="4.050000E+03" S298="2.354290E+01" />
-  <Element Id="FE" Refstate="BCC_A2" Mass="5.584700E+01" H298="4.489000E+03" S298="2.727970E+01" />
-  <Element Id="MN" Refstate="CBCC_A12" Mass="5.493800E+01" H298="4.995696E+03" S298="3.222060E+01" />
-  <Element Id="NI" Refstate="FCC_A1" Mass="5.869000E+01" H298="4.787000E+03" S298="2.979550E+01" />
-  <Element Id="V" Refstate="BCC_A2" Mass="5.094150E+01" H298="4.507000E+03" S298="3.089000E+01" />
-  <Species Id="VA" Stoichiometry="VA" />
-  <Species Id="AL" Stoichiometry="AL" />
-  <Species Id="C" Stoichiometry="C" />
-  <Species Id="CO" Stoichiometry="CO" />
-  <Species Id="CR" Stoichiometry="CR" />
-  <Species Id="FE" Stoichiometry="FE" />
-  <Species Id="MN" Stoichiometry="MN" />
-  <Species Id="NI" Stoichiometry="NI" />
-  <Species Id="V" Stoichiometry="V" />
-  <TPfun Id="R"     Expr="8.31451;" />
-  <TPfun Id="RTLNP" Expr="R*T*LN(1.0E-5)*P);" />
-  <TPfun Id="GHSERAL" Expr=" -7976.15+137.093038*T-24.3671976*T*LN(+T)-.001884662*T**2-8.77664E-07*T**3+74092*T**(-1);" HighT="700" >
-    <Trange Expr="-11276.24+223.048446*T-38.5844296*T*LN(+T)+.018531982*T**2-5.764227E-06*T**3+74092*T**(-1);" HighT="933.47" />
-    <Trange Expr="-11278.361+188.684136*T-31.748192*T*LN(+T)-1.230622E+28*T**(-9);" HighT="2900" /> 
-  </TPfun>
-  <TPfun Id="GLIQAL" Expr=" +11005.045-11.84185*T+GHSERAL+7.9337E-20*T**7;" HighT="933.47" >
-    <Trange Expr="-795.991+177.430209*T-31.748192*T*LN(+T);" HighT="2900" /> 
-  </TPfun>
-  <TPfun Id="GB2ALVA" Expr=" +10000-1*T-30*T;" /> 
-  <TPfun Id="LB2ALVA" Expr=" +150000;" /> 
-  <TPfun Id="GBCCAL" Expr=" +GHSERAL+10083-4.813*T;" HighT="2900" /> 
-  <TPfun Id="GHSERCC" Expr=" -17368.441+170.73*T-24.3*T*LN(+T)-.0004723*T**2+2562600*T**(-1)-264300000*T**(-2)+1.2E+10*T**(-3);" /> 
-  <TPfun Id="GDIACC" Expr=" -16359.441+175.61*T-24.31*T*LN(+T)-.0004723*T**2+2698000*T**(-1)-261000000*T**(-2)+1.11E+10*T**(-3);" /> 
-  <TPfun Id="GHSERCO" Expr=" +310.241+133.36601*T-25.0861*T*LN(+T)-.002654739*T**2-1.7348E-07*T**3+72527*T**(-1);" HighT="1768" >
-    <Trange Expr="-17197.666+253.28374*T-40.5*T*LN(+T)+9.3488E+30*T**(-9);" /> 
-  </TPfun>
-  <TPfun Id="GLIQCO" Expr=" +15085.037-8.931932*T+GHSERCO-2.19801E-21*T**7;" HighT="1768" >
-    <Trange Expr="-846.61+243.599944*T-40.5*T*LN(+T);" /> 
-  </TPfun>
-  <TPfun Id="GHSERCR" Expr=" -8856.94+157.48*T-26.908*T*LN(+T)+.00189435*T**2-1.47721E-06*T**3+139250*T**(-1);" HighT="2180" >
-    <Trange Expr="-34869.344+344.18*T-50*T*LN(+T)-2.88526E+32*T**(-9);" /> 
-  </TPfun>
-  <TPfun Id="GLIQCR" Expr=" +24339.955-11.420225*T+GHSERCR+2.37615E-21*T**7;" HighT="2180" >
-    <Trange Expr="-16459.984+335.616316*T-50*T*LN(+T);" /> 
-  </TPfun>
-  <TPfun Id="ZERO" Expr=" 0;" /> 
-  <TPfun Id="GHSERFE" Expr=" +1225.7+124.134*T-23.5143*T*LN(+T)-.00439752*T**2-5.8927E-08*T**3+77359*T**(-1);" HighT="1811" >
-    <Trange Expr="-25383.581+299.31255*T-46*T*LN(+T)+2.29603E+31*T**(-9);" /> 
-  </TPfun>
-  <TPfun Id="GFCCFE" Expr=" -1462.4+8.282*T-1.15*T*LN(+T)+.00064*T**2+GHSERFE;" HighT="1811" >
-    <Trange Expr="-1713.815+0.940009*T+GHSERFE+4.9251E+30*T**(-9);" /> 
-  </TPfun>
-  <TPfun Id="GHCPFE" Expr=" -3705.78+12.591*T-1.15*T*LN(+T)+.00064*T**2+GHSERFE;" HighT="1811" >
-    <Trange Expr="-3957.195+5.249009*T+GHSERFE+4.9251E+30*T**(-9);" /> 
-  </TPfun>
-  <TPfun Id="GLIQFE" Expr=" +12040.17-6.55843*T+GHSERFE-3.67516E-21*T**7;" HighT="1811" >
-    <Trange Expr="-10838.83+291.302*T-46*T*LN(+T);" /> 
-  </TPfun>
-  <TPfun Id="GHSERMN" Expr=" -8115.28+130.059*T-23.4582*T*LN(+T)-.00734768*T**2+69827*T**(-1);" HighT="1519" >
-    <Trange Expr="-28733.41+312.2648*T-48*T*LN(+T)+1.656847E+30*T**(-9);" HighT="2000" /> 
-  </TPfun>
-  <TPfun Id="GCUBMN" Expr=" -5800.4+135.995*T-24.8785*T*LN(+T)-.00583359*T**2+70269*T**(-1);" HighT="1519" >
-    <Trange Expr="+442.65-0.9715*T+GHSERMN+2.310723E+30*T**(-9);" HighT="2000" /> 
-  </TPfun>
-  <TPfun Id="GFCCMN" Expr=" -3439.3+131.884*T-24.5177*T*LN(+T)-.006*T**2+69600*T**(-1);" HighT="1519" >
-    <Trange Expr="+2663.31-2.5984*T+GHSERMN+2.205113E+30*T**(-9);" HighT="2000" /> 
-  </TPfun>
-  <TPfun Id="GBCCMN" Expr=" -3235.3+127.85*T-23.7*T*LN(+T)-.00744271*T**2+60000*T**(-1);" HighT="1519" >
-    <Trange Expr="+5544.58-4.5605*T+GHSERMN-3.91695E+29*T**(-9);" HighT="2000" /> 
-  </TPfun>
-  <TPfun Id="GHCPMN" Expr=" -4439.3+133.007*T-24.5177*T*LN(+T)-.006*T**2+69600*T**(-1);" HighT="1519" >
-    <Trange Expr="+1663.31-1.4754*T+GHSERMN+2.205113E+30*T**(-9);" HighT="2000" /> 
-  </TPfun>
-  <TPfun Id="GLIQMN" Expr=" +17859.91-12.6208*T+GHSERMN-4.41929E-21*T**7;" HighT="1519" >
-    <Trange Expr="-9993.9+299.036*T-48*T*LN(+T);" HighT="2000" /> 
-  </TPfun>
-  <TPfun Id="GHSERNI" Expr=" -5179.159+117.854*T-22.096*T*LN(+T)-.0048407*T**2;" HighT="1728" >
-    <Trange Expr="-27840.62+279.134977*T-43.1*T*LN(+T)+1.12754E+31*T**(-9);" HighT="3000" /> 
-  </TPfun>
-  <TPfun Id="GLIQNI" Expr=" +16414.686-9.397*T+GHSERNI-3.82318E-21*T**7;" HighT="1728" >
-    <Trange Expr="-9549.817+268.597977*T-43.1*T*LN(+T);" HighT="3000" /> 
-  </TPfun>
-  <TPfun Id="GB2NIVA" Expr=" +162397.3-27.40575*T-30*T;" /> 
-  <TPfun Id="LB2NIVA" Expr=" -64024.38+26.49419*T;" /> 
-  <TPfun Id="GHSERVV" Expr=" -7930.43+133.346053*T-24.134*T*LN(+T)-.003098*T**2+1.2175E-07*T**3+69460*T**(-1);" HighT="790" >
-    <Trange Expr="-7967.842+143.291093*T-25.9*T*LN(+T)+6.25E-05*T**2-6.8E-07*T**3;" HighT="2183" />
-    <Trange Expr="-41689.864+321.140783*T-47.43*T*LN(+T)+6.44389E+31*T**(-9);" HighT="4000" /> 
-  </TPfun>
-  <TPfun Id="GLIQVV" Expr=" +20764.117-9.455552*T+GHSERVV-5.19136E-22*T**7;" HighT="2183" >
-    <Trange Expr="-19617.51+311.055983*T-47.43*T*LN(+T);" HighT="4000" /> 
-  </TPfun>
-  <TPfun Id="GAL4C3S" Expr=" -286001.52+1030.27302*T-161.709142*T*LN(+T)-.01152276*T**2+2450000*T**(-1)+7E-07*T**3;" /> 
-  <TPfun Id="GFAL3CO" Expr=" +3*UFALCO;" /> 
-  <TPfun Id="GFAL2CO2" Expr=" +4*UFALCO;" /> 
-  <TPfun Id="GFALCO3" Expr=" +3*UFALCO;" /> 
-  <TPfun Id="L1FALCO" Expr=" +3023;" /> 
-  <TPfun Id="GBCCCO" Expr=" +GHSERCO+2938-0.7138*T;" /> 
-  <TPfun Id="GFAL3CR" Expr=" +3*UFALCR;" /> 
-  <TPfun Id="GFAL2CR2" Expr=" +4*UFALCR;" /> 
-  <TPfun Id="GFALCR3" Expr=" +3*UFALCR;" /> 
-  <TPfun Id="GFAL3FE" Expr=" +3*UFALFE+9000;" /> 
-  <TPfun Id="GFAL2FE2" Expr=" +4*UFALFE;" /> 
-  <TPfun Id="GFALFE3" Expr=" +3*UFALFE-3500;" /> 
-  <TPfun Id="L0FALFE" Expr=" +ZERO;" /> 
-  <TPfun Id="SFALFE" Expr=" +UFALFE;" /> 
-  <TPfun Id="GB2ALFE" Expr=" +4*UB1ALFE;" /> 
-  <TPfun Id="UB2ALFE" Expr=" -1315.33-1.33*T;" /> 
-  <TPfun Id="UTCBALFE" Expr=" -125;" /> 
-  <TPfun Id="UBMBALFE" Expr=" -1.36;" /> 
-  <TPfun Id="BM0BALFE" Expr=" -0.3;" /> 
-  <TPfun Id="BM1BALFE" Expr=" -0.8;" /> 
-  <TPfun Id="BM2BALFE" Expr=" +0.2;" /> 
-  <TPfun Id="GFAL3MN" Expr=" +3*UFALMN+1666-4.01*T;" /> 
-  <TPfun Id="GFAL2MN2" Expr=" +4*UFALMN;" /> 
-  <TPfun Id="GFALMN3" Expr=" +3*UFALMN+9792-8.79*T;" /> 
-  <TPfun Id="L0FALMN" Expr=" 0;" /> 
-  <TPfun Id="SFALMN" Expr=" +UFALMN;" /> 
-  <TPfun Id="GB2ALMN" Expr=" -3045-1.72*T;" /> 
-  <TPfun Id="LALMN0AL" Expr=" -GB2ALMN;" /> 
-  <TPfun Id="L1BALMN" Expr=" -3000+2*T;" /> 
-  <TPfun Id="LALMN0MN" Expr=" -GB2ALMN;" /> 
-  <TPfun Id="UN_ASS" Expr=" 0;" /> 
-  <TPfun Id="GFAL3NI" Expr=" +3*UFALNI;" /> 
-  <TPfun Id="GFAL2NI2" Expr=" +4*UFALNI;" /> 
-  <TPfun Id="GFALNI3" Expr=" +3*UFALNI;" /> 
-  <TPfun Id="L1FALNI" Expr=" +7203.6-3.74273*T;" /> 
-  <TPfun Id="GB2ALNI" Expr=" -152397.3+26.40575*T;" /> 
-  <TPfun Id="LB2ALNI" Expr=" -52440.88+11.30117*T;" /> 
-  <TPfun Id="GBCCNI" Expr=" +GHSERNI+8715.084-3.556*T;" /> 
-  <TPfun Id="GFAL3V" Expr=" +3*UFALV;" /> 
-  <TPfun Id="GFAL2V2" Expr=" +4*UFALV;" /> 
-  <TPfun Id="GFALV3" Expr=" +3*UFALV;" /> 
-  <TPfun Id="GCO23C6" Expr=" +23*GHSERCO+6*GHSERCC+145000+116*T;" /> 
-  <TPfun Id="GFCO3CR" Expr=" +3*UFCOCR;" /> 
-  <TPfun Id="GFCO2CR2" Expr=" +4*UFCOCR;" /> 
-  <TPfun Id="GFCOCR3" Expr=" +3*UFCOCR;" /> 
-  <TPfun Id="GSCOCRCO" Expr=" +10*GFCCCO+4*GHSERCR+16*GBCCCO+1668+26.86*T;" /> 
-  <TPfun Id="GSCOCRCR" Expr=" +10*GFCCCO+20*GHSERCR-11113-128.54*T;" /> 
-  <TPfun Id="GFCO3FE" Expr=" +3*UFCOFE;" /> 
-  <TPfun Id="GFCO2FE2" Expr=" +4*UFCOFE;" /> 
-  <TPfun Id="GFCOFE3" Expr=" +3*UFCOFE;" /> 
-  <TPfun Id="SBCOFE" Expr=" -2529000*T**(-1);" /> 
-  <TPfun Id="GFCCCO" Expr=" +GHSERCO+427.59-0.615248*T;" /> 
-  <TPfun Id="GFCO3MN" Expr=" +3*UFCOMN;" /> 
-  <TPfun Id="GFCO2MN2" Expr=" +4*UFCOMN;" /> 
-  <TPfun Id="GFCOMN3" Expr=" +3*UFCOMN;" /> 
-  <TPfun Id="GFCO3NI" Expr=" +3*UFCONI;" /> 
-  <TPfun Id="GFCO2NI2" Expr=" +4*UFCONI;" /> 
-  <TPfun Id="GFCONI3" Expr=" +3*UFCONI;" /> 
-  <TPfun Id="L1FCONI" Expr=" 0;" /> 
-  <TPfun Id="GFCO3V" Expr=" +3*UFCOV;" /> 
-  <TPfun Id="GFCO2V2" Expr=" +4*UFCOV+9034.8;" /> 
-  <TPfun Id="GFCOV3" Expr=" +7000;" /> 
-  <TPfun Id="GCR23C6" Expr=" -521983+3622.24*T-620.965*T*LN(+T)-0.126431*T**2;" /> 
-  <TPfun Id="GFCR3FE" Expr=" +3*UFCRFE;" /> 
-  <TPfun Id="GFCR2FE2" Expr=" +4*UFCRFE;" /> 
-  <TPfun Id="GFCRFE3" Expr=" +3*UFCRFE;" /> 
-  <TPfun Id="GFCR3MN" Expr=" +3*UFCRMN;" /> 
-  <TPfun Id="GFCR2MN2" Expr=" +4*UFCRMN;" /> 
-  <TPfun Id="GFCRMN3" Expr=" +3*UFCRMN;" /> 
-  <TPfun Id="GFCR3NI" Expr=" +3*UFCRNI;" /> 
-  <TPfun Id="GFCR2NI2" Expr=" +4*UFCRNI;" /> 
-  <TPfun Id="GFCRNI3" Expr=" +3*UFCRNI;" /> 
-  <TPfun Id="GSCRCRCR" Expr=" +30*GHSERCR+396000;" /> 
-  <TPfun Id="GSVVV" Expr=" +30*GHSERVV+147000;" /> 
-  <TPfun Id="GFECEM" LowT=".01" Expr=" +11369.937746-5.641259263*T-8.333E-06*T**4;" HighT="43" >
-    <Trange Expr="+11622.647246-59.537709263*T+15.74232*T*LN(+T)-0.27565*T**2;" HighT="163" />
-    <Trange Expr="-10195.860754+690.94988764*T-118.47637*T*LN(+T)-.0007*T**2+590527*T**(-1);" /> 
-  </TPfun>
-  <TPfun Id="GFE23C6" Expr=" +7.666667*GFECEM-1.666667*GHSERCC+15000;" /> 
-  <TPfun Id="GFFE3MN" Expr=" +3*UFFEMN-90;" /> 
-  <TPfun Id="GFFE2MN2" Expr=" +4*UFFEMN;" /> 
-  <TPfun Id="GFFEMN3" Expr=" +3*UFFEMN+90;" /> 
-  <TPfun Id="SFFEMN" Expr=" +UFFEMN;" /> 
-  <TPfun Id="GFE3NI" Expr=" +3*UFFENI+3000-0.3*T;" /> 
-  <TPfun Id="GFE2NI2" Expr=" +4*UFFENI;" /> 
-  <TPfun Id="GFENI3" Expr=" +3*UFFENI-3000+0.3*T;" /> 
-  <TPfun Id="GB2FENI" Expr=" +4*UB1FENI;" /> 
-  <TPfun Id="GFFE3V" Expr=" +3*UFFEV;" /> 
-  <TPfun Id="GFFE2V2" Expr=" +4*UFFEV;" /> 
-  <TPfun Id="GFFEV3" Expr=" +3*UFFEV;" /> 
-  <TPfun Id="GMN23C6" Expr=" +23*GHSERMN+6*GHSERCC-310473+53.86*T;" /> 
-  <TPfun Id="GMN3C" Expr=" +3*GHSERMN+GHSERCC-39644+3.04*T;" /> 
-  <TPfun Id="GMN5C2" Expr=" +5*GHSERMN+2*GHSERCC-73954+6.36*T;" /> 
-  <TPfun Id="GMN7C3" Expr=" +7*GHSERMN+3*GHSERCC-106695+9.36*T;" /> 
-  <TPfun Id="LDF0MNNI" Expr=" -20455.7462-11.7930695*T;" /> 
-  <TPfun Id="LDF1MNNI" Expr=" +15581.5125-8.49116947*T;" /> 
-  <TPfun Id="GFMN3NI" Expr=" +3*UFMNNI+406.42233;" /> 
-  <TPfun Id="GFMN2NI2" Expr=" +4*UFMNNI-2840.67336;" /> 
-  <TPfun Id="GFMNNI3" Expr=" +3*UFMNNI-529.38697;" /> 
-  <TPfun Id="SFMNNI" Expr=" +UFMNNI;" /> 
-  <TPfun Id="GNI23C6" Expr=" +23*GHSERNI+6*GHSERCC+350000-85*T;" /> 
-  <TPfun Id="GFNI3V" Expr=" +3*UFNIV;" /> 
-  <TPfun Id="GFNI2V2" Expr=" +4*UFNIV;" /> 
-  <TPfun Id="GFNIV3" Expr=" +3*UFNIV;" /> 
-  <TPfun Id="GV23C6" Expr=" -990367+4330.63*T-728.829*T*LN(+T)+5003425*T**(-1);" /> 
-  <TPfun Id="FAL2COCR" Expr=" +2*UFALCO+2*UFALCR+UFCOCR+U3ALCOCR;" /> 
-  <TPfun Id="FALCO2CR" Expr=" +2*UFALCO+UFALCR+2*UFCOCR+U2ALCOCR;" /> 
-  <TPfun Id="FALCOCR2" Expr=" +UFALCO+2*UFALCR+2*UFCOCR+U1ALCOCR;" /> 
-  <TPfun Id="FAL2COFE" Expr=" +2*UFALCO+2*UFALFE+UFCOFE+U3ALCOFE;" /> 
-  <TPfun Id="FALCO2FE" Expr=" +2*UFALCO+UFALFE+2*UFCOFE+U2ALCOFE;" /> 
-  <TPfun Id="FALCOFE2" Expr=" +UFALCO+2*UFALFE+2*UFCOFE+U1ALCOFE;" /> 
-  <TPfun Id="FAL2COMN" Expr=" +2*UFALCO+2*UFALMN+UFCOMN+U3ALCOMN;" /> 
-  <TPfun Id="FALCO2MN" Expr=" +2*UFALCO+UFALMN+2*UFCOMN+U2ALCOMN;" /> 
-  <TPfun Id="FALCOMN2" Expr=" +UFALCO+2*UFALMN+2*UFCOMN+U1ALCOMN;" /> 
-  <TPfun Id="FAL2CONI" Expr=" +2*UFALCO+2*UFALNI+UFCONI+U1ALCONI;" /> 
-  <TPfun Id="FALCO2NI" Expr=" +2*UFALCO+UFALNI+2*UFCONI+U2ALCONI;" /> 
-  <TPfun Id="FALCONI2" Expr=" +UFALCO+2*UFALNI+2*UFCONI+U3ALCONI;" /> 
-  <TPfun Id="FAL2CRFE" Expr=" +2*UFALCR+2*UFALFE+UFCRFE+U3ALCRFE;" /> 
-  <TPfun Id="FALCR2FE" Expr=" +2*UFALCR+UFALFE+2*UFCRFE+U2ALCRFE;" /> 
-  <TPfun Id="FALCRFE2" Expr=" +UFALCR+2*UFALFE+2*UFCRFE+U1ALCRFE;" /> 
-  <TPfun Id="FAL2CRMN" Expr=" +2*UFALCR+2*UFALMN+UFCRMN+U3ALCRMN;" /> 
-  <TPfun Id="FALCR2MN" Expr=" +2*UFALCR+UFALMN+2*UFCRMN+U2ALCRMN;" /> 
-  <TPfun Id="FALCRMN2" Expr=" +UFALCR+2*UFALMN+2*UFCRMN+U1ALCRMN;" /> 
-  <TPfun Id="FAL2CRNI" Expr=" +2*UFALCR+2*UFALNI+UFCRNI;" /> 
-  <TPfun Id="FALCR2NI" Expr=" +2*UFALCR+UFALNI+2*UFCRNI;" /> 
-  <TPfun Id="FALCRNI2" Expr=" +UFALCR+2*UFALNI+2*UFCRNI+6650;" /> 
-  <TPfun Id="GFCCVV" Expr=" +GHSERVV+7500+1.7*T;" /> 
-  <TPfun Id="FAL2FEMN" Expr=" +2*UFALFE+2*UFALMN+UFFEMN+U3ALFEMN;" /> 
-  <TPfun Id="FALFE2MN" Expr=" +2*UFALFE+UFALMN+2*UFFEMN+U2ALFEMN;" /> 
-  <TPfun Id="FALFEMN2" Expr=" +UFALFE+2*UFALMN+2*UFFEMN+U1ALFEMN;" /> 
-  <TPfun Id="FAL2FENI" Expr=" +2*UFALFE+2*UFALNI+UFFENI+U1ALFENI;" /> 
-  <TPfun Id="FALFE2NI" Expr=" +2*UFALFE+UFALNI+2*UFFENI+U2ALFENI;" /> 
-  <TPfun Id="FALFENI2" Expr=" +UFALFE+2*UFALNI+2*UFFENI+U3ALFENI;" /> 
-  <TPfun Id="FAL2MNNI" Expr=" +2*UFALMN+2*UFALNI+UFMNNI;" /> 
-  <TPfun Id="FALMN2NI" Expr=" +2*UFALMN+UFALNI+2*UFMNNI;" /> 
-  <TPfun Id="FALMNNI2" Expr=" +UFALMN+2*UFALNI+2*UFMNNI;" /> 
-  <TPfun Id="FAL2NIV" Expr=" +2*UFALNI+2*UFALV+UFNIV+U1ALNIV;" /> 
-  <TPfun Id="FALNI2V" Expr=" +2*UFALNI+UFALV+2*UFNIV+U2ALNIV;" /> 
-  <TPfun Id="FALNIV2" Expr=" +UFALNI+2*UFALV+2*UFNIV+U3ALNIV;" /> 
-  <TPfun Id="L0COCR23" Expr=" +1822000-1282*T;" /> 
-  <TPfun Id="L1COCR23" Expr=" +391000;" /> 
-  <TPfun Id="FCO2CRFE" Expr=" +2*UFCOCR+2*UFCOFE+UFCRFE+U3COCRFE;" /> 
-  <TPfun Id="FCOCR2FE" Expr=" +2*UFCOCR+UFCOFE+2*UFCRFE+U2COCRFE;" /> 
-  <TPfun Id="FCOCRFE2" Expr=" +UFCOCR+2*UFCOFE+2*UFCRFE+U1COCRFE;" /> 
-  <TPfun Id="GSFECRFE" Expr=" +10*GFCCFE+4*GHSERCR+16*GHSERFE+140515-111.32*T;" /> 
-  <TPfun Id="FCO2CRMN" Expr=" +2*UFCOCR+2*UFCOMN+UFCRMN+U3COCRMN;" /> 
-  <TPfun Id="FCOCR2MN" Expr=" +2*UFCOCR+UFCOMN+2*UFCRMN+U2COCRMN;" /> 
-  <TPfun Id="FCOCRMN2" Expr=" +UFCOCR+2*UFCOMN+2*UFCRMN+U1COCRMN;" /> 
-  <TPfun Id="GSMNCRMN" Expr=" +10*GFCCMN+4*GHSERCR+16*GBCCMN-168613+65.6*T;" /> 
-  <TPfun Id="FCO2CRNI" Expr=" +2*UFCOCR+2*UFCONI+UFCRNI+U3COCRNI;" /> 
-  <TPfun Id="FCOCR2NI" Expr=" +2*UFCOCR+UFCONI+2*UFCRNI+U2COCRNI;" /> 
-  <TPfun Id="FCOCRNI2" Expr=" +UFCOCR+2*UFCONI+2*UFCRNI+U1COCRNI;" /> 
-  <TPfun Id="FCO2CRV" Expr=" +2*UFCOCR+2*UFCOV+UFCRV+U3COCRV;" /> 
-  <TPfun Id="FCOCR2V" Expr=" +2*UFCOCR+UFCOV+2*UFCRV+U2COCRV;" /> 
-  <TPfun Id="FCOCRV2" Expr=" +UFCOCR+2*UFCOV+2*UFCRV+U1COCRV;" /> 
-  <TPfun Id="GSCOVV" Expr=" +10*GHSERCO+20*GHSERVV-646499+84.471*T;" /> 
-  <TPfun Id="FCO2FEMN" Expr=" +2*UFCOFE+2*UFCOMN+UFFEMN+U3COFEMN;" /> 
-  <TPfun Id="FCOFE2MN" Expr=" +2*UFCOFE+UFCOMN+2*UFFEMN+U2COFEMN;" /> 
-  <TPfun Id="FCOFEMN2" Expr=" +UFCOFE+2*UFCOMN+2*UFFEMN+U1COFEMN;" /> 
-  <TPfun Id="FCO2FENI" Expr=" +2*UFCOFE+2*UFCONI+UFFENI+U3COFENI;" /> 
-  <TPfun Id="FCOFE2NI" Expr=" +2*UFCOFE+UFCONI+2*UFFENI+U2COFENI;" /> 
-  <TPfun Id="FCOFENI2" Expr=" +UFCOFE+2*UFCONI+2*UFFENI+U1COFENI;" /> 
-  <TPfun Id="FCO2FEV" Expr=" +2*UFCOFE+2*UFCOV+UFFEV+U3COFEV;" /> 
-  <TPfun Id="FCOFE2V" Expr=" +2*UFCOFE+UFCOV+2*UFFEV+U2COFEV;" /> 
-  <TPfun Id="FCOFEV2" Expr=" +UFCOFE+2*UFCOV+2*UFFEV+U1COFEV;" /> 
-  <TPfun Id="GSCOVCO" Expr=" +26*GHSERCO+4*GHSERVV-416000+131.931*T;" /> 
-  <TPfun Id="GSFEVFE" Expr=" +10*GFCCFE+4*GHSERVV+16*GHSERFE-174619+78.27*T;" /> 
-  <TPfun Id="FCO2MNNI" Expr=" +2*UFCOMN+2*UFCONI+UFMNNI+U1COMNNI;" /> 
-  <TPfun Id="FCOMN2NI" Expr=" +2*UFCOMN+UFCONI+2*UFMNNI+U2COMNNI;" /> 
-  <TPfun Id="FCOMNNI2" Expr=" +UFCOMN+2*UFCONI+2*UFMNNI+U3COMNNI;" /> 
-  <TPfun Id="GSMNVMN" Expr=" +10*GFCCMN+4*GHSERVV+16*GBCCMN-225273+57.82*T;" /> 
-  <TPfun Id="FCO2NIV" Expr=" +2*UFCONI+2*UFCOV+UFNIV+U3CONIV;" /> 
-  <TPfun Id="FCONI2V" Expr=" +2*UFCONI+UFCOV+2*UFNIV+U2CONIV;" /> 
-  <TPfun Id="FCONIV2" Expr=" +UFCONI+2*UFCOV+2*UFNIV+U1CONIV;" /> 
-  <TPfun Id="GSNIVNI" Expr=" +26*GHSERNI+4*GHSERVV-82700;" /> 
-  <TPfun Id="FCR2FEMN" Expr=" +2*UFCRFE+2*UFCRMN+UFFEMN+U3CRFEMN;" /> 
-  <TPfun Id="FCRFE2MN" Expr=" +2*UFCRFE+UFCRMN+2*UFFEMN+U2CRFEMN;" /> 
-  <TPfun Id="FCRFEMN2" Expr=" +UFCRFE+2*UFCRMN+2*UFFEMN+U1CRFEMN;" /> 
-  <TPfun Id="FCR2FENI" Expr=" +2*UFCRFE+2*UFCRNI+UFFENI+U3CRFENI;" /> 
-  <TPfun Id="FCRFE2NI" Expr=" +2*UFCRFE+UFCRNI+2*UFFENI+U2CRFENI;" /> 
-  <TPfun Id="FCRFENI2" Expr=" +UFCRFE+2*UFCRNI+2*UFFENI+U1CRFENI;" /> 
-  <TPfun Id="FCR2MNNI" Expr=" +2*UFCRMN+2*UFCRNI+UFMNNI+U1CRMNNI;" /> 
-  <TPfun Id="FCRMN2NI" Expr=" +2*UFCRMN+UFCRNI+2*UFMNNI+U2CRMNNI;" /> 
-  <TPfun Id="FCRMNNI2" Expr=" +UFCRMN+2*UFCRNI+2*UFMNNI+U3CRMNNI;" /> 
-  <TPfun Id="GSNICRNI" Expr=" +10*GHSERNI+4*GHSERCR+16*GBCCNI+175400;" /> 
-  <TPfun Id="GSMNCRCR" Expr=" +10*GFCCMN+20*GHSERCR+10000;" /> 
-  <TPfun Id="GSMNVV" Expr=" +10*GFCCMN+20*GHSERVV-52083-60.39*T;" /> 
-  <TPfun Id="FCR2NIV" Expr=" +2*UFCRNI+2*UFCRV+UFNIV+U3CRNIV;" /> 
-  <TPfun Id="FCRNI2V" Expr=" +2*UFCRNI+UFCRV+2*UFNIV+U2CRNIV;" /> 
-  <TPfun Id="FCRNIV2" Expr=" +UFCRNI+2*UFCRV+2*UFNIV+U1CRNIV;" /> 
-  <TPfun Id="GSNICRCR" Expr=" +10*GHSERNI+20*GHSERCR+240000-254.715*T;" /> 
-  <TPfun Id="GSNIVV" Expr=" +10*GHSERNI+20*GHSERVV-520784+106.66*T;" /> 
-  <TPfun Id="FFE2MNNI" Expr=" +2*UFFEMN+2*UFFENI+UFMNNI+U1FEMNNI;" /> 
-  <TPfun Id="FFEMN2NI" Expr=" +2*UFFEMN+UFFENI+2*UFMNNI+U2FEMNNI;" /> 
-  <TPfun Id="FFEMNNI2" Expr=" +UFFEMN+2*UFFENI+2*UFMNNI+U3FEMNNI;" /> 
-  <TPfun Id="FFE2NIV" Expr=" +2*UFFENI+2*UFFEV+UFNIV+U3FENIV;" /> 
-  <TPfun Id="FFENI2V" Expr=" +2*UFFENI+UFFEV+2*UFNIV+U2FENIV;" /> 
-  <TPfun Id="FFENIV2" Expr=" +UFFENI+2*UFFEV+2*UFNIV+U1FENIV;" /> 
-  <TPfun Id="UFALCO" Expr=" -4872;" /> 
-  <TPfun Id="UFALCR" Expr=" -830;" /> 
-  <TPfun Id="UFALFE" Expr=" -3200+0.153*T;" /> 
-  <TPfun Id="UFCOCR" Expr=" 0;" /> 
-  <TPfun Id="UFCOFE" Expr=" 0;" /> 
-  <TPfun Id="UFCRFE" Expr=" 0;" /> 
-  <TPfun Id="UFALMN" Expr=" -6980+3.51*T;" /> 
-  <TPfun Id="UFCOMN" Expr=" 0;" /> 
-  <TPfun Id="UFCRMN" Expr=" 0;" /> 
-  <TPfun Id="UFALNI" Expr=" -14808.6+2.93047*T;" /> 
-  <TPfun Id="UFCONI" Expr=" -1323.6+3.06*T;" /> 
-  <TPfun Id="UFCRNI" Expr=" -1980;" /> 
-  <TPfun Id="UFFEMN" Expr=" -700;" /> 
-  <TPfun Id="UFFENI" Expr=" -2125+0.625*T;" /> 
-  <TPfun Id="UFMNNI" Expr=" -6829.00181;" /> 
-  <TPfun Id="UB1ALFE" Expr=" -4018-1.14*T;" /> 
-  <TPfun Id="UFALV" Expr=" 0;" /> 
-  <TPfun Id="UFCOV" Expr=" -4498.5+0.7535*T;" /> 
-  <TPfun Id="UB1FENI" Expr=" -1000+T;" /> 
-  <TPfun Id="UFFEV" Expr=" 0;" /> 
-  <TPfun Id="UFNIV" Expr=" 0;" /> 
-  <TPfun Id="U1ALCOCR" Expr=" 0;" /> 
-  <TPfun Id="U2ALCOCR" Expr=" 0;" /> 
-  <TPfun Id="U3ALCOCR" Expr=" 0;" /> 
-  <TPfun Id="U1ALCOFE" Expr=" 0;" /> 
-  <TPfun Id="U2ALCOFE" Expr=" 0;" /> 
-  <TPfun Id="U3ALCOFE" Expr=" 0;" /> 
-  <TPfun Id="U1ALCOMN" Expr=" 0;" /> 
-  <TPfun Id="U2ALCOMN" Expr=" 0;" /> 
-  <TPfun Id="U3ALCOMN" Expr=" 0;" /> 
-  <TPfun Id="U1ALCONI" Expr=" 0;" /> 
-  <TPfun Id="U2ALCONI" Expr=" 0;" /> 
-  <TPfun Id="U3ALCONI" Expr=" +1000;" /> 
-  <TPfun Id="U1ALCRFE" Expr=" 0;" /> 
-  <TPfun Id="U2ALCRFE" Expr=" 0;" /> 
-  <TPfun Id="U3ALCRFE" Expr=" 0;" /> 
-  <TPfun Id="U1ALCRMN" Expr=" 0;" /> 
-  <TPfun Id="U2ALCRMN" Expr=" 0;" /> 
-  <TPfun Id="U3ALCRMN" Expr=" 0;" /> 
-  <TPfun Id="U1ALFEMN" Expr=" 0;" /> 
-  <TPfun Id="U2ALFEMN" Expr=" 0;" /> 
-  <TPfun Id="U3ALFEMN" Expr=" 0;" /> 
-  <TPfun Id="U1ALFENI" Expr=" +ZERO;" /> 
-  <TPfun Id="U2ALFENI" Expr=" +ZERO;" /> 
-  <TPfun Id="U3ALFENI" Expr=" -2000;" /> 
-  <TPfun Id="U1ALNIV" Expr=" 0;" /> 
-  <TPfun Id="U2ALNIV" Expr=" 0;" /> 
-  <TPfun Id="U3ALNIV" Expr=" 0;" /> 
-  <TPfun Id="U1COCRFE" Expr=" 0;" /> 
-  <TPfun Id="U2COCRFE" Expr=" 0;" /> 
-  <TPfun Id="U3COCRFE" Expr=" 0;" /> 
-  <TPfun Id="U1COCRMN" Expr=" 0;" /> 
-  <TPfun Id="U2COCRMN" Expr=" 0;" /> 
-  <TPfun Id="U3COCRMN" Expr=" 0;" /> 
-  <TPfun Id="U1COCRNI" Expr=" 0;" /> 
-  <TPfun Id="U2COCRNI" Expr=" 0;" /> 
-  <TPfun Id="U3COCRNI" Expr=" 0;" /> 
-  <TPfun Id="UFCRV" Expr=" 0;" /> 
-  <TPfun Id="U1COCRV" Expr=" 0;" /> 
-  <TPfun Id="U2COCRV" Expr=" 0;" /> 
-  <TPfun Id="U3COCRV" Expr=" 0;" /> 
-  <TPfun Id="U1COFEMN" Expr=" 0;" /> 
-  <TPfun Id="U2COFEMN" Expr=" 0;" /> 
-  <TPfun Id="U3COFEMN" Expr=" 0;" /> 
-  <TPfun Id="U1COFENI" Expr=" 0;" /> 
-  <TPfun Id="U2COFENI" Expr=" 0;" /> 
-  <TPfun Id="U3COFENI" Expr=" 0;" /> 
-  <TPfun Id="U1COFEV" Expr=" 0;" /> 
-  <TPfun Id="U2COFEV" Expr=" 0;" /> 
-  <TPfun Id="U3COFEV" Expr=" 0;" /> 
-  <TPfun Id="U1COMNNI" Expr=" +2000;" /> 
-  <TPfun Id="U2COMNNI" Expr=" +3000;" /> 
-  <TPfun Id="U3COMNNI" Expr=" +3000;" /> 
-  <TPfun Id="U1CONIV" Expr=" 0;" /> 
-  <TPfun Id="U2CONIV" Expr=" 0;" /> 
-  <TPfun Id="U3CONIV" Expr=" 0;" /> 
-  <TPfun Id="U1CRFEMN" Expr=" 0;" /> 
-  <TPfun Id="U2CRFEMN" Expr=" 0;" /> 
-  <TPfun Id="U3CRFEMN" Expr=" 0;" /> 
-  <TPfun Id="U1CRFENI" Expr=" 0;" /> 
-  <TPfun Id="U2CRFENI" Expr=" 0;" /> 
-  <TPfun Id="U3CRFENI" Expr=" 0;" /> 
-  <TPfun Id="U1CRMNNI" Expr=" +2000;" /> 
-  <TPfun Id="U2CRMNNI" Expr=" +3000;" /> 
-  <TPfun Id="U3CRMNNI" Expr=" +3000;" /> 
-  <TPfun Id="U1CRNIV" Expr=" 0;" /> 
-  <TPfun Id="U2CRNIV" Expr=" 0;" /> 
-  <TPfun Id="U3CRNIV" Expr=" 0;" /> 
-  <TPfun Id="U1FEMNNI" Expr=" +3000;" /> 
-  <TPfun Id="U2FEMNNI" Expr=" +4000;" /> 
-  <TPfun Id="U3FEMNNI" Expr=" 0;" /> 
-  <TPfun Id="U1FENIV" Expr=" 0;" /> 
-  <TPfun Id="U2FENIV" Expr=" 0;" /> 
-  <TPfun Id="U3FENIV" Expr=" 0;" /> 
-  <Phase Id="LIQUID" Configuration="CEF" State="L" >
-    <Sublattices NumberOf="1" Multiplicities="1" />
-    <Constituents List="AL C CO CR FE MN NI V" />
-  </Phase>
-  <Phase Id="AL11CR2" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="11 2" >
-      <Constituents Sublattice="1" List="AL FE" />
-      <Constituents Sublattice="2" List="AL CR FE MN" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="AL11MN4_HT" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="29 10" >
-      <Constituents Sublattice="1" List="AL CR MN" />
-      <Constituents Sublattice="2" List="CR FE MN NI" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="AL11MN4_LT" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="11 4" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="CR MN NI" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="AL12MN" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="12 1" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="CR FE MN" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="AL21V2" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="21 2" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="V" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="AL23V4" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="23 4" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="V" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="AL2FE" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="2 1" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="CO CR FE MN NI" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="AL3CO" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="0.745 0.255" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="CO NI" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="AL3M_D022" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="3 1" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="V" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="AL3NI2_D513" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="3" Multiplicities="3 2 1" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="AL CO CR FE MN NI" />
-      <Constituents Sublattice="3" List="CO NI VA" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="AL3NI5" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="3 5" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="NI" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="AL3NI_D011" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="3 1" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="CO FE MN NI" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="AL45V7" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="45 7" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="V" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="AL4C3_D71" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="4 3" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="C" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="AL4MN_LAMBDA" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="0.81162 0.18838" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="MN" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="AL4M_MU" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="4 1" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="AL CR FE MN NI" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="AL4NI3" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="4 3" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="CO NI" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="AL5CO2_D811" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="5 2" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="AL CO FE MN NI" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="AL5FE2" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="5 2" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="CO CR FE MN NI" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="AL6MN_D2H" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="6 1" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="CR FE MN" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="AL71FE5NI24" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="3" Multiplicities="0.71 .05 0.24" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="FE" />
-      <Constituents Sublattice="3" List="NI" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="AL78MN13NI9" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="3" Multiplicities="0.78 0.13 .09" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="MN" />
-      <Constituents Sublattice="3" List="NI" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="AL7CR" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="7 1" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="AL CR FE MN NI" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="AL8CR2NI" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="3" Multiplicities="8 2 1" >
-      <Constituents Sublattice="1" List="AL CR NI" />
-      <Constituents Sublattice="2" List="AL CR NI" />
-      <Constituents Sublattice="3" List="AL CR NI" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="AL9CO2" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="9 2" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="CO FE NI" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="ALCOMN_T" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="3" Multiplicities="0.794 .02 0.186" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="CO" />
-      <Constituents Sublattice="3" List="MN" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="ALCONI_T1" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="3" Multiplicities="14 1 5" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="AL CO NI" />
-      <Constituents Sublattice="3" List="CO NI" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="ALCONI_T2" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="3 1" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="CO NI" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="ALCONI_T3" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="3" Multiplicities="9 2 2" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="CO" />
-      <Constituents Sublattice="3" List="CO NI" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="ALCR2_C11B" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="1 2" >
-      <Constituents Sublattice="1" List="AL CR MN" />
-      <Constituents Sublattice="2" List="AL CR MN" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="ALCRFE_D3" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="0.72 0.28" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="AL CR FE" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="ALCRFE_E" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="3" Multiplicities="0.77 0.21 .02" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="CR" />
-      <Constituents Sublattice="3" List="FE" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="ALCRFE_H" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="3" Multiplicities="1 .09 0.22" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="CR" />
-      <Constituents Sublattice="3" List="AL CR FE" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="ALCRFE_O" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="0.72 0.28" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="AL CR FE" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="ALCRNI_T2" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="3" Multiplicities="0.8 0.11 .09" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="CR" />
-      <Constituents Sublattice="3" List="NI" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="ALCRNI_T3" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="3" Multiplicities="0.82 0.15 .03" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="CR" />
-      <Constituents Sublattice="3" List="NI" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="ALFEMN_D3" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="3" Multiplicities="0.7 .08 0.22" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="AL FE" />
-      <Constituents Sublattice="3" List="FE MN" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="ALFEMN_PHI" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="3" Multiplicities="0.7 0.15 0.15" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="AL MN" />
-      <Constituents Sublattice="3" List="FE MN" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="ALFEMN_ZETA" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="4 1" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="FE MN NI" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="ALV3_A15" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="1 3" >
-      <Constituents Sublattice="1" List="AL V" />
-      <Constituents Sublattice="2" List="AL V" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="B2_BCC" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="3" Multiplicities="0.5 0.5 3" >
-      <Constituents Sublattice="1" List="AL CO CR FE MN NI V VA" />
-      <Constituents Sublattice="2" List="AL CO CR FE MN NI V VA" />
-      <Constituents Sublattice="3" List="C VA" />
-    </Sublattices>
-    <DisorderedPart Subtract="Y" Sum="2" />
-    <AmendPhase Models="IHJBCC" />
-  </Phase>
-  <Phase Id="BCC_A2" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="1 3" >
-      <Constituents Sublattice="1" List="AL CO CR FE MN NI V VA" />
-      <Constituents Sublattice="2" List="C VA" />
-    </Sublattices>
-    <AmendPhase Models="IHJBCC" />
-  </Phase>
-  <Phase Id="CBCC_A12" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="1 1" >
-      <Constituents Sublattice="1" List="AL CO CR FE MN NI V" />
-      <Constituents Sublattice="2" List="C VA" />
-    </Sublattices>
-    <AmendPhase Models="IHJREST" />
-  </Phase>
-  <Phase Id="CEMENTITE_D011" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="3 1" >
-      <Constituents Sublattice="1" List="CO CR FE MN NI V" />
-      <Constituents Sublattice="2" List="C" />
-    </Sublattices>
-    <AmendPhase Models="IHJREST" />
-  </Phase>
-  <Phase Id="CR2VC2" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="3" Multiplicities="2 1 2" >
-      <Constituents Sublattice="1" List="CR" />
-      <Constituents Sublattice="2" List="V" />
-      <Constituents Sublattice="3" List="C" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="CR3C2_D510" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="3 2" >
-      <Constituents Sublattice="1" List="CO CR V" />
-      <Constituents Sublattice="2" List="C" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="CRNI2" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="1 2" >
-      <Constituents Sublattice="1" List="CR" />
-      <Constituents Sublattice="2" List="NI" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="CUB_A13" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="1 1" >
-      <Constituents Sublattice="1" List="AL CO CR FE MN NI V" />
-      <Constituents Sublattice="2" List="C VA" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="DIAMOND_A4" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="1" Multiplicities="1" >
-      <Constituents Sublattice="1" List="C" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="FCC_4SL" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="5" Multiplicities="0.25 0.25 0.25 0.25 1" >
-      <Constituents Sublattice="1" List="AL CO CR FE MN NI V" />
-      <Constituents Sublattice="2" List="AL CO CR FE MN NI V" />
-      <Constituents Sublattice="3" List="AL CO CR FE MN NI V" />
-      <Constituents Sublattice="4" List="AL CO CR FE MN NI V" />
-      <Constituents Sublattice="5" List="C VA" />
-    </Sublattices>
-    <DisorderedPart Subtract="Y" Sum="4" />
-    <AmendPhase Models="IHJREST FCC4PERM" />
-  </Phase>
-  <Phase Id="FCC_A1" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="1 1" >
-      <Constituents Sublattice="1" List="AL CO CR FE MN NI V" />
-      <Constituents Sublattice="2" List="C VA" />
-    </Sublattices>
-    <AmendPhase Models="IHJREST" />
-  </Phase>
-  <Phase Id="GAMMA_D810" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="3" Multiplicities="12 5 9" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="CO CR FE MN NI" />
-      <Constituents Sublattice="3" List="AL CR FE MN NI" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="GAMMA_D82" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="8 5" >
-      <Constituents Sublattice="1" List="AL CR FE MN NI" />
-      <Constituents Sublattice="2" List="AL CO CR FE MN NI V" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="GRAPHITE_A9" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="1" Multiplicities="1" >
-      <Constituents Sublattice="1" List="C" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="HCP_A3" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="1 0.5" >
-      <Constituents Sublattice="1" List="AL CO CR FE MN NI V" />
-      <Constituents Sublattice="2" List="C VA" />
-    </Sublattices>
-    <AmendPhase Models="IHJREST" />
-  </Phase>
-  <Phase Id="KAPPA_E21" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="3" Multiplicities="1 3 1" >
-      <Constituents Sublattice="1" List="AL CO FE MN" />
-      <Constituents Sublattice="2" List="AL CO FE MN NI" />
-      <Constituents Sublattice="3" List="C VA" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="M23C6_D84" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="3" Multiplicities="20 3 6" >
-      <Constituents Sublattice="1" List="CO CR FE MN NI V" />
-      <Constituents Sublattice="2" List="CO CR FE MN NI V" />
-      <Constituents Sublattice="3" List="C" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="M3V" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="3 1" >
-      <Constituents Sublattice="1" List="CO FE NI V" />
-      <Constituents Sublattice="2" List="CO CR NI V" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="M5C2" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="5 2" >
-      <Constituents Sublattice="1" List="FE MN V" />
-      <Constituents Sublattice="2" List="AL C" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="M6C_E93" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="4" Multiplicities="2 2 2 1" >
-      <Constituents Sublattice="1" List="NI" />
-      <Constituents Sublattice="2" List="V" />
-      <Constituents Sublattice="3" List="V" />
-      <Constituents Sublattice="4" List="C" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="M7C3_D101" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="7 3" >
-      <Constituents Sublattice="1" List="CO CR FE MN NI V" />
-      <Constituents Sublattice="2" List="C" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="MAX_PHASE" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="3" Multiplicities="2 1 1" >
-      <Constituents Sublattice="1" List="AL CR V" />
-      <Constituents Sublattice="2" List="AL" />
-      <Constituents Sublattice="3" List="C" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="MNNI2" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="1 2" >
-      <Constituents Sublattice="1" List="MN NI" />
-      <Constituents Sublattice="2" List="NI" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="MV3_A15" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="1 3" >
-      <Constituents Sublattice="1" List="CO NI V" />
-      <Constituents Sublattice="2" List="CR NI V" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="M_AL13M4" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="3" Multiplicities="0.6275 0.235 0.1375" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="CO CR FE MN NI" />
-      <Constituents Sublattice="3" List="AL VA" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="NI2V" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="2 1" >
-      <Constituents Sublattice="1" List="NI" />
-      <Constituents Sublattice="2" List="V" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="NI8V" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="8 1" >
-      <Constituents Sublattice="1" List="NI" />
-      <Constituents Sublattice="2" List="V" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="O_AL13CO4" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="0.76 0.24" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="CO" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="SIGMA_D8B" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="3" Multiplicities="10 4 16" >
-      <Constituents Sublattice="1" List="AL CO FE MN NI V" />
-      <Constituents Sublattice="2" List="CR NI V" />
-      <Constituents Sublattice="3" List="AL CO CR FE MN NI V" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="V3ALC2" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="3" Multiplicities="3 1 2" >
-      <Constituents Sublattice="1" List="V" />
-      <Constituents Sublattice="2" List="AL" />
-      <Constituents Sublattice="3" List="C" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="V3C2" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="3 2" >
-      <Constituents Sublattice="1" List="FE MN V" />
-      <Constituents Sublattice="2" List="C" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="V4ALC3" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="4" Multiplicities="4 1 2 1" >
-      <Constituents Sublattice="1" List="V" />
-      <Constituents Sublattice="2" List="AL" />
-      <Constituents Sublattice="3" List="C" />
-      <Constituents Sublattice="4" List="C VA" />
-    </Sublattices>
-  </Phase>
-  <Phase Id="Y_AL13CO4" Configuration="CEF" State="S" >
-    <Sublattices NumberOf="2" Multiplicities="0.755 0.245" >
-      <Constituents Sublattice="1" List="AL" />
-      <Constituents Sublattice="2" List="CO" />
-    </Sublattices>
-  </Phase>
-  <Parameter Id="G(LIQUID,AL;0)"  Expr=" +GLIQAL;" HighT="2900"  Bibref="91DIN" />
-  <Parameter Id="G(LIQUID,C;0)"  Expr=" +GHSERCC+117369-24.63*T;"  Bibref="91DIN" />
-  <Parameter Id="G(LIQUID,CO;0)"  Expr=" +GLIQCO;"  Bibref="91DIN" />
-  <Parameter Id="G(LIQUID,CR;0)"  Expr=" +GLIQCR;"  Bibref="91DIN" />
-  <Parameter Id="G(LIQUID,FE;0)"  Expr=" +GLIQFE;"  Bibref="91DIN" />
-  <Parameter Id="G(LIQUID,MN;0)"  Expr=" +GLIQMN;" HighT="2000"  Bibref="91DIN" />
-  <Parameter Id="G(LIQUID,NI;0)"  Expr=" +GLIQNI;" HighT="3000"  Bibref="91DIN" />
-  <Parameter Id="G(LIQUID,V;0)"  Expr=" +GLIQVV;" HighT="4000"  Bibref="91DIN" />
+<Appendix>
   <Parameter Id="G(LIQUID,AL,C;0)"  Expr=" +40861.02-33.21138*T;"  Bibref="95GRO" />
   <Parameter Id="G(LIQUID,AL,C,CO;0)"  Expr=" +ZERO;"  Bibref="18ZHE3" />
   <Parameter Id="G(LIQUID,AL,C,CO;1)"  Expr=" -162000;"  Bibref="18ZHE3" />
@@ -1321,8 +449,6 @@
   <Parameter Id="G(B2_BCC,VA:V:VA;0)"  Expr=" +ZERO;"  Bibref="09SUN" />
   <Parameter Id="G(B2_BCC,AL,FE:AL:VA;0)"  Expr=" +5600;"  Bibref="09SUN" />
   <Parameter Id="G(B2_BCC,AL,FE:AL,FE:VA;0)"  Expr=" -8400-4.8*T;"  Bibref="09SUN" />
-  <Parameter Id="G(B2_BCC,AL,MN:AL:VA;0)"  Expr=" +LALMN0AL;"  Bibref="12DJU" />
-  <Parameter Id="G(B2_BCC,AL,MN:AL:VA;1)"  Expr=" +L1BALMN;"  Bibref="12DJU" />
   <Parameter Id="G(B2_BCC,AL:AL,FE:VA;0)"  Expr=" +5600;"  Bibref="09SUN" />
   <Parameter Id="G(B2_BCC,AL:AL,MN:VA;0)"  Expr=" +LALMN0AL;"  Bibref="12DJU" />
   <Parameter Id="G(B2_BCC,AL:AL,MN:VA;1)"  Expr=" +L1BALMN;"  Bibref="12DJU" />
@@ -1400,195 +526,178 @@
   <Parameter Id="BMAG(B2_BCC,*:AL,FE:VA;1)"  Expr=" +2*BM1BALFE;"  Bibref="09SUN" />
   <Parameter Id="BMAG(B2_BCC,*:AL,FE:VA;2)"  Expr=" +2*BM2BALFE;"  Bibref="09SUN" />
 <!-- Disordered fraction set factor:     1.0000 Sublattices:   2 -->
-  <Parameter Id="GD(B2_BCC,AL:C;0)"  Expr=" +GHSERAL+3*GHSERCC+100000+80*T;"  Bibref="08CON" />
-  <Parameter Id="GD(B2_BCC,AL:VA;0)"  Expr=" +GBCCAL+0.1;" HighT="2900"  Bibref="91DIN" />
-  <Parameter Id="GD(B2_BCC,CO:C;0)"  Expr=" +GHSERCO+3*GHSERCC+247373.5-33.574*T;"  Bibref="88FER1" />
-  <Parameter Id="GD(B2_BCC,CO:VA;0)"  Expr=" +GBCCCO+0.1;"  Bibref="91DIN" />
-  <Parameter Id="TCD(B2_BCC,CO:VA;0)"  Expr=" +1450;"  Bibref="91DIN" />
-  <Parameter Id="BMAGD(B2_BCC,CO:VA;0)"  Expr=" +1.35;"  Bibref="91DIN" />
-  <Parameter Id="GD(B2_BCC,CR:C;0)"  Expr=" +GHSERCR+3*GHSERCC+416000;"  Bibref="87AND2" />
-  <Parameter Id="TCD(B2_BCC,CR:C;0)"  Expr=" -311.5;"  Bibref="90KAJ" />
-  <Parameter Id="BMAGD(B2_BCC,CR:C;0)"  Expr=" -.008;"  Bibref="90KAJ" />
-  <Parameter Id="GD(B2_BCC,CR:VA;0)"  Expr=" +GHSERCR+0.1;"  Bibref="91DIN" />
-  <Parameter Id="TCD(B2_BCC,CR:VA;0)"  Expr=" -311.5;"  Bibref="91DIN" />
-  <Parameter Id="BMAGD(B2_BCC,CR:VA;0)"  Expr=" -.008;"  Bibref="91DIN" />
-  <Parameter Id="GD(B2_BCC,FE:C;0)"  Expr=" +GHSERFE+3*GHSERCC+322050+75.667*T;"  Bibref="85GUS" />
-  <Parameter Id="TCD(B2_BCC,FE:C;0)"  Expr=" +1043;"  Bibref="85GUS" />
-  <Parameter Id="BMAGD(B2_BCC,FE:C;0)"  Expr=" +2.22;"  Bibref="85GUS" />
-  <Parameter Id="GD(B2_BCC,FE:VA;0)"  Expr=" +GHSERFE+0.1;"  Bibref="91DIN" />
-  <Parameter Id="TCD(B2_BCC,FE:VA;0)"  Expr=" +1043;"  Bibref="91DIN" />
-  <Parameter Id="BMAGD(B2_BCC,FE:VA;0)"  Expr=" +2.22;"  Bibref="91DIN" />
-  <Parameter Id="GD(B2_BCC,MN:C;0)"  Expr=" +GHSERMN+3*GHSERCC+10000+30*T;"  Bibref="90HUA1" />
-  <Parameter Id="GD(B2_BCC,MN:VA;0)"  Expr=" +GBCCMN+0.1;" HighT="2000"  Bibref="91DIN" />
-  <Parameter Id="TCD(B2_BCC,MN:VA;0)"  Expr=" -580;" HighT="2000"  Bibref="91DIN" />
-  <Parameter Id="BMAGD(B2_BCC,MN:VA;0)"  Expr=" -0.27;" HighT="2000"  Bibref="91DIN" />
-  <Parameter Id="GD(B2_BCC,NI:C;0)"  Expr=" +GHSERNI+3*GHSERCC+270000;"  Bibref="06HAL2" />
-  <Parameter Id="TCD(B2_BCC,NI:C;0)"  Expr=" +575;"  Bibref="87GAB" />
-  <Parameter Id="BMAGD(B2_BCC,NI:C;0)"  Expr=" +0.85;"  Bibref="87GAB" />
-  <Parameter Id="GD(B2_BCC,NI:VA;0)"  Expr=" +GHSERNI+8715.084-3.556*T+0.1;" HighT="3000"  Bibref="91DIN" />
-  <Parameter Id="TCD(B2_BCC,NI:VA;0)"  Expr=" +575;" HighT="3000"  Bibref="91DIN" />
-  <Parameter Id="BMAGD(B2_BCC,NI:VA;0)"  Expr=" +0.85;" HighT="3000"  Bibref="91DIN" />
-  <Parameter Id="GD(B2_BCC,V:C;0)"  Expr=" +GHSERVV+3*GHSERCC+108449;"  Bibref="91HUA1" />
-  <Parameter Id="GD(B2_BCC,V:VA;0)"  Expr=" +GHSERVV;" HighT="4000"  Bibref="91DIN" />
-  <Parameter Id="GD(B2_BCC,VA:C;0)"  Expr=" +100000+30*T;"  Bibref="20HAL11" />
-  <Parameter Id="GD(B2_BCC,VA:VA;0)"  Expr=" +30*T;"  Bibref="14DIN" />
-  <Parameter Id="GD(B2_BCC,AL,CO:C;0)"  Expr=" -100000;"  Bibref="23HAL3" />
-  <Parameter Id="GD(B2_BCC,AL:C,VA;0)"  Expr=" +80000+14*T;"  Bibref="20HAL2" />
-  <Parameter Id="GD(B2_BCC,AL,VA:VA;0)"  Expr=" +GB2ALVA+LB2ALVA;"  Bibref="99DUP1" />
-  <Parameter Id="GD(B2_BCC,AL,CO:VA;0)"  Expr=" -124200+17.24*T;"  Bibref="20NOO" />
-  <Parameter Id="GD(B2_BCC,AL,CO:VA;2)"  Expr=" +43609-22.509*T;"  Bibref="20NOO" />
-  <Parameter Id="TCD(B2_BCC,AL,CO:VA;0)"  Expr=" -100;"  Bibref="21NOO" />
-  <Parameter Id="GD(B2_BCC,AL,CO,CR:VA;0)"  Expr=" -28128;"  Bibref="16LIU" />
-  <Parameter Id="GD(B2_BCC,AL,CO,CR:VA;1)"  Expr=" +123468-61.879*T;"  Bibref="16LIU" />
-  <Parameter Id="GD(B2_BCC,AL,CO,CR:VA;2)"  Expr=" -12107-32.267*T;"  Bibref="16LIU" />
-  <Parameter Id="GD(B2_BCC,AL,CO,FE:VA;0)"  Expr=" -59616;"  Bibref="21NOO" />
-  <Parameter Id="GD(B2_BCC,AL,CO,FE:VA;1)"  Expr=" -9493;"  Bibref="21NOO" />
-  <Parameter Id="GD(B2_BCC,AL,CO,FE:VA;2)"  Expr=" +ZERO;"  Bibref="21NOO" />
-  <Parameter Id="TCD(B2_BCC,AL,CO,FE:VA;0)"  Expr=" +2754;"  Bibref="21NOO" />
-  <Parameter Id="GD(B2_BCC,AL,CO,MN:VA;0)"  Expr=" +41785;"  Bibref="20NOO" />
-  <Parameter Id="GD(B2_BCC,AL,CO,MN:VA;1)"  Expr=" -48943;"  Bibref="20NOO" />
-  <Parameter Id="GD(B2_BCC,AL,CO,MN:VA;2)"  Expr=" -44104;"  Bibref="20NOO" />
-  <Parameter Id="GD(B2_BCC,AL,CR:VA;0)"  Expr=" -58452.5+8.6*T;"  Bibref="17WAN2" />
-  <Parameter Id="GD(B2_BCC,AL,CR,MN:VA;0)"  Expr=" +55000;"  Bibref="20HAL5" />
-  <Parameter Id="GD(B2_BCC,AL,CR,MN:VA;1)"  Expr=" +ZERO;"  Bibref="20HAL5" />
-  <Parameter Id="GD(B2_BCC,AL,CR,MN:VA;2)"  Expr=" -10000;"  Bibref="20HAL5" />
-  <Parameter Id="GD(B2_BCC,AL,CR,NI:VA;0)"  Expr=" +50000;"  Bibref="20HAL6" />
-  <Parameter Id="GD(B2_BCC,AL,FE:VA;0)"  Expr=" -122360+31.6*T;"  Bibref="17ZHE" />
-  <Parameter Id="GD(B2_BCC,AL,FE:VA;1)"  Expr=" +2945.2;"  Bibref="17ZHE" />
-  <Parameter Id="GD(B2_BCC,AL,FE:VA;2)"  Expr=" +495;"  Bibref="17ZHE" />
-  <Parameter Id="TCD(B2_BCC,AL,FE:VA;0)"  Expr=" -438;"  Bibref="09SUN" />
-  <Parameter Id="TCD(B2_BCC,AL,FE:VA;1)"  Expr=" -1720;"  Bibref="09SUN" />
-  <Parameter Id="GD(B2_BCC,AL,FE,MN:VA;0)"  Expr=" +ZERO;"  Bibref="13LIN" />
-  <Parameter Id="GD(B2_BCC,AL,FE,NI:VA;0)"  Expr=" -30000;"  Bibref="20HAL7" />
-  <Parameter Id="GD(B2_BCC,AL,MN:VA;0)"  Expr=" -111336.2+44.48059*T;"  Bibref="07DU" />
-  <Parameter Id="GD(B2_BCC,AL,MN:VA;1)"  Expr=" -68691.8+44.52653*T;"  Bibref="07DU" />
-  <Parameter Id="GD(B2_BCC,AL,MN,NI:VA;0)"  Expr=" +50000;"  Bibref="20HAL8" />
-  <Parameter Id="GD(B2_BCC,AL,MN,NI:VA;1)"  Expr=" -50000;"  Bibref="20HAL8" />
-  <Parameter Id="GD(B2_BCC,AL,MN,NI:VA;2)"  Expr=" +ZERO;"  Bibref="20HAL8" />
-  <Parameter Id="GD(B2_BCC,AL,NI:VA;0)"  Expr=" +GB2ALNI+LB2ALNI;"  Bibref="99DUP1" />
-  <Parameter Id="GD(B2_BCC,AL,V:VA;0)"  Expr=" -79106+0.654*T;"  Bibref="15LIN" />
-  <Parameter Id="GD(B2_BCC,AL,V:VA;1)"  Expr=" +6645;"  Bibref="15LIN" />
-  <Parameter Id="GD(B2_BCC,CO,CR:C;0)"  Expr=" +17208-13.519*T;"  Bibref="97KUS" />
-  <Parameter Id="GD(B2_BCC,CO,CR:C;1)"  Expr=" -5470;"  Bibref="97KUS" />
-  <Parameter Id="GD(B2_BCC,CO,NI:C;0)"  Expr=" +6000;"  Bibref="88FER2" />
-  <Parameter Id="GD(B2_BCC,CO,VA:VA;0)"  Expr=" +135000-30*T;"  Bibref="99DUP2" />
-  <Parameter Id="GD(B2_BCC,CO,CR:VA;0)"  Expr=" +17208-13.519*T;"  Bibref="97KUS" />
-  <Parameter Id="GD(B2_BCC,CO,CR:VA;1)"  Expr=" -5470;"  Bibref="97KUS" />
-  <Parameter Id="GD(B2_BCC,CO,CR,FE:VA;0)"  Expr=" -1000;"  Bibref="19CHO" />
-  <Parameter Id="GD(B2_BCC,CO,CR,MN:VA;0)"  Expr=" -10000;"  Bibref="22DO" />
-  <Parameter Id="GD(B2_BCC,CO,CR,NI:VA;0)"  Expr=" -60134+17.7*T;"  Bibref="16LIU" />
-  <Parameter Id="GD(B2_BCC,CO,FE:VA;0)"  Expr=" -26222.7+125*T-15.502*T*LN(+T)+0.25*SBCOFE;"  Bibref="02OHN" />
-  <Parameter Id="GD(B2_BCC,CO,FE:VA;2)"  Expr=" +2686.79-0.25*SBCOFE;"  Bibref="02OHN" />
-  <Parameter Id="TCD(B2_BCC,CO,FE:VA;0)"  Expr=" +590;"  Bibref="87FER2" />
-  <Parameter Id="BMAGD(B2_BCC,CO,FE:VA;0)"  Expr=" +1.406;"  Bibref="02OHN" />
-  <Parameter Id="BMAGD(B2_BCC,CO,FE:VA;1)"  Expr=" -0.6617;"  Bibref="02OHN" />
-  <Parameter Id="GD(B2_BCC,CO,FE,V:VA;0)"  Expr=" +15000;"  Bibref="21HAL4" />
-  <Parameter Id="GD(B2_BCC,CO,MN:VA;0)"  Expr=" -23945;"  Bibref="89HUA1" />
-  <Parameter Id="GD(B2_BCC,CO,NI:VA;0)"  Expr=" +2000;"  Bibref="89FER2" />
-  <Parameter Id="TCD(B2_BCC,CO,NI:VA;0)"  Expr=" +556;"  Bibref="89FER2" />
-  <Parameter Id="TCD(B2_BCC,CO,NI:VA;1)"  Expr=" -288;"  Bibref="89FER2" />
-  <Parameter Id="BMAGD(B2_BCC,CO,NI:VA;0)"  Expr=" +0.474;"  Bibref="89FER2" />
-  <Parameter Id="GD(B2_BCC,CO,V:VA;0)"  Expr=" -62617.3+12.1461*T;"  Bibref="20WAN" />
-  <Parameter Id="GD(B2_BCC,CO,V:VA;1)"  Expr=" -18518.3;"  Bibref="20WAN" />
-  <Parameter Id="GD(B2_BCC,CR,FE:C;0)"  Expr=" -1320000+667.7*T;"  Bibref="14KHV" />
-  <Parameter Id="BMAGD(B2_BCC,CR,FE:C;0)"  Expr=" -0.85;"  Bibref="88AND3" />
-  <Parameter Id="TCD(B2_BCC,CR,FE:C;0)"  Expr=" +1650;"  Bibref="88AND3" />
-  <Parameter Id="TCD(B2_BCC,CR,FE:C;1)"  Expr=" +550;"  Bibref="88AND3" />
-  <Parameter Id="GD(B2_BCC,CR,MN:C;0)"  Expr=" -20328+18.7339*T;"  Bibref="93LEE2" />
-  <Parameter Id="GD(B2_BCC,CR,MN:C;1)"  Expr=" -9162+4.4183*T;"  Bibref="93LEE2" />
-  <Parameter Id="TCD(B2_BCC,CR,NI:C;0)"  Expr=" +2373;"  Bibref="NULL" />
-  <Parameter Id="TCD(B2_BCC,CR,NI:C;1)"  Expr=" +617;"  Bibref="NULL" />
-  <Parameter Id="BMAGD(B2_BCC,CR,NI:C;0)"  Expr=" +4;"  Bibref="NULL" />
-  <Parameter Id="GD(B2_BCC,CR:C,VA;0)"  Expr=" -190*T;"  Bibref="87AND2" />
-  <Parameter Id="GD(B2_BCC,CR,VA:VA;0)"  Expr=" +150000;"  Bibref="09SUN" />
-  <Parameter Id="GD(B2_BCC,CR,FE:VA;0)"  Expr=" +20500-9.68*T;"  Bibref="87AND1" />
-  <Parameter Id="TCD(B2_BCC,CR,FE:VA;0)"  Expr=" +1650;"  Bibref="87AND1" />
-  <Parameter Id="TCD(B2_BCC,CR,FE:VA;1)"  Expr=" +550;"  Bibref="87AND1" />
-  <Parameter Id="BMAGD(B2_BCC,CR,FE:VA;0)"  Expr=" -0.85;"  Bibref="87AND1" />
-  <Parameter Id="GD(B2_BCC,CR,FE,MN:VA;0)"  Expr=" -5996;"  Bibref="93LEE3" />
-  <Parameter Id="GD(B2_BCC,CR,FE,NI:VA;0)"  Expr=" -2673+2.04145*T;"  Bibref="93LEE1" />
-  <Parameter Id="GD(B2_BCC,CR,FE,V:VA;0)"  Expr=" +14881;"  Bibref="92LEE3" />
-  <Parameter Id="GD(B2_BCC,CR,FE,V:VA;1)"  Expr=" +17968;"  Bibref="92LEE3" />
-  <Parameter Id="GD(B2_BCC,CR,FE,V:VA;2)"  Expr=" -7692;"  Bibref="92LEE3" />
-  <Parameter Id="GD(B2_BCC,CR,MN:VA;0)"  Expr=" -20328+18.7339*T;"  Bibref="93LEE3" />
-  <Parameter Id="GD(B2_BCC,CR,MN:VA;1)"  Expr=" -9162+4.4183*T;"  Bibref="93LEE3" />
-  <Parameter Id="TCD(B2_BCC,CR,MN:VA;0)"  Expr=" -1325;"  Bibref="93LEE3" />
-  <Parameter Id="TCD(B2_BCC,CR,MN:VA;2)"  Expr=" -1133;"  Bibref="93LEE3" />
-  <Parameter Id="TCD(B2_BCC,CR,MN:VA;4)"  Expr=" -10294;"  Bibref="93LEE3" />
-  <Parameter Id="TCD(B2_BCC,CR,MN:VA;6)"  Expr=" +26706;"  Bibref="93LEE3" />
-  <Parameter Id="TCD(B2_BCC,CR,MN:VA;8)"  Expr=" -28117;"  Bibref="93LEE3" />
-  <Parameter Id="BMAGD(B2_BCC,CR,MN:VA;0)"  Expr=" +0.48643;"  Bibref="93LEE3" />
-  <Parameter Id="BMAGD(B2_BCC,CR,MN:VA;2)"  Expr=" -0.72035;"  Bibref="93LEE3" />
-  <Parameter Id="BMAGD(B2_BCC,CR,MN:VA;4)"  Expr=" -1.93265;"  Bibref="93LEE3" />
-  <Parameter Id="GD(B2_BCC,CR,MN,NI:VA;0)"  Expr=" +80000;"  Bibref="22DO" />
-  <Parameter Id="GD(B2_BCC,CR,NI:VA;0)"  Expr=" +14500-9*T;"  Bibref="16TAN" />
-  <Parameter Id="GD(B2_BCC,CR,NI:VA;1)"  Expr=" +27500-7.6*T;"  Bibref="16TAN" />
-  <Parameter Id="TCD(B2_BCC,CR,NI:VA;0)"  Expr=" +2373;"  Bibref="86DIN" />
-  <Parameter Id="TCD(B2_BCC,CR,NI:VA;1)"  Expr=" +617;"  Bibref="86DIN" />
-  <Parameter Id="BMAGD(B2_BCC,CR,NI:VA;0)"  Expr=" +4;"  Bibref="86DIN" />
-  <Parameter Id="GD(B2_BCC,CR,V:VA;0)"  Expr=" -9874-2.6964*T;"  Bibref="92LEE3" />
-  <Parameter Id="GD(B2_BCC,CR,V:VA;1)"  Expr=" -1720-2.5237*T;"  Bibref="92LEE3" />
-  <Parameter Id="GD(B2_BCC,FE,NI:C;0)"  Expr=" -956.63-1.28726*T;"  Bibref="87GAB" />
-  <Parameter Id="GD(B2_BCC,FE,NI:C;1)"  Expr=" +1789.03-1.92912*T;"  Bibref="87GAB" />
-  <Parameter Id="GD(B2_BCC,FE,V:C;0)"  Expr=" -23674+0.465*T;"  Bibref="91HUA2" />
-  <Parameter Id="GD(B2_BCC,FE,V:C;1)"  Expr=" +8283;"  Bibref="91HUA2" />
-  <Parameter Id="GD(B2_BCC,FE:C,VA;0)"  Expr=" -190*T;"  Bibref="85GUS" />
-  <Parameter Id="GD(B2_BCC,FE,VA:VA;0)"  Expr=" +150000;"  Bibref="09SUN" />
-  <Parameter Id="GD(B2_BCC,FE,MN:VA;0)"  Expr=" -2759+1.237*T;"  Bibref="89HUA2" />
-  <Parameter Id="TCD(B2_BCC,FE,MN:VA;0)"  Expr=" +123;"  Bibref="89HUA2" />
-  <Parameter Id="GD(B2_BCC,FE,NI:VA;0)"  Expr=" -7500;"  Bibref="10CAC" />
-  <Parameter Id="GD(B2_BCC,FE,NI:VA;1)"  Expr=" +8500-5*T;"  Bibref="10CAC" />
-  <Parameter Id="TCD(B2_BCC,FE,NI:VA;0)"  Expr=" -1000;"  Bibref="10CAC" />
-  <Parameter Id="TCD(B2_BCC,FE,NI:VA;1)"  Expr=" +1500;"  Bibref="10CAC" />
-  <Parameter Id="BMAGD(B2_BCC,FE,NI:VA;0)"  Expr=" -0.5;"  Bibref="10CAC" />
-  <Parameter Id="BMAGD(B2_BCC,FE,NI:VA;1)"  Expr=" +3.5;"  Bibref="10CAC" />
-  <Parameter Id="GD(B2_BCC,FE,NI,V:VA;0)"  Expr=" +2000;"  Bibref="18CHO" />
-  <Parameter Id="GD(B2_BCC,FE,V:VA;0)"  Expr=" -23674+0.465*T;"  Bibref="91HUA2" />
-  <Parameter Id="GD(B2_BCC,FE,V:VA;1)"  Expr=" +8283;"  Bibref="91HUA2" />
-  <Parameter Id="TCD(B2_BCC,FE,V:VA;0)"  Expr=" -110;"  Bibref="83AND" />
-  <Parameter Id="TCD(B2_BCC,FE,V:VA;1)"  Expr=" +3075;"  Bibref="83AND" />
-  <Parameter Id="TCD(B2_BCC,FE,V:VA;2)"  Expr=" +808;"  Bibref="83AND" />
-  <Parameter Id="TCD(B2_BCC,FE,V:VA;3)"  Expr=" -2169;"  Bibref="83AND" />
-  <Parameter Id="BMAGD(B2_BCC,FE,V:VA;0)"  Expr=" -2.26;"  Bibref="83AND" />
-  <Parameter Id="GD(B2_BCC,MN,V:C;0)"  Expr=" -10000;"  Bibref="91FER2" />
-  <Parameter Id="GD(B2_BCC,MN,VA:VA;0)"  Expr=" +150000;"  Bibref="09SUN" />
-  <Parameter Id="GD(B2_BCC,MN,NI:VA;0)"  Expr=" -3508.42803-23.7885576*T;"  Bibref="10LIU" />
-  <Parameter Id="GD(B2_BCC,MN,V:VA;0)"  Expr=" -10000;"  Bibref="91HUA3" />
-  <Parameter Id="GD(B2_BCC,NI,VA:VA;0)"  Expr=" +GB2NIVA+LB2NIVA;"  Bibref="99DUP1" />
-  <Parameter Id="GD(B2_BCC,NI,V:VA;0)"  Expr=" -39921;"  Bibref="19NOO" />
-  <Parameter Id="GD(B2_BCC,NI,V:VA;1)"  Expr=" -11151;"  Bibref="19NOO" />
-  <Parameter Id="GD(B2_BCC,V:C,VA;0)"  Expr=" -297868;"  Bibref="91HUA1" />
-  <Parameter Id="GD(B2_BCC,V,VA:VA;0)"  Expr=" +150000;"  Bibref="09SUN" />
+  <Parameter Id="G(B2_BCC,AL:C;0)"  Expr=" +GHSERAL+3*GHSERCC+100000+80*T;"  Bibref="08CON" />
+  <Parameter Id="G(B2_BCC,AL:VA;0)"  Expr=" +GBCCAL+0.1;" HighT="2900"  Bibref="91DIN" />
+  <Parameter Id="G(B2_BCC,CO:C;0)"  Expr=" +GHSERCO+3*GHSERCC+247373.5-33.574*T;"  Bibref="88FER1" />
+  <Parameter Id="G(B2_BCC,CO:VA;0)"  Expr=" +GBCCCO+0.1;"  Bibref="91DIN" />
+  <Parameter Id="TC(B2_BCC,CO:VA;0)"  Expr=" +1450;"  Bibref="91DIN" />
+  <Parameter Id="BMAG(B2_BCC,CO:VA;0)"  Expr=" +1.35;"  Bibref="91DIN" />
+  <Parameter Id="G(B2_BCC,CR:C;0)"  Expr=" +GHSERCR+3*GHSERCC+416000;"  Bibref="87AND2" />
+  <Parameter Id="TC(B2_BCC,CR:C;0)"  Expr=" -311.5;"  Bibref="90KAJ" />
+  <Parameter Id="BMAG(B2_BCC,CR:C;0)"  Expr=" -.008;"  Bibref="90KAJ" />
+  <Parameter Id="G(B2_BCC,CR:VA;0)"  Expr=" +GHSERCR+0.1;"  Bibref="91DIN" />
+  <Parameter Id="TC(B2_BCC,CR:VA;0)"  Expr=" -311.5;"  Bibref="91DIN" />
+  <Parameter Id="BMAG(B2_BCC,CR:VA;0)"  Expr=" -.008;"  Bibref="91DIN" />
+  <Parameter Id="G(B2_BCC,FE:C;0)"  Expr=" +GHSERFE+3*GHSERCC+322050+75.667*T;"  Bibref="85GUS" />
+  <Parameter Id="TC(B2_BCC,FE:C;0)"  Expr=" +1043;"  Bibref="85GUS" />
+  <Parameter Id="BMAG(B2_BCC,FE:C;0)"  Expr=" +2.22;"  Bibref="85GUS" />
+  <Parameter Id="G(B2_BCC,FE:VA;0)"  Expr=" +GHSERFE+0.1;"  Bibref="91DIN" />
+  <Parameter Id="TC(B2_BCC,FE:VA;0)"  Expr=" +1043;"  Bibref="91DIN" />
+  <Parameter Id="BMAG(B2_BCC,FE:VA;0)"  Expr=" +2.22;"  Bibref="91DIN" />
+  <Parameter Id="G(B2_BCC,MN:C;0)"  Expr=" +GHSERMN+3*GHSERCC+10000+30*T;"  Bibref="90HUA1" />
+  <Parameter Id="G(B2_BCC,MN:VA;0)"  Expr=" +GBCCMN+0.1;" HighT="2000"  Bibref="91DIN" />
+  <Parameter Id="TC(B2_BCC,MN:VA;0)"  Expr=" -580;" HighT="2000"  Bibref="91DIN" />
+  <Parameter Id="BMAG(B2_BCC,MN:VA;0)"  Expr=" -0.27;" HighT="2000"  Bibref="91DIN" />
+  <Parameter Id="G(B2_BCC,NI:C;0)"  Expr=" +GHSERNI+3*GHSERCC+270000;"  Bibref="06HAL2" />
+  <Parameter Id="TC(B2_BCC,NI:C;0)"  Expr=" +575;"  Bibref="87GAB" />
+  <Parameter Id="BMAG(B2_BCC,NI:C;0)"  Expr=" +0.85;"  Bibref="87GAB" />
+  <Parameter Id="G(B2_BCC,NI:VA;0)"  Expr=" +GHSERNI+8715.084-3.556*T+0.1;" HighT="3000"  Bibref="91DIN" />
+  <Parameter Id="TC(B2_BCC,NI:VA;0)"  Expr=" +575;" HighT="3000"  Bibref="91DIN" />
+  <Parameter Id="BMAG(B2_BCC,NI:VA;0)"  Expr=" +0.85;" HighT="3000"  Bibref="91DIN" />
+  <Parameter Id="G(B2_BCC,V:C;0)"  Expr=" +GHSERVV+3*GHSERCC+108449;"  Bibref="91HUA1" />
+  <Parameter Id="G(B2_BCC,V:VA;0)"  Expr=" +GHSERVV;" HighT="4000"  Bibref="91DIN" />
+  <Parameter Id="G(B2_BCC,VA:C;0)"  Expr=" +100000+30*T;"  Bibref="20HAL11" />
+  <Parameter Id="G(B2_BCC,VA:VA;0)"  Expr=" +30*T;"  Bibref="14DIN" />
+  <Parameter Id="G(B2_BCC,AL,CO:C;0)"  Expr=" -100000;"  Bibref="23HAL3" />
+  <Parameter Id="G(B2_BCC,AL:C,VA;0)"  Expr=" +80000+14*T;"  Bibref="20HAL2" />
+  <Parameter Id="G(B2_BCC,AL,VA:VA;0)"  Expr=" +GB2ALVA+LB2ALVA;"  Bibref="99DUP1" />
+  <Parameter Id="G(B2_BCC,AL,CO:VA;0)"  Expr=" -124200+17.24*T;"  Bibref="20NOO" />
+  <Parameter Id="G(B2_BCC,AL,CO:VA;2)"  Expr=" +43609-22.509*T;"  Bibref="20NOO" />
+  <Parameter Id="TC(B2_BCC,AL,CO:VA;0)"  Expr=" -100;"  Bibref="21NOO" />
+  <Parameter Id="G(B2_BCC,AL,CO,CR:VA;0)"  Expr=" -28128;"  Bibref="16LIU" />
+  <Parameter Id="G(B2_BCC,AL,CO,CR:VA;1)"  Expr=" +123468-61.879*T;"  Bibref="16LIU" />
+  <Parameter Id="G(B2_BCC,AL,CO,CR:VA;2)"  Expr=" -12107-32.267*T;"  Bibref="16LIU" />
+  <Parameter Id="G(B2_BCC,AL,CO,FE:VA;0)"  Expr=" -59616;"  Bibref="21NOO" />
+  <Parameter Id="G(B2_BCC,AL,CO,FE:VA;1)"  Expr=" -9493;"  Bibref="21NOO" />
+  <Parameter Id="G(B2_BCC,AL,CO,FE:VA;2)"  Expr=" +ZERO;"  Bibref="21NOO" />
+  <Parameter Id="TC(B2_BCC,AL,CO,FE:VA;0)"  Expr=" +2754;"  Bibref="21NOO" />
+  <Parameter Id="G(B2_BCC,AL,CO,MN:VA;0)"  Expr=" +41785;"  Bibref="20NOO" />
+  <Parameter Id="G(B2_BCC,AL,CO,MN:VA;1)"  Expr=" -48943;"  Bibref="20NOO" />
+  <Parameter Id="G(B2_BCC,AL,CO,MN:VA;2)"  Expr=" -44104;"  Bibref="20NOO" />
+  <Parameter Id="G(B2_BCC,AL,CR:VA;0)"  Expr=" -58452.5+8.6*T;"  Bibref="17WAN2" />
+  <Parameter Id="G(B2_BCC,AL,CR,MN:VA;0)"  Expr=" +55000;"  Bibref="20HAL5" />
+  <Parameter Id="G(B2_BCC,AL,CR,MN:VA;1)"  Expr=" +ZERO;"  Bibref="20HAL5" />
+  <Parameter Id="G(B2_BCC,AL,CR,MN:VA;2)"  Expr=" -10000;"  Bibref="20HAL5" />
+  <Parameter Id="G(B2_BCC,AL,CR,NI:VA;0)"  Expr=" +50000;"  Bibref="20HAL6" />
+  <Parameter Id="G(B2_BCC,AL,FE:VA;0)"  Expr=" -122360+31.6*T;"  Bibref="17ZHE" />
+  <Parameter Id="G(B2_BCC,AL,FE:VA;1)"  Expr=" +2945.2;"  Bibref="17ZHE" />
+  <Parameter Id="G(B2_BCC,AL,FE:VA;2)"  Expr=" +495;"  Bibref="17ZHE" />
+  <Parameter Id="TC(B2_BCC,AL,FE:VA;0)"  Expr=" -438;"  Bibref="09SUN" />
+  <Parameter Id="TC(B2_BCC,AL,FE:VA;1)"  Expr=" -1720;"  Bibref="09SUN" />
+  <Parameter Id="G(B2_BCC,AL,FE,MN:VA;0)"  Expr=" +ZERO;"  Bibref="13LIN" />
+  <Parameter Id="G(B2_BCC,AL,FE,NI:VA;0)"  Expr=" -30000;"  Bibref="20HAL7" />
+  <Parameter Id="G(B2_BCC,AL,MN:VA;0)"  Expr=" -111336.2+44.48059*T;"  Bibref="07DU" />
+  <Parameter Id="G(B2_BCC,AL,MN:VA;1)"  Expr=" -68691.8+44.52653*T;"  Bibref="07DU" />
+  <Parameter Id="G(B2_BCC,AL,MN,NI:VA;0)"  Expr=" +50000;"  Bibref="20HAL8" />
+  <Parameter Id="G(B2_BCC,AL,MN,NI:VA;1)"  Expr=" -50000;"  Bibref="20HAL8" />
+  <Parameter Id="G(B2_BCC,AL,MN,NI:VA;2)"  Expr=" +ZERO;"  Bibref="20HAL8" />
+  <Parameter Id="G(B2_BCC,AL,NI:VA;0)"  Expr=" +GB2ALNI+LB2ALNI;"  Bibref="99DUP1" />
+  <Parameter Id="G(B2_BCC,AL,V:VA;0)"  Expr=" -79106+0.654*T;"  Bibref="15LIN" />
+  <Parameter Id="G(B2_BCC,AL,V:VA;1)"  Expr=" +6645;"  Bibref="15LIN" />
+  <Parameter Id="G(B2_BCC,CO,CR:C;0)"  Expr=" +17208-13.519*T;"  Bibref="97KUS" />
+  <Parameter Id="G(B2_BCC,CO,CR:C;1)"  Expr=" -5470;"  Bibref="97KUS" />
+  <Parameter Id="G(B2_BCC,CO,NI:C;0)"  Expr=" +6000;"  Bibref="88FER2" />
+  <Parameter Id="G(B2_BCC,CO,VA:VA;0)"  Expr=" +135000-30*T;"  Bibref="99DUP2" />
+  <Parameter Id="G(B2_BCC,CO,CR:VA;0)"  Expr=" +17208-13.519*T;"  Bibref="97KUS" />
+  <Parameter Id="G(B2_BCC,CO,CR:VA;1)"  Expr=" -5470;"  Bibref="97KUS" />
+  <Parameter Id="G(B2_BCC,CO,CR,FE:VA;0)"  Expr=" -1000;"  Bibref="19CHO" />
+  <Parameter Id="G(B2_BCC,CO,CR,MN:VA;0)"  Expr=" -10000;"  Bibref="22DO" />
+  <Parameter Id="G(B2_BCC,CO,CR,NI:VA;0)"  Expr=" -60134+17.7*T;"  Bibref="16LIU" />
+  <Parameter Id="G(B2_BCC,CO,FE:VA;0)"  Expr=" -26222.7+125*T-15.502*T*LN(+T)+0.25*SBCOFE;"  Bibref="02OHN" />
+  <Parameter Id="G(B2_BCC,CO,FE:VA;2)"  Expr=" +2686.79-0.25*SBCOFE;"  Bibref="02OHN" />
+  <Parameter Id="TC(B2_BCC,CO,FE:VA;0)"  Expr=" +590;"  Bibref="87FER2" />
+  <Parameter Id="BMAG(B2_BCC,CO,FE:VA;0)"  Expr=" +1.406;"  Bibref="02OHN" />
+  <Parameter Id="BMAG(B2_BCC,CO,FE:VA;1)"  Expr=" -0.6617;"  Bibref="02OHN" />
+  <Parameter Id="G(B2_BCC,CO,FE,V:VA;0)"  Expr=" +15000;"  Bibref="21HAL4" />
+  <Parameter Id="G(B2_BCC,CO,MN:VA;0)"  Expr=" -23945;"  Bibref="89HUA1" />
+  <Parameter Id="G(B2_BCC,CO,NI:VA;0)"  Expr=" +2000;"  Bibref="89FER2" />
+  <Parameter Id="TC(B2_BCC,CO,NI:VA;0)"  Expr=" +556;"  Bibref="89FER2" />
+  <Parameter Id="TC(B2_BCC,CO,NI:VA;1)"  Expr=" -288;"  Bibref="89FER2" />
+  <Parameter Id="BMAG(B2_BCC,CO,NI:VA;0)"  Expr=" +0.474;"  Bibref="89FER2" />
+  <Parameter Id="G(B2_BCC,CO,V:VA;0)"  Expr=" -62617.3+12.1461*T;"  Bibref="20WAN" />
+  <Parameter Id="G(B2_BCC,CO,V:VA;1)"  Expr=" -18518.3;"  Bibref="20WAN" />
+  <Parameter Id="G(B2_BCC,CR,FE:C;0)"  Expr=" -1320000+667.7*T;"  Bibref="14KHV" />
+  <Parameter Id="BMAG(B2_BCC,CR,FE:C;0)"  Expr=" -0.85;"  Bibref="88AND3" />
+  <Parameter Id="TC(B2_BCC,CR,FE:C;0)"  Expr=" +1650;"  Bibref="88AND3" />
+  <Parameter Id="TC(B2_BCC,CR,FE:C;1)"  Expr=" +550;"  Bibref="88AND3" />
+  <Parameter Id="G(B2_BCC,CR,MN:C;0)"  Expr=" -20328+18.7339*T;"  Bibref="93LEE2" />
+  <Parameter Id="G(B2_BCC,CR,MN:C;1)"  Expr=" -9162+4.4183*T;"  Bibref="93LEE2" />
+  <Parameter Id="TC(B2_BCC,CR,NI:C;0)"  Expr=" +2373;"  Bibref="NULL" />
+  <Parameter Id="TC(B2_BCC,CR,NI:C;1)"  Expr=" +617;"  Bibref="NULL" />
+  <Parameter Id="BMAG(B2_BCC,CR,NI:C;0)"  Expr=" +4;"  Bibref="NULL" />
+  <Parameter Id="G(B2_BCC,CR:C,VA;0)"  Expr=" -190*T;"  Bibref="87AND2" />
+  <Parameter Id="G(B2_BCC,CR,VA:VA;0)"  Expr=" +150000;"  Bibref="09SUN" />
+  <Parameter Id="G(B2_BCC,CR,FE:VA;0)"  Expr=" +20500-9.68*T;"  Bibref="87AND1" />
+  <Parameter Id="TC(B2_BCC,CR,FE:VA;0)"  Expr=" +1650;"  Bibref="87AND1" />
+  <Parameter Id="TC(B2_BCC,CR,FE:VA;1)"  Expr=" +550;"  Bibref="87AND1" />
+  <Parameter Id="BMAG(B2_BCC,CR,FE:VA;0)"  Expr=" -0.85;"  Bibref="87AND1" />
+  <Parameter Id="G(B2_BCC,CR,FE,MN:VA;0)"  Expr=" -5996;"  Bibref="93LEE3" />
+  <Parameter Id="G(B2_BCC,CR,FE,NI:VA;0)"  Expr=" -2673+2.04145*T;"  Bibref="93LEE1" />
+  <Parameter Id="G(B2_BCC,CR,FE,V:VA;0)"  Expr=" +14881;"  Bibref="92LEE3" />
+  <Parameter Id="G(B2_BCC,CR,FE,V:VA;1)"  Expr=" +17968;"  Bibref="92LEE3" />
+  <Parameter Id="G(B2_BCC,CR,FE,V:VA;2)"  Expr=" -7692;"  Bibref="92LEE3" />
+  <Parameter Id="G(B2_BCC,CR,MN:VA;0)"  Expr=" -20328+18.7339*T;"  Bibref="93LEE3" />
+  <Parameter Id="G(B2_BCC,CR,MN:VA;1)"  Expr=" -9162+4.4183*T;"  Bibref="93LEE3" />
+  <Parameter Id="TC(B2_BCC,CR,MN:VA;0)"  Expr=" -1325;"  Bibref="93LEE3" />
+  <Parameter Id="TC(B2_BCC,CR,MN:VA;2)"  Expr=" -1133;"  Bibref="93LEE3" />
+  <Parameter Id="TC(B2_BCC,CR,MN:VA;4)"  Expr=" -10294;"  Bibref="93LEE3" />
+  <Parameter Id="TC(B2_BCC,CR,MN:VA;6)"  Expr=" +26706;"  Bibref="93LEE3" />
+  <Parameter Id="TC(B2_BCC,CR,MN:VA;8)"  Expr=" -28117;"  Bibref="93LEE3" />
+  <Parameter Id="BMAG(B2_BCC,CR,MN:VA;0)"  Expr=" +0.48643;"  Bibref="93LEE3" />
+  <Parameter Id="BMAG(B2_BCC,CR,MN:VA;2)"  Expr=" -0.72035;"  Bibref="93LEE3" />
+  <Parameter Id="BMAG(B2_BCC,CR,MN:VA;4)"  Expr=" -1.93265;"  Bibref="93LEE3" />
+  <Parameter Id="G(B2_BCC,CR,MN,NI:VA;0)"  Expr=" +80000;"  Bibref="22DO" />
+  <Parameter Id="G(B2_BCC,CR,NI:VA;0)"  Expr=" +14500-9*T;"  Bibref="16TAN" />
+  <Parameter Id="G(B2_BCC,CR,NI:VA;1)"  Expr=" +27500-7.6*T;"  Bibref="16TAN" />
+  <Parameter Id="TC(B2_BCC,CR,NI:VA;0)"  Expr=" +2373;"  Bibref="86DIN" />
+  <Parameter Id="TC(B2_BCC,CR,NI:VA;1)"  Expr=" +617;"  Bibref="86DIN" />
+  <Parameter Id="BMAG(B2_BCC,CR,NI:VA;0)"  Expr=" +4;"  Bibref="86DIN" />
+  <Parameter Id="G(B2_BCC,CR,V:VA;0)"  Expr=" -9874-2.6964*T;"  Bibref="92LEE3" />
+  <Parameter Id="G(B2_BCC,CR,V:VA;1)"  Expr=" -1720-2.5237*T;"  Bibref="92LEE3" />
+  <Parameter Id="G(B2_BCC,FE,NI:C;0)"  Expr=" -956.63-1.28726*T;"  Bibref="87GAB" />
+  <Parameter Id="G(B2_BCC,FE,NI:C;1)"  Expr=" +1789.03-1.92912*T;"  Bibref="87GAB" />
+  <Parameter Id="G(B2_BCC,FE,V:C;0)"  Expr=" -23674+0.465*T;"  Bibref="91HUA2" />
+  <Parameter Id="G(B2_BCC,FE,V:C;1)"  Expr=" +8283;"  Bibref="91HUA2" />
+  <Parameter Id="G(B2_BCC,FE:C,VA;0)"  Expr=" -190*T;"  Bibref="85GUS" />
+  <Parameter Id="G(B2_BCC,FE,VA:VA;0)"  Expr=" +150000;"  Bibref="09SUN" />
+  <Parameter Id="G(B2_BCC,FE,MN:VA;0)"  Expr=" -2759+1.237*T;"  Bibref="89HUA2" />
+  <Parameter Id="TC(B2_BCC,FE,MN:VA;0)"  Expr=" +123;"  Bibref="89HUA2" />
+  <Parameter Id="G(B2_BCC,FE,NI:VA;0)"  Expr=" -7500;"  Bibref="10CAC" />
+  <Parameter Id="G(B2_BCC,FE,NI:VA;1)"  Expr=" +8500-5*T;"  Bibref="10CAC" />
+  <Parameter Id="TC(B2_BCC,FE,NI:VA;0)"  Expr=" -1000;"  Bibref="10CAC" />
+  <Parameter Id="TC(B2_BCC,FE,NI:VA;1)"  Expr=" +1500;"  Bibref="10CAC" />
+  <Parameter Id="BMAG(B2_BCC,FE,NI:VA;0)"  Expr=" -0.5;"  Bibref="10CAC" />
+  <Parameter Id="BMAG(B2_BCC,FE,NI:VA;1)"  Expr=" +3.5;"  Bibref="10CAC" />
+  <Parameter Id="G(B2_BCC,FE,NI,V:VA;0)"  Expr=" +2000;"  Bibref="18CHO" />
+  <Parameter Id="G(B2_BCC,FE,V:VA;0)"  Expr=" -23674+0.465*T;"  Bibref="91HUA2" />
+  <Parameter Id="G(B2_BCC,FE,V:VA;1)"  Expr=" +8283;"  Bibref="91HUA2" />
+  <Parameter Id="TC(B2_BCC,FE,V:VA;0)"  Expr=" -110;"  Bibref="83AND" />
+  <Parameter Id="TC(B2_BCC,FE,V:VA;1)"  Expr=" +3075;"  Bibref="83AND" />
+  <Parameter Id="TC(B2_BCC,FE,V:VA;2)"  Expr=" +808;"  Bibref="83AND" />
+  <Parameter Id="TC(B2_BCC,FE,V:VA;3)"  Expr=" -2169;"  Bibref="83AND" />
+  <Parameter Id="BMAG(B2_BCC,FE,V:VA;0)"  Expr=" -2.26;"  Bibref="83AND" />
+  <Parameter Id="G(B2_BCC,MN,V:C;0)"  Expr=" -10000;"  Bibref="91FER2" />
+  <Parameter Id="G(B2_BCC,MN,VA:VA;0)"  Expr=" +150000;"  Bibref="09SUN" />
+  <Parameter Id="G(B2_BCC,MN,NI:VA;0)"  Expr=" -3508.42803-23.7885576*T;"  Bibref="10LIU" />
+  <Parameter Id="G(B2_BCC,MN,V:VA;0)"  Expr=" -10000;"  Bibref="91HUA3" />
+  <Parameter Id="G(B2_BCC,NI,VA:VA;0)"  Expr=" +GB2NIVA+LB2NIVA;"  Bibref="99DUP1" />
+  <Parameter Id="G(B2_BCC,NI,V:VA;0)"  Expr=" -39921;"  Bibref="19NOO" />
+  <Parameter Id="G(B2_BCC,NI,V:VA;1)"  Expr=" -11151;"  Bibref="19NOO" />
+  <Parameter Id="G(B2_BCC,V:C,VA;0)"  Expr=" -297868;"  Bibref="91HUA1" />
+  <Parameter Id="G(B2_BCC,V,VA:VA;0)"  Expr=" +150000;"  Bibref="09SUN" />
   <Parameter Id="G(BCC_A2,AL:C;0)"  Expr=" +GHSERAL+3*GHSERCC+100000+80*T;"  Bibref="08CON" />
-  <Parameter Id="G(BCC_A2,AL:VA;0)"  Expr=" +GHSERAL+10083-4.813*T;" HighT="2900"  Bibref="91DIN" />
   <Parameter Id="G(BCC_A2,CO:C;0)"  Expr=" +GHSERCO+3*GHSERCC+247373.5-33.574*T;"  Bibref="88FER1" />
-  <Parameter Id="G(BCC_A2,CO:VA;0)"  Expr=" +GHSERCO+2938-0.7138*T;"  Bibref="91DIN" />
-  <Parameter Id="TC(BCC_A2,CO:VA;0)"  Expr=" +1450;"  Bibref="91DIN" />
-  <Parameter Id="BMAG(BCC_A2,CO:VA;0)"  Expr=" +1.35;"  Bibref="91DIN" />
   <Parameter Id="G(BCC_A2,CR:C;0)"  Expr=" +GHSERCR+3*GHSERCC+416000;"  Bibref="87AND2" />
   <Parameter Id="TC(BCC_A2,CR:C;0)"  Expr=" -311.5;"  Bibref="90KAJ" />
   <Parameter Id="BMAG(BCC_A2,CR:C;0)"  Expr=" -.008;"  Bibref="90KAJ" />
-  <Parameter Id="G(BCC_A2,CR:VA;0)"  Expr=" +GHSERCR;"  Bibref="91DIN" />
-  <Parameter Id="TC(BCC_A2,CR:VA;0)"  Expr=" -311.5;"  Bibref="91DIN" />
-  <Parameter Id="BMAG(BCC_A2,CR:VA;0)"  Expr=" -.008;"  Bibref="91DIN" />
   <Parameter Id="G(BCC_A2,FE:C;0)"  Expr=" +GHSERFE+3*GHSERCC+322050+75.667*T;"  Bibref="85GUS" />
   <Parameter Id="TC(BCC_A2,FE:C;0)"  Expr=" +1043;"  Bibref="85GUS" />
   <Parameter Id="BMAG(BCC_A2,FE:C;0)"  Expr=" +2.22;"  Bibref="85GUS" />
-  <Parameter Id="G(BCC_A2,FE:VA;0)"  Expr=" +GHSERFE;"  Bibref="91DIN" />
-  <Parameter Id="TC(BCC_A2,FE:VA;0)"  Expr=" +1043;"  Bibref="91DIN" />
-  <Parameter Id="BMAG(BCC_A2,FE:VA;0)"  Expr=" +2.22;"  Bibref="91DIN" />
   <Parameter Id="G(BCC_A2,MN:C;0)"  Expr=" +GHSERMN+3*GHSERCC+10000+30*T;"  Bibref="90HUA1" />
-  <Parameter Id="G(BCC_A2,MN:VA;0)"  Expr=" +GBCCMN;" HighT="2000"  Bibref="91DIN" />
-  <Parameter Id="TC(BCC_A2,MN:VA;0)"  Expr=" -580;" HighT="2000"  Bibref="91DIN" />
-  <Parameter Id="BMAG(BCC_A2,MN:VA;0)"  Expr=" -0.27;" HighT="2000"  Bibref="91DIN" />
   <Parameter Id="G(BCC_A2,NI:C;0)"  Expr=" +GHSERNI+3*GHSERCC+270000;"  Bibref="06HAL2" />
   <Parameter Id="TC(BCC_A2,NI:C;0)"  Expr=" +575;"  Bibref="87GAB" />
   <Parameter Id="BMAG(BCC_A2,NI:C;0)"  Expr=" +0.85;"  Bibref="87GAB" />
-  <Parameter Id="G(BCC_A2,NI:VA;0)"  Expr=" +GHSERNI+8715.084-3.556*T;" HighT="3000"  Bibref="91DIN" />
-  <Parameter Id="TC(BCC_A2,NI:VA;0)"  Expr=" +575;" HighT="3000"  Bibref="91DIN" />
-  <Parameter Id="BMAG(BCC_A2,NI:VA;0)"  Expr=" +0.85;" HighT="3000"  Bibref="91DIN" />
   <Parameter Id="G(BCC_A2,V:C;0)"  Expr=" +GHSERVV+3*GHSERCC+108449;"  Bibref="91HUA1" />
-  <Parameter Id="G(BCC_A2,V:VA;0)"  Expr=" +GHSERVV;" HighT="4000"  Bibref="91DIN" />
   <Parameter Id="G(BCC_A2,VA:C;0)"  Expr=" +100000+30*T;"  Bibref="20HAL11" />
   <Parameter Id="G(BCC_A2,VA:VA;0)"  Expr=" +30*T;"  Bibref="14DIN" />
   <Parameter Id="G(BCC_A2,AL,CO:C;0)"  Expr=" -100000;"  Bibref="23HAL3" />
@@ -2012,167 +1121,167 @@
   <Parameter Id="G(FCC_4SL,*:*:*:AL,NI:VA;1)"  Expr=" +L1FALNI;"  Bibref="01DUP" />
   <Parameter Id="G(FCC_4SL,*:*:*:CO,NI:VA;1)"  Expr=" +L1FCONI;"  Bibref="18WAN" />
 <!-- Disordered fraction set factor:     1.0000 Sublattices:   2 -->
-  <Parameter Id="GD(FCC_4SL,AL:C;0)"  Expr=" +GHSERAL+GHSERCC+81000;"  Bibref="08CON" />
-  <Parameter Id="GD(FCC_4SL,AL:VA;0)"  Expr=" +GHSERAL;" HighT="2900"  Bibref="91DIN" />
-  <Parameter Id="GD(FCC_4SL,CO:C;0)"  Expr=" +GHSERCO+GHSERCC+50463.8-6.849*T;"  Bibref="89FER1" />
-  <Parameter Id="GD(FCC_4SL,CO:VA;0)"  Expr=" +GHSERCO+427.591-0.615248*T;"  Bibref="91DIN" />
-  <Parameter Id="TCD(FCC_4SL,CO:VA;0)"  Expr=" +1396;"  Bibref="91DIN" />
-  <Parameter Id="BMAGD(FCC_4SL,CO:VA;0)"  Expr=" +1.35;"  Bibref="91DIN" />
-  <Parameter Id="GD(FCC_4SL,CR:C;0)"  Expr=" +GHSERCR+GHSERCC+1200-1.94*T;"  Bibref="92LEE1" />
-  <Parameter Id="GD(FCC_4SL,CR:VA;0)"  Expr=" +GHSERCR+7284+0.163*T;"  Bibref="91DIN" />
-  <Parameter Id="TCD(FCC_4SL,CR:VA;0)"  Expr=" -1109;"  Bibref="91DIN" />
-  <Parameter Id="BMAGD(FCC_4SL,CR:VA;0)"  Expr=" -2.46;"  Bibref="91DIN" />
-  <Parameter Id="GD(FCC_4SL,FE:C;0)"  Expr=" +GFCCFE+GHSERCC+77207-15.877*T;"  Bibref="85GUS" />
-  <Parameter Id="GD(FCC_4SL,FE:VA;0)"  Expr=" +GFCCFE;"  Bibref="91DIN" />
-  <Parameter Id="TCD(FCC_4SL,FE:VA;0)"  Expr=" -201;"  Bibref="91DIN" />
-  <Parameter Id="BMAGD(FCC_4SL,FE:VA;0)"  Expr=" -2.1;"  Bibref="91DIN" />
-  <Parameter Id="GD(FCC_4SL,MN:C;0)"  Expr=" +GHSERMN+GHSERCC+24500;"  Bibref="18TAN1" />
-  <Parameter Id="GD(FCC_4SL,MN:VA;0)"  Expr=" +GFCCMN;" HighT="2000"  Bibref="91DIN" />
-  <Parameter Id="TCD(FCC_4SL,MN:VA;0)"  Expr=" -1620;" HighT="2000"  Bibref="91DIN" />
-  <Parameter Id="BMAGD(FCC_4SL,MN:VA;0)"  Expr=" -1.86;" HighT="2000"  Bibref="91DIN" />
-  <Parameter Id="GD(FCC_4SL,NI:C;0)"  Expr=" +GHSERNI+GHSERCC+62000-7.6*T;"  Bibref="92FER" />
-  <Parameter Id="TCD(FCC_4SL,NI:C;0)"  Expr=" +633;"  Bibref="87GAB" />
-  <Parameter Id="BMAGD(FCC_4SL,NI:C;0)"  Expr=" +0.52;"  Bibref="87GAB" />
-  <Parameter Id="GD(FCC_4SL,NI:VA;0)"  Expr=" +GHSERNI;" HighT="3000"  Bibref="91DIN" />
-  <Parameter Id="TCD(FCC_4SL,NI:VA;0)"  Expr=" +633;" HighT="3000"  Bibref="91DIN" />
-  <Parameter Id="BMAGD(FCC_4SL,NI:VA;0)"  Expr=" +0.52;" HighT="3000"  Bibref="91DIN" />
-  <Parameter Id="GD(FCC_4SL,V:C;0)"  Expr=" -117302+262.57*T-41.756*T*LN(+T)-.00557101*T**2+590546*T**(-1);"  Bibref="91HUA1" />
-  <Parameter Id="GD(FCC_4SL,V:VA;0)"  Expr=" +GHSERVV+7500+1.7*T;" HighT="4000"  Bibref="91DIN" />
-  <Parameter Id="GD(FCC_4SL,AL,CO:C;0)"  Expr=" -154000;"  Bibref="18ZHE3" />
-  <Parameter Id="GD(FCC_4SL,AL,FE:C;0)"  Expr=" -104000+80*T;"  Bibref="20HAL2" />
-  <Parameter Id="GD(FCC_4SL,AL,FE:C;1)"  Expr=" +100000-40*T;"  Bibref="20HAL2" />
-  <Parameter Id="GD(FCC_4SL,AL,FE,MN:C;0)"  Expr=" -180000+60*T;"  Bibref="18TAN2" />
-  <Parameter Id="GD(FCC_4SL,AL,MN:C;0)"  Expr=" -5000;"  Bibref="18TAN1" />
-  <Parameter Id="GD(FCC_4SL,AL,MN:C;1)"  Expr=" -15000;"  Bibref="18TAN1" />
-  <Parameter Id="GD(FCC_4SL,AL,MN:C,VA;0)"  Expr=" -55000;"  Bibref="18TAN1" />
-  <Parameter Id="GD(FCC_4SL,AL,MN:C,VA;1)"  Expr=" +50000;"  Bibref="18TAN1" />
-  <Parameter Id="GD(FCC_4SL,AL,MN:C,VA;2)"  Expr=" -20000;"  Bibref="18TAN1" />
-  <Parameter Id="GD(FCC_4SL,AL,NI:C,VA;0)"  Expr=" -489000+202*T;"  Bibref="20ZHE" />
-  <Parameter Id="GD(FCC_4SL,AL:C,VA;0)"  Expr=" -80000+8*T;"  Bibref="08CON" />
-  <Parameter Id="GD(FCC_4SL,AL,CO:VA;0)"  Expr=" -124200+17.24*T;"  Bibref="13STE" />
-  <Parameter Id="GD(FCC_4SL,AL,CO:VA;1)"  Expr=" +ZERO;"  Bibref="13STE" />
-  <Parameter Id="GD(FCC_4SL,AL,CO:VA;2)"  Expr=" +28740;"  Bibref="13STE" />
-  <Parameter Id="TCD(FCC_4SL,AL,CO:VA;0)"  Expr=" -1500;"  Bibref="13STE" />
-  <Parameter Id="TCD(FCC_4SL,AL,CO:VA;1)"  Expr=" +650;"  Bibref="13STE" />
-  <Parameter Id="BMAGD(FCC_4SL,AL,CO:VA;0)"  Expr=" +10;"  Bibref="13STE" />
-  <Parameter Id="GD(FCC_4SL,AL,CO,FE:VA;0)"  Expr=" +7925;"  Bibref="21NOO" />
-  <Parameter Id="GD(FCC_4SL,AL,CO,MN:VA;0)"  Expr=" +ZERO;"  Bibref="20NOO" />
-  <Parameter Id="GD(FCC_4SL,AL,CO,NI:VA;0)"  Expr=" +20560-9.113*T;"  Bibref="18WAN" />
-  <Parameter Id="GD(FCC_4SL,AL,CO,NI:VA;1)"  Expr=" -25000;"  Bibref="18WAN" />
-  <Parameter Id="GD(FCC_4SL,AL,CO,NI:VA;2)"  Expr=" -22000;"  Bibref="18WAN" />
-  <Parameter Id="GD(FCC_4SL,AL,CR:VA;0)"  Expr=" -53300+8.6*T;"  Bibref="20HAL5" />
-  <Parameter Id="GD(FCC_4SL,AL,CR,NI:VA;0)"  Expr=" +30300;"  Bibref="01DUP" />
-  <Parameter Id="GD(FCC_4SL,AL,FE:VA;0)"  Expr=" -100041+25.14*T;"  Bibref="09SUN" />
-  <Parameter Id="GD(FCC_4SL,AL,FE:VA;1)"  Expr=" +33159-11.86*T;"  Bibref="09SUN" />
-  <Parameter Id="GD(FCC_4SL,AL,FE:VA;2)"  Expr=" +32200-17*T;"  Bibref="09SUN" />
-  <Parameter Id="GD(FCC_4SL,AL,FE,MN:VA;0)"  Expr=" -22500;"  Bibref="18ZHE2" />
-  <Parameter Id="GD(FCC_4SL,AL,FE,MN:VA;1)"  Expr=" +ZERO;"  Bibref="18ZHE2" />
-  <Parameter Id="GD(FCC_4SL,AL,FE,MN:VA;2)"  Expr=" -31800;"  Bibref="18ZHE2" />
-  <Parameter Id="GD(FCC_4SL,AL,FE,NI:VA;0)"  Expr=" +ZERO;"  Bibref="20HAL7" />
-  <Parameter Id="GD(FCC_4SL,AL,MN:VA;0)"  Expr=" -69938+27.17958*T;"  Bibref="07DU" />
-  <Parameter Id="GD(FCC_4SL,AL,MN:VA;1)"  Expr=" +8248.9;"  Bibref="07DU" />
-  <Parameter Id="GD(FCC_4SL,AL,MN,NI:VA;0)"  Expr=" +ZERO;"  Bibref="20HAL8" />
-  <Parameter Id="GD(FCC_4SL,AL,MN,NI:VA;1)"  Expr=" +ZERO;"  Bibref="20HAL8" />
-  <Parameter Id="GD(FCC_4SL,AL,MN,NI:VA;2)"  Expr=" -10000;"  Bibref="20HAL8" />
-  <Parameter Id="GD(FCC_4SL,AL,NI:VA;0)"  Expr=" -162407.75+16.212965*T;"  Bibref="97ANS" />
-  <Parameter Id="GD(FCC_4SL,AL,NI:VA;1)"  Expr=" +73417.798-34.914168*T;"  Bibref="97ANS" />
-  <Parameter Id="GD(FCC_4SL,AL,NI:VA;2)"  Expr=" +33471.014-9.8373558*T;"  Bibref="97ANS" />
-  <Parameter Id="GD(FCC_4SL,AL,NI:VA;3)"  Expr=" -30758.01+10.25267*T;"  Bibref="97ANS" />
-  <Parameter Id="TCD(FCC_4SL,AL,NI:VA;0)"  Expr=" -1112;"  Bibref="01DUP" />
-  <Parameter Id="TCD(FCC_4SL,AL,NI:VA;1)"  Expr=" +1745;"  Bibref="01DUP" />
-  <Parameter Id="GD(FCC_4SL,AL,V:VA;0)"  Expr=" -64732;"  Bibref="15LIN" />
-  <Parameter Id="GD(FCC_4SL,CO,CR:C;0)"  Expr=" +ZERO;"  Bibref="14KAP" />
-  <Parameter Id="GD(FCC_4SL,CO,FE:C;0)"  Expr=" +313;"  Bibref="88FER1" />
-  <Parameter Id="GD(FCC_4SL,CO,FE:C;1)"  Expr=" -1063;"  Bibref="88FER1" />
-  <Parameter Id="GD(FCC_4SL,CO,FE,NI:C;0)"  Expr=" -61862;"  Bibref="88FER2" />
-  <Parameter Id="GD(FCC_4SL,CO,NI:C;0)"  Expr=" +18289;"  Bibref="88FER2" />
-  <Parameter Id="GD(FCC_4SL,CO,NI:C;1)"  Expr=" -9924;"  Bibref="88FER2" />
-  <Parameter Id="GD(FCC_4SL,CO,CR:VA;0)"  Expr=" +1500-9.592*T;"  Bibref="97KUS" />
-  <Parameter Id="TCD(FCC_4SL,CO,CR:VA;0)"  Expr=" -1795;"  Bibref="97KUS" />
-  <Parameter Id="GD(FCC_4SL,CO,CR,FE:VA;0)"  Expr=" +3000;"  Bibref="19CHO" />
-  <Parameter Id="GD(FCC_4SL,CO,CR,MN:VA;0)"  Expr=" -16000;"  Bibref="22DO" />
-  <Parameter Id="GD(FCC_4SL,CO,CR,NI:VA;0)"  Expr=" -40710+13.533*T;"  Bibref="16LIU" />
-  <Parameter Id="GD(FCC_4SL,CO,FE:VA;0)"  Expr=" -8968.75;"  Bibref="02OHN" />
-  <Parameter Id="GD(FCC_4SL,CO,FE:VA;2)"  Expr=" +3528.8;"  Bibref="02OHN" />
-  <Parameter Id="TCD(FCC_4SL,CO,FE:VA;0)"  Expr=" +283;"  Bibref="87FER2" />
-  <Parameter Id="TCD(FCC_4SL,CO,FE:VA;1)"  Expr=" +879;"  Bibref="87FER2" />
-  <Parameter Id="BMAGD(FCC_4SL,CO,FE:VA;0)"  Expr=" +8.407;"  Bibref="02OHN" />
-  <Parameter Id="BMAGD(FCC_4SL,CO,FE:VA;1)"  Expr=" -3.644;"  Bibref="02OHN" />
-  <Parameter Id="GD(FCC_4SL,CO,FE,V:VA;0)"  Expr=" +5000;"  Bibref="19CHO" />
-  <Parameter Id="GD(FCC_4SL,CO,MN:VA;0)"  Expr=" -23756;"  Bibref="89HUA1" />
-  <Parameter Id="GD(FCC_4SL,CO,MN:VA;1)"  Expr=" -2343;"  Bibref="89HUA1" />
-  <Parameter Id="TCD(FCC_4SL,CO,MN:VA;0)"  Expr=" -2685;"  Bibref="89HUA1" />
-  <Parameter Id="TCD(FCC_4SL,CO,MN:VA;1)"  Expr=" +3657;"  Bibref="89HUA1" />
-  <Parameter Id="BMAGD(FCC_4SL,CO,MN:VA;0)"  Expr=" -1.07;"  Bibref="89HUA1" />
-  <Parameter Id="GD(FCC_4SL,CO,NI:VA;0)"  Expr=" -800+1.2629*T;"  Bibref="87FER3" />
-  <Parameter Id="TCD(FCC_4SL,CO,NI:VA;0)"  Expr=" +411;"  Bibref="87FER3" />
-  <Parameter Id="TCD(FCC_4SL,CO,NI:VA;1)"  Expr=" -99;"  Bibref="87FER3" />
-  <Parameter Id="BMAGD(FCC_4SL,CO,NI:VA;0)"  Expr=" +1.046;"  Bibref="87FER3" />
-  <Parameter Id="BMAGD(FCC_4SL,CO,NI:VA;1)"  Expr=" +0.165;"  Bibref="87FER3" />
-  <Parameter Id="GD(FCC_4SL,CO,NI,V:VA;0)"  Expr=" -27500+10*T;"  Bibref="21HAL5" />
-  <Parameter Id="GD(FCC_4SL,CO,NI,V:VA;1)"  Expr=" -27500+10*T;"  Bibref="21HAL5" />
-  <Parameter Id="GD(FCC_4SL,CO,NI,V:VA;2)"  Expr=" -27500+10*T-30000;"  Bibref="21HAL5" />
-  <Parameter Id="GD(FCC_4SL,CO,V:VA;0)"  Expr=" -69595.2+11.2314*T;"  Bibref="20WAN" />
-  <Parameter Id="GD(FCC_4SL,CO,V:VA;1)"  Expr=" -41802.8+4.2329*T;"  Bibref="20WAN" />
-  <Parameter Id="GD(FCC_4SL,CO,V:VA;2)"  Expr=" +29000;"  Bibref="20WAN" />
-  <Parameter Id="TCD(FCC_4SL,CO,V:VA;0)"  Expr=" -2500;"  Bibref="20WAN" />
-  <Parameter Id="TCD(FCC_4SL,CO,V:VA;1)"  Expr=" -1000;"  Bibref="20WAN" />
-  <Parameter Id="GD(FCC_4SL,CR,FE:C;0)"  Expr=" -69534+3.2353*T;"  Bibref="14KHV" />
-  <Parameter Id="GD(FCC_4SL,CR,MN:C;0)"  Expr=" -19088+17.5423*T;"  Bibref="93LEE2" />
-  <Parameter Id="GD(FCC_4SL,CR,NI:C;0)"  Expr=" +ZERO;"  Bibref="06HAL3" />
-  <Parameter Id="TCD(FCC_4SL,CR,NI:C;0)"  Expr=" -3605;"  Bibref="NULL" />
-  <Parameter Id="BMAGD(FCC_4SL,CR,NI:C;0)"  Expr=" -1.91;"  Bibref="NULL" />
-  <Parameter Id="GD(FCC_4SL,CR,V:C;0)"  Expr=" +35698-50.0981*T;"  Bibref="92LEE2" />
-  <Parameter Id="GD(FCC_4SL,CR:C,VA;0)"  Expr=" -11977+6.8194*T;"  Bibref="92LEE1" />
-  <Parameter Id="GD(FCC_4SL,CR,FE:VA;0)"  Expr=" +10833-7.477*T;"  Bibref="87AND1" />
-  <Parameter Id="GD(FCC_4SL,CR,FE:VA;1)"  Expr=" +1410;"  Bibref="87AND1" />
-  <Parameter Id="GD(FCC_4SL,CR,FE,MN:VA;0)"  Expr=" +6715-10.3933*T;"  Bibref="93LEE3" />
-  <Parameter Id="GD(FCC_4SL,CR,FE,NI:VA;0)"  Expr=" +16580-9.7835*T;"  Bibref="93LEE1" />
-  <Parameter Id="GD(FCC_4SL,CR,MN:VA;0)"  Expr=" -19088+17.5423*T;"  Bibref="93LEE3" />
-  <Parameter Id="GD(FCC_4SL,CR,MN,NI:VA;0)"  Expr=" +50000;"  Bibref="22DO" />
-  <Parameter Id="GD(FCC_4SL,CR,NI:VA;0)"  Expr=" +4300-8.9*T;"  Bibref="16TAN" />
-  <Parameter Id="GD(FCC_4SL,CR,NI:VA;1)"  Expr=" +27000-13.8*T;"  Bibref="16TAN" />
-  <Parameter Id="TCD(FCC_4SL,CR,NI:VA;0)"  Expr=" -3605;"  Bibref="86DIN" />
-  <Parameter Id="BMAGD(FCC_4SL,CR,NI:VA;0)"  Expr=" -1.91;"  Bibref="86DIN" />
-  <Parameter Id="GD(FCC_4SL,CR,V:VA;0)"  Expr=" -9874-2.6964*T;"  Bibref="92LEE3" />
-  <Parameter Id="GD(FCC_4SL,CR,V:VA;1)"  Expr=" -1720-2.5237*T;"  Bibref="92LEE3" />
-  <Parameter Id="GD(FCC_4SL,FE,MN:C;0)"  Expr=" +20082-11.6312*T;"  Bibref="11DJU" />
-  <Parameter Id="GD(FCC_4SL,FE,NI:C;0)"  Expr=" +49074-7.32*T;"  Bibref="87GAB" />
-  <Parameter Id="GD(FCC_4SL,FE,NI:C;1)"  Expr=" -25800;"  Bibref="87GAB" />
-  <Parameter Id="GD(FCC_4SL,FE,V:C;0)"  Expr=" -7645.5-2.069*T;"  Bibref="91HUA2" />
-  <Parameter Id="GD(FCC_4SL,FE,V:C;1)"  Expr=" -7645.5-2.069*T;"  Bibref="91HUA2" />
-  <Parameter Id="GD(FCC_4SL,FE,V:C,VA;0)"  Expr=" -40000;"  Bibref="91HUA2" />
-  <Parameter Id="GD(FCC_4SL,FE:C,VA;0)"  Expr=" -34671;"  Bibref="85GUS" />
-  <Parameter Id="TCD(FCC_4SL,FE:C,VA;0)"  Expr=" +5000;"  Bibref="12HAL" />
-  <Parameter Id="GD(FCC_4SL,FE,MN:VA;0)"  Expr=" -7762+3.865*T;"  Bibref="89HUA2" />
-  <Parameter Id="GD(FCC_4SL,FE,MN:VA;1)"  Expr=" -259;"  Bibref="89HUA2" />
-  <Parameter Id="TCD(FCC_4SL,FE,MN:VA;0)"  Expr=" -2282;"  Bibref="89HUA2" />
-  <Parameter Id="TCD(FCC_4SL,FE,MN:VA;1)"  Expr=" -2068;"  Bibref="89HUA2" />
-  <Parameter Id="BMAGD(FCC_4SL,FE,MN:VA;0)"  Expr=" +1;"  Bibref="12HAL" />
-  <Parameter Id="GD(FCC_4SL,FE,NI:VA;0)"  Expr=" -15500+2.85*T;"  Bibref="10CAC" />
-  <Parameter Id="GD(FCC_4SL,FE,NI:VA;1)"  Expr=" +14000-4*T;"  Bibref="10CAC" />
-  <Parameter Id="GD(FCC_4SL,FE,NI:VA;2)"  Expr=" -3000;"  Bibref="10CAC" />
-  <Parameter Id="TCD(FCC_4SL,FE,NI:VA;0)"  Expr=" +2200;"  Bibref="10CAC" />
-  <Parameter Id="TCD(FCC_4SL,FE,NI:VA;1)"  Expr=" -700;"  Bibref="10CAC" />
-  <Parameter Id="TCD(FCC_4SL,FE,NI:VA;2)"  Expr=" -800;"  Bibref="10CAC" />
-  <Parameter Id="BMAGD(FCC_4SL,FE,NI:VA;0)"  Expr=" +10;"  Bibref="10CAC" />
-  <Parameter Id="BMAGD(FCC_4SL,FE,NI:VA;1)"  Expr=" +8;"  Bibref="10CAC" />
-  <Parameter Id="BMAGD(FCC_4SL,FE,NI:VA;2)"  Expr=" +4;"  Bibref="10CAC" />
-  <Parameter Id="GD(FCC_4SL,FE,V:VA;0)"  Expr=" -15291-4.138*T;"  Bibref="91HUA2" />
-  <Parameter Id="GD(FCC_4SL,MN:C,VA;0)"  Expr=" -70600+16.5*T;"  Bibref="18TAN1" />
-  <Parameter Id="GD(FCC_4SL,MN,NI:VA;0)"  Expr=" +LDF0MNNI;"  Bibref="10LIU" />
-  <Parameter Id="GD(FCC_4SL,MN,NI:VA;1)"  Expr=" +LDF1MNNI;"  Bibref="10LIU" />
-  <Parameter Id="TCD(FCC_4SL,MN,NI:VA;0)"  Expr=" -3171.2;"  Bibref="05GUO" />
-  <Parameter Id="TCD(FCC_4SL,MN,NI:VA;1)"  Expr=" -4317.73;"  Bibref="05GUO" />
-  <Parameter Id="BMAGD(FCC_4SL,MN,NI:VA;0)"  Expr=" -1.3947;"  Bibref="05GUO" />
-  <Parameter Id="BMAGD(FCC_4SL,MN,NI:VA;1)"  Expr=" +3.905;"  Bibref="05GUO" />
-  <Parameter Id="GD(FCC_4SL,MN,V:VA;0)"  Expr=" -11820;"  Bibref="91HUA3" />
-  <Parameter Id="GD(FCC_4SL,NI:C,VA;0)"  Expr=" -14902+7.5*T;"  Bibref="92LEE1" />
-  <Parameter Id="GD(FCC_4SL,NI,V:VA;0)"  Expr=" -67527+6.4*T;"  Bibref="19NOO" />
-  <Parameter Id="GD(FCC_4SL,NI,V:VA;1)"  Expr=" -52464+10*T;"  Bibref="19NOO" />
-  <Parameter Id="GD(FCC_4SL,NI,V:VA;2)"  Expr=" -4245;"  Bibref="19NOO" />
-  <Parameter Id="GD(FCC_4SL,V:C,VA;0)"  Expr=" -74811+10.201*T;"  Bibref="91HUA1" />
-  <Parameter Id="GD(FCC_4SL,V:C,VA;1)"  Expr=" -30394;"  Bibref="91HUA1" />
+  <Parameter Id="G(FCC_4SL,AL:C;0)"  Expr=" +GHSERAL+GHSERCC+81000;"  Bibref="08CON" />
+  <Parameter Id="G(FCC_4SL,AL:VA;0)"  Expr=" +GHSERAL;" HighT="2900"  Bibref="91DIN" />
+  <Parameter Id="G(FCC_4SL,CO:C;0)"  Expr=" +GHSERCO+GHSERCC+50463.8-6.849*T;"  Bibref="89FER1" />
+  <Parameter Id="G(FCC_4SL,CO:VA;0)"  Expr=" +GHSERCO+427.591-0.615248*T;"  Bibref="91DIN" />
+  <Parameter Id="TC(FCC_4SL,CO:VA;0)"  Expr=" +1396;"  Bibref="91DIN" />
+  <Parameter Id="BMAG(FCC_4SL,CO:VA;0)"  Expr=" +1.35;"  Bibref="91DIN" />
+  <Parameter Id="G(FCC_4SL,CR:C;0)"  Expr=" +GHSERCR+GHSERCC+1200-1.94*T;"  Bibref="92LEE1" />
+  <Parameter Id="G(FCC_4SL,CR:VA;0)"  Expr=" +GHSERCR+7284+0.163*T;"  Bibref="91DIN" />
+  <Parameter Id="TC(FCC_4SL,CR:VA;0)"  Expr=" -1109;"  Bibref="91DIN" />
+  <Parameter Id="BMAG(FCC_4SL,CR:VA;0)"  Expr=" -2.46;"  Bibref="91DIN" />
+  <Parameter Id="G(FCC_4SL,FE:C;0)"  Expr=" +GFCCFE+GHSERCC+77207-15.877*T;"  Bibref="85GUS" />
+  <Parameter Id="G(FCC_4SL,FE:VA;0)"  Expr=" +GFCCFE;"  Bibref="91DIN" />
+  <Parameter Id="TC(FCC_4SL,FE:VA;0)"  Expr=" -201;"  Bibref="91DIN" />
+  <Parameter Id="BMAG(FCC_4SL,FE:VA;0)"  Expr=" -2.1;"  Bibref="91DIN" />
+  <Parameter Id="G(FCC_4SL,MN:C;0)"  Expr=" +GHSERMN+GHSERCC+24500;"  Bibref="18TAN1" />
+  <Parameter Id="G(FCC_4SL,MN:VA;0)"  Expr=" +GFCCMN;" HighT="2000"  Bibref="91DIN" />
+  <Parameter Id="TC(FCC_4SL,MN:VA;0)"  Expr=" -1620;" HighT="2000"  Bibref="91DIN" />
+  <Parameter Id="BMAG(FCC_4SL,MN:VA;0)"  Expr=" -1.86;" HighT="2000"  Bibref="91DIN" />
+  <Parameter Id="G(FCC_4SL,NI:C;0)"  Expr=" +GHSERNI+GHSERCC+62000-7.6*T;"  Bibref="92FER" />
+  <Parameter Id="TC(FCC_4SL,NI:C;0)"  Expr=" +633;"  Bibref="87GAB" />
+  <Parameter Id="BMAG(FCC_4SL,NI:C;0)"  Expr=" +0.52;"  Bibref="87GAB" />
+  <Parameter Id="G(FCC_4SL,NI:VA;0)"  Expr=" +GHSERNI;" HighT="3000"  Bibref="91DIN" />
+  <Parameter Id="TC(FCC_4SL,NI:VA;0)"  Expr=" +633;" HighT="3000"  Bibref="91DIN" />
+  <Parameter Id="BMAG(FCC_4SL,NI:VA;0)"  Expr=" +0.52;" HighT="3000"  Bibref="91DIN" />
+  <Parameter Id="G(FCC_4SL,V:C;0)"  Expr=" -117302+262.57*T-41.756*T*LN(+T)-.00557101*T**2+590546*T**(-1);"  Bibref="91HUA1" />
+  <Parameter Id="G(FCC_4SL,V:VA;0)"  Expr=" +GHSERVV+7500+1.7*T;" HighT="4000"  Bibref="91DIN" />
+  <Parameter Id="G(FCC_4SL,AL,CO:C;0)"  Expr=" -154000;"  Bibref="18ZHE3" />
+  <Parameter Id="G(FCC_4SL,AL,FE:C;0)"  Expr=" -104000+80*T;"  Bibref="20HAL2" />
+  <Parameter Id="G(FCC_4SL,AL,FE:C;1)"  Expr=" +100000-40*T;"  Bibref="20HAL2" />
+  <Parameter Id="G(FCC_4SL,AL,FE,MN:C;0)"  Expr=" -180000+60*T;"  Bibref="18TAN2" />
+  <Parameter Id="G(FCC_4SL,AL,MN:C;0)"  Expr=" -5000;"  Bibref="18TAN1" />
+  <Parameter Id="G(FCC_4SL,AL,MN:C;1)"  Expr=" -15000;"  Bibref="18TAN1" />
+  <Parameter Id="G(FCC_4SL,AL,MN:C,VA;0)"  Expr=" -55000;"  Bibref="18TAN1" />
+  <Parameter Id="G(FCC_4SL,AL,MN:C,VA;1)"  Expr=" +50000;"  Bibref="18TAN1" />
+  <Parameter Id="G(FCC_4SL,AL,MN:C,VA;2)"  Expr=" -20000;"  Bibref="18TAN1" />
+  <Parameter Id="G(FCC_4SL,AL,NI:C,VA;0)"  Expr=" -489000+202*T;"  Bibref="20ZHE" />
+  <Parameter Id="G(FCC_4SL,AL:C,VA;0)"  Expr=" -80000+8*T;"  Bibref="08CON" />
+  <Parameter Id="G(FCC_4SL,AL,CO:VA;0)"  Expr=" -124200+17.24*T;"  Bibref="13STE" />
+  <Parameter Id="G(FCC_4SL,AL,CO:VA;1)"  Expr=" +ZERO;"  Bibref="13STE" />
+  <Parameter Id="G(FCC_4SL,AL,CO:VA;2)"  Expr=" +28740;"  Bibref="13STE" />
+  <Parameter Id="TC(FCC_4SL,AL,CO:VA;0)"  Expr=" -1500;"  Bibref="13STE" />
+  <Parameter Id="TC(FCC_4SL,AL,CO:VA;1)"  Expr=" +650;"  Bibref="13STE" />
+  <Parameter Id="BMAG(FCC_4SL,AL,CO:VA;0)"  Expr=" +10;"  Bibref="13STE" />
+  <Parameter Id="G(FCC_4SL,AL,CO,FE:VA;0)"  Expr=" +7925;"  Bibref="21NOO" />
+  <Parameter Id="G(FCC_4SL,AL,CO,MN:VA;0)"  Expr=" +ZERO;"  Bibref="20NOO" />
+  <Parameter Id="G(FCC_4SL,AL,CO,NI:VA;0)"  Expr=" +20560-9.113*T;"  Bibref="18WAN" />
+  <Parameter Id="G(FCC_4SL,AL,CO,NI:VA;1)"  Expr=" -25000;"  Bibref="18WAN" />
+  <Parameter Id="G(FCC_4SL,AL,CO,NI:VA;2)"  Expr=" -22000;"  Bibref="18WAN" />
+  <Parameter Id="G(FCC_4SL,AL,CR:VA;0)"  Expr=" -53300+8.6*T;"  Bibref="20HAL5" />
+  <Parameter Id="G(FCC_4SL,AL,CR,NI:VA;0)"  Expr=" +30300;"  Bibref="01DUP" />
+  <Parameter Id="G(FCC_4SL,AL,FE:VA;0)"  Expr=" -100041+25.14*T;"  Bibref="09SUN" />
+  <Parameter Id="G(FCC_4SL,AL,FE:VA;1)"  Expr=" +33159-11.86*T;"  Bibref="09SUN" />
+  <Parameter Id="G(FCC_4SL,AL,FE:VA;2)"  Expr=" +32200-17*T;"  Bibref="09SUN" />
+  <Parameter Id="G(FCC_4SL,AL,FE,MN:VA;0)"  Expr=" -22500;"  Bibref="18ZHE2" />
+  <Parameter Id="G(FCC_4SL,AL,FE,MN:VA;1)"  Expr=" +ZERO;"  Bibref="18ZHE2" />
+  <Parameter Id="G(FCC_4SL,AL,FE,MN:VA;2)"  Expr=" -31800;"  Bibref="18ZHE2" />
+  <Parameter Id="G(FCC_4SL,AL,FE,NI:VA;0)"  Expr=" +ZERO;"  Bibref="20HAL7" />
+  <Parameter Id="G(FCC_4SL,AL,MN:VA;0)"  Expr=" -69938+27.17958*T;"  Bibref="07DU" />
+  <Parameter Id="G(FCC_4SL,AL,MN:VA;1)"  Expr=" +8248.9;"  Bibref="07DU" />
+  <Parameter Id="G(FCC_4SL,AL,MN,NI:VA;0)"  Expr=" +ZERO;"  Bibref="20HAL8" />
+  <Parameter Id="G(FCC_4SL,AL,MN,NI:VA;1)"  Expr=" +ZERO;"  Bibref="20HAL8" />
+  <Parameter Id="G(FCC_4SL,AL,MN,NI:VA;2)"  Expr=" -10000;"  Bibref="20HAL8" />
+  <Parameter Id="G(FCC_4SL,AL,NI:VA;0)"  Expr=" -162407.75+16.212965*T;"  Bibref="97ANS" />
+  <Parameter Id="G(FCC_4SL,AL,NI:VA;1)"  Expr=" +73417.798-34.914168*T;"  Bibref="97ANS" />
+  <Parameter Id="G(FCC_4SL,AL,NI:VA;2)"  Expr=" +33471.014-9.8373558*T;"  Bibref="97ANS" />
+  <Parameter Id="G(FCC_4SL,AL,NI:VA;3)"  Expr=" -30758.01+10.25267*T;"  Bibref="97ANS" />
+  <Parameter Id="TC(FCC_4SL,AL,NI:VA;0)"  Expr=" -1112;"  Bibref="01DUP" />
+  <Parameter Id="TC(FCC_4SL,AL,NI:VA;1)"  Expr=" +1745;"  Bibref="01DUP" />
+  <Parameter Id="G(FCC_4SL,AL,V:VA;0)"  Expr=" -64732;"  Bibref="15LIN" />
+  <Parameter Id="G(FCC_4SL,CO,CR:C;0)"  Expr=" +ZERO;"  Bibref="14KAP" />
+  <Parameter Id="G(FCC_4SL,CO,FE:C;0)"  Expr=" +313;"  Bibref="88FER1" />
+  <Parameter Id="G(FCC_4SL,CO,FE:C;1)"  Expr=" -1063;"  Bibref="88FER1" />
+  <Parameter Id="G(FCC_4SL,CO,FE,NI:C;0)"  Expr=" -61862;"  Bibref="88FER2" />
+  <Parameter Id="G(FCC_4SL,CO,NI:C;0)"  Expr=" +18289;"  Bibref="88FER2" />
+  <Parameter Id="G(FCC_4SL,CO,NI:C;1)"  Expr=" -9924;"  Bibref="88FER2" />
+  <Parameter Id="G(FCC_4SL,CO,CR:VA;0)"  Expr=" +1500-9.592*T;"  Bibref="97KUS" />
+  <Parameter Id="TC(FCC_4SL,CO,CR:VA;0)"  Expr=" -1795;"  Bibref="97KUS" />
+  <Parameter Id="G(FCC_4SL,CO,CR,FE:VA;0)"  Expr=" +3000;"  Bibref="19CHO" />
+  <Parameter Id="G(FCC_4SL,CO,CR,MN:VA;0)"  Expr=" -16000;"  Bibref="22DO" />
+  <Parameter Id="G(FCC_4SL,CO,CR,NI:VA;0)"  Expr=" -40710+13.533*T;"  Bibref="16LIU" />
+  <Parameter Id="G(FCC_4SL,CO,FE:VA;0)"  Expr=" -8968.75;"  Bibref="02OHN" />
+  <Parameter Id="G(FCC_4SL,CO,FE:VA;2)"  Expr=" +3528.8;"  Bibref="02OHN" />
+  <Parameter Id="TC(FCC_4SL,CO,FE:VA;0)"  Expr=" +283;"  Bibref="87FER2" />
+  <Parameter Id="TC(FCC_4SL,CO,FE:VA;1)"  Expr=" +879;"  Bibref="87FER2" />
+  <Parameter Id="BMAG(FCC_4SL,CO,FE:VA;0)"  Expr=" +8.407;"  Bibref="02OHN" />
+  <Parameter Id="BMAG(FCC_4SL,CO,FE:VA;1)"  Expr=" -3.644;"  Bibref="02OHN" />
+  <Parameter Id="G(FCC_4SL,CO,FE,V:VA;0)"  Expr=" +5000;"  Bibref="19CHO" />
+  <Parameter Id="G(FCC_4SL,CO,MN:VA;0)"  Expr=" -23756;"  Bibref="89HUA1" />
+  <Parameter Id="G(FCC_4SL,CO,MN:VA;1)"  Expr=" -2343;"  Bibref="89HUA1" />
+  <Parameter Id="TC(FCC_4SL,CO,MN:VA;0)"  Expr=" -2685;"  Bibref="89HUA1" />
+  <Parameter Id="TC(FCC_4SL,CO,MN:VA;1)"  Expr=" +3657;"  Bibref="89HUA1" />
+  <Parameter Id="BMAG(FCC_4SL,CO,MN:VA;0)"  Expr=" -1.07;"  Bibref="89HUA1" />
+  <Parameter Id="G(FCC_4SL,CO,NI:VA;0)"  Expr=" -800+1.2629*T;"  Bibref="87FER3" />
+  <Parameter Id="TC(FCC_4SL,CO,NI:VA;0)"  Expr=" +411;"  Bibref="87FER3" />
+  <Parameter Id="TC(FCC_4SL,CO,NI:VA;1)"  Expr=" -99;"  Bibref="87FER3" />
+  <Parameter Id="BMAG(FCC_4SL,CO,NI:VA;0)"  Expr=" +1.046;"  Bibref="87FER3" />
+  <Parameter Id="BMAG(FCC_4SL,CO,NI:VA;1)"  Expr=" +0.165;"  Bibref="87FER3" />
+  <Parameter Id="G(FCC_4SL,CO,NI,V:VA;0)"  Expr=" -27500+10*T;"  Bibref="21HAL5" />
+  <Parameter Id="G(FCC_4SL,CO,NI,V:VA;1)"  Expr=" -27500+10*T;"  Bibref="21HAL5" />
+  <Parameter Id="G(FCC_4SL,CO,NI,V:VA;2)"  Expr=" -27500+10*T-30000;"  Bibref="21HAL5" />
+  <Parameter Id="G(FCC_4SL,CO,V:VA;0)"  Expr=" -69595.2+11.2314*T;"  Bibref="20WAN" />
+  <Parameter Id="G(FCC_4SL,CO,V:VA;1)"  Expr=" -41802.8+4.2329*T;"  Bibref="20WAN" />
+  <Parameter Id="G(FCC_4SL,CO,V:VA;2)"  Expr=" +29000;"  Bibref="20WAN" />
+  <Parameter Id="TC(FCC_4SL,CO,V:VA;0)"  Expr=" -2500;"  Bibref="20WAN" />
+  <Parameter Id="TC(FCC_4SL,CO,V:VA;1)"  Expr=" -1000;"  Bibref="20WAN" />
+  <Parameter Id="G(FCC_4SL,CR,FE:C;0)"  Expr=" -69534+3.2353*T;"  Bibref="14KHV" />
+  <Parameter Id="G(FCC_4SL,CR,MN:C;0)"  Expr=" -19088+17.5423*T;"  Bibref="93LEE2" />
+  <Parameter Id="G(FCC_4SL,CR,NI:C;0)"  Expr=" +ZERO;"  Bibref="06HAL3" />
+  <Parameter Id="TC(FCC_4SL,CR,NI:C;0)"  Expr=" -3605;"  Bibref="NULL" />
+  <Parameter Id="BMAG(FCC_4SL,CR,NI:C;0)"  Expr=" -1.91;"  Bibref="NULL" />
+  <Parameter Id="G(FCC_4SL,CR,V:C;0)"  Expr=" +35698-50.0981*T;"  Bibref="92LEE2" />
+  <Parameter Id="G(FCC_4SL,CR:C,VA;0)"  Expr=" -11977+6.8194*T;"  Bibref="92LEE1" />
+  <Parameter Id="G(FCC_4SL,CR,FE:VA;0)"  Expr=" +10833-7.477*T;"  Bibref="87AND1" />
+  <Parameter Id="G(FCC_4SL,CR,FE:VA;1)"  Expr=" +1410;"  Bibref="87AND1" />
+  <Parameter Id="G(FCC_4SL,CR,FE,MN:VA;0)"  Expr=" +6715-10.3933*T;"  Bibref="93LEE3" />
+  <Parameter Id="G(FCC_4SL,CR,FE,NI:VA;0)"  Expr=" +16580-9.7835*T;"  Bibref="93LEE1" />
+  <Parameter Id="G(FCC_4SL,CR,MN:VA;0)"  Expr=" -19088+17.5423*T;"  Bibref="93LEE3" />
+  <Parameter Id="G(FCC_4SL,CR,MN,NI:VA;0)"  Expr=" +50000;"  Bibref="22DO" />
+  <Parameter Id="G(FCC_4SL,CR,NI:VA;0)"  Expr=" +4300-8.9*T;"  Bibref="16TAN" />
+  <Parameter Id="G(FCC_4SL,CR,NI:VA;1)"  Expr=" +27000-13.8*T;"  Bibref="16TAN" />
+  <Parameter Id="TC(FCC_4SL,CR,NI:VA;0)"  Expr=" -3605;"  Bibref="86DIN" />
+  <Parameter Id="BMAG(FCC_4SL,CR,NI:VA;0)"  Expr=" -1.91;"  Bibref="86DIN" />
+  <Parameter Id="G(FCC_4SL,CR,V:VA;0)"  Expr=" -9874-2.6964*T;"  Bibref="92LEE3" />
+  <Parameter Id="G(FCC_4SL,CR,V:VA;1)"  Expr=" -1720-2.5237*T;"  Bibref="92LEE3" />
+  <Parameter Id="G(FCC_4SL,FE,MN:C;0)"  Expr=" +20082-11.6312*T;"  Bibref="11DJU" />
+  <Parameter Id="G(FCC_4SL,FE,NI:C;0)"  Expr=" +49074-7.32*T;"  Bibref="87GAB" />
+  <Parameter Id="G(FCC_4SL,FE,NI:C;1)"  Expr=" -25800;"  Bibref="87GAB" />
+  <Parameter Id="G(FCC_4SL,FE,V:C;0)"  Expr=" -7645.5-2.069*T;"  Bibref="91HUA2" />
+  <Parameter Id="G(FCC_4SL,FE,V:C;1)"  Expr=" -7645.5-2.069*T;"  Bibref="91HUA2" />
+  <Parameter Id="G(FCC_4SL,FE,V:C,VA;0)"  Expr=" -40000;"  Bibref="91HUA2" />
+  <Parameter Id="G(FCC_4SL,FE:C,VA;0)"  Expr=" -34671;"  Bibref="85GUS" />
+  <Parameter Id="TC(FCC_4SL,FE:C,VA;0)"  Expr=" +5000;"  Bibref="12HAL" />
+  <Parameter Id="G(FCC_4SL,FE,MN:VA;0)"  Expr=" -7762+3.865*T;"  Bibref="89HUA2" />
+  <Parameter Id="G(FCC_4SL,FE,MN:VA;1)"  Expr=" -259;"  Bibref="89HUA2" />
+  <Parameter Id="TC(FCC_4SL,FE,MN:VA;0)"  Expr=" -2282;"  Bibref="89HUA2" />
+  <Parameter Id="TC(FCC_4SL,FE,MN:VA;1)"  Expr=" -2068;"  Bibref="89HUA2" />
+  <Parameter Id="BMAG(FCC_4SL,FE,MN:VA;0)"  Expr=" +1;"  Bibref="12HAL" />
+  <Parameter Id="G(FCC_4SL,FE,NI:VA;0)"  Expr=" -15500+2.85*T;"  Bibref="10CAC" />
+  <Parameter Id="G(FCC_4SL,FE,NI:VA;1)"  Expr=" +14000-4*T;"  Bibref="10CAC" />
+  <Parameter Id="G(FCC_4SL,FE,NI:VA;2)"  Expr=" -3000;"  Bibref="10CAC" />
+  <Parameter Id="TC(FCC_4SL,FE,NI:VA;0)"  Expr=" +2200;"  Bibref="10CAC" />
+  <Parameter Id="TC(FCC_4SL,FE,NI:VA;1)"  Expr=" -700;"  Bibref="10CAC" />
+  <Parameter Id="TC(FCC_4SL,FE,NI:VA;2)"  Expr=" -800;"  Bibref="10CAC" />
+  <Parameter Id="BMAG(FCC_4SL,FE,NI:VA;0)"  Expr=" +10;"  Bibref="10CAC" />
+  <Parameter Id="BMAG(FCC_4SL,FE,NI:VA;1)"  Expr=" +8;"  Bibref="10CAC" />
+  <Parameter Id="BMAG(FCC_4SL,FE,NI:VA;2)"  Expr=" +4;"  Bibref="10CAC" />
+  <Parameter Id="G(FCC_4SL,FE,V:VA;0)"  Expr=" -15291-4.138*T;"  Bibref="91HUA2" />
+  <Parameter Id="G(FCC_4SL,MN:C,VA;0)"  Expr=" -70600+16.5*T;"  Bibref="18TAN1" />
+  <Parameter Id="G(FCC_4SL,MN,NI:VA;0)"  Expr=" +LDF0MNNI;"  Bibref="10LIU" />
+  <Parameter Id="G(FCC_4SL,MN,NI:VA;1)"  Expr=" +LDF1MNNI;"  Bibref="10LIU" />
+  <Parameter Id="TC(FCC_4SL,MN,NI:VA;0)"  Expr=" -3171.2;"  Bibref="05GUO" />
+  <Parameter Id="TC(FCC_4SL,MN,NI:VA;1)"  Expr=" -4317.73;"  Bibref="05GUO" />
+  <Parameter Id="BMAG(FCC_4SL,MN,NI:VA;0)"  Expr=" -1.3947;"  Bibref="05GUO" />
+  <Parameter Id="BMAG(FCC_4SL,MN,NI:VA;1)"  Expr=" +3.905;"  Bibref="05GUO" />
+  <Parameter Id="G(FCC_4SL,MN,V:VA;0)"  Expr=" -11820;"  Bibref="91HUA3" />
+  <Parameter Id="G(FCC_4SL,NI:C,VA;0)"  Expr=" -14902+7.5*T;"  Bibref="92LEE1" />
+  <Parameter Id="G(FCC_4SL,NI,V:VA;0)"  Expr=" -67527+6.4*T;"  Bibref="19NOO" />
+  <Parameter Id="G(FCC_4SL,NI,V:VA;1)"  Expr=" -52464+10*T;"  Bibref="19NOO" />
+  <Parameter Id="G(FCC_4SL,NI,V:VA;2)"  Expr=" -4245;"  Bibref="19NOO" />
+  <Parameter Id="G(FCC_4SL,V:C,VA;0)"  Expr=" -74811+10.201*T;"  Bibref="91HUA1" />
+  <Parameter Id="G(FCC_4SL,V:C,VA;1)"  Expr=" -30394;"  Bibref="91HUA1" />
   <Parameter Id="G(FCC_A1,AL:C;0)"  Expr=" +GHSERAL+GHSERCC+81000;"  Bibref="08CON" />
   <Parameter Id="G(FCC_A1,AL:VA;0)"  Expr=" +GHSERAL;" HighT="2900"  Bibref="91DIN" />
   <Parameter Id="G(FCC_A1,CO:C;0)"  Expr=" +GHSERCO+GHSERCC+50463.8-6.849*T;"  Bibref="89FER1" />
@@ -2950,151 +2059,4 @@
   <Parameter Id="G(V4ALC3,V:AL:C:VA;0)"  Expr=" +4*GHSERVV+GHSERAL+2*GHSERCC-300000;"  Bibref="13HAL" />
   <Parameter Id="G(V4ALC3,V:AL:C:C,VA;0)"  Expr=" -50000;"  Bibref="13HAL" />
   <Parameter Id="G(Y_AL13CO4,AL:CO;0)"  Expr=" +0.755*GHSERAL+0.245*GHSERCO-40080+7.5608*T;"  Bibref="19OST" />
-  <Bibliography>
-    <Bibitem Id="91DIN" Text="A.T. Dinsdale, Calphad, 15, 317-425(1991)." /> 
-    <Bibitem Id="99DUP1" Text="N. Dupin, I. Ansara, Z. Metallkd., 90, 76-85(1999); Al-Ni" /> 
-    <Bibitem Id="20NOO" Text="M. Noori, B. Hallstedt, Calphad, 71, 101793(2020); Al-Co, Al-Co-Mn" /> 
-    <Bibitem Id="17WAN2" Text="S. Wang, Z. Li, Z. Qin, S. Wang, X. Lu, C. Li, TMS 2017 Proc., 443-54(2017); Al-Cr, Al-Cr-Fe" /> 
-    <Bibitem Id="16WAN2" Text="Y. Wang, G. Cacciamani, J. Alloys Compd., 688, 422-35(2016); Al-Cr, Al-Ni, Al-Cr-Ni" /> 
-    <Bibitem Id="97ANS" Text="I. Ansara, N. Dupin, H.L. Lukas, B. Sundman, J. Alloys Compd., 247, 20-30(1997); Al-Ni" /> 
-    <Bibitem Id="18BER" Text="A. Berche, P. Junod, Comput. Mater. Sci., 149, 28-36(2018); Al-V" /> 
-    <Bibitem Id="09SUN" Text="B. Sundman, I. Ohnuma, N. Dupin, U.R. Kattner, S.G. Fries, Acta Mater., 57, 2896-2908(2009); Al-Fe" /> 
-    <Bibitem Id="18TAN1" Text="F. Tang, D. Bogdanovski, I. Bajenova, A.V. Khvan, R. Dronskowski, B. Hallstedt, Calphad, 60, 231-39(2018); Mn-C, Al-Mn-C" /> 
-    <Bibitem Id="20HAL11" Text="B. Hallstedt, reduced stability of bcc-C, 2020" /> 
-    <Bibitem Id="99DUP2" Text="N. Dupin, unpublished revision, 1999; Al-Co" /> 
-    <Bibitem Id="18ZHE3" Text="W. Zheng, S. He, J. Wang, H. Mao, J. Phase Equiib. Diffus., 39, 538-48(2018); Al-Co-C" /> 
-    <Bibitem Id="20WAN" Text="P. Wang, T. Hammerschmidt, U.R. Kattner, G.B. Olson, Calphad, 68, 101729(2020); Co-V" /> 
-    <Bibitem Id="17CUI2" Text="S. Cui, I.-H. Jung, Metall. Mater. Trans. A, 48A, 1383-1401(2017); Al-Mn, Al-Cr-Mn" /> 
-    <Bibitem Id="18TAN2" Text="F. Tang, PhD Thesis, 2018; Al-Fe-C, Al-Fe-Mn-C" /> 
-    <Bibitem Id="07DU" Text="Y. Du, J. Wang, J. Zhao, J.C. Schuster, F. Weitzer, R. Schmid-Fetzer, M. Ohno, H. Xu, Z.-K. Liu, S. Shang, W. Zhang, Int. J. Mater. Res., 98, 855-71(2007); Al-Mn" /> 
-    <Bibitem Id="18ZHE2" Text="W. Zheng, H. Mao, X.-G. Lu, Y. He, L. Li, M. Selleby, J. Agren, J. Alloys Compd., 742, 1046-57(2018); Al-Mn, Al-Fe-Mn" /> 
-    <Bibitem Id="20HAL6" Text="B. Hallstedt, various modifications, 2020; Al-Cr-Ni" /> 
-    <Bibitem Id="19NOO" Text="M. Noori, B. Hallstedt, Calphad, 65, 273-81(2019); Ni-V" /> 
-    <Bibitem Id="10LIU" Text="S.H. Liu, PhD Thesis, CSU, 2010; Mn-Ni" /> 
-    <Bibitem Id="06SLU" Text="M.H.F. Sluiter, Calphad, 30, 357-66(2006); Endmember values" /> 
-    <Bibitem Id="14DIN" Text="A.T. Dinsdale, A.V. Khvan, A. Watson, Mater. Sci. Technol., 30, 1715-18(2014); Va" /> 
-    <Bibitem Id="95GRO" Text="J. Groebner, H.L. Lukas, F. Aldinger, J. Alloys Compd., 220, 8-14(1995); Al-C" /> 
-    <Bibitem Id="08CON" Text="D. Connetable, J. Lacaze, P. Maugis, B. Sundman, Calphad, 32, 361-70(2008); Al-Fe, Al-Fe-C" /> 
-    <Bibitem Id="20HAL2" Text="B. Hallstedt, various modifications, 2020; Al-Fe-C" /> 
-    <Bibitem Id="06HAL1" Text="B. Hallstedt, D. Music, Z. Sun, Int. J. Mater. Res., 97, 539-42(2006); Al-Cr-C" /> 
-    <Bibitem Id="17WAN1" Text="P. Wang, W. Xiong, U.R. Kattner, C.E. Campbell, E.A. Lass, O.Y. Kontsevoi, G.B. Olson, Calphad, 59, 112-30(2017); Al-Co" /> 
-    <Bibitem Id="13STE" Text="F. Stein, C. He, N. Dupin, Intermetallics, 39, 58-68(2013); Al-Co" /> 
-    <Bibitem Id="16LIU" Text="X.L. Liu, G. Lindwall, T. Gheno, Z.-K. Liu, Calphad, 52, 125-142(2016); Al-Co, Al-Co-Cr, Al-Co-Ni, Co-Cr-Ni Al-Co-Cr-Ni" /> 
-    <Bibitem Id="21NOO" Text="M. Noori, B. Hallstedt, Calphad, 74, 102288(2021); Al-Co-Fe" /> 
-    <Bibitem Id="19OST" Text="M. Ostrowska, G. Cacciamani, J. Alloys Compd., 794, 553-568(2019); Al-Co, Al-Co-Fe" /> 
-    <Bibitem Id="18WAN" Text="Y. Wang, G. Cacciamani, Calphad, 61, 198-210(2018); Al-Co, Al-Co-Ni" /> 
-    <Bibitem Id="20HAL4" Text="B. Hallstedt, various adjustments, 2020; Al-Co-Ni" /> 
-    <Bibitem Id="20HAL5" Text="B. Hallstedt, various modifications, 2020; Al-Cr, Al-Cr-Mn" /> 
-    <Bibitem Id="01DUP" Text="N. Dupin, I. Ansara, B. Sundman, Calphad, 25, 279-98(2001); Al-Cr-Ni" /> 
-    <Bibitem Id="08LIA" Text="Y. Liang, C. Guo, C. Li, Z. Du, J. Alloys Compd., 460, 314-19(2008); Al-Cr" /> 
-    <Bibitem Id="SAME" Text="Same or similar interaction as in the corresponding stable phase" /> 
-    <Bibitem Id="LIN" Text="Linear combination of lattice stabilities" /> 
-    <Bibitem Id="17ZHE" Text="W. Zheng, S. He, M. Selleby, Y. He, L. Li, X.-G. Lu, J. Agren, Calphad, 58, 34-49(2017); Al-Fe" /> 
-    <Bibitem Id="93SEI" Text="M. Seiersten, COST 507, Final report round 2, 1998; Al-Fe" /> 
-    <Bibitem Id="13LIN" Text="B.B. Lindahl, M. Selleby, Calphad, 43, 86-93(2013); Al-Fe-Mn" /> 
-    <Bibitem Id="20HAL9" Text="B. Hallstedt, various modifications, 2020; Al-Cr-Fe" /> 
-    <Bibitem Id="97JAN" Text="A. Jansson, PhD Thesis, Stockholm 1997; Al-Fe-Mn" /> 
-    <Bibitem Id="09ZHA2" Text="L. Zhang, J. Wang, Y. Du, R. Hu, P. Nash, X.-G. Lu, C. Jiang, Acta Mater., 57, 5324-41(2009); Al-Fe-Ni" /> 
-    <Bibitem Id="12DJU" Text="D. Djurovic, fcc and bcc ordering, modified Al11Mn4-ht, 2012; Al-Mn" /> 
-    <Bibitem Id="20HAL8" Text="B. Hallstedt, various modifications, 2020; Al-Mn-Ni" /> 
-    <Bibitem Id="19WAL1" Text="A. Walnsch, M.J. Kriegel, M. Rudolph, M. Motylenko, O. Fabrichnaya, A. Leineweber, Calphad, 64, 78-89(2019); Al-Mn-Ni" /> 
-    <Bibitem Id="19WAN" Text="W. Wang, H.-L. Chen, H. Larsson, H. Mao, Calphad, 65, 346-69(2019); Al-Ni" /> 
-    <Bibitem Id="95DUP" Text="N. Dupin, Thesis, LTPCM, France, 1995; Al-Cr-Ni, Al-Ni-Ti" /> 
-    <Bibitem Id="17HAL1" Text="B. Hallstedt, estimated kappa parameter, 2017; Al-Ni-C" /> 
-    <Bibitem Id="15LIN" Text="B. Lindahl, X.L. Liu, Z.-K. Liu, M. Selleby, Calphad, 51, 75-88(2015); Al-V" /> 
-    <Bibitem Id="21HAL1" Text="B. Hallstedt, modified Al8V5, 2021; Al-V" /> 
-    <Bibitem Id="87FER1" Text="A. Fernandez Guillermet, Z. Metallkd., 78, 700-709(1987); Co-C" /> 
-    <Bibitem Id="89FER1" Text="A. Fernandez Guillermet, Metall. Trans. A, 20A, 935-56(1989); Co-W-C" /> 
-    <Bibitem Id="88FER1" Text="A. Fernandez Guillermet, Z. Metallkd., 79, 317-29(1988); Co-Fe-C" /> 
-    <Bibitem Id="97KUS" Text="A. Kusoffsky, B. Jansson, Calphad, 21, 321-33(1997); Co-Cr, Co-Cr-C" /> 
-    <Bibitem Id="06MAR" Text="A. Markstrom, S. Norgren, K. Frisk, B. Jansson, T. Sterneland, Int. J. Mater. Res., 97, 1243-50(2006); Co-Cr-C" /> 
-    <Bibitem Id="14KAP" Text="B. Kaplan, A. Markstrom, A. Blomqvist, S. Norgren, M. Selleby, Calphad, 46, 226-36(2014); Co-Cr-C" /> 
-    <Bibitem Id="00WES" Text="S. Westman, unpublished, 2000; Co-Cr, Cr-Fe, Fe-V, Mn-V" /> 
-    <Bibitem Id="LIN+" Text="Linear combination of lattice stabilities + 5 kJ/mol-atoms" /> 
-    <Bibitem Id="19CHO" Text="W.-M. Choi, Y.H. Jo, D.G. Kim, S.S. Sohn, S. Lee, B.-J. Lee, Calphad, 66, 101624(2019); Co-Cr-Fe, Co-Cr-V, Co-Fe-V, Co-Ni-V" /> 
-    <Bibitem Id="02OHN" Text="I. Ohnuma, H. Enoki, O. Ikeda, R. Kainuma, H. Ohtani, B. Sundman, K. Ishida, Acta Mater., 50, 379-93(2002); Co-Fe" /> 
-    <Bibitem Id="87FER2" Text="A. Fernandez Guillermet, High Temp. High Press., 19, 477-99(1987); Co-Fe" /> 
-    <Bibitem Id="90HUA4" Text="W. Huang, Calphad, 14, 11-22(1990); Co-Fe-Mn" /> 
-    <Bibitem Id="89HUA1" Text="W. Huang, Calphad, 13, 231-42(1989); Co-Mn" /> 
-    <Bibitem Id="87FER3" Text="A. Fernandez Guillermet, Z. Metallkd., 78, 639-47(1987); Co-Ni" /> 
-    <Bibitem Id="89FER2" Text="A. Fernandez Guillermet, Calphad, 13, 1-22(1989); Co-Fe-Ni" /> 
-    <Bibitem Id="21HAL2" Text="B. Hallstedt, modified sigma | added B2, 2021; Co-V" /> 
-    <Bibitem Id="12KHV1" Text="A.V. Khvan, B. Hallstedt, K. Chang, Calphad, 39, 54-61(2012); Cr-C" /> 
-    <Bibitem Id="87AND2" Text="J.-O. Andersson, Calphad, 11, 271-76(1987); Cr-C" /> 
-    <Bibitem Id="90KAJ" Text="M. Kajihara, M. Hillert, Metall. Trans. A, 21A, 2777-87(1990); Cr-C" /> 
-    <Bibitem Id="92LEE1" Text="B.-J. Lee, Calphad, 16, 121-49(1992); Cr-C, Ni-C, Cr-Fe-C, Cr-Ni-C" /> 
-    <Bibitem Id="92FER" Text="A. Fernandez-Guillermet, G. Grimvall, J. Phys. Chem. Solids, 53, 105-25(1992); Cr-C, Ni-C" /> 
-    <Bibitem Id="88GUS5" Text="P. Gustafson, Metall. Trans. A, 19A, 2547-54(1988); Cr-Fe-W-C" /> 
-    <Bibitem Id="93LEE2" Text="B.-J. Lee, Metall. Trans. A, 24A, 1017-25 (1993); Cr-Mn-C, Cr-Fe-Mn-C" /> 
-    <Bibitem Id="93LEE1" Text="B.-J. Lee, Calphad, 17, 251-68(1993); Cr-Fe, Fe-Ni" /> 
-    <Bibitem Id="87AND1" Text="J.-O. Andersson, B. Sundman, Calphad, 11, 83-92(1987); Cr-Fe" /> 
-    <Bibitem Id="90FRI1" Text="K. Frisk, Metall. Trans. A, 21A, 2477-88(1990); Cr-Fe-N" /> 
-    <Bibitem Id="93LEE3" Text="B.-J. Lee, Metall. Trans. A, 24, 1919-33(1993); Cr-Mn" /> 
-    <Bibitem Id="16HAL6" Text="B. Hallstedt, refitted sigma parameters, 2016; Cr-Mn, Cr-Fe-Mn" /> 
-    <Bibitem Id="93FRI" Text="K. Frisk, Calphad, 17, 335-49(1993); Cr-Mn-N" /> 
-    <Bibitem Id="16TAN" Text="F. Tang, B. Hallstedt, Calphad, 55, 260-69(2016); Cr-Ni" /> 
-    <Bibitem Id="86DIN" Text="A.T. Dinsdale, T.G. Chart, NPL, unpublished, 1986; Cr-Ni" /> 
-    <Bibitem Id="16HAL4" Text="B. Hallstedt, Cr-Ni sigma phase parameter adjusted, 2016; Cr-Fe-Ni" /> 
-    <Bibitem Id="88GUS6" Text="P. Gustafson, Calphad, 11, 277-92(1987); Cr-Ni-W" /> 
-    <Bibitem Id="92LEE3" Text="B.-J. Lee, Z. Metallkd., 83, 292-99(1992); Cr-V, Cr-Fe-V" /> 
-    <Bibitem Id="92LEE2" Text="B.-J. Lee, J. Phase Equilib., 13, 349-64(1992); Cr-V-C, Cr-Fe-V-C" /> 
-    <Bibitem Id="21HAL6" Text="B. Hallstedt, unpublished, 2021; Cr-Ni-V" /> 
-    <Bibitem Id="85GUS" Text="P. Gustafson, Scand. J. Metall., 14, 259-67(1985); Fe-C" /> 
-    <Bibitem Id="12HAL" Text="B. Hallstedt, adjusted magnetic parameters, 2012; Fe-Mn, Fe-Mn-C" /> 
-    <Bibitem Id="10HAL" Text="B. Hallstedt, D. Djurovic, J. von Appen, R. Dronskowski, A. Dick, F. Koermann, T. Hickel, J. Neugebauer, Calphad, 34, 129-33(2010); Fe-C" /> 
-    <Bibitem Id="88AND2" Text="J.-O. Andersson, Calphad, 12, 9-23(1988); Fe-Mo-C" /> 
-    <Bibitem Id="90HUA2" Text="W. Huang, Metall. Trans. A, 21A, 2115-23(1990); Fe-Mn-C" /> 
-    <Bibitem Id="11DJU" Text="D. Djurovic, B. Hallstedt, J. von Appen, R. Dronskowski, Calphad, 35, 479-91(2011); Fe-Mn, Fe-Mn-C" /> 
-    <Bibitem Id="91HUA4" Text="W. Huang, Metall. Trans. A, 22A, 1911-20(1991); Fe-Mn-V-C" /> 
-    <Bibitem Id="89HUA2" Text="W. Huang, Calphad, 13, 243-52(1989); Fe-Mn" /> 
-    <Bibitem Id="08HAL" Text="B. Hallstedt, fcc ordering parameters, 2008; Fe-Mn" /> 
-    <Bibitem Id="10CAC" Text="G. Cacciamani, A. Dinsdale, M. Palumbo, A. Pasturel, Intermetallics, 18, 1148-62(2010); Fe-Ni" /> 
-    <Bibitem Id="09ZHA1" Text="L. Zhang, Y. Du, H. Xu, S. Liu, Y. Liu, F. Zheng, N. Dupin, H. Zhou, C. Tang, Int. J. Mater. Res., 100, 160-75(2009); Fe-Mn-Ni" /> 
-    <Bibitem Id="91HUA2" Text="W. Huang, Z. Metallkd., 82, 391-401(1991); Fe-V, Fe-V-C" /> 
-    <Bibitem Id="83AND" Text="J.-O. Andersson, Calphad, 7, 305-15(1983); Fe-V" /> 
-    <Bibitem Id="02SUN" Text="B. Sundman, modified sigma parameters, 2002; Fe-V, Mn-V" /> 
-    <Bibitem Id="91HUA3" Text="W. Huang, Calphad, 15, 195-208(1991); Mn-V, Fe-Mn-V" /> 
-    <Bibitem Id="10DJU" Text="D. Djurovic, B. Hallstedt, J. von Appen, R. Dronskowski, Calphad, 34, 279-85(2010); Mn-C" /> 
-    <Bibitem Id="90HUA1" Text="W. Huang, Scand. J. Metall., 19, 26-32(1990); Mn-C," /> 
-    <Bibitem Id="91FER2" Text="A. Fernandez Guillermet, W. Huang, Int. J. Thermophys., 12, 1077-1102(1991); Mn-V-C" /> 
-    <Bibitem Id="05GUO" Text="C. Guo, Z. Du, Intermetallics, 13, 525-34(2005); Mn-Ni" /> 
-    <Bibitem Id="06HAL2" Text="B. Hallstedt, unpublished, 2006; Ni-C" /> 
-    <Bibitem Id="87GAB" Text="A. Gabriel, P. Gustafson, I. Ansara, Calphad, 11, 203-18(1987); Ni-C, Fe-Ni-C" /> 
-    <Bibitem Id="88FER2" Text="A. Fernandez Guillermet, Z. Metallkd., 79, 524-36(1988); Co-Ni-C, Co-Fe-Ni-C" /> 
-    <Bibitem Id="06HAL3" Text="B. Hallstedt, unpublished, 2006; Cr-Ni-C" /> 
-    <Bibitem Id="20HUA" Text="L. Huang, Y. Pan, J. Zhang, Y. Du, F. Luo, P. Zhou, S. Zhang, Calphad, 71, 102199(2020); V-C" /> 
-    <Bibitem Id="91HUA1" Text="W. Huang, Z. Metallkd., 82, 174-81(1991); V-C" /> 
-    <Bibitem Id="23HAL3" Text="B. Hallstedt, modified bcc interaction, 2023; Al-Co-C" /> 
-    <Bibitem Id="15LIU" Text="X.L. Liu, T. Gheno, B.B. Lindahl, G. Lindwall, B. Gleeson, Z.-K. Liu, PLoS ONE, 10, e0121386(2015); Al-Co, Al-Co-Cr" /> 
-    <Bibitem Id="16WAN1" Text="Y. Wang, P. Zhou, Y. Peng, Y. Du, B. Sundman, J. Long, T. Xu, Z. Zhang, J. Alloys Compd., 687, 855-66(2016); Al-Co-Ni" /> 
-    <Bibitem Id="23HAL4" Text="B. Hallstedt, modified G(Cr2AlC), 2023; Al-Cr-C" /> 
-    <Bibitem Id="10CHI" Text="K.-G. Chin, H.-J. Lee, J.-H. Kwak, J.-Y. Kang, B.-J. Lee, J. Alloys Compd., 505, 217-23(2010); Al-Mn-C, Al-Fe-Mn-C" /> 
-    <Bibitem Id="20HAL12" Text="B. Hallstedt, adjusted M_Al13M4 interaction, 2020; Al-Fe-Mn" /> 
-    <Bibitem Id="20HAL7" Text="B. Hallstedt, various modifications, 2020; Al-Fe-Ni" /> 
-    <Bibitem Id="14WAN" Text="Y. Wang, C. Chen, Z. Zhang, J. Long, T. Xu, X. Liu, L. Zhang, Y. Peng, P. Zhou, Y. Du, Int. J. Refract. Met. Hard Mater., 46, 43-51(2014); Al-Ni-C" /> 
-    <Bibitem Id="20ZHE" Text="W. Zheng, Y. He, X. Liu, J. Iron Steel Res. Int., 27, 1190-99(2020); Al-Cr-C, Al-Ni-C" /> 
-    <Bibitem Id="04OHT" Text="H. Ohtani, M. Yamano, M. Hasebe, Calphad, 28, 177-90(2004); Al-Ni-C" /> 
-    <Bibitem Id="13HAL" Text="B. Hallstedt, Calphad, 41, 156-59(2013); Al-V-C" /> 
-    <Bibitem Id="17HAL3" Text="B. Hallstedt, destabilising cementite in Co-Cr-C, 2017" /> 
-    <Bibitem Id="20HAL1" Text="B. Hallstedt, modified sigma parameters, 2020; Co-Cr-Fe, Co-Cr-Mn" /> 
-    <Bibitem Id="22DO" Text="H.-S. Do, W.-M. Choi, B.-J. Lee, J. Mater. Sci, 57, 1373-89(2022); Co-Cr-Mn, Cr-Mn-Ni" /> 
-    <Bibitem Id="23HAL1" Text="B. Hallstedt, modified sigma parameters, 2023; Co-Cr-Mn" /> 
-    <Bibitem Id="16HAL8" Text="B. Hallstedt, Co-Cr-Ni sigma and hcp interactions, 2016; Co-Cr-Ni" /> 
-    <Bibitem Id="21HAL3" Text="B. Hallstedt, unpublished, 2021; Co-Cr-V" /> 
-    <Bibitem Id="21HAL4" Text="B. Hallstedt, unpublished, 2021; Co-Fe-V" /> 
-    <Bibitem Id="20HAL10" Text="B. Hallstedt, fcc order parameter, 2020; Co-Mn-Ni, Cr-Mn-Ni, Fe-Mn-Ni" /> 
-    <Bibitem Id="21HAL5" Text="B. Hallstedt, unpublished, 2021; Co-Ni-V" /> 
-    <Bibitem Id="14KHV" Text="A.V. Khvan, B. Hallstedt, C. Broeckmann, Calphad, 46, 24-33(2014); Cr-Fe-C" /> 
-    <Bibitem Id="88AND3" Text="J.-O. Andersson, Metall. Trans A, 19A, 627-36(1988); Cr-Fe-C" /> 
-    <Bibitem Id="23HAL2" Text="B. Hallstedt, sigma and cub-A13 parameters, 2023; Cr-Fe-Mn" /> 
-    <Bibitem Id="93QIU" Text="C. Qiu, Metall. Trans. A, 24A, 2393-2409(1993); Cr-Fe-Mn-N" /> 
-    <Bibitem Id="21HAL8" Text="B. Hallstedt, added ternary sigma interaction, 2021; Cr-Fe-Ni" /> 
-    <Bibitem Id="NULL" Text="Unknown source" /> 
-    <Bibitem Id="18CHO" Text="W.-M. Choi, Y.H. Jo, D.G. Kim, S.S. Sohn, S. Lee, B.-J. Lee, J. Phase Equilib. Diffus., 39, 694-701(2018); Cr-Ni-V, Fe-Ni-V" /> 
-    <Bibitem Id="17HAL14" Text="B. Hallstedt, modified liquid interaction, 2017; Cr-V-C" /> 
-    <Bibitem Id="91LEE" Text="B.-J. Lee, unpublished, 1991; Cr-Fe-Ni-C" /> 
-    <Bibitem Id="21HAL7" Text="B. Hallstedt, unpublished, 2021; Fe-Ni-V" /> 
-    <Bibitem Id="23HAL5" Text="B. Hallstedt, Ni4V2C added, 2023; Ni-V-C" /> 
-    <Bibitem Id="Default" Text="U.N. Known" /> 
-  </Bibliography>
-</XTDB>
+</Appendix>

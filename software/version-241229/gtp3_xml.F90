@@ -65,7 +65,7 @@
         'Constituents      ',&
         'CrystalStructure  ',&
         'AmendPhase        ',& ! can have models as magnetic etc
-        '                  ',& ! moved permutation to model attribute
+        'Appendix          ',& ! Surround tags in an AppendXTDB file 
         'DisorderedPart    ',& ! as TC DISORDERED_PART and/or NEVER model
         '                  ',& ! chanded Disordered_3Part to attribute
 ! 16 above end of phase tags------------------
@@ -102,99 +102,98 @@
   character (len=9), dimension(nxtdbatt), parameter :: xtdbatt=&
           ['Version  ','Software ','Date     ','Signature']
 !...........
-!  Defaults
+!  Defaults 2
   integer, parameter :: ndefatt=9
   character (len=18), dimension(ndefatt), parameter :: defatt=&
        ['LowT             ','HighT            ','Bibref           ',&
-        'Elements         ','DefaultModels    ','                 ',&
+        'Elements         ','DefaultModels    ','EEC              ',&
         '                 ','                 ','                 ']
 !.............
-! DatabaseInfo
-  integer, parameter :: ninfoatt=2
+! DatabaseInfo 3
+  integer, parameter :: ninfoatt=3
   character (len=16), dimension(ninfoatt), parameter :: infoatt=&
-       ['SoftwareInfo    ','Date            ']
+       ['Software        ','Date            ','Signature       ']
 !        123456789.123456...123456789.123456---123456789.123456
 !...........
-! AppendXTDB
+! AppendXTDB 4
   integer, parameter :: nappatt=5,lenappatt=16
   character (len=lenappatt), dimension(nappatt), parameter :: appatt=&
        ['Models          ','Parameters      ','TPfuns          ',&
         'Bibligraphy     ','Miscellaneous   '] 
 !        123456789.123456...123456789.123456---123456789.123456
 !............
-! Element
+! Element 5
   integer, parameter :: nelatt=5
   character (len=8), dimension(nelatt), parameter :: elatt=&
        ['Id      ','Refstate','Mass    ','H298    ','S298    ']
 !        12345678...12345678---12345678---12345678---12345678
 !................
-! Species
+! Species 6
   integer, parameter :: nspatt=4
   character (len=16), dimension(nspatt), parameter :: spatt=&
        ['Id              ','Stoichiometry   ','MQMQA           ',&
         'UNIQUAC         ']
 !................
-! Tpfun attributes
+! Tpfun attributes 7
   integer, parameter :: ntpatt=4
   character (len=8),dimension(ntpatt), parameter :: tpatt=&
        ['Id      ','LowT    ','Expr    ','HighT   ']
 !        12345678...12345678---12345678---12345678
-! Trange attributes
+! Trange attributes 8
   integer, parameter :: ntratt=2
   character (len=8),dimension(ntratt), parameter :: tratt=&
        ['Expr    ','HighT   ']
 !.............
-! Phase attributes
+! Phase attributes 9
   integer, parameter :: nphatt=3
   character (len=16),dimension(nphatt), parameter :: phatt=&
        ['Id              ','Configuration   ','State           ']
 !        123456789.123456...123456789.123456---123456789.123456
 !.............
-! Sublattice attributes (nested in the Phase element)
+! Sublattice attributes (nested in the Phase element) 10
   integer, parameter :: nsubatt=3     
   character (len=16),dimension(nsubatt), parameter :: subatt=&
        ['NumberOf        ','Multiplicities  ','WyckoffPosition ']
 !        123456789.123456...123456789.123456---123456789.123456
 !.............
-! Constituents attributes (used inside Phase element) maybe add NN index
+! Constituents attributes (used inside Phase element) maybe add NN index 11
   integer, parameter :: nconatt=2
   character (len=16),dimension(nconatt), parameter :: conatt=&
        ['Sublattice      ','List            ']
 !...............
-! CrystalStructure attributes (used inside Phase element)
-  integer, parameter :: ncrystatt=3
+! CrystalStructure attributes (used inside Phase element) 12
+  integer, parameter :: ncrystatt=4
   character (len=16),dimension(ncrystatt), parameter :: crystatt=&
-      ['Prototype       ','PearsonSymbol   ','SpaceGroup      ']
+       ['Prototype       ','PearsonSymbol   ','SpaceGroup      ',&
+        'StructurBericht ']
 !.............
-! AmendPhase attributes
+! AmendPhase attributes 13
   integer, parameter :: namphatt=2
   character (len=12),dimension(namphatt), parameter :: amphatt=&
         ['Model       ','Permutation ']
 !         123456789.12---123456789.12---123456789.12
 !..............
-! Removed tag
-! FCC4PERM or BCC4PERM can be values of an attribute in the AmendPhase tag
-!  integer, parameter :: npermatt=2
+! Appendix tag 14
+! Begin and end tag in an appended XTDB file (except Bibliograpy)
+!  integer, parameter :: npermatt=0
 !  character (len=8),dimension(npermatt), parameter :: permatt=&
-!       ['Id      ','Bibref  ']
 !...............
-! DisorderedPart tag both NEVER model and Disordered_3Parts with Subtract
+! DisorderedPart tag both NEVER model and Disordered_3Parts with Subtract 15
   integer, parameter :: ndis=3
   character (len=12),dimension(ndis), parameter :: disatt=&
        ['Disordered  ','Sum         ','Subtract    ']
 !        123456789.12---123456789.12---123456789.12
 !...
-! Disordered_3Part attributes. FCC, HCP and BCC order/disorder
+! Unused 16
 !  integer, parameter :: ndis3=2
 !  character (len=12),dimension(ndis3), parameter :: dis3att=&
-!       ['Disordered  ','Sum         ']
 !................
-! Parameter attributes, Id is as in TDB files
+! Parameter attributes, Id is as in TDB files 17
   integer, parameter :: npar=5
   character (len=8),dimension(npar), parameter :: paratt=&
        ['Id      ','LowT    ','Expr    ','HighT   ','Bibref  ']
 !..........
-! Parameter2 attributes (not supported by OC)
+! Parameter2 attributes (not supported by OC) 18
   integer, parameter :: npar2=7
   character (len=8),dimension(npar2), parameter :: par2att=&
        ['Id      ','MPID    ','Phase   ','LowT    ','Expr    ',&
@@ -203,32 +202,34 @@
 !................
 ! Bibliography has no attributes contains only Bibitem elements
 !................
-! Bibitem attributes.  They provide reference to parameters and models
+! Bibitem attributes.  They provide reference to parameters and models 19
   integer, parameter :: nbibatt=4
   character (len=8),dimension(nbibatt), parameter :: bibattt=&
        ['Id      ','Text    ','Date    ','Sign    ']
 !        12345678---12345678...12345678---12345678---12345678
 !...................
-! UnarySystem 
+! UnarySystem 20
   integer, parameter :: nuniatt=2
   character (len=8), dimension(nuniatt), parameter :: uniatt=&
        ['Element ','Bibref  ']
 !....................
-! BinarySystem attributes.  The Species is two elements separated by a space
+! BinarySystem attributes.  The Species is two elements separated by a space 21
 ! The CalcDia attribute is a software depenednt command string
   integer, parameter :: nbinatt=3
   character (len=8),dimension(nbinatt), parameter :: binatt=&
        ['Species ','Bibref  ','CalcDia ']
 !        12345678---12345678...12345678---12345678---12345678
 !....................
-! TernarySystem attributes.  The Species is 3 elements separated by a space
+! TernarySystem attributes.  The Species is 3 elements separated by a space 22
 ! The CalcDia attribute is a software depenednt command string
   integer, parameter :: nteratt=3
   character (len=8),dimension(nteratt), parameter :: teratt=&
        ['Species ','Bibref  ','CalcDia ']
 !        12345678---12345678...12345678---12345678---12345678
-!...............................
-! The model tag has no attributes
+!================================================================
+! Attributes:
+!================================================================
+! The AmedPhase model attribute has these values
 !......................
 ! Magnetic model attributes Id="IHJBCC" or IHJREST or IHJQX
   integer, parameter :: nmagatt=5
@@ -247,7 +248,7 @@
   character (len=8), dimension(nliq2att), parameter :: liq2att=&
        ['Id      ','MPID1   ','MPID2   ','Bibref  ']
 !.......................
-! Volume, ID="XGL05"
+! Volume, ID="XGL05"          not implemented in OC
   integer, parameter :: nvolatt=5
   character (len=8),dimension(nvolatt), parameter :: volattt=&
        ['Id      ','MPID1   ','MPID2   ','MPID3   ','Bibref  ']
@@ -266,40 +267,67 @@
 !....................
 !=========================================================
 !
-! Current list of MPID in OC, only few implemented
-  character (len=8), dimension(36), parameter :: mpidw=&
+! Current list of MPID in OC, related to the models
+  integer, parameter :: noofmpid=9
+  character (len=8), dimension(noofmpid), parameter :: mpidok=&
        ['G       ','TC      ','BMAG    ','CT      ','NT      ','IBM     ',&
-        'LNTH    ','V0      ','VA      ','VB      ','VC      ','VS      ',&
-        'MQ      ','MF      ','MG      ','G2      ','THT2    ','DCP2    ',&
-        'LPX     ','LPY     ','LPZ     ','LPTH    ','EC11    ','EC12    ',&
-        'RHO     ','VISC    ','LAMB    ','HMVA    ','TSCH    ','CSCH    ',&
-        '        ','        ','        ','        ','        ','        ']
+        'LNTH    ','G2      ','L       ']
+! 8      12345678---12345678...12345678---12345678---12345678---12345678
+! The L is in princple allowed only for excess G parameters but treated as G
+! IBM  was intended for element specific magneton number ....
+! model    MPID index
+! IHJBCC       2  3
+! IHJREST      2  3
+! IHJQX        3  4  5
+! GEIN         7
+! LIQUD2STATE  7  8
+! 
+! Tentative list of MPID, some may have a constituent/element 
+!  character (len=8), dimension(36), parameter :: mpidw=&
+!       ['G       ','TC      ','BMAG    ','CT      ','NT      ','IBM     ',&
+!        'LNTH    ','V0      ','VA      ','VB      ','VC      ','VS      ',&
+!        'MQ      ','MF      ','MG      ','G2      ','THT2    ','DCP2    ',&
+!        'LPX     ','LPY     ','LPZ     ','LPTH    ','EC11    ','EC12    ',&
+!        'RHO     ','VISC    ','LAMB    ','HMVA    ','TSCH    ','CSCH    ',&
+!        '        ','        ','        ','        ','        ','        ']
 ! 8      12345678---12345678...12345678---12345678---12345678---12345678
 !
-! Addition  OCi? identifiers
+! Models accepted by OC in the AmendPhase tag
+  integer, parameter ::noofmodels=5
+  character (len=16), dimension(noofmodels), parameter :: amphmodel=&
+! 8      123456789.123456---123456789.123456---123456789.123456
+       ['IHJBCC          ','IHJREST         ','IHJQX           ',&
+        'GEIN            ','LIQ2STATE       ']
+! Permutations accepted by OC in the AmendPhase tag
+  integer, parameter :: noofpermut=2
+  character (len=16), dimension(noofpermut), parameter :: amphpermut=&
+        ['FCC4PERM        ','BCC4PERM        ']
+!
 ! IHJBCC    1    Inden-Hillert-Jarl for BCC with Aff=-1
 ! IHJREST   1    Inden-Hillert-Jarl for other with Aff=-3
 ! IHJQX     2    Inden-Hillert-Jarl-Qing-Xiong with Aff=0
 ! GEIN      4    Einstein low T 
 ! LIQ2STATE 5    Liquid 2 state model
-! VOLOWP    7    Low P volome model according to Lu?
+! VLOWP1    7    Low P volome model according to Lu?
 !
 ! These have no parameters and are treated in another way
 ! DISORDEREDPART same as TDB file DISORDERED_PART and NEVER
 ! FCC4PERM  FCC symmetric tetrahedron permutations
 ! BCC4PERM  BCC asymmetric tetrahedron permutations
-! EEC       Equi Entropy Criterion
+! EEC       Equi Entropy Criterion is set by Delfaults
 ! EBEF      Effective Bond Energy Formalism may use "species@sublattice"
 !
 ! Predefined functions in TPfuns
   integer, parameter :: predeftpfun=5
   character*8, dimension(predeftpfun), parameter :: nottpfun= &
        ['LN      ','LOG     ','EXP     ','ERF     ','GEIN    ']
+! LN and LOG is the same thing, LOG10 is not used. 
+! TPfun have these hardcoded in xmlmake
 !
 !=========================================================   
-! There is a need to handle the Model feature of XTDB with the
-! current OC data structure for the MPID.  This data structure
-! does not have to be saved in the UNFORMATTED files
+! There is a need to handle the Model feature of XTDB with different
+! software and data structure in applocation software.  The data structures
+! here and below is for temporary use reading xtdb file
 !========================================================
 !
      type const
@@ -314,19 +342,23 @@
        character*1 state
        character (len=:), allocatable :: id
        character (len=:), allocatable :: confent
+! when reading Noof here one allocates the dimension of clist !!
        character (len=:), allocatable :: Noof
+! The mult remain character until the phase recond is allocated
        character (len=:), allocatable :: mult
-! all elements in an array must have the same size, resize may be needed
-! I think a  pointer array better cause I think a character array must have
-! the same number of characters in each array element
+! for each sublattice clist will be allocated with the constituents!       
+! Each array element can have a differnt number of characters!!
        type(const), dimension(:), pointer :: clist 
        character (len=:), allocatable :: crystal
+! The model Id is the amendph
        character (len=:), allocatable :: amendph
-       character (len=:), allocatable :: disordered
+! this is also just the attributes from the XTDB file until used
+       character (len=:), allocatable :: dispar
     end type phnest
     type(phnest), allocatable :: phrec
 !
-! Attributes for AppendXTDB files
+! Attributes for AppendXTDB files.  The *appy indicate if todo (-1) or done 1
   character*64 modelappx,parappx,tpfunappx,biblioappx,miscappx
+  integer modelappy,parappy,tpfunappy,biblioappy,miscappy,allappy
 !
   

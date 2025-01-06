@@ -42,6 +42,7 @@
   character (len=8) :: hightdef   ='6000    '
   character (len=64) :: bibrefdef  ='U.N. Known  '
   character (len=16) :: eldef     ='VA /-'
+  character (len=52) :: ModelAppendXTDB='C:\Users\bosun\Documents\OCHOME\ModelAppendXTDB.XTDB'
   logical :: unary1991=.TRUE., includemodels=.FALSE.
   integer xtdberr
 !
@@ -69,7 +70,7 @@
         'DisorderedPart    ',& ! as TC DISORDERED_PART and/or NEVER model
         '                  ',& ! chanded Disordered_3Part to attribute
 ! 16 above end of phase tags------------------
-        'Parameter         ',& ! 
+        'Parameter         ',& ! if moved edit xmlpartag in gtp3EX.F90
         'Parameter2        ',& ! maybe never implemented in OC, need more tags
         'Bibliography      ',&
         'Bibitem           ',& ! inside Bibliography
@@ -352,7 +353,8 @@
        character (len=:), allocatable :: crystal
 ! The model Id is the amendph
        character (len=:), allocatable :: amendph
-! this is also just the attributes from the XTDB file until used
+! this is the attributes from the XTDB file for disordered part
+! disordered phase, sublattices to sum and if subtract ordered as disordered
        character (len=:), allocatable :: dispar
     end type phnest
     type(phnest), allocatable :: phrec

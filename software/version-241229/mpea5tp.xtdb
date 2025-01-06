@@ -1,0 +1,367 @@
+<Appendix>
+<!-- AppendXTDB with TPfunctions -->
+  <TPfun Id="R"     Expr="8.31451;" />
+  <TPfun Id="RTLNP" Expr="R*T*LN(1.0E-5)*P);" />
+  <TPfun Id="GHSERAL" Expr=" -7976.15+137.093038*T-24.3671976*T*LN(+T)-.001884662*T**2-8.77664E-07*T**3+74092*T**(-1);" HighT="700" >
+    <Trange Expr="-11276.24+223.048446*T-38.5844296*T*LN(+T)+.018531982*T**2-5.764227E-06*T**3+74092*T**(-1);" HighT="933.47" />
+    <Trange Expr="-11278.361+188.684136*T-31.748192*T*LN(+T)-1.230622E+28*T**(-9);" HighT="2900" /> 
+  </TPfun>
+  <TPfun Id="GLIQAL" Expr=" +11005.045-11.84185*T+GHSERAL+7.9337E-20*T**7;" HighT="933.47" >
+    <Trange Expr="-795.991+177.430209*T-31.748192*T*LN(+T);" HighT="2900" /> 
+  </TPfun>
+  <TPfun Id="GB2ALVA" Expr=" +10000-1*T-30*T;" /> 
+  <TPfun Id="LB2ALVA" Expr=" +150000;" /> 
+  <TPfun Id="GBCCAL" Expr=" +GHSERAL+10083-4.813*T;" HighT="2900" /> 
+  <TPfun Id="GHSERCC" Expr=" -17368.441+170.73*T-24.3*T*LN(+T)-.0004723*T**2+2562600*T**(-1)-264300000*T**(-2)+1.2E+10*T**(-3);" /> 
+  <TPfun Id="GDIACC" Expr=" -16359.441+175.61*T-24.31*T*LN(+T)-.0004723*T**2+2698000*T**(-1)-261000000*T**(-2)+1.11E+10*T**(-3);" /> 
+  <TPfun Id="GHSERCO" Expr=" +310.241+133.36601*T-25.0861*T*LN(+T)-.002654739*T**2-1.7348E-07*T**3+72527*T**(-1);" HighT="1768" >
+    <Trange Expr="-17197.666+253.28374*T-40.5*T*LN(+T)+9.3488E+30*T**(-9);" /> 
+  </TPfun>
+  <TPfun Id="GLIQCO" Expr=" +15085.037-8.931932*T+GHSERCO-2.19801E-21*T**7;" HighT="1768" >
+    <Trange Expr="-846.61+243.599944*T-40.5*T*LN(+T);" /> 
+  </TPfun>
+  <TPfun Id="GHSERCR" Expr=" -8856.94+157.48*T-26.908*T*LN(+T)+.00189435*T**2-1.47721E-06*T**3+139250*T**(-1);" HighT="2180" >
+    <Trange Expr="-34869.344+344.18*T-50*T*LN(+T)-2.88526E+32*T**(-9);" /> 
+  </TPfun>
+  <TPfun Id="GLIQCR" Expr=" +24339.955-11.420225*T+GHSERCR+2.37615E-21*T**7;" HighT="2180" >
+    <Trange Expr="-16459.984+335.616316*T-50*T*LN(+T);" /> 
+  </TPfun>
+  <TPfun Id="ZERO" Expr=" 0;" /> 
+  <TPfun Id="GHSERFE" Expr=" +1225.7+124.134*T-23.5143*T*LN(+T)-.00439752*T**2-5.8927E-08*T**3+77359*T**(-1);" HighT="1811" >
+    <Trange Expr="-25383.581+299.31255*T-46*T*LN(+T)+2.29603E+31*T**(-9);" /> 
+  </TPfun>
+  <TPfun Id="GFCCFE" Expr=" -1462.4+8.282*T-1.15*T*LN(+T)+.00064*T**2+GHSERFE;" HighT="1811" >
+    <Trange Expr="-1713.815+0.940009*T+GHSERFE+4.9251E+30*T**(-9);" /> 
+  </TPfun>
+  <TPfun Id="GHCPFE" Expr=" -3705.78+12.591*T-1.15*T*LN(+T)+.00064*T**2+GHSERFE;" HighT="1811" >
+    <Trange Expr="-3957.195+5.249009*T+GHSERFE+4.9251E+30*T**(-9);" /> 
+  </TPfun>
+  <TPfun Id="GLIQFE" Expr=" +12040.17-6.55843*T+GHSERFE-3.67516E-21*T**7;" HighT="1811" >
+    <Trange Expr="-10838.83+291.302*T-46*T*LN(+T);" /> 
+  </TPfun>
+  <TPfun Id="GHSERMN" Expr=" -8115.28+130.059*T-23.4582*T*LN(+T)-.00734768*T**2+69827*T**(-1);" HighT="1519" >
+    <Trange Expr="-28733.41+312.2648*T-48*T*LN(+T)+1.656847E+30*T**(-9);" HighT="2000" /> 
+  </TPfun>
+  <TPfun Id="GCUBMN" Expr=" -5800.4+135.995*T-24.8785*T*LN(+T)-.00583359*T**2+70269*T**(-1);" HighT="1519" >
+    <Trange Expr="+442.65-0.9715*T+GHSERMN+2.310723E+30*T**(-9);" HighT="2000" /> 
+  </TPfun>
+  <TPfun Id="GFCCMN" Expr=" -3439.3+131.884*T-24.5177*T*LN(+T)-.006*T**2+69600*T**(-1);" HighT="1519" >
+    <Trange Expr="+2663.31-2.5984*T+GHSERMN+2.205113E+30*T**(-9);" HighT="2000" /> 
+  </TPfun>
+  <TPfun Id="GBCCMN" Expr=" -3235.3+127.85*T-23.7*T*LN(+T)-.00744271*T**2+60000*T**(-1);" HighT="1519" >
+    <Trange Expr="+5544.58-4.5605*T+GHSERMN-3.91695E+29*T**(-9);" HighT="2000" /> 
+  </TPfun>
+  <TPfun Id="GHCPMN" Expr=" -4439.3+133.007*T-24.5177*T*LN(+T)-.006*T**2+69600*T**(-1);" HighT="1519" >
+    <Trange Expr="+1663.31-1.4754*T+GHSERMN+2.205113E+30*T**(-9);" HighT="2000" /> 
+  </TPfun>
+  <TPfun Id="GLIQMN" Expr=" +17859.91-12.6208*T+GHSERMN-4.41929E-21*T**7;" HighT="1519" >
+    <Trange Expr="-9993.9+299.036*T-48*T*LN(+T);" HighT="2000" /> 
+  </TPfun>
+  <TPfun Id="GHSERNI" Expr=" -5179.159+117.854*T-22.096*T*LN(+T)-.0048407*T**2;" HighT="1728" >
+    <Trange Expr="-27840.62+279.134977*T-43.1*T*LN(+T)+1.12754E+31*T**(-9);" HighT="3000" /> 
+  </TPfun>
+  <TPfun Id="GLIQNI" Expr=" +16414.686-9.397*T+GHSERNI-3.82318E-21*T**7;" HighT="1728" >
+    <Trange Expr="-9549.817+268.597977*T-43.1*T*LN(+T);" HighT="3000" /> 
+  </TPfun>
+  <TPfun Id="GB2NIVA" Expr=" +162397.3-27.40575*T-30*T;" /> 
+  <TPfun Id="LB2NIVA" Expr=" -64024.38+26.49419*T;" /> 
+  <TPfun Id="GHSERVV" Expr=" -7930.43+133.346053*T-24.134*T*LN(+T)-.003098*T**2+1.2175E-07*T**3+69460*T**(-1);" HighT="790" >
+    <Trange Expr="-7967.842+143.291093*T-25.9*T*LN(+T)+6.25E-05*T**2-6.8E-07*T**3;" HighT="2183" />
+    <Trange Expr="-41689.864+321.140783*T-47.43*T*LN(+T)+6.44389E+31*T**(-9);" HighT="4000" /> 
+  </TPfun>
+  <TPfun Id="GLIQVV" Expr=" +20764.117-9.455552*T+GHSERVV-5.19136E-22*T**7;" HighT="2183" >
+    <Trange Expr="-19617.51+311.055983*T-47.43*T*LN(+T);" HighT="4000" /> 
+  </TPfun>
+  <TPfun Id="GAL4C3S" Expr=" -286001.52+1030.27302*T-161.709142*T*LN(+T)-.01152276*T**2+2450000*T**(-1)+7E-07*T**3;" /> 
+  <TPfun Id="GFAL3CO" Expr=" +3*UFALCO;" /> 
+  <TPfun Id="GFAL2CO2" Expr=" +4*UFALCO;" /> 
+  <TPfun Id="GFALCO3" Expr=" +3*UFALCO;" /> 
+  <TPfun Id="L1FALCO" Expr=" +3023;" /> 
+  <TPfun Id="GBCCCO" Expr=" +GHSERCO+2938-0.7138*T;" /> 
+  <TPfun Id="GFAL3CR" Expr=" +3*UFALCR;" /> 
+  <TPfun Id="GFAL2CR2" Expr=" +4*UFALCR;" /> 
+  <TPfun Id="GFALCR3" Expr=" +3*UFALCR;" /> 
+  <TPfun Id="GFAL3FE" Expr=" +3*UFALFE+9000;" /> 
+  <TPfun Id="GFAL2FE2" Expr=" +4*UFALFE;" /> 
+  <TPfun Id="GFALFE3" Expr=" +3*UFALFE-3500;" /> 
+  <TPfun Id="L0FALFE" Expr=" +ZERO;" /> 
+  <TPfun Id="SFALFE" Expr=" +UFALFE;" /> 
+  <TPfun Id="GB2ALFE" Expr=" +4*UB1ALFE;" /> 
+  <TPfun Id="UB2ALFE" Expr=" -1315.33-1.33*T;" /> 
+  <TPfun Id="UTCBALFE" Expr=" -125;" /> 
+  <TPfun Id="UBMBALFE" Expr=" -1.36;" /> 
+  <TPfun Id="BM0BALFE" Expr=" -0.3;" /> 
+  <TPfun Id="BM1BALFE" Expr=" -0.8;" /> 
+  <TPfun Id="BM2BALFE" Expr=" +0.2;" /> 
+  <TPfun Id="GFAL3MN" Expr=" +3*UFALMN+1666-4.01*T;" /> 
+  <TPfun Id="GFAL2MN2" Expr=" +4*UFALMN;" /> 
+  <TPfun Id="GFALMN3" Expr=" +3*UFALMN+9792-8.79*T;" /> 
+  <TPfun Id="L0FALMN" Expr=" 0;" /> 
+  <TPfun Id="SFALMN" Expr=" +UFALMN;" /> 
+  <TPfun Id="GB2ALMN" Expr=" -3045-1.72*T;" /> 
+  <TPfun Id="LALMN0AL" Expr=" -GB2ALMN;" /> 
+  <TPfun Id="L1BALMN" Expr=" -3000+2*T;" /> 
+  <TPfun Id="LALMN0MN" Expr=" -GB2ALMN;" /> 
+  <TPfun Id="UN_ASS" Expr=" 0;" /> 
+  <TPfun Id="GFAL3NI" Expr=" +3*UFALNI;" /> 
+  <TPfun Id="GFAL2NI2" Expr=" +4*UFALNI;" /> 
+  <TPfun Id="GFALNI3" Expr=" +3*UFALNI;" /> 
+  <TPfun Id="L1FALNI" Expr=" +7203.6-3.74273*T;" /> 
+  <TPfun Id="GB2ALNI" Expr=" -152397.3+26.40575*T;" /> 
+  <TPfun Id="LB2ALNI" Expr=" -52440.88+11.30117*T;" /> 
+  <TPfun Id="GBCCNI" Expr=" +GHSERNI+8715.084-3.556*T;" /> 
+  <TPfun Id="GFAL3V" Expr=" +3*UFALV;" /> 
+  <TPfun Id="GFAL2V2" Expr=" +4*UFALV;" /> 
+  <TPfun Id="GFALV3" Expr=" +3*UFALV;" /> 
+  <TPfun Id="GCO23C6" Expr=" +23*GHSERCO+6*GHSERCC+145000+116*T;" /> 
+  <TPfun Id="GFCO3CR" Expr=" +3*UFCOCR;" /> 
+  <TPfun Id="GFCO2CR2" Expr=" +4*UFCOCR;" /> 
+  <TPfun Id="GFCOCR3" Expr=" +3*UFCOCR;" /> 
+  <TPfun Id="GSCOCRCO" Expr=" +10*GFCCCO+4*GHSERCR+16*GBCCCO+1668+26.86*T;" /> 
+  <TPfun Id="GSCOCRCR" Expr=" +10*GFCCCO+20*GHSERCR-11113-128.54*T;" /> 
+  <TPfun Id="GFCO3FE" Expr=" +3*UFCOFE;" /> 
+  <TPfun Id="GFCO2FE2" Expr=" +4*UFCOFE;" /> 
+  <TPfun Id="GFCOFE3" Expr=" +3*UFCOFE;" /> 
+  <TPfun Id="SBCOFE" Expr=" -2529000*T**(-1);" /> 
+  <TPfun Id="GFCCCO" Expr=" +GHSERCO+427.59-0.615248*T;" /> 
+  <TPfun Id="GFCO3MN" Expr=" +3*UFCOMN;" /> 
+  <TPfun Id="GFCO2MN2" Expr=" +4*UFCOMN;" /> 
+  <TPfun Id="GFCOMN3" Expr=" +3*UFCOMN;" /> 
+  <TPfun Id="GFCO3NI" Expr=" +3*UFCONI;" /> 
+  <TPfun Id="GFCO2NI2" Expr=" +4*UFCONI;" /> 
+  <TPfun Id="GFCONI3" Expr=" +3*UFCONI;" /> 
+  <TPfun Id="L1FCONI" Expr=" 0;" /> 
+  <TPfun Id="GFCO3V" Expr=" +3*UFCOV;" /> 
+  <TPfun Id="GFCO2V2" Expr=" +4*UFCOV+9034.8;" /> 
+  <TPfun Id="GFCOV3" Expr=" +7000;" /> 
+  <TPfun Id="GCR23C6" Expr=" -521983+3622.24*T-620.965*T*LN(+T)-0.126431*T**2;" /> 
+  <TPfun Id="GFCR3FE" Expr=" +3*UFCRFE;" /> 
+  <TPfun Id="GFCR2FE2" Expr=" +4*UFCRFE;" /> 
+  <TPfun Id="GFCRFE3" Expr=" +3*UFCRFE;" /> 
+  <TPfun Id="GFCR3MN" Expr=" +3*UFCRMN;" /> 
+  <TPfun Id="GFCR2MN2" Expr=" +4*UFCRMN;" /> 
+  <TPfun Id="GFCRMN3" Expr=" +3*UFCRMN;" /> 
+  <TPfun Id="GFCR3NI" Expr=" +3*UFCRNI;" /> 
+  <TPfun Id="GFCR2NI2" Expr=" +4*UFCRNI;" /> 
+  <TPfun Id="GFCRNI3" Expr=" +3*UFCRNI;" /> 
+  <TPfun Id="GSCRCRCR" Expr=" +30*GHSERCR+396000;" /> 
+  <TPfun Id="GSVVV" Expr=" +30*GHSERVV+147000;" /> 
+  <TPfun Id="GFECEM" LowT=".01" Expr=" +11369.937746-5.641259263*T-8.333E-06*T**4;" HighT="43" >
+    <Trange Expr="+11622.647246-59.537709263*T+15.74232*T*LN(+T)-0.27565*T**2;" HighT="163" />
+    <Trange Expr="-10195.860754+690.94988764*T-118.47637*T*LN(+T)-.0007*T**2+590527*T**(-1);" /> 
+  </TPfun>
+  <TPfun Id="GFE23C6" Expr=" +7.666667*GFECEM-1.666667*GHSERCC+15000;" /> 
+  <TPfun Id="GFFE3MN" Expr=" +3*UFFEMN-90;" /> 
+  <TPfun Id="GFFE2MN2" Expr=" +4*UFFEMN;" /> 
+  <TPfun Id="GFFEMN3" Expr=" +3*UFFEMN+90;" /> 
+  <TPfun Id="SFFEMN" Expr=" +UFFEMN;" /> 
+  <TPfun Id="GFE3NI" Expr=" +3*UFFENI+3000-0.3*T;" /> 
+  <TPfun Id="GFE2NI2" Expr=" +4*UFFENI;" /> 
+  <TPfun Id="GFENI3" Expr=" +3*UFFENI-3000+0.3*T;" /> 
+  <TPfun Id="GB2FENI" Expr=" +4*UB1FENI;" /> 
+  <TPfun Id="GFFE3V" Expr=" +3*UFFEV;" /> 
+  <TPfun Id="GFFE2V2" Expr=" +4*UFFEV;" /> 
+  <TPfun Id="GFFEV3" Expr=" +3*UFFEV;" /> 
+  <TPfun Id="GMN23C6" Expr=" +23*GHSERMN+6*GHSERCC-310473+53.86*T;" /> 
+  <TPfun Id="GMN3C" Expr=" +3*GHSERMN+GHSERCC-39644+3.04*T;" /> 
+  <TPfun Id="GMN5C2" Expr=" +5*GHSERMN+2*GHSERCC-73954+6.36*T;" /> 
+  <TPfun Id="GMN7C3" Expr=" +7*GHSERMN+3*GHSERCC-106695+9.36*T;" /> 
+  <TPfun Id="LDF0MNNI" Expr=" -20455.7462-11.7930695*T;" /> 
+  <TPfun Id="LDF1MNNI" Expr=" +15581.5125-8.49116947*T;" /> 
+  <TPfun Id="GFMN3NI" Expr=" +3*UFMNNI+406.42233;" /> 
+  <TPfun Id="GFMN2NI2" Expr=" +4*UFMNNI-2840.67336;" /> 
+  <TPfun Id="GFMNNI3" Expr=" +3*UFMNNI-529.38697;" /> 
+  <TPfun Id="SFMNNI" Expr=" +UFMNNI;" /> 
+  <TPfun Id="GNI23C6" Expr=" +23*GHSERNI+6*GHSERCC+350000-85*T;" /> 
+  <TPfun Id="GFNI3V" Expr=" +3*UFNIV;" /> 
+  <TPfun Id="GFNI2V2" Expr=" +4*UFNIV;" /> 
+  <TPfun Id="GFNIV3" Expr=" +3*UFNIV;" /> 
+  <TPfun Id="GV23C6" Expr=" -990367+4330.63*T-728.829*T*LN(+T)+5003425*T**(-1);" /> 
+  <TPfun Id="FAL2COCR" Expr=" +2*UFALCO+2*UFALCR+UFCOCR+U3ALCOCR;" /> 
+  <TPfun Id="FALCO2CR" Expr=" +2*UFALCO+UFALCR+2*UFCOCR+U2ALCOCR;" /> 
+  <TPfun Id="FALCOCR2" Expr=" +UFALCO+2*UFALCR+2*UFCOCR+U1ALCOCR;" /> 
+  <TPfun Id="FAL2COFE" Expr=" +2*UFALCO+2*UFALFE+UFCOFE+U3ALCOFE;" /> 
+  <TPfun Id="FALCO2FE" Expr=" +2*UFALCO+UFALFE+2*UFCOFE+U2ALCOFE;" /> 
+  <TPfun Id="FALCOFE2" Expr=" +UFALCO+2*UFALFE+2*UFCOFE+U1ALCOFE;" /> 
+  <TPfun Id="FAL2COMN" Expr=" +2*UFALCO+2*UFALMN+UFCOMN+U3ALCOMN;" /> 
+  <TPfun Id="FALCO2MN" Expr=" +2*UFALCO+UFALMN+2*UFCOMN+U2ALCOMN;" /> 
+  <TPfun Id="FALCOMN2" Expr=" +UFALCO+2*UFALMN+2*UFCOMN+U1ALCOMN;" /> 
+  <TPfun Id="FAL2CONI" Expr=" +2*UFALCO+2*UFALNI+UFCONI+U1ALCONI;" /> 
+  <TPfun Id="FALCO2NI" Expr=" +2*UFALCO+UFALNI+2*UFCONI+U2ALCONI;" /> 
+  <TPfun Id="FALCONI2" Expr=" +UFALCO+2*UFALNI+2*UFCONI+U3ALCONI;" /> 
+  <TPfun Id="FAL2CRFE" Expr=" +2*UFALCR+2*UFALFE+UFCRFE+U3ALCRFE;" /> 
+  <TPfun Id="FALCR2FE" Expr=" +2*UFALCR+UFALFE+2*UFCRFE+U2ALCRFE;" /> 
+  <TPfun Id="FALCRFE2" Expr=" +UFALCR+2*UFALFE+2*UFCRFE+U1ALCRFE;" /> 
+  <TPfun Id="FAL2CRMN" Expr=" +2*UFALCR+2*UFALMN+UFCRMN+U3ALCRMN;" /> 
+  <TPfun Id="FALCR2MN" Expr=" +2*UFALCR+UFALMN+2*UFCRMN+U2ALCRMN;" /> 
+  <TPfun Id="FALCRMN2" Expr=" +UFALCR+2*UFALMN+2*UFCRMN+U1ALCRMN;" /> 
+  <TPfun Id="FAL2CRNI" Expr=" +2*UFALCR+2*UFALNI+UFCRNI;" /> 
+  <TPfun Id="FALCR2NI" Expr=" +2*UFALCR+UFALNI+2*UFCRNI;" /> 
+  <TPfun Id="FALCRNI2" Expr=" +UFALCR+2*UFALNI+2*UFCRNI+6650;" /> 
+  <TPfun Id="GFCCVV" Expr=" +GHSERVV+7500+1.7*T;" /> 
+  <TPfun Id="FAL2FEMN" Expr=" +2*UFALFE+2*UFALMN+UFFEMN+U3ALFEMN;" /> 
+  <TPfun Id="FALFE2MN" Expr=" +2*UFALFE+UFALMN+2*UFFEMN+U2ALFEMN;" /> 
+  <TPfun Id="FALFEMN2" Expr=" +UFALFE+2*UFALMN+2*UFFEMN+U1ALFEMN;" /> 
+  <TPfun Id="FAL2FENI" Expr=" +2*UFALFE+2*UFALNI+UFFENI+U1ALFENI;" /> 
+  <TPfun Id="FALFE2NI" Expr=" +2*UFALFE+UFALNI+2*UFFENI+U2ALFENI;" /> 
+  <TPfun Id="FALFENI2" Expr=" +UFALFE+2*UFALNI+2*UFFENI+U3ALFENI;" /> 
+  <TPfun Id="FAL2MNNI" Expr=" +2*UFALMN+2*UFALNI+UFMNNI;" /> 
+  <TPfun Id="FALMN2NI" Expr=" +2*UFALMN+UFALNI+2*UFMNNI;" /> 
+  <TPfun Id="FALMNNI2" Expr=" +UFALMN+2*UFALNI+2*UFMNNI;" /> 
+  <TPfun Id="FAL2NIV" Expr=" +2*UFALNI+2*UFALV+UFNIV+U1ALNIV;" /> 
+  <TPfun Id="FALNI2V" Expr=" +2*UFALNI+UFALV+2*UFNIV+U2ALNIV;" /> 
+  <TPfun Id="FALNIV2" Expr=" +UFALNI+2*UFALV+2*UFNIV+U3ALNIV;" /> 
+  <TPfun Id="L0COCR23" Expr=" +1822000-1282*T;" /> 
+  <TPfun Id="L1COCR23" Expr=" +391000;" /> 
+  <TPfun Id="FCO2CRFE" Expr=" +2*UFCOCR+2*UFCOFE+UFCRFE+U3COCRFE;" /> 
+  <TPfun Id="FCOCR2FE" Expr=" +2*UFCOCR+UFCOFE+2*UFCRFE+U2COCRFE;" /> 
+  <TPfun Id="FCOCRFE2" Expr=" +UFCOCR+2*UFCOFE+2*UFCRFE+U1COCRFE;" /> 
+  <TPfun Id="GSFECRFE" Expr=" +10*GFCCFE+4*GHSERCR+16*GHSERFE+140515-111.32*T;" /> 
+  <TPfun Id="FCO2CRMN" Expr=" +2*UFCOCR+2*UFCOMN+UFCRMN+U3COCRMN;" /> 
+  <TPfun Id="FCOCR2MN" Expr=" +2*UFCOCR+UFCOMN+2*UFCRMN+U2COCRMN;" /> 
+  <TPfun Id="FCOCRMN2" Expr=" +UFCOCR+2*UFCOMN+2*UFCRMN+U1COCRMN;" /> 
+  <TPfun Id="GSMNCRMN" Expr=" +10*GFCCMN+4*GHSERCR+16*GBCCMN-168613+65.6*T;" /> 
+  <TPfun Id="FCO2CRNI" Expr=" +2*UFCOCR+2*UFCONI+UFCRNI+U3COCRNI;" /> 
+  <TPfun Id="FCOCR2NI" Expr=" +2*UFCOCR+UFCONI+2*UFCRNI+U2COCRNI;" /> 
+  <TPfun Id="FCOCRNI2" Expr=" +UFCOCR+2*UFCONI+2*UFCRNI+U1COCRNI;" /> 
+  <TPfun Id="FCO2CRV" Expr=" +2*UFCOCR+2*UFCOV+UFCRV+U3COCRV;" /> 
+  <TPfun Id="FCOCR2V" Expr=" +2*UFCOCR+UFCOV+2*UFCRV+U2COCRV;" /> 
+  <TPfun Id="FCOCRV2" Expr=" +UFCOCR+2*UFCOV+2*UFCRV+U1COCRV;" /> 
+  <TPfun Id="GSCOVV" Expr=" +10*GHSERCO+20*GHSERVV-646499+84.471*T;" /> 
+  <TPfun Id="FCO2FEMN" Expr=" +2*UFCOFE+2*UFCOMN+UFFEMN+U3COFEMN;" /> 
+  <TPfun Id="FCOFE2MN" Expr=" +2*UFCOFE+UFCOMN+2*UFFEMN+U2COFEMN;" /> 
+  <TPfun Id="FCOFEMN2" Expr=" +UFCOFE+2*UFCOMN+2*UFFEMN+U1COFEMN;" /> 
+  <TPfun Id="FCO2FENI" Expr=" +2*UFCOFE+2*UFCONI+UFFENI+U3COFENI;" /> 
+  <TPfun Id="FCOFE2NI" Expr=" +2*UFCOFE+UFCONI+2*UFFENI+U2COFENI;" /> 
+  <TPfun Id="FCOFENI2" Expr=" +UFCOFE+2*UFCONI+2*UFFENI+U1COFENI;" /> 
+  <TPfun Id="FCO2FEV" Expr=" +2*UFCOFE+2*UFCOV+UFFEV+U3COFEV;" /> 
+  <TPfun Id="FCOFE2V" Expr=" +2*UFCOFE+UFCOV+2*UFFEV+U2COFEV;" /> 
+  <TPfun Id="FCOFEV2" Expr=" +UFCOFE+2*UFCOV+2*UFFEV+U1COFEV;" /> 
+  <TPfun Id="GSCOVCO" Expr=" +26*GHSERCO+4*GHSERVV-416000+131.931*T;" /> 
+  <TPfun Id="GSFEVFE" Expr=" +10*GFCCFE+4*GHSERVV+16*GHSERFE-174619+78.27*T;" /> 
+  <TPfun Id="FCO2MNNI" Expr=" +2*UFCOMN+2*UFCONI+UFMNNI+U1COMNNI;" /> 
+  <TPfun Id="FCOMN2NI" Expr=" +2*UFCOMN+UFCONI+2*UFMNNI+U2COMNNI;" /> 
+  <TPfun Id="FCOMNNI2" Expr=" +UFCOMN+2*UFCONI+2*UFMNNI+U3COMNNI;" /> 
+  <TPfun Id="GSMNVMN" Expr=" +10*GFCCMN+4*GHSERVV+16*GBCCMN-225273+57.82*T;" /> 
+  <TPfun Id="FCO2NIV" Expr=" +2*UFCONI+2*UFCOV+UFNIV+U3CONIV;" /> 
+  <TPfun Id="FCONI2V" Expr=" +2*UFCONI+UFCOV+2*UFNIV+U2CONIV;" /> 
+  <TPfun Id="FCONIV2" Expr=" +UFCONI+2*UFCOV+2*UFNIV+U1CONIV;" /> 
+  <TPfun Id="GSNIVNI" Expr=" +26*GHSERNI+4*GHSERVV-82700;" /> 
+  <TPfun Id="FCR2FEMN" Expr=" +2*UFCRFE+2*UFCRMN+UFFEMN+U3CRFEMN;" /> 
+  <TPfun Id="FCRFE2MN" Expr=" +2*UFCRFE+UFCRMN+2*UFFEMN+U2CRFEMN;" /> 
+  <TPfun Id="FCRFEMN2" Expr=" +UFCRFE+2*UFCRMN+2*UFFEMN+U1CRFEMN;" /> 
+  <TPfun Id="FCR2FENI" Expr=" +2*UFCRFE+2*UFCRNI+UFFENI+U3CRFENI;" /> 
+  <TPfun Id="FCRFE2NI" Expr=" +2*UFCRFE+UFCRNI+2*UFFENI+U2CRFENI;" /> 
+  <TPfun Id="FCRFENI2" Expr=" +UFCRFE+2*UFCRNI+2*UFFENI+U1CRFENI;" /> 
+  <TPfun Id="FCR2MNNI" Expr=" +2*UFCRMN+2*UFCRNI+UFMNNI+U1CRMNNI;" /> 
+  <TPfun Id="FCRMN2NI" Expr=" +2*UFCRMN+UFCRNI+2*UFMNNI+U2CRMNNI;" /> 
+  <TPfun Id="FCRMNNI2" Expr=" +UFCRMN+2*UFCRNI+2*UFMNNI+U3CRMNNI;" /> 
+  <TPfun Id="GSNICRNI" Expr=" +10*GHSERNI+4*GHSERCR+16*GBCCNI+175400;" /> 
+  <TPfun Id="GSMNCRCR" Expr=" +10*GFCCMN+20*GHSERCR+10000;" /> 
+  <TPfun Id="GSMNVV" Expr=" +10*GFCCMN+20*GHSERVV-52083-60.39*T;" /> 
+  <TPfun Id="FCR2NIV" Expr=" +2*UFCRNI+2*UFCRV+UFNIV+U3CRNIV;" /> 
+  <TPfun Id="FCRNI2V" Expr=" +2*UFCRNI+UFCRV+2*UFNIV+U2CRNIV;" /> 
+  <TPfun Id="FCRNIV2" Expr=" +UFCRNI+2*UFCRV+2*UFNIV+U1CRNIV;" /> 
+  <TPfun Id="GSNICRCR" Expr=" +10*GHSERNI+20*GHSERCR+240000-254.715*T;" /> 
+  <TPfun Id="GSNIVV" Expr=" +10*GHSERNI+20*GHSERVV-520784+106.66*T;" /> 
+  <TPfun Id="FFE2MNNI" Expr=" +2*UFFEMN+2*UFFENI+UFMNNI+U1FEMNNI;" /> 
+  <TPfun Id="FFEMN2NI" Expr=" +2*UFFEMN+UFFENI+2*UFMNNI+U2FEMNNI;" /> 
+  <TPfun Id="FFEMNNI2" Expr=" +UFFEMN+2*UFFENI+2*UFMNNI+U3FEMNNI;" /> 
+  <TPfun Id="FFE2NIV" Expr=" +2*UFFENI+2*UFFEV+UFNIV+U3FENIV;" /> 
+  <TPfun Id="FFENI2V" Expr=" +2*UFFENI+UFFEV+2*UFNIV+U2FENIV;" /> 
+  <TPfun Id="FFENIV2" Expr=" +UFFENI+2*UFFEV+2*UFNIV+U1FENIV;" /> 
+  <TPfun Id="UFALCO" Expr=" -4872;" /> 
+  <TPfun Id="UFALCR" Expr=" -830;" /> 
+  <TPfun Id="UFALFE" Expr=" -3200+0.153*T;" /> 
+  <TPfun Id="UFCOCR" Expr=" 0;" /> 
+  <TPfun Id="UFCOFE" Expr=" 0;" /> 
+  <TPfun Id="UFCRFE" Expr=" 0;" /> 
+  <TPfun Id="UFALMN" Expr=" -6980+3.51*T;" /> 
+  <TPfun Id="UFCOMN" Expr=" 0;" /> 
+  <TPfun Id="UFCRMN" Expr=" 0;" /> 
+  <TPfun Id="UFALNI" Expr=" -14808.6+2.93047*T;" /> 
+  <TPfun Id="UFCONI" Expr=" -1323.6+3.06*T;" /> 
+  <TPfun Id="UFCRNI" Expr=" -1980;" /> 
+  <TPfun Id="UFFEMN" Expr=" -700;" /> 
+  <TPfun Id="UFFENI" Expr=" -2125+0.625*T;" /> 
+  <TPfun Id="UFMNNI" Expr=" -6829.00181;" /> 
+  <TPfun Id="UB1ALFE" Expr=" -4018-1.14*T;" /> 
+  <TPfun Id="UFALV" Expr=" 0;" /> 
+  <TPfun Id="UFCOV" Expr=" -4498.5+0.7535*T;" /> 
+  <TPfun Id="UB1FENI" Expr=" -1000+T;" /> 
+  <TPfun Id="UFFEV" Expr=" 0;" /> 
+  <TPfun Id="UFNIV" Expr=" 0;" /> 
+  <TPfun Id="U1ALCOCR" Expr=" 0;" /> 
+  <TPfun Id="U2ALCOCR" Expr=" 0;" /> 
+  <TPfun Id="U3ALCOCR" Expr=" 0;" /> 
+  <TPfun Id="U1ALCOFE" Expr=" 0;" /> 
+  <TPfun Id="U2ALCOFE" Expr=" 0;" /> 
+  <TPfun Id="U3ALCOFE" Expr=" 0;" /> 
+  <TPfun Id="U1ALCOMN" Expr=" 0;" /> 
+  <TPfun Id="U2ALCOMN" Expr=" 0;" /> 
+  <TPfun Id="U3ALCOMN" Expr=" 0;" /> 
+  <TPfun Id="U1ALCONI" Expr=" 0;" /> 
+  <TPfun Id="U2ALCONI" Expr=" 0;" /> 
+  <TPfun Id="U3ALCONI" Expr=" +1000;" /> 
+  <TPfun Id="U1ALCRFE" Expr=" 0;" /> 
+  <TPfun Id="U2ALCRFE" Expr=" 0;" /> 
+  <TPfun Id="U3ALCRFE" Expr=" 0;" /> 
+  <TPfun Id="U1ALCRMN" Expr=" 0;" /> 
+  <TPfun Id="U2ALCRMN" Expr=" 0;" /> 
+  <TPfun Id="U3ALCRMN" Expr=" 0;" /> 
+  <TPfun Id="U1ALFEMN" Expr=" 0;" /> 
+  <TPfun Id="U2ALFEMN" Expr=" 0;" /> 
+  <TPfun Id="U3ALFEMN" Expr=" 0;" /> 
+  <TPfun Id="U1ALFENI" Expr=" +ZERO;" /> 
+  <TPfun Id="U2ALFENI" Expr=" +ZERO;" /> 
+  <TPfun Id="U3ALFENI" Expr=" -2000;" /> 
+  <TPfun Id="U1ALNIV" Expr=" 0;" /> 
+  <TPfun Id="U2ALNIV" Expr=" 0;" /> 
+  <TPfun Id="U3ALNIV" Expr=" 0;" /> 
+  <TPfun Id="U1COCRFE" Expr=" 0;" /> 
+  <TPfun Id="U2COCRFE" Expr=" 0;" /> 
+  <TPfun Id="U3COCRFE" Expr=" 0;" /> 
+  <TPfun Id="U1COCRMN" Expr=" 0;" /> 
+  <TPfun Id="U2COCRMN" Expr=" 0;" /> 
+  <TPfun Id="U3COCRMN" Expr=" 0;" /> 
+  <TPfun Id="U1COCRNI" Expr=" 0;" /> 
+  <TPfun Id="U2COCRNI" Expr=" 0;" /> 
+  <TPfun Id="U3COCRNI" Expr=" 0;" /> 
+  <TPfun Id="UFCRV" Expr=" 0;" /> 
+  <TPfun Id="U1COCRV" Expr=" 0;" /> 
+  <TPfun Id="U2COCRV" Expr=" 0;" /> 
+  <TPfun Id="U3COCRV" Expr=" 0;" /> 
+  <TPfun Id="U1COFEMN" Expr=" 0;" /> 
+  <TPfun Id="U2COFEMN" Expr=" 0;" /> 
+  <TPfun Id="U3COFEMN" Expr=" 0;" /> 
+  <TPfun Id="U1COFENI" Expr=" 0;" /> 
+  <TPfun Id="U2COFENI" Expr=" 0;" /> 
+  <TPfun Id="U3COFENI" Expr=" 0;" /> 
+  <TPfun Id="U1COFEV" Expr=" 0;" /> 
+  <TPfun Id="U2COFEV" Expr=" 0;" /> 
+  <TPfun Id="U3COFEV" Expr=" 0;" /> 
+  <TPfun Id="U1COMNNI" Expr=" +2000;" /> 
+  <TPfun Id="U2COMNNI" Expr=" +3000;" /> 
+  <TPfun Id="U3COMNNI" Expr=" +3000;" /> 
+  <TPfun Id="U1CONIV" Expr=" 0;" /> 
+  <TPfun Id="U2CONIV" Expr=" 0;" /> 
+  <TPfun Id="U3CONIV" Expr=" 0;" /> 
+  <TPfun Id="U1CRFEMN" Expr=" 0;" /> 
+  <TPfun Id="U2CRFEMN" Expr=" 0;" /> 
+  <TPfun Id="U3CRFEMN" Expr=" 0;" /> 
+  <TPfun Id="U1CRFENI" Expr=" 0;" /> 
+  <TPfun Id="U2CRFENI" Expr=" 0;" /> 
+  <TPfun Id="U3CRFENI" Expr=" 0;" /> 
+  <TPfun Id="U1CRMNNI" Expr=" +2000;" /> 
+  <TPfun Id="U2CRMNNI" Expr=" +3000;" /> 
+  <TPfun Id="U3CRMNNI" Expr=" +3000;" /> 
+  <TPfun Id="U1CRNIV" Expr=" 0;" /> 
+  <TPfun Id="U2CRNIV" Expr=" 0;" /> 
+  <TPfun Id="U3CRNIV" Expr=" 0;" /> 
+  <TPfun Id="U1FEMNNI" Expr=" +3000;" /> 
+  <TPfun Id="U2FEMNNI" Expr=" +4000;" /> 
+  <TPfun Id="U3FEMNNI" Expr=" 0;" /> 
+  <TPfun Id="U1FENIV" Expr=" 0;" /> 
+  <TPfun Id="U2FENIV" Expr=" 0;" /> 
+  <TPfun Id="U3FENIV" Expr=" 0;" /> 
+</Appendix>

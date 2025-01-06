@@ -87,15 +87,14 @@
     -->
   </Einstein>
 
-  <Liquid Id="Liquid2State" MPID1="G2"  MPID2="LNTH" Bibref="88Agr 13Bec" > 
+  <Liq2State Id="LIQ2STATE" MPID1="G2"  MPID2="LNTH" Bibref="88Agr 13Bec" > 
     <!-- Unified model for the liquid and the metastable low T amorphous state treated as an Einstein solid.
-      The G2 parameter describes the stable liquid and the transition to the amorphous state and
       LNTH is the logarithm of the Einstein THETA for the amorphous phase. 
       See the reference for details.
     -->
-  </Liquid>
+  </Liq2State>
 
-  <Volume Id="VlowP1" MPID1="V0"  MPID2="VA" MPID3="VB" Bibref="05Lu" > 
+  <Volume Id="VOLOWP" MPID1="V0"  MPID2="VA" MPID3="VB" Bibref="05Lu" > 
     <!-- The volume of a phase as function of T and moderate P and constitution via the model parameters:
       V0 is the volume at the reference T and P, VA is the integrated thermal expansion at 1 bar 
       and VB is the isothermal compressibilty at 1 bar.

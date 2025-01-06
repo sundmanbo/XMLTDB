@@ -1,1 +1,0 @@
-gfortran -o xmlread -g -fcheck=all xmlread-v12.F90

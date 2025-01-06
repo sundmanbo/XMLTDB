@@ -1,5 +1,5 @@
 <XTDB version="0.1.13">
-  <DatabaseInfo Software="OpenCalphad  6.079" Date="2024-12-23" />
+  <DatabasInfo Software="OpenCalphad  6.079" Date="2024-12-23" />
   <Defaults LowT="298.15" HighT="6000" Bibref="U.N. Known" Elements="VA /-" />
   <Element Id="FE" Refstate="BCC_A2" Mass="5.584700E+01" H298="4.489000E+03" S298="2.728000E+01" />
   <Element Id="O" Refstate="GAS_1/2_MOLE_O2" Mass="1.599900E+01" H298="4.341000E+03" S298="1.025200E+02" />
@@ -582,7 +582,7 @@
     <Bibitem Id="08KJE" Text="L. Kjellqvist, M. Selleby and B. Sundman, Calphad, 32 (2008) 577-592; Cr-Fe-Ni-O" /> 
     <Bibitem Id="16FAB" Text="O. Fabrichnaya, D. Pavlyuchkov, Metall. Mater. Trans. A, 47A (2016) 152-159; Fe-Zr-O" /> 
     <Bibitem Id="19LK08" Text="L. Kjellqvist, TAFID project (2019), modified the C1_MO2 Fe-O description to remove a miscitbility gap in the Fe-U-O system; Fe-O" /> 
-    <Bibitem Id="19QUA" Text="Quaini PhD (2015) + Quaini + Gueneau, unpublished assessment (2019); Fe-Zr-O, Fe-U-O" /> 
+    <Bibitem Id="19QUA" Text="Quaini PhD (2015) + Quaini & Gueneau, unpublished assessment (2019); Fe-Zr-O, Fe-U-O" /> 
     <Bibitem Id="10KURB" Text="M. Kurata, IOP Conf. Series: Materials Science and Engineering, 9, 012023 (2010)" /> 
     <Bibitem Id="NDFIX" Text="N. Dupin, PARAMs introduced to keep description unchanged" /> 
     <Bibitem Id="REFQUA" Text="A. Quaini et al., J. Nucl. Mater. 501 (2018) 104-131; U-Zr-O" /> 
